@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"org.tquadrat.foundation.javadoc"},{"l":"org.tquadrat.foundation.javadoc.internal"},{"l":"org.tquadrat.foundation.javadoc.umlgraph"}];updateSearchResults();
