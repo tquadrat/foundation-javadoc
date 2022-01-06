@@ -16,20 +16,21 @@
 /**
  *  <p>{@summary The classes in the package
  *  {@code org.tquadrat.foundation.javadoc} provide some extensions to the
- *  standard Javadoc extensions.}</p>
- *  <p>An older version provided a custom
+ *  standard JavaDoc extensions.}</p>
+ *  <p>An older version of this tool provided a custom
  *  {@linkplain jdk.javadoc.doclet.Doclet Doclet}
  *  that extended
  *  {@link jdk.javadoc.doclet.StandardDoclet};
  *  it did some pre-processing and then delegated the work to the parent.</p>
  *  <p>The new implementation here is completely based on the new Java&nbsp;9
- *  APIs, and will implement all functions only as instances of
+ *  JavaDoc APIs, and will implement all functions only as instances of
  *  {@link jdk.javadoc.doclet.Taglet Taglet}.</p>
- *  <p>Basically, the extension are used by the Foundation Library itself, but
- *  the are available for any other project,too. To activate the extensions,
- *  add the following parameters to your Javadoc call:</p>
+ *  <p>Basically, the extensions are used by the <i>Foundation</i> Library
+ *  itself, but they are available for any other projects, too. To activate the
+ *  extensions in your project, add the following parameters to your JavaDoc
+ *  call:</p>
  *  <pre><code>
- *  -tagletpath &lt;<i>path/to/</i>&gt;org.tquadrat.foundation.javadoc-0.1.0.jar:&lt;<i>path/to/</i>&gt;apiguardian-api-1.1.0.jar:&lt;<i>path/to/</i>&gt;jakarta.activation-2.0.0.jar
+ *  -tagletpath &lt;<i>path/to/</i>&gt;org.tquadrat.foundation.javadoc-0.1.0.jar:&lt;<i>path/to/</i>&gt;apiguardian-api-1.1.2.jar:&lt;<i>path/to/</i>&gt;jakarta.activation-2.0.1.jar
  *
  *  -taglet org.tquadrat.foundation.javadoc.AuthorTaglet
  *  -taglet org.tquadrat.foundation.javadoc.AnchorTaglet
@@ -63,7 +64,7 @@
  *  <dl>
  *      <dt>{@code @extauthor}</dt>
  *      <dd><p>A replacement for the default {@code @author} taglet that
- *      provides the author's email as a hyper link.</p>
+ *      provides the author's email as a hyperlink.</p>
  *      <p>This means that the tag requires the reference to the author in the
  *      format</p>
  *      <pre><code>  &#x40;extauthor &lt;<i>name</i>&gt; <b>-</b> &lt;<i>email address</i>&gt;</code></pre><br>
@@ -122,7 +123,7 @@
  *      <p>Implemented by the class
  *      {@link org.tquadrat.foundation.javadoc.AnchorTaglet}.</p></dd>
  *      <dt>{@code {@href <url> <text>}} or {@code {@href <url>}}</dt>
- *      <dd><p>With this tag a hyper link can be added to the documentation;
+ *      <dd><p>With this tag a hyperlink can be added to the documentation;
  *      different from the {@code {@link}} and {@code {@linkplain}} tags, this
  *      is used to refer to external resources. Obviously, {@code <url>} is the
  *      target URL, while {@code <text>}} is the clickable text. If the latter

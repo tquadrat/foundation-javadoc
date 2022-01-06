@@ -108,10 +108,10 @@ import jdk.javadoc.doclet.Taglet;
  *  root.</p>
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: ToDoTaglet.java 977 2022-01-06 11:41:03Z tquadrat $
+ *  @version $Id: ToDoTaglet.java 978 2022-01-06 12:47:52Z tquadrat $
  *  @since 0.0.5
  */
-@ClassVersion( sourceVersion = "$Id: ToDoTaglet.java 977 2022-01-06 11:41:03Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: ToDoTaglet.java 978 2022-01-06 12:47:52Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
 public final class ToDoTaglet implements Taglet
 {

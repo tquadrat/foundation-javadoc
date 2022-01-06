@@ -71,20 +71,21 @@ loadScripts(document, 'script');</script>
 <section class="package-description" id="package-description">
 <div class="block"><p>The classes in the package
   <code>org.tquadrat.foundation.javadoc</code> provide some extensions to the
-  standard Javadoc extensions.</p>
-  <p>An older version provided a custom
+  standard JavaDoc extensions.</p>
+  <p>An older version of this tool provided a custom
   <a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.javadoc/jdk/javadoc/doclet/Doclet.html" title="class or interface in jdk.javadoc.doclet" class="external-link">Doclet</a>
   that extended
   <a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.javadoc/jdk/javadoc/doclet/StandardDoclet.html" title="class or interface in jdk.javadoc.doclet" class="external-link"><code>StandardDoclet</code></a>;
   it did some pre-processing and then delegated the work to the parent.</p>
   <p>The new implementation here is completely based on the new Java&nbsp;9
-  APIs, and will implement all functions only as instances of
+  JavaDoc APIs, and will implement all functions only as instances of
   <a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.javadoc/jdk/javadoc/doclet/Taglet.html" title="class or interface in jdk.javadoc.doclet" class="external-link"><code>Taglet</code></a>.</p>
-  <p>Basically, the extension are used by the Foundation Library itself, but
-  the are available for any other project,too. To activate the extensions,
-  add the following parameters to your Javadoc call:</p>
+  <p>Basically, the extensions are used by the <i>Foundation</i> Library
+  itself, but they are available for any other projects, too. To activate the
+  extensions in your project, add the following parameters to your JavaDoc
+  call:</p>
   <pre><code>
-  -tagletpath &lt;<i>path/to/</i>&gt;org.tquadrat.foundation.javadoc-0.1.0.jar:&lt;<i>path/to/</i>&gt;apiguardian-api-1.1.0.jar:&lt;<i>path/to/</i>&gt;jakarta.activation-2.0.0.jar
+  -tagletpath &lt;<i>path/to/</i>&gt;org.tquadrat.foundation.javadoc-0.1.0.jar:&lt;<i>path/to/</i>&gt;apiguardian-api-1.1.2.jar:&lt;<i>path/to/</i>&gt;jakarta.activation-2.0.1.jar
 
   -taglet org.tquadrat.foundation.javadoc.AuthorTaglet
   -taglet org.tquadrat.foundation.javadoc.AnchorTaglet
@@ -118,7 +119,7 @@ loadScripts(document, 'script');</script>
   <dl>
       <dt><code>@extauthor</code></dt>
       <dd><p>A replacement for the default <code>@author</code> taglet that
-      provides the author's email as a hyper link.</p>
+      provides the author's email as a hyperlink.</p>
       <p>This means that the tag requires the reference to the author in the
       format</p>
       <pre><code>  &#x40;extauthor &lt;<i>name</i>&gt; <b>-</b> &lt;<i>email address</i>&gt;</code></pre><br>
@@ -177,7 +178,7 @@ loadScripts(document, 'script');</script>
       <p>Implemented by the class
       <a href="AnchorTaglet.html" title="class in org.tquadrat.foundation.javadoc"><code>AnchorTaglet</code></a>.</p></dd>
       <dt><code>{@href &lt;url&gt; &lt;text&gt;}</code> or <code>{@href &lt;url&gt;}</code></dt>
-      <dd><p>With this tag a hyper link can be added to the documentation;
+      <dd><p>With this tag a hyperlink can be added to the documentation;
       different from the <code>{@link}</code> and <code>{@linkplain}</code> tags, this
       is used to refer to external resources. Obviously, <code>&lt;url&gt;</code> is the
       target URL, while <code>&lt;text&gt;</code>} is the clickable text. If the latter

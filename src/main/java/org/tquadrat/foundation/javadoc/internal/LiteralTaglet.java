@@ -43,13 +43,13 @@ import jdk.javadoc.doclet.Taglet;
  *  That's why I created this replacement.</p>
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: LiteralTaglet.java 976 2022-01-06 11:39:58Z tquadrat $
+ *  @version $Id: LiteralTaglet.java 978 2022-01-06 12:47:52Z tquadrat $
  *  @since 0.0.5
  *
  *  @see CodeTaglet
  *  @see IndexTaglet
  */
-@ClassVersion( sourceVersion = "$Id: LiteralTaglet.java 976 2022-01-06 11:39:58Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: LiteralTaglet.java 978 2022-01-06 12:47:52Z tquadrat $" )
 @API( status = INTERNAL, since = "0.0.5")
 public final class LiteralTaglet implements Taglet
 {

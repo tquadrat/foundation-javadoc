@@ -1,0 +1,219 @@
+/*
+ * ============================================================================
+ * Copyright © 2002-2022 by Thomas Thrien.
+ * All Rights Reserved.
+ * ============================================================================
+ * Licensed to the public under the agreements of the GNU Lesser General Public
+ * License, version 3.0 (the "License"). You may obtain a copy of the License at
+ *
+ *      http://www.gnu.org/licenses/lgpl.html
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+//file:noinspection SpellCheckingInspection
+
+import java.time.Year
+
+plugins {
+    //---* Apply the java Plugin to add support for Java *---------------------
+    id 'java'
+
+    //---* Apply the Groovy plugin to add support for Groovy *-----------------
+    id 'groovy'
+
+    //---* Define additional tests *-------------------------------------------
+    id 'jvm-test-suite'
+}   //  plugins
+
+//---* Settings *--------------------------------------------------------------
+project.setVersion( "0.1.0" )
+
+/**
+ *  The current year, used for the copyright notice in JavaDoc.
+ */
+String currentYear = Year.now().toString()
+
+/**
+ *  The encoding for JavaDoc.
+ */
+String javadocEncoding = 'UTF-8'
+
+/**
+ *  The Java source level.
+ */
+String javaSourceLevel = '17'
+
+/**
+ *  The JavaDoc tags; this defines the sequence how the tags will appear in the
+ *  documentation.
+ */
+def tagList = ["param", "return", "throws", "author", "version", "since", "see" ]
+
+//-----------------------------------------------------------------------------
+
+repositories {
+    //---* Use Maven Central for resolving common dependencies *---------------
+    mavenCentral()
+}   //  repositories
+
+dependencies {
+    //---* The API Guardian Library *------------------------------------------
+    implementation 'org.apiguardian:apiguardian-api:1.1.2'
+
+    //---* The Javax Activation library *--------------------------------------
+    implementation 'com.sun.activation:jakarta.activation:2.0.1'
+
+    //---* Use JUnit Jupiter API to define the tests *-------------------------
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.8.2'
+
+    //---* Use Spock test framework for additional tests *---------------------
+    testImplementation 'org.spockframework:spock-core:2.0-groovy-3.0'
+
+    //---* EasyMock for the mocking of test objects *--------------------------
+    testImplementation 'org.easymock:easymock:4.3'
+
+    //---* Use JUnit Jupiter Engine for testing *------------------------------
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+}   //  dependencies
+
+java {
+    //---* Switch on Java module support *-------------------------------------
+    modularity.inferModulePath = true
+
+    //---* Create the Jar with the sources *-----------------------------------
+    withSourcesJar()
+
+    //---* Create the Jar with the JavaDoc *-----------------------------------
+    withJavadocJar()
+}   //  java
+
+testing {
+    suites {
+        //---* Configure the built-in test suite *-----------------------------
+        test {
+            //---* Use Spock test framework *----------------------------------
+            useJUnitJupiter( '5.8.2' )
+        }   //  test
+
+        //---* Create a new test suite *---------------------------------------
+        testFunctional( JvmTestSuite ) {
+            //---* Use Spock test framework *----------------------------------
+            useSpock( '2.0-groovy-3.0' )
+
+            dependencies {
+                /*
+                 * The functionalTest test suite depends on the production code
+                 * in tests.
+                 */
+                implementation project
+            }   //  dependencies
+
+            targets {
+                all {
+                    /*
+                     * This test suite should run after the built-in test suite
+                     * has run its tests.
+                     */
+                    testTask.configure { shouldRunAfter( test ) }
+                }   //  all
+            }   //  targets
+        }   //  testFunctional()
+    }   //  suites
+}   //  testing
+
+//---* Task configurations *---------------------------------------------------
+task sourceJar( type: Jar ) {
+    archiveClassifier.set( "sources" )
+}
+
+tasks.named( 'check' ) {
+    //---* Include functional test as part of the check lifecycle *------------
+    dependsOn( testing.suites.testFunctional )
+}
+
+tasks.named( 'jar' ) {
+    //---* Configure META-INF/MANIFEST.MF *------------------------------------
+    manifest {
+        attributes( 'Implementation-Title': project.name,
+                    'Implementation-Version': project.version,
+                    'Automatic-Module-Name': project.name )
+    }   //  manifest
+}
+
+tasks.named( 'javadoc' ) {
+    mustRunAfter "jar"
+
+    //---* Configure JavaDoc *-------------------------------------------------
+    options {
+        addBooleanOption( '-enable-preview', true )
+        addStringOption( '--expand-requires all' )
+        addStringOption( '--html5' )
+        addStringOption( '-javafx' )
+        addStringOption( '--show-members private' )
+        addStringOption( '--show-module-contents all' )
+        addStringOption( '--show-packages all' )
+        addStringOption( '--show-types private' )
+        addStringOption( 'sourcetab', '4' )
+
+        quiet()
+
+        author true
+        bottom "Copyright © 2002-$currentYear by Thomas Thrien (tquadrat.org)"
+        breakIterator true
+        charSet javadocEncoding
+        docEncoding javadocEncoding
+        docFilesSubDirs true
+        encoding javadocEncoding
+        header ""
+        jFlags( '-Duser.language=en', '--enable-preview' )
+        keyWords true
+        links "https://docs.oracle.com/en/java/javase/${javaSourceLevel}/docs/api/"
+        links "https://apiguardian-team.github.io/apiguardian/docs/current/api/"
+        links "https://eclipse-ee4j.github.io/jaf/docs/api/"
+        linkSource true
+        locale "en_GB"
+        noComment false
+        noDeprecated false
+        noDeprecatedList false
+        noHelp false
+        noIndex false
+        noNavBar false
+        noSince false
+        noTimestamp true
+        noTree false
+        overview "$projectDir/src/main/javadoc/overview.html"
+        serialWarn true
+        setMemberLevel( JavadocMemberLevel.PRIVATE )
+        source javaSourceLevel
+        splitIndex true
+        setUse true
+        setVersion true
+        windowTitle ""
+
+        tags tagList
+    }
+}
+
+tasks.withType( JavaCompile ) {
+    //---* Enable the preview features *---------------------------------------
+    options.compilerArgs += "--enable-preview"
+}
+
+tasks.withType( Test ) {
+    //---* Enable the preview features *---------------------------------------
+    jvmArgs += "--enable-preview"
+}
+
+tasks.withType( JavaExec ) {
+    //---* Enable the preview features *---------------------------------------
+    jvmArgs += '--enable-preview'
+}
+
+/*
+ * End of File
+ */
