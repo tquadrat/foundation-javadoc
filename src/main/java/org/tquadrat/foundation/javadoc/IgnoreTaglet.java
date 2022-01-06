@@ -19,7 +19,7 @@ package org.tquadrat.foundation.javadoc;
 
 import static org.apiguardian.api.API.Status.STABLE;
 import static org.tquadrat.foundation.javadoc.internal.Common.initHelperTaglets;
-import static org.tquadrat.foundation.lang.CommonConstants.EMPTY_STRING;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.EMPTY_STRING;
 
 import javax.lang.model.element.Element;
 import java.util.EnumSet;
@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.apiguardian.api.API;
-import org.tquadrat.foundation.annotation.ClassVersion;
+import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
 import com.sun.source.doctree.DocTree;
 import jdk.javadoc.doclet.Doclet;
 import jdk.javadoc.doclet.DocletEnvironment;
@@ -44,13 +44,11 @@ import jdk.javadoc.doclet.Taglet;
  *  prepared in some special way that makes it nearly unreadable in the source
  *  code.
  *
- *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: IgnoreTaglet.java 820 2020-12-29 20:34:22Z tquadrat $
+ *  @author Thomas Thrien - thomas.thrien@tquadrat.org
+ *  @version $Id: IgnoreTaglet.java 977 2022-01-06 11:41:03Z tquadrat $
  *  @since 0.1.0
- *
- *  @UMLGraph.link
  */
-@ClassVersion( sourceVersion = "$Id: IgnoreTaglet.java 820 2020-12-29 20:34:22Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: IgnoreTaglet.java 977 2022-01-06 11:41:03Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
 public class IgnoreTaglet implements Taglet
 {

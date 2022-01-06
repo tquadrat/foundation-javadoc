@@ -18,9 +18,11 @@
 
 package org.tquadrat.foundation.javadoc;
 
+import static java.lang.String.format;
 import static java.lang.System.arraycopy;
 import static java.lang.System.getProperty;
 import static java.lang.System.out;
+import static java.util.Objects.nonNull;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 import static org.apiguardian.api.API.Status.INTERNAL;
@@ -30,13 +32,11 @@ import static org.tquadrat.foundation.javadoc.internal.Common.SOURCE_PATH;
 import static org.tquadrat.foundation.javadoc.internal.Common.createLineNumberFormatString;
 import static org.tquadrat.foundation.javadoc.internal.Common.determineElementName;
 import static org.tquadrat.foundation.javadoc.internal.Common.initHelperTaglets;
-import static org.tquadrat.foundation.lang.CommonConstants.EMPTY_STRING;
-import static org.tquadrat.foundation.lang.CommonConstants.EMPTY_String_ARRAY;
-import static org.tquadrat.foundation.lang.Objects.nonNull;
-import static org.tquadrat.foundation.util.IOUtils.loadToString;
-import static org.tquadrat.foundation.util.StringUtils.format;
-import static org.tquadrat.foundation.util.StringUtils.isNotEmptyOrBlank;
-import static org.tquadrat.foundation.util.StringUtils.splitString;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.EMPTY_STRING;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.EMPTY_String_ARRAY;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.isNotEmptyOrBlank;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.loadToString;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.splitString;
 
 import javax.lang.model.element.Element;
 import javax.tools.FileObject;
@@ -52,11 +52,11 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.apiguardian.api.API;
-import org.tquadrat.foundation.annotation.ClassVersion;
 import org.tquadrat.foundation.javadoc.internal.Common;
 import org.tquadrat.foundation.javadoc.internal.JavadocError;
-import org.tquadrat.foundation.util.StringUtils;
-import org.tquadrat.foundation.util.Template;
+import org.tquadrat.foundation.javadoc.internal.ToolKit;
+import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
+import org.tquadrat.foundation.javadoc.internal.foundation.util.Template;
 import com.sun.source.doctree.DocTree;
 import jdk.javadoc.doclet.Doclet;
 import jdk.javadoc.doclet.DocletEnvironment;
@@ -83,40 +83,36 @@ import jdk.javadoc.doclet.Taglet;
  *  for the details.</p>
  *  <p>The use of this tag will look like this:</p>
  *  <pre><code>&hellip; {&#64;include &lt;<i>filename</i>&gt;:&lt;<i>processMode</i>&gt;} &hellip;</code></pre>
- *  {@ignore {@include <filename>:<processMode>}}
  *  <p>where the &lt;processMode&gt; can be omitted. If the given file does not
  *  exist or is empty, nothing will be included, and no error message will be
  *  issued.</p>
- *
- *  @note   If Maven is used, and the include file is not placed at the
+ *  <p><b>Notes:</b></p>
+ *  <ul>
+ *      <li>If Maven is used, and the include file is not placed at the
  *      {@code java} path (but on the {@code resources} path, for example}, it
  *      is required to add the parameter <code>&lt;sourcepath&gt;</code> to the
  *      configuration of the {@code maven-javadoc-plugin}, where the path of
  *      the include file is added; otherwise, it will not be found.
- *      Alternatively an external root can be used, as described above.
- *
- *  @note   At default, Gradle adds only {@code *.java} files as sources for
+ *      Alternatively an external root can be used, as described above.</li>
+ *      <li>At default, Gradle adds only {@code *.java} files as sources for
  *      the Javadoc task. To make other files available for the
  *      {@code @include} tag, an external root should be used. This is
- *      mandatory for files that are stored at the {@code resources} path.
- *
- *  @note   In general, both Maven and Gradle may have funny ideas about the
- *      source path, so the recommendation is to use an external root always.
- *
- *  @note   If the source of a class should be included, the path to the source
- *      file is relative to the module directory, if one exists.
- *
- *  @note   The {@code {@include}} tag is an inline tag; that means that the
+ *      mandatory for files that are stored at the {@code resources} path.</li>
+ *      <li>In general, both Maven and Gradle may have funny ideas about the
+ *      source path, so the recommendation is to use an external root
+ *      always.</li>
+ *      <li>If the source of a class should be included, the path to the source
+ *      file is relative to the module directory, if one exists.</li>
+ *      <li>The {@code {@include}} tag is an inline tag; that means that the
  *      contents of the included file will be seamlessly integrated into the
- *      other text of the respective Javadoc comment.
+ *      other text of the respective Javadoc comment.</li>
+ *  </ul>
  *
- *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: IncludeTaglet.java 826 2021-01-04 12:17:23Z tquadrat $
+ *  @author Thomas Thrien - thomas.thrien@tquadrat.org
+ *  @version $Id: IncludeTaglet.java 976 2022-01-06 11:39:58Z tquadrat $
  *  @since 0.0.5
- *
- *  @UMLGraph.link
  */
-@ClassVersion( sourceVersion = "$Id: IncludeTaglet.java 826 2021-01-04 12:17:23Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: IncludeTaglet.java 976 2022-01-06 11:39:58Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
 public class IncludeTaglet implements Taglet
 {
@@ -126,14 +122,12 @@ public class IncludeTaglet implements Taglet
     /**
      *  The process modes for the included file.
      *
-     *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
-     *  @version $Id: IncludeTaglet.java 826 2021-01-04 12:17:23Z tquadrat $
+     *  @author Thomas Thrien - thomas.thrien@tquadrat.org
+     *  @version $Id: IncludeTaglet.java 976 2022-01-06 11:39:58Z tquadrat $
      *  @since 0.0.5
-     *
-     *  @UMLGraph.link
      */
     @SuppressWarnings( "InnerClassTooDeeplyNested" )
-    @ClassVersion( sourceVersion = "$Id: IncludeTaglet.java 826 2021-01-04 12:17:23Z tquadrat $" )
+    @ClassVersion( sourceVersion = "$Id: IncludeTaglet.java 976 2022-01-06 11:39:58Z tquadrat $" )
     @API( status = INTERNAL, since = "0.0.5", consumers = "org.tquadrat.foundation.javadoc" )
     public enum ProcessMode
     {
@@ -175,7 +169,7 @@ public class IncludeTaglet implements Taglet
                 try( final var bufferedReader = new BufferedReader( reader ) )
                 {
                     retValue = bufferedReader.lines()
-                        .map( StringUtils::escapeHTML )
+                        .map( ToolKit::escapeHTML )
                         .collect( joining( "<br>" ) );
                 }
                 catch( final IOException e )
@@ -189,12 +183,11 @@ public class IncludeTaglet implements Taglet
         },
 
         /**
-         *  The file contents will be included as is; this works for really
-         *  simple plain text files that do not contain any HTML relevant
-         *  characters, or for valid HTML snippets.
-         *
-         *  @note   Line breaks are ignored by HTML browsers; this means that a
-         *      plain text file will appear as a long single line.
+         *  <p>{@summary The file contents will be included as is; this works
+         *  for really simple plain text files that do not contain any HTML
+         *  relevant characters, or for valid HTML snippets.}</p>
+         *  <p>Line breaks are ignored by HTML browsers; this means that a
+         *  plain text file will appear as a long single line.</p>
          */
         @API( status = INTERNAL, since = "0.0.5" )
         PLAIN
@@ -239,7 +232,7 @@ public class IncludeTaglet implements Taglet
                 try( final var bufferedReader = new BufferedReader( reader ) )
                 {
                     lines = bufferedReader.lines()
-                        .map( StringUtils::escapeHTML )
+                        .map( ToolKit::escapeHTML )
                         .collect( toList() );
                 }
                 catch( final IOException e )
@@ -378,7 +371,7 @@ public class IncludeTaglet implements Taglet
                 try( final var bufferedReader = new BufferedReader( reader ) )
                 {
                     lines = bufferedReader.lines()
-                        .map( StringUtils::escapeHTML )
+                        .map( ToolKit::escapeHTML )
                         .collect( toList() );
                 }
                 catch( final IOException e )
@@ -470,7 +463,6 @@ public class IncludeTaglet implements Taglet
      *  an include file: {@value}. It will be set on the {@code javadoc}
      *  command line like this:
      *  <pre><code>-J-Dorg.tquadrat.foundation.include.root.&lt;<i>name</i>&gt;=&lt;<i>path</i>&gt;</code></pre>
-     *  {@ignore -J-Dorg.tquadrat.foundation.include.root.<name>=<path>}
      */
     @API( status = STABLE, since = "0.1.0" )
     public static final String PROPERTY_INCLUDE_ROOT_PREFIX = "org.tquadrat.foundation.include.root";
@@ -553,7 +545,7 @@ public class IncludeTaglet implements Taglet
      *  appended by the argument, separated by a '.'.
      *
      *  @param  variable    The name of the root path.
-     *  @return A instance of
+     *  @return An instance of
      *      {@link Optional}
      *      that holds the path.
      */
@@ -657,6 +649,7 @@ public class IncludeTaglet implements Taglet
                 //noinspection OverlyBroadCatchBlock
                 try( final Reader reader = new FileReader( file ) )
                 {
+                    //noinspection ConstantConditions
                     retValue = processMode.processFile( fileName, reader, parameters );
                 }
                 catch( final IOException e )
@@ -675,6 +668,7 @@ public class IncludeTaglet implements Taglet
                     final var inputFile = m_DocletEnvironment.getJavaFileManager().getFileForInput( SOURCE_PATH, EMPTY_STRING, fileName );
                     if( nonNull( inputFile) )
                     {
+                        //noinspection ConstantConditions
                         retValue = processMode.processFile( inputFile, parameters );
                     }
                     else

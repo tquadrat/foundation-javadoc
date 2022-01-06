@@ -17,8 +17,8 @@
 
 package org.tquadrat.foundation.javadoc;
 
+import static java.lang.String.format;
 import static org.apiguardian.api.API.Status.STABLE;
-import static org.tquadrat.foundation.util.StringUtils.format;
 
 import javax.lang.model.element.Element;
 import java.util.EnumSet;
@@ -28,32 +28,29 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 import org.apiguardian.api.API;
-import org.tquadrat.foundation.annotation.ClassVersion;
+import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
 import com.sun.source.doctree.DocTree;
 import jdk.javadoc.doclet.Taglet;
 
 /**
- *  This inline tag inserts an HTML anchor into the documentation that can be
- *  used for references to the location of that anchor. It can be used as this:
+ *  <p>{@summary This inline tag inserts an HTML anchor into the documentation
+ *  that can be used for references to the location of that anchor.} It can be
+ *  used as this:</p>
  *  <pre><code>&hellip; {&#64;anchor #&lt;<i>anchor</i>&gt; &lt;<i>text</i>&gt;} &hellip;</code></pre>
- *  That allows to reference the &lt;text&gt; by the anchor &lt;anchor&gt;
- *  like this:
+ *  <p>That allows to reference the &lt;text&gt; by the anchor &lt;anchor&gt;
+ *  like this:</p>
  *  <pre><code>&hellip; &lt;a href=&quot;#anchor&quot;&gt;&hellip;&lt;/a&gt; &hellip;</code></pre>
- *  Or, with the {@code href} tag:
+ *  <p>Or, with the {@code href} tag:</p>
  *  <pre><code>&hellip; {&#64;href #anchor &hellip;}</code></pre>
+ *  <p>The hash symbol (&quot;#&quot;) before the anchor name is mandatory!</p>
  *
- *  @note   The hash symbol (&quot;#&quot;) before the anchor name is
- *      mandatory!
- *
- *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: AnchorTaglet.java 890 2021-04-01 21:15:48Z tquadrat $
+ *  @author Thomas Thrien - thomas.thrien@tquadrat.org
+ *  @version $Id: AnchorTaglet.java 977 2022-01-06 11:41:03Z tquadrat $
  *  @since 0.0.5
  *
  *  @see HRefTaglet
- *
- *  @UMLGraph.link
  */
-@ClassVersion( sourceVersion = "$Id: AnchorTaglet.java 890 2021-04-01 21:15:48Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: AnchorTaglet.java 977 2022-01-06 11:41:03Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
 public final class AnchorTaglet implements Taglet
 {

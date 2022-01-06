@@ -20,7 +20,7 @@ package org.tquadrat.foundation.javadoc.umlgraph;
 import static org.apiguardian.api.API.Status.INTERNAL;
 
 import org.apiguardian.api.API;
-import org.tquadrat.foundation.annotation.ClassVersion;
+import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
 
 /**
  *  The dimensions for a
@@ -30,16 +30,14 @@ import org.tquadrat.foundation.annotation.ClassVersion;
  *  @param  width   The width.
  *  @param  height  The height.
  *
- *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: Dimension.java 820 2020-12-29 20:34:22Z tquadrat $
+ *  @author Thomas Thrien - thomas.thrien@tquadrat.org
+ *  @version $Id: Dimension.java 976 2022-01-06 11:39:58Z tquadrat $
  *  @since 0.0.5
- *
- *  @UMLGraph.link
  */
-@SuppressWarnings( {"hiding", "javadoc"} )
-@ClassVersion( sourceVersion = "$Id: Dimension.java 820 2020-12-29 20:34:22Z tquadrat $" )
+@SuppressWarnings( {"hiding"} )
+@ClassVersion( sourceVersion = "$Id: Dimension.java 976 2022-01-06 11:39:58Z tquadrat $" )
 @API( status = INTERNAL, since = "0.0.5")
-public final record Dimension( double width, double height )
+public record Dimension( double width, double height )
 { /* Empty */ }
 //  record Dimension
 

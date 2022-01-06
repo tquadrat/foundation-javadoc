@@ -20,7 +20,7 @@ package org.tquadrat.foundation.javadoc.umlgraph;
 import static org.apiguardian.api.API.Status.INTERNAL;
 
 import org.apiguardian.api.API;
-import org.tquadrat.foundation.annotation.ClassVersion;
+import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
 
 /**
  *  The coordinates for a
@@ -30,25 +30,15 @@ import org.tquadrat.foundation.annotation.ClassVersion;
  *  @param  x   The x coordinate.
  *  @param  y   The y coordinate.
  *
- *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: Point.java 820 2020-12-29 20:34:22Z tquadrat $
+ *  @author Thomas Thrien - thomas.thrien@tquadrat.org
+ *  @version $Id: Point.java 976 2022-01-06 11:39:58Z tquadrat $
  *  @since 0.0.5
- *
- *  @UMLGraph.link
  */
-@SuppressWarnings( {"hiding", "javadoc"} )
-@ClassVersion( sourceVersion = "$Id: Point.java 820 2020-12-29 20:34:22Z tquadrat $" )
+@SuppressWarnings( {"hiding"} )
+@ClassVersion( sourceVersion = "$Id: Point.java 976 2022-01-06 11:39:58Z tquadrat $" )
 @API( status = INTERNAL, since = "0.0.5")
 public record Point( double x, double y )
 {
-        /*-----------*\
-    ====** Constants **========================================================
-        \*-----------*/
-    /**
-     *  An empty array of {@code Point} objects.
-     */
-    public static final Point [] EMPTY_Point_ARRAY = new Point [0];
-
         /*---------*\
     ====** Methods **==========================================================
         \*---------*/
@@ -58,7 +48,7 @@ public record Point( double x, double y )
     @Override
     public final String toString() { return "Point[" + x + ", " + y + "]"; }
 }
-//  class Point
+//  record Point
 
 /*
  *  End of File

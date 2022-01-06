@@ -17,10 +17,9 @@
 
 package org.tquadrat.foundation.javadoc;
 
-import static java.lang.System.out;
+import static java.lang.String.format;
 import static org.apiguardian.api.API.Status.STABLE;
 import static org.tquadrat.foundation.javadoc.internal.Common.parseNameAndEmail;
-import static org.tquadrat.foundation.util.StringUtils.format;
 
 import javax.lang.model.element.Element;
 import java.util.EnumSet;
@@ -28,36 +27,33 @@ import java.util.List;
 import java.util.Set;
 
 import org.apiguardian.api.API;
-import org.tquadrat.foundation.annotation.ClassVersion;
+import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
 import com.sun.source.doctree.DocTree;
 import jdk.javadoc.doclet.Taglet;
 
 /**
- *  {@summary This taglet replaces the standard {@code @author} taglet. It is
- *  different in the way that it provides the author's email address as a
- *  hyperlink.}<br>
- *  <br>This means that the tag requires the reference to the author in the
- *  format below:<br>
+ *  <p>{@summary This taglet replaces the standard {@code @author} taglet. It
+ *  is different in the way that it provides the author's email address as a
+ *  hyperlink.}</p>
+ *  <p>This means that the tag requires the reference to the author in the
+ *  format below:</p>
  *  <pre><code>  &#x40;extauthor &lt;<i>name</i>&gt; <b>-</b> &lt;<i>email address</i>&gt;</code></pre>
- *  Basically, this is the name of the author, followed by their email address,
- *  separated by a hyphen (&quot;&#x2d;&quot; or &amp;#x2d;), surrounded by
- *  blanks.<br>
- *  <br>If there is no email address, the output is the same as for the
- *  standard {@code @author} taglet.
+ *  <p>Basically, this is the name of the author, followed by their email
+ *  address, separated by a hyphen (&quot;&#x2d;&quot; or &amp;#x2d;),
+ *  surrounded by blanks.</p>
+ *  <p>If there is no email address, the output is the same as for the
+ *  standard {@code @author} taglet.</p>
+ *  <p>Previously (before Java&nbsp;15), it was possible to
+ *  &quot;overwrite&quot; the default {@code @author} tag by a custom
+ *  implementation. Unfortunately, this does not work any longer: when
+ *  providing a custom tag with the same name, no author is added to the output
+ *  at all.</p>
  *
- *  @note   Previously (before Java&nbsp;15), it was possible to
- *      &quot;overwrite&quot; the default {@code @author} tag by a custom
- *      implementation. Unfortunately, this does not work any longer: when
- *      providing a custom tag with the same name, no author is added to the
- *      output at all.
- *
- *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: AuthorTaglet.java 821 2020-12-31 00:05:27Z tquadrat $
+ *  @author Thomas Thrien - thomas.thrien@tquadrat.org
+ *  @version $Id: AuthorTaglet.java 977 2022-01-06 11:41:03Z tquadrat $
  *  @since 0.0.5
- *
- *  @UMLGraph.link
  */
-@ClassVersion( sourceVersion = "$Id: AuthorTaglet.java 821 2020-12-31 00:05:27Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: AuthorTaglet.java 977 2022-01-06 11:41:03Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
 public final class AuthorTaglet implements Taglet
 {

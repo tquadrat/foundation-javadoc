@@ -18,52 +18,52 @@
 package org.tquadrat.foundation.javadoc.umlgraph;
 
 import static java.lang.Math.max;
+import static java.util.Objects.nonNull;
 import static java.util.stream.Collectors.joining;
 import static org.apiguardian.api.API.Status.INTERNAL;
-import static org.tquadrat.foundation.lang.CommonConstants.EMPTY_STRING;
-import static org.tquadrat.foundation.lang.Objects.nonNull;
-import static org.tquadrat.foundation.lang.Objects.requireNonNullArgument;
-import static org.tquadrat.foundation.svg.SVGUtils.SVGATTRIBUTE_Class;
-import static org.tquadrat.foundation.svg.SVGUtils.SVGATTRIBUTE_ExternalResourcesRequired;
-import static org.tquadrat.foundation.svg.SVGUtils.SVGATTRIBUTE_Id;
-import static org.tquadrat.foundation.svg.SVGUtils.SVGATTRIBUTE_PreserveAspectRatio;
-import static org.tquadrat.foundation.svg.SVGUtils.SVGATTRIBUTE_Style;
-import static org.tquadrat.foundation.svg.SVGUtils.SVGATTRIBUTE_ViewBox;
-import static org.tquadrat.foundation.svg.SVGUtils.SVGELEMENT_AltGlyphDef;
-import static org.tquadrat.foundation.svg.SVGUtils.SVGELEMENT_Anchor;
-import static org.tquadrat.foundation.svg.SVGUtils.SVGELEMENT_ClipPath;
-import static org.tquadrat.foundation.svg.SVGUtils.SVGELEMENT_ColorProfile;
-import static org.tquadrat.foundation.svg.SVGUtils.SVGELEMENT_Cursor;
-import static org.tquadrat.foundation.svg.SVGUtils.SVGELEMENT_Filter;
-import static org.tquadrat.foundation.svg.SVGUtils.SVGELEMENT_Font;
-import static org.tquadrat.foundation.svg.SVGUtils.SVGELEMENT_FontFace;
-import static org.tquadrat.foundation.svg.SVGUtils.SVGELEMENT_ForeignObject;
-import static org.tquadrat.foundation.svg.SVGUtils.SVGELEMENT_Image;
-import static org.tquadrat.foundation.svg.SVGUtils.SVGELEMENT_Marker;
-import static org.tquadrat.foundation.svg.SVGUtils.SVGELEMENT_Mask;
-import static org.tquadrat.foundation.svg.SVGUtils.SVGELEMENT_Pattern;
-import static org.tquadrat.foundation.svg.SVGUtils.SVGELEMENT_Script;
-import static org.tquadrat.foundation.svg.SVGUtils.SVGELEMENT_Style;
-import static org.tquadrat.foundation.svg.SVGUtils.SVGELEMENT_Switch;
-import static org.tquadrat.foundation.svg.SVGUtils.SVGELEMENT_Symbol;
-import static org.tquadrat.foundation.svg.SVGUtils.SVGELEMENT_Text;
-import static org.tquadrat.foundation.svg.SVGUtils.SVGELEMENT_View;
-import static org.tquadrat.foundation.svg.SVGUtils.createGroup;
-import static org.tquadrat.foundation.svg.SVGUtils.createLine;
-import static org.tquadrat.foundation.svg.SVGUtils.createRectangle;
-import static org.tquadrat.foundation.svg.SVGUtils.createText;
-import static org.tquadrat.foundation.svg.SVGUtils.number;
-import static org.tquadrat.foundation.svg.SVGUtils.translate;
-import static org.tquadrat.foundation.svg.type.SVGElementCategory.ANIMATION;
-import static org.tquadrat.foundation.svg.type.SVGElementCategory.DESCRIPTIVE;
-import static org.tquadrat.foundation.svg.type.SVGElementCategory.GRADIENT;
-import static org.tquadrat.foundation.svg.type.SVGElementCategory.SHAPE;
-import static org.tquadrat.foundation.svg.type.SVGElementCategory.STRUCTURAL;
-import static org.tquadrat.foundation.svg.type.SVGPaint.PAINT_NONE;
-import static org.tquadrat.foundation.util.StringUtils.maxContentLength;
-import static org.tquadrat.foundation.xml.builder.XMLElement.Flags.ALLOWS_CHILDREN;
-import static org.tquadrat.foundation.xml.builder.XMLElement.Flags.VALIDATES_ATTRIBUTES;
-import static org.tquadrat.foundation.xml.builder.XMLElement.Flags.VALIDATES_CHILDREN;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.EMPTY_STRING;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.maxContentLength;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.requireNonNullArgument;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGATTRIBUTE_Class;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGATTRIBUTE_ExternalResourcesRequired;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGATTRIBUTE_Id;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGATTRIBUTE_PreserveAspectRatio;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGATTRIBUTE_Style;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGATTRIBUTE_ViewBox;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGELEMENT_AltGlyphDef;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGELEMENT_Anchor;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGELEMENT_ClipPath;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGELEMENT_ColorProfile;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGELEMENT_Cursor;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGELEMENT_Filter;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGELEMENT_Font;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGELEMENT_FontFace;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGELEMENT_ForeignObject;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGELEMENT_Image;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGELEMENT_Marker;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGELEMENT_Mask;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGELEMENT_Pattern;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGELEMENT_Script;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGELEMENT_Style;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGELEMENT_Switch;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGELEMENT_Symbol;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGELEMENT_Text;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGELEMENT_View;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.createGroup;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.createLine;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.createRectangle;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.createText;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.number;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.translate;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGElementCategory.ANIMATION;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGElementCategory.DESCRIPTIVE;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGElementCategory.GRADIENT;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGElementCategory.SHAPE;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGElementCategory.STRUCTURAL;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGPaint.PAINT_NONE;
+import static org.tquadrat.foundation.javadoc.internal.foundation.xml.builder.XMLElement.Flags.ALLOWS_CHILDREN;
+import static org.tquadrat.foundation.javadoc.internal.foundation.xml.builder.XMLElement.Flags.VALIDATES_ATTRIBUTES;
+import static org.tquadrat.foundation.javadoc.internal.foundation.xml.builder.XMLElement.Flags.VALIDATES_CHILDREN;
 
 import javax.lang.model.element.Element;
 import java.net.URI;
@@ -73,15 +73,15 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.apiguardian.api.API;
-import org.tquadrat.foundation.annotation.ClassVersion;
-import org.tquadrat.foundation.svg.AllowsGraphicalEventAttributes;
-import org.tquadrat.foundation.svg.AllowsPresentationAttributes;
-import org.tquadrat.foundation.svg.SVGElementAdapter;
-import org.tquadrat.foundation.svg.SVGGroup;
-import org.tquadrat.foundation.svg.SVGSymbol;
-import org.tquadrat.foundation.svg.SVGText;
-import org.tquadrat.foundation.svg.SVGUse;
-import org.tquadrat.foundation.svg.SVGUtils;
+import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
+import org.tquadrat.foundation.javadoc.internal.foundation.svg.AllowsGraphicalEventAttributes;
+import org.tquadrat.foundation.javadoc.internal.foundation.svg.AllowsPresentationAttributes;
+import org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGElementAdapter;
+import org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGGroup;
+import org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGSymbol;
+import org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGText;
+import org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUse;
+import org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils;
 
 /**
  *  A specialisation of
@@ -90,13 +90,11 @@ import org.tquadrat.foundation.svg.SVGUtils;
  *  {@link UMLTypeElement}
  *  instances.
  *
- *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: TypeSymbol.java 820 2020-12-29 20:34:22Z tquadrat $
+ *  @author Thomas Thrien - thomas.thrien@tquadrat.org
+ *  @version $Id: TypeSymbol.java 976 2022-01-06 11:39:58Z tquadrat $
  *  @since 0.0.5
- *
- *  @UMLGraph.link
  */
-@ClassVersion( sourceVersion = "$Id: TypeSymbol.java 820 2020-12-29 20:34:22Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: TypeSymbol.java 976 2022-01-06 11:39:58Z tquadrat $" )
 @API( status = INTERNAL, since = "0.0.5")
 public final class TypeSymbol extends SVGElementAdapter
 {
@@ -122,12 +120,12 @@ public final class TypeSymbol extends SVGElementAdapter
     public static final String CSSClass_OtherClass = "otherClass";
 
     /**
-     *  The width of a character for a SVG graph: {@value} px.
+     *  The width of a character for an SVG graph: {@value} px.
      */
     public static final double SVG_CHAR_WIDTH = 6.0;
 
     /**
-     *  The height of a SVG text line: {@value} px.
+     *  The height of an SVG text line: {@value} px.
      */
     public static final double SVG_LINE_HEIGHT = 11.0;
 
@@ -137,7 +135,7 @@ public final class TypeSymbol extends SVGElementAdapter
     public static final double SVG_LINE_SPACING = 2.0;
 
     /**
-     *  The spacing before and after a SVG text: {@value} px.
+     *  The spacing before and after an SVG text: {@value} px.
      */
     public static final double SVG_TEXT_SPACING = 5.0;
 
@@ -432,7 +430,7 @@ public final class TypeSymbol extends SVGElementAdapter
         \*---------*/
     /**
      *  Returns this {@code TypeSymbol} instance as an instance of
-     *  {@link org.tquadrat.foundation.svg.SVGSymbol SVGPath}.
+     *  {@link SVGSymbol}.
      *
      *  @return This instance.
      */

@@ -17,11 +17,11 @@
 
 package org.tquadrat.foundation.javadoc.internal;
 
+import static java.lang.String.format;
 import static org.apiguardian.api.API.Status.INTERNAL;
-import static org.tquadrat.foundation.lang.CommonConstants.EMPTY_STRING;
-import static org.tquadrat.foundation.util.StringUtils.escapeHTML;
-import static org.tquadrat.foundation.util.StringUtils.format;
-import static org.tquadrat.foundation.util.StringUtils.isNotEmptyOrBlank;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.EMPTY_STRING;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.escapeHTML;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.isNotEmptyOrBlank;
 
 import javax.lang.model.element.Element;
 import java.util.EnumSet;
@@ -31,25 +31,25 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 import org.apiguardian.api.API;
-import org.tquadrat.foundation.annotation.ClassVersion;
+import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
 import com.sun.source.doctree.DocTree;
 import jdk.javadoc.doclet.Taglet;
 
 /**
- *  Unfortunately, it is not possible to access the original {@code @literal}
- *  taglet to process any tags inside a custom tag. Therefore we created this
- *  replacement.
+ *  <p>{@summary Re-implementation of the <code>{&#64;literal}</code>
+ *  taglet.}</p>
+ *  <p>Unfortunately, it is not possible to access the original
+ *  <code>{&#64;literal}</code> taglet to process any tags inside a custom tag.
+ *  That's why I created this replacement.</p>
  *
- *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: LiteralTaglet.java 820 2020-12-29 20:34:22Z tquadrat $
+ *  @author Thomas Thrien - thomas.thrien@tquadrat.org
+ *  @version $Id: LiteralTaglet.java 976 2022-01-06 11:39:58Z tquadrat $
  *  @since 0.0.5
  *
  *  @see CodeTaglet
  *  @see IndexTaglet
- *
- *  @UMLGraph.link
  */
-@ClassVersion( sourceVersion = "$Id: LiteralTaglet.java 820 2020-12-29 20:34:22Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: LiteralTaglet.java 976 2022-01-06 11:39:58Z tquadrat $" )
 @API( status = INTERNAL, since = "0.0.5")
 public final class LiteralTaglet implements Taglet
 {

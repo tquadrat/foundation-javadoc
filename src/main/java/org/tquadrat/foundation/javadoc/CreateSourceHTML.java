@@ -18,12 +18,12 @@
 
 package org.tquadrat.foundation.javadoc;
 
+import static java.lang.String.format;
 import static java.lang.System.err;
 import static java.lang.System.out;
 import static org.apiguardian.api.API.Status.STABLE;
 import static org.tquadrat.foundation.javadoc.internal.Common.createLineNumberFormatString;
-import static org.tquadrat.foundation.lang.Objects.requireNonNullArgument;
-import static org.tquadrat.foundation.util.StringUtils.format;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.requireNonNullArgument;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -35,41 +35,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apiguardian.api.API;
-import org.tquadrat.foundation.annotation.ClassVersion;
-import org.tquadrat.foundation.annotation.ProgramClass;
-import org.tquadrat.foundation.exception.PrivateConstructorForStaticClassCalledError;
-import org.tquadrat.foundation.util.StringUtils;
+import org.tquadrat.foundation.javadoc.internal.ToolKit;
+import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
+import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ProgramClass;
+import org.tquadrat.foundation.javadoc.internal.foundation.exception.PrivateConstructorForStaticClassCalledError;
 
 /**
- *  A tool that can be used to create an HTML file suitable as a documentation
- *  extension for a JavaDoc from an arbitrary text file. The processing of the
- *  input is as for
- *  {@link IncludeTaglet.ProcessMode#SOURCE}. <br>
- *  <br>The program takes two command line arguments:
+ *  <p>{@summary A tool that can be used to create an HTML file suitable as a
+ *  documentation extension for a JavaDoc from an arbitrary text file.} The
+ *  processing of the input is as for
+ *  {@link IncludeTaglet.ProcessMode#SOURCE}.</p>
+ *  <p>The program takes two command line arguments:</p>
  *  <ol>
  *  <li>The file name for the input file.</li>
  *  <li>The destination path for the output file.</li>
  *  </ol>
- *  <br>The name of the output file will be determined by the name of the input
+ *  <p>The name of the output file will be determined by the name of the input
  *  file, suffixed with &quot;{@code .html}&quot;. This means, the input file
  *  &quot;{@code MyClass.java}&quot; is written to
- *  &quot;{@code MyClass.java.html}&quot;.<br>
- *  <br>An already existing file will be overwritten without warning.
+ *  &quot;{@code MyClass.java.html}&quot;.</p>
+ *  <p>An already existing file will be overwritten without warning.</p>
+ *  <p><b>Note:</b> The output file should be stored into a {@code doc-files}
+ *  folder in the source tree of the project from where JavaDoc will pick it up
+ *  and amends it appropriately. This is similar to the handling of the HTML
+ *  file containing the project overview that is addressed with the
+ *  {@code -overview} option on the JavaDoc command line.</p>
  *
- *  @note The output file should be stored into a {@code doc-files} folder in
- *      the source tree of the project from where JavaDoc will pick it up and
- *      amends it appropriately. This is similar to the handling of the HTML
- *      file containing the project overview that is addressed with the
- *      {@code -overview} option on the JavaDoc command line.
- *
- *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: CreateSourceHTML.java 825 2021-01-03 17:50:44Z tquadrat $
+ *  @author Thomas Thrien - thomas.thrien@tquadrat.org
+ *  @version $Id: CreateSourceHTML.java 977 2022-01-06 11:41:03Z tquadrat $
  *  @since 0.0.5
- *
- *  @UMLGraph.link
  */
 @ProgramClass
-@ClassVersion( sourceVersion = "$Id: CreateSourceHTML.java 825 2021-01-03 17:50:44Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: CreateSourceHTML.java 977 2022-01-06 11:41:03Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5")
 public final class CreateSourceHTML
 {
@@ -85,8 +82,8 @@ public final class CreateSourceHTML
     ====** Methods **==========================================================
         \*---------*/
     /**
-     *  Generates a documentation extension HTML file from the given source
-     *  file.
+     *  This method generates a documentation extension file in HTML format
+     *  from the given source file.
      *
      *  @param  inputFile   The input file.
      *  @param  outputPath  The output path.
@@ -121,7 +118,7 @@ public final class CreateSourceHTML
         try( final var reader = new BufferedReader( new FileReader( inputFile ) ) )
         {
             reader.lines()
-                .map( StringUtils::escapeHTML )
+                .map( ToolKit::escapeHTML )
                 .forEach( lines::add );
         }
 

@@ -22,19 +22,17 @@ import static org.apiguardian.api.API.Status.INTERNAL;
 import java.net.URI;
 
 import org.apiguardian.api.API;
-import org.tquadrat.foundation.annotation.ClassVersion;
+import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
 
 /**
  *  The types for a
  *  {@link UMLConnector}.
  *
- *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: UMLConnectorType.java 820 2020-12-29 20:34:22Z tquadrat $
+ *  @author Thomas Thrien - thomas.thrien@tquadrat.org
+ *  @version $Id: UMLConnectorType.java 976 2022-01-06 11:39:58Z tquadrat $
  *  @since 0.0.5
- *
- *  @UMLGraph.link
  */
-@ClassVersion( sourceVersion = "$Id: UMLConnectorType.java 820 2020-12-29 20:34:22Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: UMLConnectorType.java 976 2022-01-06 11:39:58Z tquadrat $" )
 @API( status = INTERNAL, since = "0.0.5")
 public enum UMLConnectorType
 {
@@ -50,14 +48,6 @@ public enum UMLConnectorType
      *  The connector represents an inheritance.
      */
     INHERITANCE( "inheritance", "inheritance" );
-
-        /*-----------*\
-    ====** Constants **========================================================
-        \*-----------*/
-    /**
-     *  An empty array of {@code UMLConnectorType} objects.
-     */
-    public static final UMLConnectorType [] EMPTY_UMLConnectorType_ARRAY = new UMLConnectorType [0];
 
         /*------------*\
     ====** Attributes **=======================================================

@@ -22,19 +22,17 @@ import static org.apiguardian.api.API.Status.STABLE;
 import java.io.Serial;
 
 import org.apiguardian.api.API;
-import org.tquadrat.foundation.annotation.ClassVersion;
+import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
 
 /**
  *  This error will be thrown by the custom taglets in case an error condition
  *  is encountered.
  *
- *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: JavadocError.java 820 2020-12-29 20:34:22Z tquadrat $
- *
- *  @UMLGraph.link
+ *  @author Thomas Thrien - thomas.thrien@tquadrat.org
+ *  @version $Id: JavadocError.java 976 2022-01-06 11:39:58Z tquadrat $
  *  @since 0.1.0
  */
-@ClassVersion( sourceVersion = "$Id: JavadocError.java 820 2020-12-29 20:34:22Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: JavadocError.java 976 2022-01-06 11:39:58Z tquadrat $" )
 @API( status = STABLE, since = "0.1.0" )
 public final class JavadocError extends Error
 {
@@ -66,11 +64,13 @@ public final class JavadocError extends Error
     public JavadocError( final String message ) { super( message ); }
 
     /**
-     *  Constructs a new instance of {@code JavadocError} with the specified
-     *  detail message and a cause.
-     *
-     *  @note   The detail message associated with cause is not automatically
-     *      incorporated in this error's detail message.
+     *  <p>{@summary Constructs a new instance of {@code JavadocError} with the
+     *  specified detail message and a cause.}</p>
+     *  <p><b>Note:</b></p>
+     *  <ul>
+     *      <li>The detail message associated with cause is not automatically
+     *      incorporated in this error's detail message.</li>
+     *  </ul>
      *
      *  @param  message The detail message. The detail message is saved for
      *      later retrieval by the

@@ -32,7 +32,7 @@
 <span class="source-line-no">019</span><span id="line-19"></span>
 <span class="source-line-no">020</span><span id="line-20">import static org.apiguardian.api.API.Status.STABLE;</span>
 <span class="source-line-no">021</span><span id="line-21">import static org.tquadrat.foundation.javadoc.internal.Common.initHelperTaglets;</span>
-<span class="source-line-no">022</span><span id="line-22">import static org.tquadrat.foundation.lang.CommonConstants.EMPTY_STRING;</span>
+<span class="source-line-no">022</span><span id="line-22">import static org.tquadrat.foundation.javadoc.internal.ToolKit.EMPTY_STRING;</span>
 <span class="source-line-no">023</span><span id="line-23"></span>
 <span class="source-line-no">024</span><span id="line-24">import javax.lang.model.element.Element;</span>
 <span class="source-line-no">025</span><span id="line-25">import java.util.EnumSet;</span>
@@ -40,7 +40,7 @@
 <span class="source-line-no">027</span><span id="line-27">import java.util.Set;</span>
 <span class="source-line-no">028</span><span id="line-28"></span>
 <span class="source-line-no">029</span><span id="line-29">import org.apiguardian.api.API;</span>
-<span class="source-line-no">030</span><span id="line-30">import org.tquadrat.foundation.annotation.ClassVersion;</span>
+<span class="source-line-no">030</span><span id="line-30">import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;</span>
 <span class="source-line-no">031</span><span id="line-31">import com.sun.source.doctree.DocTree;</span>
 <span class="source-line-no">032</span><span id="line-32">import jdk.javadoc.doclet.Doclet;</span>
 <span class="source-line-no">033</span><span id="line-33">import jdk.javadoc.doclet.DocletEnvironment;</span>
@@ -57,78 +57,76 @@
 <span class="source-line-no">044</span><span id="line-44"> *  prepared in some special way that makes it nearly unreadable in the source</span>
 <span class="source-line-no">045</span><span id="line-45"> *  code.</span>
 <span class="source-line-no">046</span><span id="line-46"> *</span>
-<span class="source-line-no">047</span><span id="line-47"> *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org</span>
-<span class="source-line-no">048</span><span id="line-48"> *  @version $Id: IgnoreTaglet.java 820 2020-12-29 20:34:22Z tquadrat $</span>
+<span class="source-line-no">047</span><span id="line-47"> *  @author Thomas Thrien - thomas.thrien@tquadrat.org</span>
+<span class="source-line-no">048</span><span id="line-48"> *  @version $Id: IgnoreTaglet.java 977 2022-01-06 11:41:03Z tquadrat $</span>
 <span class="source-line-no">049</span><span id="line-49"> *  @since 0.1.0</span>
-<span class="source-line-no">050</span><span id="line-50"> *</span>
-<span class="source-line-no">051</span><span id="line-51"> *  @UMLGraph.link</span>
-<span class="source-line-no">052</span><span id="line-52"> */</span>
-<span class="source-line-no">053</span><span id="line-53">@ClassVersion( sourceVersion = "$Id: IgnoreTaglet.java 820 2020-12-29 20:34:22Z tquadrat $" )</span>
-<span class="source-line-no">054</span><span id="line-54">@API( status = STABLE, since = "0.0.5" )</span>
-<span class="source-line-no">055</span><span id="line-55">public class IgnoreTaglet implements Taglet</span>
-<span class="source-line-no">056</span><span id="line-56">{</span>
-<span class="source-line-no">057</span><span id="line-57">        /*-----------*\</span>
-<span class="source-line-no">058</span><span id="line-58">    ====** Constants **========================================================</span>
-<span class="source-line-no">059</span><span id="line-59">        \*-----------*/</span>
-<span class="source-line-no">060</span><span id="line-60">    /**</span>
-<span class="source-line-no">061</span><span id="line-61">     *  The name of this taglet: {@value}.</span>
-<span class="source-line-no">062</span><span id="line-62">     */</span>
-<span class="source-line-no">063</span><span id="line-63">    public static final String TAGLET_NAME = "ignore";</span>
-<span class="source-line-no">064</span><span id="line-64"></span>
-<span class="source-line-no">065</span><span id="line-65">        /*--------------*\</span>
-<span class="source-line-no">066</span><span id="line-66">    ====** Constructors **=====================================================</span>
-<span class="source-line-no">067</span><span id="line-67">        \*--------------*/</span>
-<span class="source-line-no">068</span><span id="line-68">    /**</span>
-<span class="source-line-no">069</span><span id="line-69">     *  Creates a new {@code IgnoreTaglet} instance.</span>
-<span class="source-line-no">070</span><span id="line-70">     */</span>
-<span class="source-line-no">071</span><span id="line-71">    @SuppressWarnings( "RedundantNoArgConstructor" )</span>
-<span class="source-line-no">072</span><span id="line-72">    public IgnoreTaglet() { /* Just exists */ }</span>
-<span class="source-line-no">073</span><span id="line-73"></span>
-<span class="source-line-no">074</span><span id="line-74">        /*---------*\</span>
-<span class="source-line-no">075</span><span id="line-75">    ====** Methods **==========================================================</span>
-<span class="source-line-no">076</span><span id="line-76">        \*---------*/</span>
-<span class="source-line-no">077</span><span id="line-77">    /**</span>
-<span class="source-line-no">078</span><span id="line-78">     *  {@inheritDoc}</span>
-<span class="source-line-no">079</span><span id="line-79">     */</span>
-<span class="source-line-no">080</span><span id="line-80">    @Override</span>
-<span class="source-line-no">081</span><span id="line-81">    public final Set&lt;Location&gt; getAllowedLocations() { return EnumSet.allOf( Location.class ); }</span>
-<span class="source-line-no">082</span><span id="line-82"></span>
-<span class="source-line-no">083</span><span id="line-83">    /**</span>
-<span class="source-line-no">084</span><span id="line-84">     *  {@inheritDoc}</span>
-<span class="source-line-no">085</span><span id="line-85">     */</span>
-<span class="source-line-no">086</span><span id="line-86">    @Override</span>
-<span class="source-line-no">087</span><span id="line-87">    public final String getName() { return TAGLET_NAME; }</span>
-<span class="source-line-no">088</span><span id="line-88"></span>
-<span class="source-line-no">089</span><span id="line-89">    /**</span>
-<span class="source-line-no">090</span><span id="line-90">     *  {@inheritDoc}</span>
-<span class="source-line-no">091</span><span id="line-91">     */</span>
-<span class="source-line-no">092</span><span id="line-92">    @Override</span>
-<span class="source-line-no">093</span><span id="line-93">    public final void init( final DocletEnvironment docletEnvironment, final Doclet doclet )</span>
-<span class="source-line-no">094</span><span id="line-94">    {</span>
-<span class="source-line-no">095</span><span id="line-95">        Taglet.super.init( docletEnvironment, doclet );</span>
-<span class="source-line-no">096</span><span id="line-96">        initHelperTaglets( docletEnvironment, doclet );</span>
-<span class="source-line-no">097</span><span id="line-97">    }   //  init()</span>
-<span class="source-line-no">098</span><span id="line-98"></span>
-<span class="source-line-no">099</span><span id="line-99">    /**</span>
-<span class="source-line-no">100</span><span id="line-100">     *  {@inheritDoc}</span>
-<span class="source-line-no">101</span><span id="line-101">     */</span>
-<span class="source-line-no">102</span><span id="line-102">    @Override</span>
-<span class="source-line-no">103</span><span id="line-103">    public final boolean isInlineTag() { return true; }</span>
-<span class="source-line-no">104</span><span id="line-104"></span>
-<span class="source-line-no">105</span><span id="line-105">    /**</span>
-<span class="source-line-no">106</span><span id="line-106">     *  {@inheritDoc}</span>
-<span class="source-line-no">107</span><span id="line-107">     */</span>
-<span class="source-line-no">108</span><span id="line-108">    @Override</span>
-<span class="source-line-no">109</span><span id="line-109">    public final String toString( final List&lt;? extends DocTree&gt; tags, final Element element )</span>
-<span class="source-line-no">110</span><span id="line-110">    {</span>
-<span class="source-line-no">111</span><span id="line-111">        return EMPTY_STRING;</span>
-<span class="source-line-no">112</span><span id="line-112">    }   //  toString()</span>
-<span class="source-line-no">113</span><span id="line-113">}</span>
-<span class="source-line-no">114</span><span id="line-114">//  class IgnoreTaglet</span>
-<span class="source-line-no">115</span><span id="line-115"></span>
-<span class="source-line-no">116</span><span id="line-116">/*</span>
-<span class="source-line-no">117</span><span id="line-117"> *  End of File</span>
-<span class="source-line-no">118</span><span id="line-118"> */</span>
+<span class="source-line-no">050</span><span id="line-50"> */</span>
+<span class="source-line-no">051</span><span id="line-51">@ClassVersion( sourceVersion = "$Id: IgnoreTaglet.java 977 2022-01-06 11:41:03Z tquadrat $" )</span>
+<span class="source-line-no">052</span><span id="line-52">@API( status = STABLE, since = "0.0.5" )</span>
+<span class="source-line-no">053</span><span id="line-53">public class IgnoreTaglet implements Taglet</span>
+<span class="source-line-no">054</span><span id="line-54">{</span>
+<span class="source-line-no">055</span><span id="line-55">        /*-----------*\</span>
+<span class="source-line-no">056</span><span id="line-56">    ====** Constants **========================================================</span>
+<span class="source-line-no">057</span><span id="line-57">        \*-----------*/</span>
+<span class="source-line-no">058</span><span id="line-58">    /**</span>
+<span class="source-line-no">059</span><span id="line-59">     *  The name of this taglet: {@value}.</span>
+<span class="source-line-no">060</span><span id="line-60">     */</span>
+<span class="source-line-no">061</span><span id="line-61">    public static final String TAGLET_NAME = "ignore";</span>
+<span class="source-line-no">062</span><span id="line-62"></span>
+<span class="source-line-no">063</span><span id="line-63">        /*--------------*\</span>
+<span class="source-line-no">064</span><span id="line-64">    ====** Constructors **=====================================================</span>
+<span class="source-line-no">065</span><span id="line-65">        \*--------------*/</span>
+<span class="source-line-no">066</span><span id="line-66">    /**</span>
+<span class="source-line-no">067</span><span id="line-67">     *  Creates a new {@code IgnoreTaglet} instance.</span>
+<span class="source-line-no">068</span><span id="line-68">     */</span>
+<span class="source-line-no">069</span><span id="line-69">    @SuppressWarnings( "RedundantNoArgConstructor" )</span>
+<span class="source-line-no">070</span><span id="line-70">    public IgnoreTaglet() { /* Just exists */ }</span>
+<span class="source-line-no">071</span><span id="line-71"></span>
+<span class="source-line-no">072</span><span id="line-72">        /*---------*\</span>
+<span class="source-line-no">073</span><span id="line-73">    ====** Methods **==========================================================</span>
+<span class="source-line-no">074</span><span id="line-74">        \*---------*/</span>
+<span class="source-line-no">075</span><span id="line-75">    /**</span>
+<span class="source-line-no">076</span><span id="line-76">     *  {@inheritDoc}</span>
+<span class="source-line-no">077</span><span id="line-77">     */</span>
+<span class="source-line-no">078</span><span id="line-78">    @Override</span>
+<span class="source-line-no">079</span><span id="line-79">    public final Set&lt;Location&gt; getAllowedLocations() { return EnumSet.allOf( Location.class ); }</span>
+<span class="source-line-no">080</span><span id="line-80"></span>
+<span class="source-line-no">081</span><span id="line-81">    /**</span>
+<span class="source-line-no">082</span><span id="line-82">     *  {@inheritDoc}</span>
+<span class="source-line-no">083</span><span id="line-83">     */</span>
+<span class="source-line-no">084</span><span id="line-84">    @Override</span>
+<span class="source-line-no">085</span><span id="line-85">    public final String getName() { return TAGLET_NAME; }</span>
+<span class="source-line-no">086</span><span id="line-86"></span>
+<span class="source-line-no">087</span><span id="line-87">    /**</span>
+<span class="source-line-no">088</span><span id="line-88">     *  {@inheritDoc}</span>
+<span class="source-line-no">089</span><span id="line-89">     */</span>
+<span class="source-line-no">090</span><span id="line-90">    @Override</span>
+<span class="source-line-no">091</span><span id="line-91">    public final void init( final DocletEnvironment docletEnvironment, final Doclet doclet )</span>
+<span class="source-line-no">092</span><span id="line-92">    {</span>
+<span class="source-line-no">093</span><span id="line-93">        Taglet.super.init( docletEnvironment, doclet );</span>
+<span class="source-line-no">094</span><span id="line-94">        initHelperTaglets( docletEnvironment, doclet );</span>
+<span class="source-line-no">095</span><span id="line-95">    }   //  init()</span>
+<span class="source-line-no">096</span><span id="line-96"></span>
+<span class="source-line-no">097</span><span id="line-97">    /**</span>
+<span class="source-line-no">098</span><span id="line-98">     *  {@inheritDoc}</span>
+<span class="source-line-no">099</span><span id="line-99">     */</span>
+<span class="source-line-no">100</span><span id="line-100">    @Override</span>
+<span class="source-line-no">101</span><span id="line-101">    public final boolean isInlineTag() { return true; }</span>
+<span class="source-line-no">102</span><span id="line-102"></span>
+<span class="source-line-no">103</span><span id="line-103">    /**</span>
+<span class="source-line-no">104</span><span id="line-104">     *  {@inheritDoc}</span>
+<span class="source-line-no">105</span><span id="line-105">     */</span>
+<span class="source-line-no">106</span><span id="line-106">    @Override</span>
+<span class="source-line-no">107</span><span id="line-107">    public final String toString( final List&lt;? extends DocTree&gt; tags, final Element element )</span>
+<span class="source-line-no">108</span><span id="line-108">    {</span>
+<span class="source-line-no">109</span><span id="line-109">        return EMPTY_STRING;</span>
+<span class="source-line-no">110</span><span id="line-110">    }   //  toString()</span>
+<span class="source-line-no">111</span><span id="line-111">}</span>
+<span class="source-line-no">112</span><span id="line-112">//  class IgnoreTaglet</span>
+<span class="source-line-no">113</span><span id="line-113"></span>
+<span class="source-line-no">114</span><span id="line-114">/*</span>
+<span class="source-line-no">115</span><span id="line-115"> *  End of File</span>
+<span class="source-line-no">116</span><span id="line-116"> */</span>
 
 
 

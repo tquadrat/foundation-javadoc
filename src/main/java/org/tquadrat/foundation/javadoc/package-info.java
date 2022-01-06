@@ -147,11 +147,14 @@
  *      <p>Implemented by the class
  *      {@link org.tquadrat.foundation.javadoc.UmlGraphLinkTaglet}.</p></dd>
  *  </dl>
- *
- *  @todo task.list
  */
 
+@API( status = STABLE, since = "0.0.1" )
 package org.tquadrat.foundation.javadoc;
+
+import static org.apiguardian.api.API.Status.STABLE;
+
+import org.apiguardian.api.API;
 
 /*
  *  End of File

@@ -17,27 +17,27 @@
 
 package org.tquadrat.foundation.javadoc.umlgraph;
 
+import static java.lang.String.format;
+import static java.nio.charset.StandardCharsets.UTF_8;
+import static java.util.Objects.isNull;
 import static org.apiguardian.api.API.Status.INTERNAL;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.EMPTY_String_ARRAY;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.isNotEmptyOrBlank;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.requireNonNullArgument;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVG.Usage.STANDALONE_DOCUMENT;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.cloneElement;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.closePath;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.createClipPath;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.createMarker;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.createPath;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.createSVG;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.lineTo;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.moveToAbs;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.number;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.vLineTo;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGMarkerOrientation.AUTO;
 import static org.tquadrat.foundation.javadoc.umlgraph.UMLConnectorType.IMPLEMENTATION;
 import static org.tquadrat.foundation.javadoc.umlgraph.UMLConnectorType.INHERITANCE;
-import static org.tquadrat.foundation.lang.CommonConstants.EMPTY_String_ARRAY;
-import static org.tquadrat.foundation.lang.CommonConstants.UTF8;
-import static org.tquadrat.foundation.lang.Objects.isNull;
-import static org.tquadrat.foundation.lang.Objects.requireNonNullArgument;
-import static org.tquadrat.foundation.svg.SVG.Usage.STANDALONE_DOCUMENT;
-import static org.tquadrat.foundation.svg.SVGUtils.cloneElement;
-import static org.tquadrat.foundation.svg.SVGUtils.closePath;
-import static org.tquadrat.foundation.svg.SVGUtils.createClipPath;
-import static org.tquadrat.foundation.svg.SVGUtils.createMarker;
-import static org.tquadrat.foundation.svg.SVGUtils.createPath;
-import static org.tquadrat.foundation.svg.SVGUtils.createSVG;
-import static org.tquadrat.foundation.svg.SVGUtils.lineTo;
-import static org.tquadrat.foundation.svg.SVGUtils.moveToAbs;
-import static org.tquadrat.foundation.svg.SVGUtils.number;
-import static org.tquadrat.foundation.svg.SVGUtils.vLineTo;
-import static org.tquadrat.foundation.svg.type.SVGMarkerOrientation.AUTO;
-import static org.tquadrat.foundation.util.StringUtils.format;
-import static org.tquadrat.foundation.util.StringUtils.isNotEmptyOrBlank;
 
 import javax.lang.model.element.Name;
 import java.io.BufferedReader;
@@ -49,24 +49,22 @@ import java.util.List;
 import java.util.Optional;
 
 import org.apiguardian.api.API;
-import org.tquadrat.foundation.annotation.ClassVersion;
 import org.tquadrat.foundation.javadoc.UmlGraphLinkTaglet;
-import org.tquadrat.foundation.svg.SVG;
-import org.tquadrat.foundation.svg.SVGPath;
-import org.tquadrat.foundation.svg.SVGRectangle;
-import org.tquadrat.foundation.svg.SVGUse;
-import org.tquadrat.foundation.svg.type.SVGColor;
+import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
+import org.tquadrat.foundation.javadoc.internal.foundation.svg.SVG;
+import org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGPath;
+import org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGRectangle;
+import org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUse;
+import org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGColor;
 
 /**
  *  The container for a UML diagram.
  *
- *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: UMLDocument.java 825 2021-01-03 17:50:44Z tquadrat $
+ *  @author Thomas Thrien - thomas.thrien@tquadrat.org
+ *  @version $Id: UMLDocument.java 976 2022-01-06 11:39:58Z tquadrat $
  *  @since 0.0.5
- *
- *  @UMLGraph.link
  */
-@ClassVersion( sourceVersion = "$Id: UMLDocument.java 825 2021-01-03 17:50:44Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: UMLDocument.java 976 2022-01-06 11:39:58Z tquadrat $" )
 @API( status = INTERNAL, since = "0.0.5")
 public class UMLDocument
 {
@@ -189,8 +187,6 @@ public class UMLDocument
      *
      *  @param  clipRectangle   The rectangle that defines the clip path.
      *  @return The id of the new SVG {@code <clipPath>} element.
-     *
-     *  @see org.tquadrat.foundation.svg.SVGClipPath
      */
     public final String addClippath( final SVGRectangle clipRectangle )
     {
@@ -305,7 +301,7 @@ public class UMLDocument
             throw new IOException( format( "Cannot locate resource '%2$s' in package '%1$s'", UmlGraphLinkTaglet.class.getPackageName(), UML_CSS ) );
         }
         try( final var cssInputStream = cssResource.openStream();
-             final var cssReader = new BufferedReader( new InputStreamReader( cssInputStream, UTF8 ) ) )
+             final var cssReader = new BufferedReader( new InputStreamReader( cssInputStream, UTF_8 ) ) )
         {
             styles = cssReader.lines().toArray( String []::new );
         }

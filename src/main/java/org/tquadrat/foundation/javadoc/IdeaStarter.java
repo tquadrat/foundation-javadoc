@@ -17,22 +17,22 @@
 
 package org.tquadrat.foundation.javadoc;
 
+import static java.lang.String.format;
 import static java.lang.System.err;
 import static java.lang.System.out;
 import static java.lang.System.setProperty;
 import static org.apiguardian.api.API.Status.STABLE;
 import static org.tquadrat.foundation.javadoc.IncludeTaglet.PROPERTY_INCLUDE_ROOT_PREFIX;
 import static org.tquadrat.foundation.javadoc.ToDoTaglet.PROPERTY_TODO_BASE;
-import static org.tquadrat.foundation.util.StringUtils.format;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.IllegalFormatException;
 
 import org.apiguardian.api.API;
-import org.tquadrat.foundation.annotation.ClassVersion;
-import org.tquadrat.foundation.annotation.ProgramClass;
-import org.tquadrat.foundation.exception.PrivateConstructorForStaticClassCalledError;
+import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
+import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ProgramClass;
+import org.tquadrat.foundation.javadoc.internal.foundation.exception.PrivateConstructorForStaticClassCalledError;
 
 /**
  *  If a program will be started from IntelliJ IDEA, the {@code args} argument
@@ -40,14 +40,13 @@ import org.tquadrat.foundation.exception.PrivateConstructorForStaticClassCalledE
  *  {@link #main(String...)}
  *  has always values.
  *
- *  @version $Id: IdeaStarter.java 826 2021-01-04 12:17:23Z tquadrat $
+ *  @version $Id: IdeaStarter.java 977 2022-01-06 11:41:03Z tquadrat $
  *
- *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @UMLGraph.link
+ *  @author Thomas Thrien - thomas.thrien@tquadrat.org
  *  @since 0.1.0
  */
 @ProgramClass
-@ClassVersion( sourceVersion = "$Id: IdeaStarter.java 826 2021-01-04 12:17:23Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: IdeaStarter.java 977 2022-01-06 11:41:03Z tquadrat $" )
 @API( status = STABLE, since = "0.1.0" )
 public final class IdeaStarter
 {

@@ -31,52 +31,52 @@
 <span class="source-line-no">018</span><span id="line-18">package org.tquadrat.foundation.javadoc.umlgraph;</span>
 <span class="source-line-no">019</span><span id="line-19"></span>
 <span class="source-line-no">020</span><span id="line-20">import static java.lang.Math.max;</span>
-<span class="source-line-no">021</span><span id="line-21">import static java.util.stream.Collectors.joining;</span>
-<span class="source-line-no">022</span><span id="line-22">import static org.apiguardian.api.API.Status.INTERNAL;</span>
-<span class="source-line-no">023</span><span id="line-23">import static org.tquadrat.foundation.lang.CommonConstants.EMPTY_STRING;</span>
-<span class="source-line-no">024</span><span id="line-24">import static org.tquadrat.foundation.lang.Objects.nonNull;</span>
-<span class="source-line-no">025</span><span id="line-25">import static org.tquadrat.foundation.lang.Objects.requireNonNullArgument;</span>
-<span class="source-line-no">026</span><span id="line-26">import static org.tquadrat.foundation.svg.SVGUtils.SVGATTRIBUTE_Class;</span>
-<span class="source-line-no">027</span><span id="line-27">import static org.tquadrat.foundation.svg.SVGUtils.SVGATTRIBUTE_ExternalResourcesRequired;</span>
-<span class="source-line-no">028</span><span id="line-28">import static org.tquadrat.foundation.svg.SVGUtils.SVGATTRIBUTE_Id;</span>
-<span class="source-line-no">029</span><span id="line-29">import static org.tquadrat.foundation.svg.SVGUtils.SVGATTRIBUTE_PreserveAspectRatio;</span>
-<span class="source-line-no">030</span><span id="line-30">import static org.tquadrat.foundation.svg.SVGUtils.SVGATTRIBUTE_Style;</span>
-<span class="source-line-no">031</span><span id="line-31">import static org.tquadrat.foundation.svg.SVGUtils.SVGATTRIBUTE_ViewBox;</span>
-<span class="source-line-no">032</span><span id="line-32">import static org.tquadrat.foundation.svg.SVGUtils.SVGELEMENT_AltGlyphDef;</span>
-<span class="source-line-no">033</span><span id="line-33">import static org.tquadrat.foundation.svg.SVGUtils.SVGELEMENT_Anchor;</span>
-<span class="source-line-no">034</span><span id="line-34">import static org.tquadrat.foundation.svg.SVGUtils.SVGELEMENT_ClipPath;</span>
-<span class="source-line-no">035</span><span id="line-35">import static org.tquadrat.foundation.svg.SVGUtils.SVGELEMENT_ColorProfile;</span>
-<span class="source-line-no">036</span><span id="line-36">import static org.tquadrat.foundation.svg.SVGUtils.SVGELEMENT_Cursor;</span>
-<span class="source-line-no">037</span><span id="line-37">import static org.tquadrat.foundation.svg.SVGUtils.SVGELEMENT_Filter;</span>
-<span class="source-line-no">038</span><span id="line-38">import static org.tquadrat.foundation.svg.SVGUtils.SVGELEMENT_Font;</span>
-<span class="source-line-no">039</span><span id="line-39">import static org.tquadrat.foundation.svg.SVGUtils.SVGELEMENT_FontFace;</span>
-<span class="source-line-no">040</span><span id="line-40">import static org.tquadrat.foundation.svg.SVGUtils.SVGELEMENT_ForeignObject;</span>
-<span class="source-line-no">041</span><span id="line-41">import static org.tquadrat.foundation.svg.SVGUtils.SVGELEMENT_Image;</span>
-<span class="source-line-no">042</span><span id="line-42">import static org.tquadrat.foundation.svg.SVGUtils.SVGELEMENT_Marker;</span>
-<span class="source-line-no">043</span><span id="line-43">import static org.tquadrat.foundation.svg.SVGUtils.SVGELEMENT_Mask;</span>
-<span class="source-line-no">044</span><span id="line-44">import static org.tquadrat.foundation.svg.SVGUtils.SVGELEMENT_Pattern;</span>
-<span class="source-line-no">045</span><span id="line-45">import static org.tquadrat.foundation.svg.SVGUtils.SVGELEMENT_Script;</span>
-<span class="source-line-no">046</span><span id="line-46">import static org.tquadrat.foundation.svg.SVGUtils.SVGELEMENT_Style;</span>
-<span class="source-line-no">047</span><span id="line-47">import static org.tquadrat.foundation.svg.SVGUtils.SVGELEMENT_Switch;</span>
-<span class="source-line-no">048</span><span id="line-48">import static org.tquadrat.foundation.svg.SVGUtils.SVGELEMENT_Symbol;</span>
-<span class="source-line-no">049</span><span id="line-49">import static org.tquadrat.foundation.svg.SVGUtils.SVGELEMENT_Text;</span>
-<span class="source-line-no">050</span><span id="line-50">import static org.tquadrat.foundation.svg.SVGUtils.SVGELEMENT_View;</span>
-<span class="source-line-no">051</span><span id="line-51">import static org.tquadrat.foundation.svg.SVGUtils.createGroup;</span>
-<span class="source-line-no">052</span><span id="line-52">import static org.tquadrat.foundation.svg.SVGUtils.createLine;</span>
-<span class="source-line-no">053</span><span id="line-53">import static org.tquadrat.foundation.svg.SVGUtils.createRectangle;</span>
-<span class="source-line-no">054</span><span id="line-54">import static org.tquadrat.foundation.svg.SVGUtils.createText;</span>
-<span class="source-line-no">055</span><span id="line-55">import static org.tquadrat.foundation.svg.SVGUtils.number;</span>
-<span class="source-line-no">056</span><span id="line-56">import static org.tquadrat.foundation.svg.SVGUtils.translate;</span>
-<span class="source-line-no">057</span><span id="line-57">import static org.tquadrat.foundation.svg.type.SVGElementCategory.ANIMATION;</span>
-<span class="source-line-no">058</span><span id="line-58">import static org.tquadrat.foundation.svg.type.SVGElementCategory.DESCRIPTIVE;</span>
-<span class="source-line-no">059</span><span id="line-59">import static org.tquadrat.foundation.svg.type.SVGElementCategory.GRADIENT;</span>
-<span class="source-line-no">060</span><span id="line-60">import static org.tquadrat.foundation.svg.type.SVGElementCategory.SHAPE;</span>
-<span class="source-line-no">061</span><span id="line-61">import static org.tquadrat.foundation.svg.type.SVGElementCategory.STRUCTURAL;</span>
-<span class="source-line-no">062</span><span id="line-62">import static org.tquadrat.foundation.svg.type.SVGPaint.PAINT_NONE;</span>
-<span class="source-line-no">063</span><span id="line-63">import static org.tquadrat.foundation.util.StringUtils.maxContentLength;</span>
-<span class="source-line-no">064</span><span id="line-64">import static org.tquadrat.foundation.xml.builder.XMLElement.Flags.ALLOWS_CHILDREN;</span>
-<span class="source-line-no">065</span><span id="line-65">import static org.tquadrat.foundation.xml.builder.XMLElement.Flags.VALIDATES_ATTRIBUTES;</span>
-<span class="source-line-no">066</span><span id="line-66">import static org.tquadrat.foundation.xml.builder.XMLElement.Flags.VALIDATES_CHILDREN;</span>
+<span class="source-line-no">021</span><span id="line-21">import static java.util.Objects.nonNull;</span>
+<span class="source-line-no">022</span><span id="line-22">import static java.util.stream.Collectors.joining;</span>
+<span class="source-line-no">023</span><span id="line-23">import static org.apiguardian.api.API.Status.INTERNAL;</span>
+<span class="source-line-no">024</span><span id="line-24">import static org.tquadrat.foundation.javadoc.internal.ToolKit.EMPTY_STRING;</span>
+<span class="source-line-no">025</span><span id="line-25">import static org.tquadrat.foundation.javadoc.internal.ToolKit.maxContentLength;</span>
+<span class="source-line-no">026</span><span id="line-26">import static org.tquadrat.foundation.javadoc.internal.ToolKit.requireNonNullArgument;</span>
+<span class="source-line-no">027</span><span id="line-27">import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGATTRIBUTE_Class;</span>
+<span class="source-line-no">028</span><span id="line-28">import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGATTRIBUTE_ExternalResourcesRequired;</span>
+<span class="source-line-no">029</span><span id="line-29">import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGATTRIBUTE_Id;</span>
+<span class="source-line-no">030</span><span id="line-30">import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGATTRIBUTE_PreserveAspectRatio;</span>
+<span class="source-line-no">031</span><span id="line-31">import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGATTRIBUTE_Style;</span>
+<span class="source-line-no">032</span><span id="line-32">import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGATTRIBUTE_ViewBox;</span>
+<span class="source-line-no">033</span><span id="line-33">import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGELEMENT_AltGlyphDef;</span>
+<span class="source-line-no">034</span><span id="line-34">import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGELEMENT_Anchor;</span>
+<span class="source-line-no">035</span><span id="line-35">import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGELEMENT_ClipPath;</span>
+<span class="source-line-no">036</span><span id="line-36">import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGELEMENT_ColorProfile;</span>
+<span class="source-line-no">037</span><span id="line-37">import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGELEMENT_Cursor;</span>
+<span class="source-line-no">038</span><span id="line-38">import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGELEMENT_Filter;</span>
+<span class="source-line-no">039</span><span id="line-39">import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGELEMENT_Font;</span>
+<span class="source-line-no">040</span><span id="line-40">import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGELEMENT_FontFace;</span>
+<span class="source-line-no">041</span><span id="line-41">import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGELEMENT_ForeignObject;</span>
+<span class="source-line-no">042</span><span id="line-42">import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGELEMENT_Image;</span>
+<span class="source-line-no">043</span><span id="line-43">import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGELEMENT_Marker;</span>
+<span class="source-line-no">044</span><span id="line-44">import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGELEMENT_Mask;</span>
+<span class="source-line-no">045</span><span id="line-45">import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGELEMENT_Pattern;</span>
+<span class="source-line-no">046</span><span id="line-46">import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGELEMENT_Script;</span>
+<span class="source-line-no">047</span><span id="line-47">import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGELEMENT_Style;</span>
+<span class="source-line-no">048</span><span id="line-48">import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGELEMENT_Switch;</span>
+<span class="source-line-no">049</span><span id="line-49">import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGELEMENT_Symbol;</span>
+<span class="source-line-no">050</span><span id="line-50">import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGELEMENT_Text;</span>
+<span class="source-line-no">051</span><span id="line-51">import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGELEMENT_View;</span>
+<span class="source-line-no">052</span><span id="line-52">import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.createGroup;</span>
+<span class="source-line-no">053</span><span id="line-53">import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.createLine;</span>
+<span class="source-line-no">054</span><span id="line-54">import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.createRectangle;</span>
+<span class="source-line-no">055</span><span id="line-55">import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.createText;</span>
+<span class="source-line-no">056</span><span id="line-56">import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.number;</span>
+<span class="source-line-no">057</span><span id="line-57">import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.translate;</span>
+<span class="source-line-no">058</span><span id="line-58">import static org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGElementCategory.ANIMATION;</span>
+<span class="source-line-no">059</span><span id="line-59">import static org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGElementCategory.DESCRIPTIVE;</span>
+<span class="source-line-no">060</span><span id="line-60">import static org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGElementCategory.GRADIENT;</span>
+<span class="source-line-no">061</span><span id="line-61">import static org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGElementCategory.SHAPE;</span>
+<span class="source-line-no">062</span><span id="line-62">import static org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGElementCategory.STRUCTURAL;</span>
+<span class="source-line-no">063</span><span id="line-63">import static org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGPaint.PAINT_NONE;</span>
+<span class="source-line-no">064</span><span id="line-64">import static org.tquadrat.foundation.javadoc.internal.foundation.xml.builder.XMLElement.Flags.ALLOWS_CHILDREN;</span>
+<span class="source-line-no">065</span><span id="line-65">import static org.tquadrat.foundation.javadoc.internal.foundation.xml.builder.XMLElement.Flags.VALIDATES_ATTRIBUTES;</span>
+<span class="source-line-no">066</span><span id="line-66">import static org.tquadrat.foundation.javadoc.internal.foundation.xml.builder.XMLElement.Flags.VALIDATES_CHILDREN;</span>
 <span class="source-line-no">067</span><span id="line-67"></span>
 <span class="source-line-no">068</span><span id="line-68">import javax.lang.model.element.Element;</span>
 <span class="source-line-no">069</span><span id="line-69">import java.net.URI;</span>
@@ -86,15 +86,15 @@
 <span class="source-line-no">073</span><span id="line-73">import java.util.List;</span>
 <span class="source-line-no">074</span><span id="line-74"></span>
 <span class="source-line-no">075</span><span id="line-75">import org.apiguardian.api.API;</span>
-<span class="source-line-no">076</span><span id="line-76">import org.tquadrat.foundation.annotation.ClassVersion;</span>
-<span class="source-line-no">077</span><span id="line-77">import org.tquadrat.foundation.svg.AllowsGraphicalEventAttributes;</span>
-<span class="source-line-no">078</span><span id="line-78">import org.tquadrat.foundation.svg.AllowsPresentationAttributes;</span>
-<span class="source-line-no">079</span><span id="line-79">import org.tquadrat.foundation.svg.SVGElementAdapter;</span>
-<span class="source-line-no">080</span><span id="line-80">import org.tquadrat.foundation.svg.SVGGroup;</span>
-<span class="source-line-no">081</span><span id="line-81">import org.tquadrat.foundation.svg.SVGSymbol;</span>
-<span class="source-line-no">082</span><span id="line-82">import org.tquadrat.foundation.svg.SVGText;</span>
-<span class="source-line-no">083</span><span id="line-83">import org.tquadrat.foundation.svg.SVGUse;</span>
-<span class="source-line-no">084</span><span id="line-84">import org.tquadrat.foundation.svg.SVGUtils;</span>
+<span class="source-line-no">076</span><span id="line-76">import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;</span>
+<span class="source-line-no">077</span><span id="line-77">import org.tquadrat.foundation.javadoc.internal.foundation.svg.AllowsGraphicalEventAttributes;</span>
+<span class="source-line-no">078</span><span id="line-78">import org.tquadrat.foundation.javadoc.internal.foundation.svg.AllowsPresentationAttributes;</span>
+<span class="source-line-no">079</span><span id="line-79">import org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGElementAdapter;</span>
+<span class="source-line-no">080</span><span id="line-80">import org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGGroup;</span>
+<span class="source-line-no">081</span><span id="line-81">import org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGSymbol;</span>
+<span class="source-line-no">082</span><span id="line-82">import org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGText;</span>
+<span class="source-line-no">083</span><span id="line-83">import org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUse;</span>
+<span class="source-line-no">084</span><span id="line-84">import org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils;</span>
 <span class="source-line-no">085</span><span id="line-85"></span>
 <span class="source-line-no">086</span><span id="line-86">/**</span>
 <span class="source-line-no">087</span><span id="line-87"> *  A specialisation of</span>
@@ -103,495 +103,493 @@
 <span class="source-line-no">090</span><span id="line-90"> *  {@link UMLTypeElement}</span>
 <span class="source-line-no">091</span><span id="line-91"> *  instances.</span>
 <span class="source-line-no">092</span><span id="line-92"> *</span>
-<span class="source-line-no">093</span><span id="line-93"> *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org</span>
-<span class="source-line-no">094</span><span id="line-94"> *  @version $Id: TypeSymbol.java 820 2020-12-29 20:34:22Z tquadrat $</span>
+<span class="source-line-no">093</span><span id="line-93"> *  @author Thomas Thrien - thomas.thrien@tquadrat.org</span>
+<span class="source-line-no">094</span><span id="line-94"> *  @version $Id: TypeSymbol.java 976 2022-01-06 11:39:58Z tquadrat $</span>
 <span class="source-line-no">095</span><span id="line-95"> *  @since 0.0.5</span>
-<span class="source-line-no">096</span><span id="line-96"> *</span>
-<span class="source-line-no">097</span><span id="line-97"> *  @UMLGraph.link</span>
-<span class="source-line-no">098</span><span id="line-98"> */</span>
-<span class="source-line-no">099</span><span id="line-99">@ClassVersion( sourceVersion = "$Id: TypeSymbol.java 820 2020-12-29 20:34:22Z tquadrat $" )</span>
-<span class="source-line-no">100</span><span id="line-100">@API( status = INTERNAL, since = "0.0.5")</span>
-<span class="source-line-no">101</span><span id="line-101">public final class TypeSymbol extends SVGElementAdapter</span>
-<span class="source-line-no">102</span><span id="line-102">{</span>
-<span class="source-line-no">103</span><span id="line-103">        /*-----------*\</span>
-<span class="source-line-no">104</span><span id="line-104">    ====** Constants **========================================================</span>
-<span class="source-line-no">105</span><span id="line-105">        \*-----------*/</span>
-<span class="source-line-no">106</span><span id="line-106">    /**</span>
-<span class="source-line-no">107</span><span id="line-107">     *  The name for the CSS class that defines the look for external classes:</span>
-<span class="source-line-no">108</span><span id="line-108">     *  {@value}.</span>
-<span class="source-line-no">109</span><span id="line-109">     */</span>
-<span class="source-line-no">110</span><span id="line-110">    public static final String CSSClass_ExternalClass = "externalClass";</span>
-<span class="source-line-no">111</span><span id="line-111"></span>
-<span class="source-line-no">112</span><span id="line-112">    /**</span>
-<span class="source-line-no">113</span><span id="line-113">     *  The name for the CSS class that defines the look for the focus class:</span>
-<span class="source-line-no">114</span><span id="line-114">     *  {@value}.</span>
-<span class="source-line-no">115</span><span id="line-115">     */</span>
-<span class="source-line-no">116</span><span id="line-116">    public static final String CSSClass_FocusClass = "focusClass";</span>
-<span class="source-line-no">117</span><span id="line-117"></span>
-<span class="source-line-no">118</span><span id="line-118">    /**</span>
-<span class="source-line-no">119</span><span id="line-119">     *  The name for the CSS class that defines the look for other classes:</span>
-<span class="source-line-no">120</span><span id="line-120">     *  {@value}.</span>
-<span class="source-line-no">121</span><span id="line-121">     */</span>
-<span class="source-line-no">122</span><span id="line-122">    public static final String CSSClass_OtherClass = "otherClass";</span>
-<span class="source-line-no">123</span><span id="line-123"></span>
-<span class="source-line-no">124</span><span id="line-124">    /**</span>
-<span class="source-line-no">125</span><span id="line-125">     *  The width of a character for a SVG graph: {@value} px.</span>
-<span class="source-line-no">126</span><span id="line-126">     */</span>
-<span class="source-line-no">127</span><span id="line-127">    public static final double SVG_CHAR_WIDTH = 6.0;</span>
-<span class="source-line-no">128</span><span id="line-128"></span>
-<span class="source-line-no">129</span><span id="line-129">    /**</span>
-<span class="source-line-no">130</span><span id="line-130">     *  The height of a SVG text line: {@value} px.</span>
-<span class="source-line-no">131</span><span id="line-131">     */</span>
-<span class="source-line-no">132</span><span id="line-132">    public static final double SVG_LINE_HEIGHT = 11.0;</span>
-<span class="source-line-no">133</span><span id="line-133"></span>
-<span class="source-line-no">134</span><span id="line-134">    /**</span>
-<span class="source-line-no">135</span><span id="line-135">     *  The vertical border inside a rectangle: {@value} px.</span>
-<span class="source-line-no">136</span><span id="line-136">     */</span>
-<span class="source-line-no">137</span><span id="line-137">    public static final double SVG_LINE_SPACING = 2.0;</span>
-<span class="source-line-no">138</span><span id="line-138"></span>
-<span class="source-line-no">139</span><span id="line-139">    /**</span>
-<span class="source-line-no">140</span><span id="line-140">     *  The spacing before and after a SVG text: {@value} px.</span>
-<span class="source-line-no">141</span><span id="line-141">     */</span>
-<span class="source-line-no">142</span><span id="line-142">    public static final double SVG_TEXT_SPACING = 5.0;</span>
-<span class="source-line-no">143</span><span id="line-143"></span>
-<span class="source-line-no">144</span><span id="line-144">        /*------------*\</span>
-<span class="source-line-no">145</span><span id="line-145">    ====** Attributes **=======================================================</span>
-<span class="source-line-no">146</span><span id="line-146">        \*------------*/</span>
-<span class="source-line-no">147</span><span id="line-147">    /**</span>
-<span class="source-line-no">148</span><span id="line-148">     *  The dimension of the base rectangle for UML graph representing this</span>
-<span class="source-line-no">149</span><span id="line-149">     *  type element.</span>
-<span class="source-line-no">150</span><span id="line-150">     */</span>
-<span class="source-line-no">151</span><span id="line-151">    @SuppressWarnings( "InstanceVariableOfConcreteClass" )</span>
-<span class="source-line-no">152</span><span id="line-152">    private Dimension m_BaseDimension;</span>
-<span class="source-line-no">153</span><span id="line-153"></span>
-<span class="source-line-no">154</span><span id="line-154">    /**</span>
-<span class="source-line-no">155</span><span id="line-155">     *  The dimension for the SVG element representing this type element in the</span>
-<span class="source-line-no">156</span><span id="line-156">     *  UML diagram.</span>
-<span class="source-line-no">157</span><span id="line-157">     */</span>
-<span class="source-line-no">158</span><span id="line-158">    @SuppressWarnings( "InstanceVariableOfConcreteClass" )</span>
-<span class="source-line-no">159</span><span id="line-159">    private final Dimension m_Dimension;</span>
-<span class="source-line-no">160</span><span id="line-160"></span>
-<span class="source-line-no">161</span><span id="line-161">    /**</span>
-<span class="source-line-no">162</span><span id="line-162">     *  The local offset for the base rectangle.</span>
-<span class="source-line-no">163</span><span id="line-163">     */</span>
-<span class="source-line-no">164</span><span id="line-164">    @SuppressWarnings( "InstanceVariableOfConcreteClass" )</span>
-<span class="source-line-no">165</span><span id="line-165">    private final Point m_Offset;</span>
-<span class="source-line-no">166</span><span id="line-166"></span>
-<span class="source-line-no">167</span><span id="line-167">    /**</span>
-<span class="source-line-no">168</span><span id="line-168">     *  The instance of</span>
-<span class="source-line-no">169</span><span id="line-169">     *  {@link UMLTypeElement}</span>
-<span class="source-line-no">170</span><span id="line-170">     *  that is represented by this {@code TypeSymbol}.</span>
-<span class="source-line-no">171</span><span id="line-171">     */</span>
-<span class="source-line-no">172</span><span id="line-172">    @SuppressWarnings( "InstanceVariableOfConcreteClass" )</span>
-<span class="source-line-no">173</span><span id="line-173">    private final UMLTypeElement m_TypeElement;</span>
-<span class="source-line-no">174</span><span id="line-174"></span>
-<span class="source-line-no">175</span><span id="line-175">    /**</span>
-<span class="source-line-no">176</span><span id="line-176">     *  The X coordinate of the upper left corner of the symbol in the UML</span>
-<span class="source-line-no">177</span><span id="line-177">     *  diagram.</span>
-<span class="source-line-no">178</span><span id="line-178">     */</span>
-<span class="source-line-no">179</span><span id="line-179">    private double m_X = 0.0;</span>
-<span class="source-line-no">180</span><span id="line-180"></span>
-<span class="source-line-no">181</span><span id="line-181">    /**</span>
-<span class="source-line-no">182</span><span id="line-182">     *  The Y coordinate of the upper left corner of the symbol in the UML</span>
-<span class="source-line-no">183</span><span id="line-183">     *  diagram.</span>
-<span class="source-line-no">184</span><span id="line-184">     */</span>
-<span class="source-line-no">185</span><span id="line-185">    private double m_Y = 0.0;</span>
-<span class="source-line-no">186</span><span id="line-186"></span>
-<span class="source-line-no">187</span><span id="line-187">        /*--------------*\</span>
-<span class="source-line-no">188</span><span id="line-188">    ====** Constructors **=====================================================</span>
-<span class="source-line-no">189</span><span id="line-189">        \*--------------*/</span>
-<span class="source-line-no">190</span><span id="line-190">    /**</span>
-<span class="source-line-no">191</span><span id="line-191">     *  Creates a new {@code TypeSymbol} instance.</span>
-<span class="source-line-no">192</span><span id="line-192">     *</span>
-<span class="source-line-no">193</span><span id="line-193">     *  @param  parent  The UML document that contains the type element.</span>
-<span class="source-line-no">194</span><span id="line-194">     *  @param  typeElement The type element that is represented by this</span>
-<span class="source-line-no">195</span><span id="line-195">     *      instance of {@code TypeSymbol}.</span>
-<span class="source-line-no">196</span><span id="line-196">     *  @param  isFocusClass    {@code true} if the given type element is the</span>
-<span class="source-line-no">197</span><span id="line-197">     *      focus class of the UML graph.</span>
-<span class="source-line-no">198</span><span id="line-198">     *  @param  apiOnly {@code true} to show only the API parts of the type,</span>
-<span class="source-line-no">199</span><span id="line-199">     *      {@code false} if also the implementation internals are shown.</span>
-<span class="source-line-no">200</span><span id="line-200">     *  @param  isIncludedInOutput  {@code true} if the type element is shown</span>
-<span class="source-line-no">201</span><span id="line-201">     *      in the current output, {@code false} otherwise.</span>
-<span class="source-line-no">202</span><span id="line-202">     */</span>
-<span class="source-line-no">203</span><span id="line-203">    @SuppressWarnings( {"BooleanParameter", "MagicNumber"} )</span>
-<span class="source-line-no">204</span><span id="line-204">    public TypeSymbol( final UMLDocument parent, final UMLTypeElement typeElement, final boolean isFocusClass, final boolean apiOnly, final boolean isIncludedInOutput )</span>
-<span class="source-line-no">205</span><span id="line-205">    {</span>
-<span class="source-line-no">206</span><span id="line-206">        super( SVGELEMENT_Symbol, ALLOWS_CHILDREN, VALIDATES_ATTRIBUTES, VALIDATES_CHILDREN );</span>
-<span class="source-line-no">207</span><span id="line-207"></span>
-<span class="source-line-no">208</span><span id="line-208">        //---* The children and attributes for the &lt;symbol&gt; element *----------</span>
-<span class="source-line-no">209</span><span id="line-209">        final Collection&lt;String&gt; childElements = new HashSet&lt;&gt;();</span>
-<span class="source-line-no">210</span><span id="line-210">        childElements.addAll( ANIMATION.getElements() );</span>
-<span class="source-line-no">211</span><span id="line-211">        childElements.addAll( DESCRIPTIVE.getElements() );</span>
-<span class="source-line-no">212</span><span id="line-212">        childElements.addAll( SHAPE.getElements() );</span>
-<span class="source-line-no">213</span><span id="line-213">        childElements.addAll( STRUCTURAL.getElements() );</span>
-<span class="source-line-no">214</span><span id="line-214">        childElements.addAll( GRADIENT.getElements() );</span>
-<span class="source-line-no">215</span><span id="line-215">        childElements.addAll( List.of( SVGELEMENT_Anchor,</span>
-<span class="source-line-no">216</span><span id="line-216">            SVGELEMENT_AltGlyphDef, SVGELEMENT_ClipPath,</span>
-<span class="source-line-no">217</span><span id="line-217">            SVGELEMENT_ColorProfile, SVGELEMENT_Cursor, SVGELEMENT_Filter,</span>
-<span class="source-line-no">218</span><span id="line-218">            SVGELEMENT_Font, SVGELEMENT_FontFace, SVGELEMENT_ForeignObject,</span>
-<span class="source-line-no">219</span><span id="line-219">            SVGELEMENT_Image, SVGELEMENT_Marker, SVGELEMENT_Mask,</span>
-<span class="source-line-no">220</span><span id="line-220">            SVGELEMENT_Pattern, SVGELEMENT_Script, SVGELEMENT_Style,</span>
-<span class="source-line-no">221</span><span id="line-221">            SVGELEMENT_Switch, SVGELEMENT_Text, SVGELEMENT_View ) );</span>
-<span class="source-line-no">222</span><span id="line-222"></span>
-<span class="source-line-no">223</span><span id="line-223">        final Collection&lt;String&gt; attributes = new ArrayList&lt;&gt;();</span>
-<span class="source-line-no">224</span><span id="line-224">        attributes.addAll( List.of( SVGATTRIBUTE_Id,</span>
-<span class="source-line-no">225</span><span id="line-225">            SVGATTRIBUTE_PreserveAspectRatio, SVGATTRIBUTE_ViewBox,</span>
-<span class="source-line-no">226</span><span id="line-226">            SVGATTRIBUTE_Class, SVGATTRIBUTE_Style,</span>
-<span class="source-line-no">227</span><span id="line-227">            SVGATTRIBUTE_ExternalResourcesRequired ) );</span>
-<span class="source-line-no">228</span><span id="line-228">        attributes.addAll( CORE_ATTRIBUTES );</span>
-<span class="source-line-no">229</span><span id="line-229">        attributes.addAll( AllowsGraphicalEventAttributes.GRAPHICALEVENT_ATTRIBUTES );</span>
-<span class="source-line-no">230</span><span id="line-230">        attributes.addAll( AllowsPresentationAttributes.PRESENTATION_ATTRIBUTES );</span>
+<span class="source-line-no">096</span><span id="line-96"> */</span>
+<span class="source-line-no">097</span><span id="line-97">@ClassVersion( sourceVersion = "$Id: TypeSymbol.java 976 2022-01-06 11:39:58Z tquadrat $" )</span>
+<span class="source-line-no">098</span><span id="line-98">@API( status = INTERNAL, since = "0.0.5")</span>
+<span class="source-line-no">099</span><span id="line-99">public final class TypeSymbol extends SVGElementAdapter</span>
+<span class="source-line-no">100</span><span id="line-100">{</span>
+<span class="source-line-no">101</span><span id="line-101">        /*-----------*\</span>
+<span class="source-line-no">102</span><span id="line-102">    ====** Constants **========================================================</span>
+<span class="source-line-no">103</span><span id="line-103">        \*-----------*/</span>
+<span class="source-line-no">104</span><span id="line-104">    /**</span>
+<span class="source-line-no">105</span><span id="line-105">     *  The name for the CSS class that defines the look for external classes:</span>
+<span class="source-line-no">106</span><span id="line-106">     *  {@value}.</span>
+<span class="source-line-no">107</span><span id="line-107">     */</span>
+<span class="source-line-no">108</span><span id="line-108">    public static final String CSSClass_ExternalClass = "externalClass";</span>
+<span class="source-line-no">109</span><span id="line-109"></span>
+<span class="source-line-no">110</span><span id="line-110">    /**</span>
+<span class="source-line-no">111</span><span id="line-111">     *  The name for the CSS class that defines the look for the focus class:</span>
+<span class="source-line-no">112</span><span id="line-112">     *  {@value}.</span>
+<span class="source-line-no">113</span><span id="line-113">     */</span>
+<span class="source-line-no">114</span><span id="line-114">    public static final String CSSClass_FocusClass = "focusClass";</span>
+<span class="source-line-no">115</span><span id="line-115"></span>
+<span class="source-line-no">116</span><span id="line-116">    /**</span>
+<span class="source-line-no">117</span><span id="line-117">     *  The name for the CSS class that defines the look for other classes:</span>
+<span class="source-line-no">118</span><span id="line-118">     *  {@value}.</span>
+<span class="source-line-no">119</span><span id="line-119">     */</span>
+<span class="source-line-no">120</span><span id="line-120">    public static final String CSSClass_OtherClass = "otherClass";</span>
+<span class="source-line-no">121</span><span id="line-121"></span>
+<span class="source-line-no">122</span><span id="line-122">    /**</span>
+<span class="source-line-no">123</span><span id="line-123">     *  The width of a character for an SVG graph: {@value} px.</span>
+<span class="source-line-no">124</span><span id="line-124">     */</span>
+<span class="source-line-no">125</span><span id="line-125">    public static final double SVG_CHAR_WIDTH = 6.0;</span>
+<span class="source-line-no">126</span><span id="line-126"></span>
+<span class="source-line-no">127</span><span id="line-127">    /**</span>
+<span class="source-line-no">128</span><span id="line-128">     *  The height of an SVG text line: {@value} px.</span>
+<span class="source-line-no">129</span><span id="line-129">     */</span>
+<span class="source-line-no">130</span><span id="line-130">    public static final double SVG_LINE_HEIGHT = 11.0;</span>
+<span class="source-line-no">131</span><span id="line-131"></span>
+<span class="source-line-no">132</span><span id="line-132">    /**</span>
+<span class="source-line-no">133</span><span id="line-133">     *  The vertical border inside a rectangle: {@value} px.</span>
+<span class="source-line-no">134</span><span id="line-134">     */</span>
+<span class="source-line-no">135</span><span id="line-135">    public static final double SVG_LINE_SPACING = 2.0;</span>
+<span class="source-line-no">136</span><span id="line-136"></span>
+<span class="source-line-no">137</span><span id="line-137">    /**</span>
+<span class="source-line-no">138</span><span id="line-138">     *  The spacing before and after an SVG text: {@value} px.</span>
+<span class="source-line-no">139</span><span id="line-139">     */</span>
+<span class="source-line-no">140</span><span id="line-140">    public static final double SVG_TEXT_SPACING = 5.0;</span>
+<span class="source-line-no">141</span><span id="line-141"></span>
+<span class="source-line-no">142</span><span id="line-142">        /*------------*\</span>
+<span class="source-line-no">143</span><span id="line-143">    ====** Attributes **=======================================================</span>
+<span class="source-line-no">144</span><span id="line-144">        \*------------*/</span>
+<span class="source-line-no">145</span><span id="line-145">    /**</span>
+<span class="source-line-no">146</span><span id="line-146">     *  The dimension of the base rectangle for UML graph representing this</span>
+<span class="source-line-no">147</span><span id="line-147">     *  type element.</span>
+<span class="source-line-no">148</span><span id="line-148">     */</span>
+<span class="source-line-no">149</span><span id="line-149">    @SuppressWarnings( "InstanceVariableOfConcreteClass" )</span>
+<span class="source-line-no">150</span><span id="line-150">    private Dimension m_BaseDimension;</span>
+<span class="source-line-no">151</span><span id="line-151"></span>
+<span class="source-line-no">152</span><span id="line-152">    /**</span>
+<span class="source-line-no">153</span><span id="line-153">     *  The dimension for the SVG element representing this type element in the</span>
+<span class="source-line-no">154</span><span id="line-154">     *  UML diagram.</span>
+<span class="source-line-no">155</span><span id="line-155">     */</span>
+<span class="source-line-no">156</span><span id="line-156">    @SuppressWarnings( "InstanceVariableOfConcreteClass" )</span>
+<span class="source-line-no">157</span><span id="line-157">    private final Dimension m_Dimension;</span>
+<span class="source-line-no">158</span><span id="line-158"></span>
+<span class="source-line-no">159</span><span id="line-159">    /**</span>
+<span class="source-line-no">160</span><span id="line-160">     *  The local offset for the base rectangle.</span>
+<span class="source-line-no">161</span><span id="line-161">     */</span>
+<span class="source-line-no">162</span><span id="line-162">    @SuppressWarnings( "InstanceVariableOfConcreteClass" )</span>
+<span class="source-line-no">163</span><span id="line-163">    private final Point m_Offset;</span>
+<span class="source-line-no">164</span><span id="line-164"></span>
+<span class="source-line-no">165</span><span id="line-165">    /**</span>
+<span class="source-line-no">166</span><span id="line-166">     *  The instance of</span>
+<span class="source-line-no">167</span><span id="line-167">     *  {@link UMLTypeElement}</span>
+<span class="source-line-no">168</span><span id="line-168">     *  that is represented by this {@code TypeSymbol}.</span>
+<span class="source-line-no">169</span><span id="line-169">     */</span>
+<span class="source-line-no">170</span><span id="line-170">    @SuppressWarnings( "InstanceVariableOfConcreteClass" )</span>
+<span class="source-line-no">171</span><span id="line-171">    private final UMLTypeElement m_TypeElement;</span>
+<span class="source-line-no">172</span><span id="line-172"></span>
+<span class="source-line-no">173</span><span id="line-173">    /**</span>
+<span class="source-line-no">174</span><span id="line-174">     *  The X coordinate of the upper left corner of the symbol in the UML</span>
+<span class="source-line-no">175</span><span id="line-175">     *  diagram.</span>
+<span class="source-line-no">176</span><span id="line-176">     */</span>
+<span class="source-line-no">177</span><span id="line-177">    private double m_X = 0.0;</span>
+<span class="source-line-no">178</span><span id="line-178"></span>
+<span class="source-line-no">179</span><span id="line-179">    /**</span>
+<span class="source-line-no">180</span><span id="line-180">     *  The Y coordinate of the upper left corner of the symbol in the UML</span>
+<span class="source-line-no">181</span><span id="line-181">     *  diagram.</span>
+<span class="source-line-no">182</span><span id="line-182">     */</span>
+<span class="source-line-no">183</span><span id="line-183">    private double m_Y = 0.0;</span>
+<span class="source-line-no">184</span><span id="line-184"></span>
+<span class="source-line-no">185</span><span id="line-185">        /*--------------*\</span>
+<span class="source-line-no">186</span><span id="line-186">    ====** Constructors **=====================================================</span>
+<span class="source-line-no">187</span><span id="line-187">        \*--------------*/</span>
+<span class="source-line-no">188</span><span id="line-188">    /**</span>
+<span class="source-line-no">189</span><span id="line-189">     *  Creates a new {@code TypeSymbol} instance.</span>
+<span class="source-line-no">190</span><span id="line-190">     *</span>
+<span class="source-line-no">191</span><span id="line-191">     *  @param  parent  The UML document that contains the type element.</span>
+<span class="source-line-no">192</span><span id="line-192">     *  @param  typeElement The type element that is represented by this</span>
+<span class="source-line-no">193</span><span id="line-193">     *      instance of {@code TypeSymbol}.</span>
+<span class="source-line-no">194</span><span id="line-194">     *  @param  isFocusClass    {@code true} if the given type element is the</span>
+<span class="source-line-no">195</span><span id="line-195">     *      focus class of the UML graph.</span>
+<span class="source-line-no">196</span><span id="line-196">     *  @param  apiOnly {@code true} to show only the API parts of the type,</span>
+<span class="source-line-no">197</span><span id="line-197">     *      {@code false} if also the implementation internals are shown.</span>
+<span class="source-line-no">198</span><span id="line-198">     *  @param  isIncludedInOutput  {@code true} if the type element is shown</span>
+<span class="source-line-no">199</span><span id="line-199">     *      in the current output, {@code false} otherwise.</span>
+<span class="source-line-no">200</span><span id="line-200">     */</span>
+<span class="source-line-no">201</span><span id="line-201">    @SuppressWarnings( {"BooleanParameter", "MagicNumber"} )</span>
+<span class="source-line-no">202</span><span id="line-202">    public TypeSymbol( final UMLDocument parent, final UMLTypeElement typeElement, final boolean isFocusClass, final boolean apiOnly, final boolean isIncludedInOutput )</span>
+<span class="source-line-no">203</span><span id="line-203">    {</span>
+<span class="source-line-no">204</span><span id="line-204">        super( SVGELEMENT_Symbol, ALLOWS_CHILDREN, VALIDATES_ATTRIBUTES, VALIDATES_CHILDREN );</span>
+<span class="source-line-no">205</span><span id="line-205"></span>
+<span class="source-line-no">206</span><span id="line-206">        //---* The children and attributes for the &lt;symbol&gt; element *----------</span>
+<span class="source-line-no">207</span><span id="line-207">        final Collection&lt;String&gt; childElements = new HashSet&lt;&gt;();</span>
+<span class="source-line-no">208</span><span id="line-208">        childElements.addAll( ANIMATION.getElements() );</span>
+<span class="source-line-no">209</span><span id="line-209">        childElements.addAll( DESCRIPTIVE.getElements() );</span>
+<span class="source-line-no">210</span><span id="line-210">        childElements.addAll( SHAPE.getElements() );</span>
+<span class="source-line-no">211</span><span id="line-211">        childElements.addAll( STRUCTURAL.getElements() );</span>
+<span class="source-line-no">212</span><span id="line-212">        childElements.addAll( GRADIENT.getElements() );</span>
+<span class="source-line-no">213</span><span id="line-213">        childElements.addAll( List.of( SVGELEMENT_Anchor,</span>
+<span class="source-line-no">214</span><span id="line-214">            SVGELEMENT_AltGlyphDef, SVGELEMENT_ClipPath,</span>
+<span class="source-line-no">215</span><span id="line-215">            SVGELEMENT_ColorProfile, SVGELEMENT_Cursor, SVGELEMENT_Filter,</span>
+<span class="source-line-no">216</span><span id="line-216">            SVGELEMENT_Font, SVGELEMENT_FontFace, SVGELEMENT_ForeignObject,</span>
+<span class="source-line-no">217</span><span id="line-217">            SVGELEMENT_Image, SVGELEMENT_Marker, SVGELEMENT_Mask,</span>
+<span class="source-line-no">218</span><span id="line-218">            SVGELEMENT_Pattern, SVGELEMENT_Script, SVGELEMENT_Style,</span>
+<span class="source-line-no">219</span><span id="line-219">            SVGELEMENT_Switch, SVGELEMENT_Text, SVGELEMENT_View ) );</span>
+<span class="source-line-no">220</span><span id="line-220"></span>
+<span class="source-line-no">221</span><span id="line-221">        final Collection&lt;String&gt; attributes = new ArrayList&lt;&gt;();</span>
+<span class="source-line-no">222</span><span id="line-222">        attributes.addAll( List.of( SVGATTRIBUTE_Id,</span>
+<span class="source-line-no">223</span><span id="line-223">            SVGATTRIBUTE_PreserveAspectRatio, SVGATTRIBUTE_ViewBox,</span>
+<span class="source-line-no">224</span><span id="line-224">            SVGATTRIBUTE_Class, SVGATTRIBUTE_Style,</span>
+<span class="source-line-no">225</span><span id="line-225">            SVGATTRIBUTE_ExternalResourcesRequired ) );</span>
+<span class="source-line-no">226</span><span id="line-226">        attributes.addAll( CORE_ATTRIBUTES );</span>
+<span class="source-line-no">227</span><span id="line-227">        attributes.addAll( AllowsGraphicalEventAttributes.GRAPHICALEVENT_ATTRIBUTES );</span>
+<span class="source-line-no">228</span><span id="line-228">        attributes.addAll( AllowsPresentationAttributes.PRESENTATION_ATTRIBUTES );</span>
+<span class="source-line-no">229</span><span id="line-229"></span>
+<span class="source-line-no">230</span><span id="line-230">        updateRegistries( childElements, attributes );</span>
 <span class="source-line-no">231</span><span id="line-231"></span>
-<span class="source-line-no">232</span><span id="line-232">        updateRegistries( childElements, attributes );</span>
-<span class="source-line-no">233</span><span id="line-233"></span>
-<span class="source-line-no">234</span><span id="line-234">        //---* Set the mandatory id *------------------------------------------</span>
-<span class="source-line-no">235</span><span id="line-235">        setId( requireNonNullArgument( typeElement, "typeElement" ).getQualifiedName().toString() );</span>
-<span class="source-line-no">236</span><span id="line-236">        m_TypeElement = typeElement;</span>
-<span class="source-line-no">237</span><span id="line-237"></span>
-<span class="source-line-no">238</span><span id="line-238">        //---* Create the symbol *---------------------------------------------</span>
-<span class="source-line-no">239</span><span id="line-239">        final var symbolGroup = createGroup( this );</span>
-<span class="source-line-no">240</span><span id="line-240"></span>
-<span class="source-line-no">241</span><span id="line-241">        final var typeGroup = createGroup( symbolGroup );</span>
-<span class="source-line-no">242</span><span id="line-242">        if( isFocusClass ) typeGroup.setClass( CSSClass_FocusClass );</span>
-<span class="source-line-no">243</span><span id="line-243"></span>
-<span class="source-line-no">244</span><span id="line-244">        //---* Determine the stereotype *--------------------------------------</span>
-<span class="source-line-no">245</span><span id="line-245">        final var stereotypes = typeElement.determineStereotypes();</span>
-<span class="source-line-no">246</span><span id="line-246">        final Collection&lt;CharSequence&gt; texts = new ArrayList&lt;&gt;( List.of( stereotypes ) );</span>
-<span class="source-line-no">247</span><span id="line-247"></span>
-<span class="source-line-no">248</span><span id="line-248">        //---* The simple name of the class *----------------------------------</span>
-<span class="source-line-no">249</span><span id="line-249">        texts.add( typeElement.getSimpleName() );</span>
-<span class="source-line-no">250</span><span id="line-250"></span>
-<span class="source-line-no">251</span><span id="line-251">        //---* The attributes *------------------------------------------------</span>
-<span class="source-line-no">252</span><span id="line-252">        final var fields = typeElement.getAttributes( apiOnly );</span>
-<span class="source-line-no">253</span><span id="line-253">        for( final var field : fields )</span>
-<span class="source-line-no">254</span><span id="line-254">        {</span>
-<span class="source-line-no">255</span><span id="line-255">            texts.add( field.toString() );</span>
-<span class="source-line-no">256</span><span id="line-256">        }</span>
-<span class="source-line-no">257</span><span id="line-257"></span>
-<span class="source-line-no">258</span><span id="line-258">        //---* The constructors *----------------------------------------------</span>
-<span class="source-line-no">259</span><span id="line-259">        final var constructors = typeElement.getConstructors( apiOnly );</span>
-<span class="source-line-no">260</span><span id="line-260">        for( final var constructor : constructors )</span>
-<span class="source-line-no">261</span><span id="line-261">        {</span>
-<span class="source-line-no">262</span><span id="line-262">            texts.add( constructor.toString() );</span>
-<span class="source-line-no">263</span><span id="line-263">        }</span>
-<span class="source-line-no">264</span><span id="line-264"></span>
-<span class="source-line-no">265</span><span id="line-265">        //---* The methods *---------------------------------------------------</span>
-<span class="source-line-no">266</span><span id="line-266">        final var methods = typeElement.getMethods( apiOnly );</span>
-<span class="source-line-no">267</span><span id="line-267">        for( final var method : methods )</span>
-<span class="source-line-no">268</span><span id="line-268">        {</span>
-<span class="source-line-no">269</span><span id="line-269">            texts.add( method.toString() );</span>
-<span class="source-line-no">270</span><span id="line-270">        }</span>
-<span class="source-line-no">271</span><span id="line-271"></span>
-<span class="source-line-no">272</span><span id="line-272">        //---* Get the maximum text length *-----------------------------------</span>
-<span class="source-line-no">273</span><span id="line-273">        final var maxTextLen = maxContentLength( texts );</span>
-<span class="source-line-no">274</span><span id="line-274"></span>
-<span class="source-line-no">275</span><span id="line-275">        //---* Determine the number of lines *---------------------------------</span>
-<span class="source-line-no">276</span><span id="line-276">        final var lines = 1 + stereotypes.length + max( 1, fields.size() ) + max( 1, constructors.size() + methods.size() );</span>
-<span class="source-line-no">277</span><span id="line-277"></span>
-<span class="source-line-no">278</span><span id="line-278">        //---* Is this a template class (with generics)? *---------------------</span>
-<span class="source-line-no">279</span><span id="line-279">        final var typeParameters = typeElement.getTypeParameters();</span>
-<span class="source-line-no">280</span><span id="line-280">        var yOffset = 0.0;</span>
-<span class="source-line-no">281</span><span id="line-281">        var xAddon = 0.0;</span>
-<span class="source-line-no">282</span><span id="line-282">        SVGGroup templateGroup = null;</span>
-<span class="source-line-no">283</span><span id="line-283">        if( !typeParameters.isEmpty() )</span>
-<span class="source-line-no">284</span><span id="line-284">        {</span>
-<span class="source-line-no">285</span><span id="line-285">            templateGroup = createGroup();</span>
-<span class="source-line-no">286</span><span id="line-286">            yOffset = 8.0;</span>
-<span class="source-line-no">287</span><span id="line-287">            final var buffer = typeParameters.stream()</span>
-<span class="source-line-no">288</span><span id="line-288">                .map( Element::getSimpleName )</span>
-<span class="source-line-no">289</span><span id="line-289">                .collect( joining( "," ) );</span>
-<span class="source-line-no">290</span><span id="line-290">            final var width = max( 50.0, 2.0 * SVG_TEXT_SPACING + buffer.length() * SVG_CHAR_WIDTH );</span>
-<span class="source-line-no">291</span><span id="line-291">            xAddon = width / 2.0;</span>
-<span class="source-line-no">292</span><span id="line-292">            final var height = 3.0 * SVG_LINE_SPACING + SVG_LINE_HEIGHT;</span>
-<span class="source-line-no">293</span><span id="line-293"></span>
-<span class="source-line-no">294</span><span id="line-294">            var rect = createRectangle( number( 0.0 ), number( 1.0 ), number( width ), number( height ) );</span>
-<span class="source-line-no">295</span><span id="line-295">            rect.setClass( "template" );</span>
-<span class="source-line-no">296</span><span id="line-296">            templateGroup.addChild( rect );</span>
-<span class="source-line-no">297</span><span id="line-297">            rect = createRectangle( number( 0.0 ), number( 1.0 ), number( width ), number( height ) );</span>
-<span class="source-line-no">298</span><span id="line-298">            if( isFocusClass )</span>
-<span class="source-line-no">299</span><span id="line-299">            {</span>
-<span class="source-line-no">300</span><span id="line-300">                rect.setClass( CSSClass_FocusClass );</span>
-<span class="source-line-no">301</span><span id="line-301">            }</span>
-<span class="source-line-no">302</span><span id="line-302">            else if( isIncludedInOutput )</span>
-<span class="source-line-no">303</span><span id="line-303">            {</span>
-<span class="source-line-no">304</span><span id="line-304">                rect.setClass( CSSClass_OtherClass );</span>
-<span class="source-line-no">305</span><span id="line-305">            }</span>
-<span class="source-line-no">306</span><span id="line-306">            else</span>
-<span class="source-line-no">307</span><span id="line-307">            {</span>
-<span class="source-line-no">308</span><span id="line-308">                rect.setClass( CSSClass_ExternalClass );</span>
-<span class="source-line-no">309</span><span id="line-309">            }</span>
-<span class="source-line-no">310</span><span id="line-310">            rect.setStroke( PAINT_NONE );</span>
-<span class="source-line-no">311</span><span id="line-311">            rect.setStrokeOpacity( 0.0 );</span>
-<span class="source-line-no">312</span><span id="line-312">            templateGroup.addChild( rect );</span>
-<span class="source-line-no">313</span><span id="line-313"></span>
-<span class="source-line-no">314</span><span id="line-314">            final var text = createText( buffer );</span>
-<span class="source-line-no">315</span><span id="line-315">            text.setX( number( SVG_TEXT_SPACING ) );</span>
-<span class="source-line-no">316</span><span id="line-316">            text.setY( number( SVG_LINE_SPACING + SVG_LINE_HEIGHT + 1.0 ) );</span>
-<span class="source-line-no">317</span><span id="line-317">            templateGroup.addChild( text );</span>
-<span class="source-line-no">318</span><span id="line-318">        }</span>
-<span class="source-line-no">319</span><span id="line-319">        var y = yOffset;</span>
-<span class="source-line-no">320</span><span id="line-320">        final var x = 0.0;</span>
-<span class="source-line-no">321</span><span id="line-321">        m_Offset = new Point( x, y );</span>
-<span class="source-line-no">322</span><span id="line-322"></span>
-<span class="source-line-no">323</span><span id="line-323">        //---* Calculate the dimensions *--------------------------------------</span>
-<span class="source-line-no">324</span><span id="line-324">        final var width = 2.0 * SVG_TEXT_SPACING + maxTextLen * SVG_CHAR_WIDTH;</span>
-<span class="source-line-no">325</span><span id="line-325">        var height = 9.0 * SVG_LINE_SPACING + lines * SVG_LINE_HEIGHT;</span>
-<span class="source-line-no">326</span><span id="line-326">        m_Dimension = new Dimension( width + xAddon, height + yOffset );</span>
-<span class="source-line-no">327</span><span id="line-327">        setBaseDimension( width, height );</span>
-<span class="source-line-no">328</span><span id="line-328"></span>
-<span class="source-line-no">329</span><span id="line-329">        //---* The base rectangle *--------------------------------------------</span>
-<span class="source-line-no">330</span><span id="line-330">        final var rect = createRectangle( number( x ), number( y ), number( width ), number( height ) );</span>
-<span class="source-line-no">331</span><span id="line-331">        if( isFocusClass )</span>
-<span class="source-line-no">332</span><span id="line-332">        {</span>
-<span class="source-line-no">333</span><span id="line-333">            rect.setClass( "focusClass" );</span>
-<span class="source-line-no">334</span><span id="line-334">        }</span>
-<span class="source-line-no">335</span><span id="line-335">        else if( isIncludedInOutput )</span>
-<span class="source-line-no">336</span><span id="line-336">        {</span>
-<span class="source-line-no">337</span><span id="line-337">            rect.setClass( "otherClass" );</span>
-<span class="source-line-no">338</span><span id="line-338">        }</span>
-<span class="source-line-no">339</span><span id="line-339">        else</span>
-<span class="source-line-no">340</span><span id="line-340">        {</span>
-<span class="source-line-no">341</span><span id="line-341">            rect.setClass( "externalClass" );</span>
-<span class="source-line-no">342</span><span id="line-342">        }</span>
-<span class="source-line-no">343</span><span id="line-343">        typeGroup.addChild( rect );</span>
-<span class="source-line-no">344</span><span id="line-344">        typeGroup.setClipPath( URI.create( "#" + parent.addClippath( rect ) ) );</span>
-<span class="source-line-no">345</span><span id="line-345"></span>
-<span class="source-line-no">346</span><span id="line-346">        //---* The rectangle for the name and stereotype *---------------------</span>
-<span class="source-line-no">347</span><span id="line-347">        height = 3.0 * SVG_LINE_SPACING + (1 + stereotypes.length) * SVG_LINE_HEIGHT;</span>
-<span class="source-line-no">348</span><span id="line-348">        var line = createLine( number( x ), number( y + height ), number( x + width ), number( y + height ) );</span>
-<span class="source-line-no">349</span><span id="line-349">        line.setClass( "separator" );</span>
-<span class="source-line-no">350</span><span id="line-350">        typeGroup.addChild( line );</span>
-<span class="source-line-no">351</span><span id="line-351">        SVGText text;</span>
-<span class="source-line-no">352</span><span id="line-352">        var lineCounter = 0;</span>
-<span class="source-line-no">353</span><span id="line-353">        for( final var stereotype : stereotypes )</span>
-<span class="source-line-no">354</span><span id="line-354">        {</span>
-<span class="source-line-no">355</span><span id="line-355">            text = createText( stereotype );</span>
-<span class="source-line-no">356</span><span id="line-356">            text.setX( number( width / 2.0 - stereotype.length() * SVG_CHAR_WIDTH * 0.8 / 2.0 ) );</span>
-<span class="source-line-no">357</span><span id="line-357">            text.setY( number( y + SVG_LINE_SPACING + ++lineCounter * SVG_LINE_HEIGHT ) );</span>
-<span class="source-line-no">358</span><span id="line-358">            text.setClass( "stereotype" );</span>
-<span class="source-line-no">359</span><span id="line-359">            typeGroup.addChild( text );</span>
-<span class="source-line-no">360</span><span id="line-360">        }</span>
-<span class="source-line-no">361</span><span id="line-361">        text = createText( typeElement.getSimpleName() );</span>
-<span class="source-line-no">362</span><span id="line-362">        text.setX( number( width / 2.0 - typeElement.getSimpleName().length() * SVG_CHAR_WIDTH / 2.0 ) );</span>
-<span class="source-line-no">363</span><span id="line-363">        text.setY( number( y + SVG_LINE_SPACING + ++lineCounter * SVG_LINE_HEIGHT ) );</span>
-<span class="source-line-no">364</span><span id="line-364">        if( typeElement.isAbstract() ) text.setClass( "abstract" );</span>
-<span class="source-line-no">365</span><span id="line-365">        typeGroup.addChild( text );</span>
-<span class="source-line-no">366</span><span id="line-366">        y += height;</span>
-<span class="source-line-no">367</span><span id="line-367"></span>
-<span class="source-line-no">368</span><span id="line-368">        //---* The rectangle for the attributes *------------------------------</span>
-<span class="source-line-no">369</span><span id="line-369">        height = 3.0 * SVG_LINE_SPACING + max( 1, fields.size() ) * SVG_LINE_HEIGHT;</span>
-<span class="source-line-no">370</span><span id="line-370">        line = createLine( number( x ), number( y + height ), number( x + width ), number( y + height ) );</span>
-<span class="source-line-no">371</span><span id="line-371">        line.setClass( "separator" );</span>
-<span class="source-line-no">372</span><span id="line-372">        typeGroup.addChild( line );</span>
-<span class="source-line-no">373</span><span id="line-373">        if( !fields.isEmpty() )</span>
-<span class="source-line-no">374</span><span id="line-374">        {</span>
-<span class="source-line-no">375</span><span id="line-375">            lineCounter = 0;</span>
-<span class="source-line-no">376</span><span id="line-376">            for( final var field : fields )</span>
-<span class="source-line-no">377</span><span id="line-377">            {</span>
-<span class="source-line-no">378</span><span id="line-378">                text = field.toText();</span>
-<span class="source-line-no">379</span><span id="line-379">                text.setY( number( x + SVG_TEXT_SPACING ) );</span>
-<span class="source-line-no">380</span><span id="line-380">                text.setY( number( y + SVG_LINE_SPACING + ++lineCounter * SVG_LINE_HEIGHT ) );</span>
-<span class="source-line-no">381</span><span id="line-381">                typeGroup.addChild( text );</span>
-<span class="source-line-no">382</span><span id="line-382">            }</span>
-<span class="source-line-no">383</span><span id="line-383">        }</span>
-<span class="source-line-no">384</span><span id="line-384">        else</span>
-<span class="source-line-no">385</span><span id="line-385">        {</span>
-<span class="source-line-no">386</span><span id="line-386">            final var t = typeElement.getAttributes( false ).isEmpty() ? EMPTY_STRING : "\u2026";</span>
-<span class="source-line-no">387</span><span id="line-387">            text = createText( t );</span>
-<span class="source-line-no">388</span><span id="line-388">            text.setX( number( x + SVG_TEXT_SPACING ) );</span>
-<span class="source-line-no">389</span><span id="line-389">            text.setY( number(  y + SVG_LINE_SPACING + SVG_LINE_HEIGHT ) );</span>
-<span class="source-line-no">390</span><span id="line-390">            typeGroup.addChild( text );</span>
-<span class="source-line-no">391</span><span id="line-391">        }</span>
-<span class="source-line-no">392</span><span id="line-392">        y += height;</span>
-<span class="source-line-no">393</span><span id="line-393"></span>
-<span class="source-line-no">394</span><span id="line-394">        //---* The rectangle for the constructors and methods *----------------</span>
-<span class="source-line-no">395</span><span id="line-395">        if( !constructors.isEmpty() || !methods.isEmpty() )</span>
-<span class="source-line-no">396</span><span id="line-396">        {</span>
-<span class="source-line-no">397</span><span id="line-397">            lineCounter = 0;</span>
-<span class="source-line-no">398</span><span id="line-398">            for( final var constructor : constructors )</span>
-<span class="source-line-no">399</span><span id="line-399">            {</span>
-<span class="source-line-no">400</span><span id="line-400">                text = constructor.toText();</span>
-<span class="source-line-no">401</span><span id="line-401">                text.setX( number( x + SVG_TEXT_SPACING ) );</span>
-<span class="source-line-no">402</span><span id="line-402">                text.setY( number( y + SVG_LINE_SPACING + ++lineCounter * SVG_LINE_HEIGHT ) );</span>
-<span class="source-line-no">403</span><span id="line-403">                typeGroup.addChild( text );</span>
-<span class="source-line-no">404</span><span id="line-404">            }</span>
-<span class="source-line-no">405</span><span id="line-405">            for( final var method : methods )</span>
-<span class="source-line-no">406</span><span id="line-406">            {</span>
-<span class="source-line-no">407</span><span id="line-407">                text = method.toText();</span>
-<span class="source-line-no">408</span><span id="line-408">                text.setX( number( x + SVG_TEXT_SPACING ) );</span>
-<span class="source-line-no">409</span><span id="line-409">                text.setY( number( y + SVG_LINE_SPACING + ++lineCounter * SVG_LINE_HEIGHT ) );</span>
-<span class="source-line-no">410</span><span id="line-410">                typeGroup.addChild( text );</span>
-<span class="source-line-no">411</span><span id="line-411">            }</span>
-<span class="source-line-no">412</span><span id="line-412">        }</span>
-<span class="source-line-no">413</span><span id="line-413">        else</span>
-<span class="source-line-no">414</span><span id="line-414">        {</span>
-<span class="source-line-no">415</span><span id="line-415">            final var t = typeElement.getConstructors( false ).isEmpty() &amp;&amp; typeElement.getMethods( false ).isEmpty() ? EMPTY_STRING : "\u2026";</span>
-<span class="source-line-no">416</span><span id="line-416">            text = createText( t );</span>
-<span class="source-line-no">417</span><span id="line-417">            text.setX( number( x + SVG_TEXT_SPACING ) );</span>
-<span class="source-line-no">418</span><span id="line-418">            text.setY( number( y + SVG_LINE_SPACING + SVG_LINE_HEIGHT ) );</span>
-<span class="source-line-no">419</span><span id="line-419">            typeGroup.addChild( text );</span>
-<span class="source-line-no">420</span><span id="line-420">        }</span>
-<span class="source-line-no">421</span><span id="line-421"></span>
-<span class="source-line-no">422</span><span id="line-422">        //---* Add the template *----------------------------------------------</span>
-<span class="source-line-no">423</span><span id="line-423">        if( nonNull( templateGroup ) )</span>
-<span class="source-line-no">424</span><span id="line-424">        {</span>
-<span class="source-line-no">425</span><span id="line-425">            templateGroup.setTransform( translate( width - xAddon, 0 ) );</span>
-<span class="source-line-no">426</span><span id="line-426">            symbolGroup.addChild( templateGroup );</span>
-<span class="source-line-no">427</span><span id="line-427">        }</span>
-<span class="source-line-no">428</span><span id="line-428">    }   //  TypeSymbol()</span>
-<span class="source-line-no">429</span><span id="line-429"></span>
-<span class="source-line-no">430</span><span id="line-430">        /*---------*\</span>
-<span class="source-line-no">431</span><span id="line-431">    ====** Methods **==========================================================</span>
-<span class="source-line-no">432</span><span id="line-432">        \*---------*/</span>
-<span class="source-line-no">433</span><span id="line-433">    /**</span>
-<span class="source-line-no">434</span><span id="line-434">     *  Returns this {@code TypeSymbol} instance as an instance of</span>
-<span class="source-line-no">435</span><span id="line-435">     *  {@link org.tquadrat.foundation.svg.SVGSymbol SVGPath}.</span>
-<span class="source-line-no">436</span><span id="line-436">     *</span>
-<span class="source-line-no">437</span><span id="line-437">     *  @return This instance.</span>
-<span class="source-line-no">438</span><span id="line-438">     */</span>
-<span class="source-line-no">439</span><span id="line-439">    public final SVGSymbol asSVGSymbol() { return this; }</span>
-<span class="source-line-no">440</span><span id="line-440"></span>
-<span class="source-line-no">441</span><span id="line-441">    /**</span>
-<span class="source-line-no">442</span><span id="line-442">     *  Returns a</span>
-<span class="source-line-no">443</span><span id="line-443">     *  {@link SVGUse}</span>
-<span class="source-line-no">444</span><span id="line-444">     *  element for this symbol and calculates the connector end points.</span>
-<span class="source-line-no">445</span><span id="line-445">     *</span>
-<span class="source-line-no">446</span><span id="line-446">     *  @param  startingConnectors  The connectors that will originate from</span>
-<span class="source-line-no">447</span><span id="line-447">     *      this type element.</span>
-<span class="source-line-no">448</span><span id="line-448">     *  @param  endingConnectors    The connectors that will end at this type</span>
-<span class="source-line-no">449</span><span id="line-449">     *      element.</span>
-<span class="source-line-no">450</span><span id="line-450">     *  @return The new use element.</span>
-<span class="source-line-no">451</span><span id="line-451">     */</span>
-<span class="source-line-no">452</span><span id="line-452">    public final SVGUse createUse( final Collection&lt;UMLConnector&gt; startingConnectors, final Collection&lt;UMLConnector&gt; endingConnectors )</span>
-<span class="source-line-no">453</span><span id="line-453">    {</span>
-<span class="source-line-no">454</span><span id="line-454">        final var retValue = SVGUtils.createUse( URI.create( "#" + getQualifiedName() ) );</span>
-<span class="source-line-no">455</span><span id="line-455">        var y = m_Y;</span>
-<span class="source-line-no">456</span><span id="line-456">        retValue.setX( number( m_X ) );</span>
-<span class="source-line-no">457</span><span id="line-457">        retValue.setY( number( m_Y ) );</span>
-<span class="source-line-no">458</span><span id="line-458"></span>
-<span class="source-line-no">459</span><span id="line-459">        //---* Calculate the connector endings *-------------------------------</span>
-<span class="source-line-no">460</span><span id="line-460">        var count = 0;</span>
-<span class="source-line-no">461</span><span id="line-461">        y += m_Offset.y();</span>
-<span class="source-line-no">462</span><span id="line-462">        final var height = m_BaseDimension.height();</span>
-<span class="source-line-no">463</span><span id="line-463">        if( nonNull( startingConnectors ) &amp;&amp; !startingConnectors.isEmpty() )</span>
-<span class="source-line-no">464</span><span id="line-464">        {</span>
-<span class="source-line-no">465</span><span id="line-465">            final var distance = 50.0;</span>
-<span class="source-line-no">466</span><span id="line-466">            final var startPos = m_X + (m_BaseDimension.width() - (startingConnectors.size() - 1) * distance) / 2.0;</span>
-<span class="source-line-no">467</span><span id="line-467">            for( final var connector : startingConnectors )</span>
-<span class="source-line-no">468</span><span id="line-468">            {</span>
-<span class="source-line-no">469</span><span id="line-469">                connector.setStartPoint( startPos + count++ * distance, y );</span>
-<span class="source-line-no">470</span><span id="line-470">            }</span>
-<span class="source-line-no">471</span><span id="line-471">        }</span>
-<span class="source-line-no">472</span><span id="line-472">        if( nonNull( endingConnectors ) &amp;&amp; !endingConnectors.isEmpty() )</span>
-<span class="source-line-no">473</span><span id="line-473">        {</span>
-<span class="source-line-no">474</span><span id="line-474">            final var distance = 30.0;</span>
-<span class="source-line-no">475</span><span id="line-475">            final var startPos = m_X + (m_BaseDimension.width() - (endingConnectors.size() - 1) * distance) / 2.0;</span>
-<span class="source-line-no">476</span><span id="line-476">            count = 0;</span>
-<span class="source-line-no">477</span><span id="line-477">            for( final var line : endingConnectors )</span>
-<span class="source-line-no">478</span><span id="line-478">            {</span>
-<span class="source-line-no">479</span><span id="line-479">                line.setEndPoint( startPos + count++ * distance, y + height );</span>
-<span class="source-line-no">480</span><span id="line-480">            }</span>
-<span class="source-line-no">481</span><span id="line-481">        }</span>
-<span class="source-line-no">482</span><span id="line-482"></span>
-<span class="source-line-no">483</span><span id="line-483">        //---* Done *----------------------------------------------------------</span>
-<span class="source-line-no">484</span><span id="line-484">        return retValue;</span>
-<span class="source-line-no">485</span><span id="line-485">    }   //  createUse()</span>
-<span class="source-line-no">486</span><span id="line-486"></span>
-<span class="source-line-no">487</span><span id="line-487">    /**</span>
-<span class="source-line-no">488</span><span id="line-488">     *  {@inheritDoc}</span>
-<span class="source-line-no">489</span><span id="line-489">     */</span>
-<span class="source-line-no">490</span><span id="line-490">    @SuppressWarnings( "AccessingNonPublicFieldOfAnotherObject" )</span>
-<span class="source-line-no">491</span><span id="line-491">    @Override</span>
-<span class="source-line-no">492</span><span id="line-492">    public final boolean equals( final Object obj )</span>
-<span class="source-line-no">493</span><span id="line-493">    {</span>
-<span class="source-line-no">494</span><span id="line-494">        var retValue = obj == this;</span>
-<span class="source-line-no">495</span><span id="line-495">        if( !retValue &amp;&amp; (obj instanceof TypeSymbol other ) )</span>
-<span class="source-line-no">496</span><span id="line-496">        {</span>
-<span class="source-line-no">497</span><span id="line-497">            retValue = m_TypeElement.equals( other.m_TypeElement );</span>
-<span class="source-line-no">498</span><span id="line-498">        }</span>
-<span class="source-line-no">499</span><span id="line-499"></span>
-<span class="source-line-no">500</span><span id="line-500">        //---* Done *----------------------------------------------------------</span>
-<span class="source-line-no">501</span><span id="line-501">        return retValue;</span>
-<span class="source-line-no">502</span><span id="line-502">    }   //  equals()</span>
-<span class="source-line-no">503</span><span id="line-503"></span>
-<span class="source-line-no">504</span><span id="line-504">    /**</span>
-<span class="source-line-no">505</span><span id="line-505">     *  Returns the dimension for the SVG element representing the type element</span>
-<span class="source-line-no">506</span><span id="line-506">     *  in the UML diagram.</span>
-<span class="source-line-no">507</span><span id="line-507">     *</span>
-<span class="source-line-no">508</span><span id="line-508">     *  @return The dimension.</span>
-<span class="source-line-no">509</span><span id="line-509">     */</span>
-<span class="source-line-no">510</span><span id="line-510">    public final Dimension getDimension() { return m_Dimension; }</span>
-<span class="source-line-no">511</span><span id="line-511"></span>
-<span class="source-line-no">512</span><span id="line-512">    /**</span>
-<span class="source-line-no">513</span><span id="line-513">     *  Returns the position of the SVG element representing this UML class.</span>
-<span class="source-line-no">514</span><span id="line-514">     *</span>
-<span class="source-line-no">515</span><span id="line-515">     *  @return The coordinates of the upper left corner of the class diagram.</span>
-<span class="source-line-no">516</span><span id="line-516">     */</span>
-<span class="source-line-no">517</span><span id="line-517">    public final Point getPosition() { return new Point( m_X, m_Y ); }</span>
-<span class="source-line-no">518</span><span id="line-518"></span>
-<span class="source-line-no">519</span><span id="line-519">    /**</span>
-<span class="source-line-no">520</span><span id="line-520">     *  Returns the qualified name of the type element that is represented by</span>
-<span class="source-line-no">521</span><span id="line-521">     *  this symbol.</span>
-<span class="source-line-no">522</span><span id="line-522">     *</span>
-<span class="source-line-no">523</span><span id="line-523">     *  @return The qualified name.</span>
-<span class="source-line-no">524</span><span id="line-524">     */</span>
-<span class="source-line-no">525</span><span id="line-525">    public final String getQualifiedName() { return m_TypeElement.getQualifiedName().toString(); }</span>
-<span class="source-line-no">526</span><span id="line-526"></span>
-<span class="source-line-no">527</span><span id="line-527">    /**</span>
-<span class="source-line-no">528</span><span id="line-528">     *  Returns the type element that is represented by this symbol.</span>
-<span class="source-line-no">529</span><span id="line-529">     *</span>
-<span class="source-line-no">530</span><span id="line-530">     *  @return The type element.</span>
-<span class="source-line-no">531</span><span id="line-531">     */</span>
-<span class="source-line-no">532</span><span id="line-532">    public final UMLTypeElement getTypeElement() { return m_TypeElement; }</span>
-<span class="source-line-no">533</span><span id="line-533"></span>
-<span class="source-line-no">534</span><span id="line-534">    /**</span>
-<span class="source-line-no">535</span><span id="line-535">     *  {@inheritDoc}</span>
-<span class="source-line-no">536</span><span id="line-536">     */</span>
-<span class="source-line-no">537</span><span id="line-537">    @Override</span>
-<span class="source-line-no">538</span><span id="line-538">    public final int hashCode() { return m_TypeElement.hashCode(); }</span>
-<span class="source-line-no">539</span><span id="line-539"></span>
-<span class="source-line-no">540</span><span id="line-540">    /**</span>
-<span class="source-line-no">541</span><span id="line-541">     *  Returns {@code true} if the type element represented by this type</span>
-<span class="source-line-no">542</span><span id="line-542">     *  symbol is an interface. Different from</span>
-<span class="source-line-no">543</span><span id="line-543">     *  {@link javax.lang.model.element.ElementKind#isInterface()},</span>
-<span class="source-line-no">544</span><span id="line-544">     *  this method will return {@code false} if the type element is an</span>
-<span class="source-line-no">545</span><span id="line-545">     *  {@code annotation}.</span>
-<span class="source-line-no">546</span><span id="line-546">     *</span>
-<span class="source-line-no">547</span><span id="line-547">     *  @return {@code true} if the type element represented by this type</span>
-<span class="source-line-no">548</span><span id="line-548">     *      symbol is an interface, {@code false} otherwise.</span>
-<span class="source-line-no">549</span><span id="line-549">     */</span>
-<span class="source-line-no">550</span><span id="line-550">    public final boolean isInterface() { return m_TypeElement.isInterface(); }</span>
-<span class="source-line-no">551</span><span id="line-551"></span>
-<span class="source-line-no">552</span><span id="line-552">    /**</span>
-<span class="source-line-no">553</span><span id="line-553">     *  Sets the base dimension for the SVG element representing the type</span>
-<span class="source-line-no">554</span><span id="line-554">     *  element in the UML diagram.</span>
-<span class="source-line-no">555</span><span id="line-555">     *</span>
-<span class="source-line-no">556</span><span id="line-556">     *  @param  width   The width for the SVG element.</span>
-<span class="source-line-no">557</span><span id="line-557">     *  @param  height  The height for the SVG element.</span>
-<span class="source-line-no">558</span><span id="line-558">     */</span>
-<span class="source-line-no">559</span><span id="line-559">    public final void setBaseDimension( final double width, final double height ) { m_BaseDimension = new Dimension( width, height ); }</span>
-<span class="source-line-no">560</span><span id="line-560"></span>
-<span class="source-line-no">561</span><span id="line-561">    /**</span>
-<span class="source-line-no">562</span><span id="line-562">     *  Sets the X coordinate for the upper left corner of the symbol for the</span>
-<span class="source-line-no">563</span><span id="line-563">     *  class diagram.</span>
-<span class="source-line-no">564</span><span id="line-564">     *</span>
-<span class="source-line-no">565</span><span id="line-565">     *  @param x    The X coordinate.</span>
-<span class="source-line-no">566</span><span id="line-566">     */</span>
-<span class="source-line-no">567</span><span id="line-567">    public final void setX( final double x) { m_X = x; }</span>
-<span class="source-line-no">568</span><span id="line-568"></span>
-<span class="source-line-no">569</span><span id="line-569">    /**</span>
-<span class="source-line-no">570</span><span id="line-570">     *  Sets the Y coordinate for the upper left corner of the symbol for the</span>
-<span class="source-line-no">571</span><span id="line-571">     *  class diagram.</span>
-<span class="source-line-no">572</span><span id="line-572">     *</span>
-<span class="source-line-no">573</span><span id="line-573">     *  @param y    The Y coordinate.</span>
-<span class="source-line-no">574</span><span id="line-574">     */</span>
-<span class="source-line-no">575</span><span id="line-575">    public final void setY( final double y ) { m_Y = y; }</span>
-<span class="source-line-no">576</span><span id="line-576">}</span>
-<span class="source-line-no">577</span><span id="line-577">//  class TypeSymbol</span>
-<span class="source-line-no">578</span><span id="line-578"></span>
-<span class="source-line-no">579</span><span id="line-579">/*</span>
-<span class="source-line-no">580</span><span id="line-580"> *  End of File</span>
-<span class="source-line-no">581</span><span id="line-581"> */</span>
+<span class="source-line-no">232</span><span id="line-232">        //---* Set the mandatory id *------------------------------------------</span>
+<span class="source-line-no">233</span><span id="line-233">        setId( requireNonNullArgument( typeElement, "typeElement" ).getQualifiedName().toString() );</span>
+<span class="source-line-no">234</span><span id="line-234">        m_TypeElement = typeElement;</span>
+<span class="source-line-no">235</span><span id="line-235"></span>
+<span class="source-line-no">236</span><span id="line-236">        //---* Create the symbol *---------------------------------------------</span>
+<span class="source-line-no">237</span><span id="line-237">        final var symbolGroup = createGroup( this );</span>
+<span class="source-line-no">238</span><span id="line-238"></span>
+<span class="source-line-no">239</span><span id="line-239">        final var typeGroup = createGroup( symbolGroup );</span>
+<span class="source-line-no">240</span><span id="line-240">        if( isFocusClass ) typeGroup.setClass( CSSClass_FocusClass );</span>
+<span class="source-line-no">241</span><span id="line-241"></span>
+<span class="source-line-no">242</span><span id="line-242">        //---* Determine the stereotype *--------------------------------------</span>
+<span class="source-line-no">243</span><span id="line-243">        final var stereotypes = typeElement.determineStereotypes();</span>
+<span class="source-line-no">244</span><span id="line-244">        final Collection&lt;CharSequence&gt; texts = new ArrayList&lt;&gt;( List.of( stereotypes ) );</span>
+<span class="source-line-no">245</span><span id="line-245"></span>
+<span class="source-line-no">246</span><span id="line-246">        //---* The simple name of the class *----------------------------------</span>
+<span class="source-line-no">247</span><span id="line-247">        texts.add( typeElement.getSimpleName() );</span>
+<span class="source-line-no">248</span><span id="line-248"></span>
+<span class="source-line-no">249</span><span id="line-249">        //---* The attributes *------------------------------------------------</span>
+<span class="source-line-no">250</span><span id="line-250">        final var fields = typeElement.getAttributes( apiOnly );</span>
+<span class="source-line-no">251</span><span id="line-251">        for( final var field : fields )</span>
+<span class="source-line-no">252</span><span id="line-252">        {</span>
+<span class="source-line-no">253</span><span id="line-253">            texts.add( field.toString() );</span>
+<span class="source-line-no">254</span><span id="line-254">        }</span>
+<span class="source-line-no">255</span><span id="line-255"></span>
+<span class="source-line-no">256</span><span id="line-256">        //---* The constructors *----------------------------------------------</span>
+<span class="source-line-no">257</span><span id="line-257">        final var constructors = typeElement.getConstructors( apiOnly );</span>
+<span class="source-line-no">258</span><span id="line-258">        for( final var constructor : constructors )</span>
+<span class="source-line-no">259</span><span id="line-259">        {</span>
+<span class="source-line-no">260</span><span id="line-260">            texts.add( constructor.toString() );</span>
+<span class="source-line-no">261</span><span id="line-261">        }</span>
+<span class="source-line-no">262</span><span id="line-262"></span>
+<span class="source-line-no">263</span><span id="line-263">        //---* The methods *---------------------------------------------------</span>
+<span class="source-line-no">264</span><span id="line-264">        final var methods = typeElement.getMethods( apiOnly );</span>
+<span class="source-line-no">265</span><span id="line-265">        for( final var method : methods )</span>
+<span class="source-line-no">266</span><span id="line-266">        {</span>
+<span class="source-line-no">267</span><span id="line-267">            texts.add( method.toString() );</span>
+<span class="source-line-no">268</span><span id="line-268">        }</span>
+<span class="source-line-no">269</span><span id="line-269"></span>
+<span class="source-line-no">270</span><span id="line-270">        //---* Get the maximum text length *-----------------------------------</span>
+<span class="source-line-no">271</span><span id="line-271">        final var maxTextLen = maxContentLength( texts );</span>
+<span class="source-line-no">272</span><span id="line-272"></span>
+<span class="source-line-no">273</span><span id="line-273">        //---* Determine the number of lines *---------------------------------</span>
+<span class="source-line-no">274</span><span id="line-274">        final var lines = 1 + stereotypes.length + max( 1, fields.size() ) + max( 1, constructors.size() + methods.size() );</span>
+<span class="source-line-no">275</span><span id="line-275"></span>
+<span class="source-line-no">276</span><span id="line-276">        //---* Is this a template class (with generics)? *---------------------</span>
+<span class="source-line-no">277</span><span id="line-277">        final var typeParameters = typeElement.getTypeParameters();</span>
+<span class="source-line-no">278</span><span id="line-278">        var yOffset = 0.0;</span>
+<span class="source-line-no">279</span><span id="line-279">        var xAddon = 0.0;</span>
+<span class="source-line-no">280</span><span id="line-280">        SVGGroup templateGroup = null;</span>
+<span class="source-line-no">281</span><span id="line-281">        if( !typeParameters.isEmpty() )</span>
+<span class="source-line-no">282</span><span id="line-282">        {</span>
+<span class="source-line-no">283</span><span id="line-283">            templateGroup = createGroup();</span>
+<span class="source-line-no">284</span><span id="line-284">            yOffset = 8.0;</span>
+<span class="source-line-no">285</span><span id="line-285">            final var buffer = typeParameters.stream()</span>
+<span class="source-line-no">286</span><span id="line-286">                .map( Element::getSimpleName )</span>
+<span class="source-line-no">287</span><span id="line-287">                .collect( joining( "," ) );</span>
+<span class="source-line-no">288</span><span id="line-288">            final var width = max( 50.0, 2.0 * SVG_TEXT_SPACING + buffer.length() * SVG_CHAR_WIDTH );</span>
+<span class="source-line-no">289</span><span id="line-289">            xAddon = width / 2.0;</span>
+<span class="source-line-no">290</span><span id="line-290">            final var height = 3.0 * SVG_LINE_SPACING + SVG_LINE_HEIGHT;</span>
+<span class="source-line-no">291</span><span id="line-291"></span>
+<span class="source-line-no">292</span><span id="line-292">            var rect = createRectangle( number( 0.0 ), number( 1.0 ), number( width ), number( height ) );</span>
+<span class="source-line-no">293</span><span id="line-293">            rect.setClass( "template" );</span>
+<span class="source-line-no">294</span><span id="line-294">            templateGroup.addChild( rect );</span>
+<span class="source-line-no">295</span><span id="line-295">            rect = createRectangle( number( 0.0 ), number( 1.0 ), number( width ), number( height ) );</span>
+<span class="source-line-no">296</span><span id="line-296">            if( isFocusClass )</span>
+<span class="source-line-no">297</span><span id="line-297">            {</span>
+<span class="source-line-no">298</span><span id="line-298">                rect.setClass( CSSClass_FocusClass );</span>
+<span class="source-line-no">299</span><span id="line-299">            }</span>
+<span class="source-line-no">300</span><span id="line-300">            else if( isIncludedInOutput )</span>
+<span class="source-line-no">301</span><span id="line-301">            {</span>
+<span class="source-line-no">302</span><span id="line-302">                rect.setClass( CSSClass_OtherClass );</span>
+<span class="source-line-no">303</span><span id="line-303">            }</span>
+<span class="source-line-no">304</span><span id="line-304">            else</span>
+<span class="source-line-no">305</span><span id="line-305">            {</span>
+<span class="source-line-no">306</span><span id="line-306">                rect.setClass( CSSClass_ExternalClass );</span>
+<span class="source-line-no">307</span><span id="line-307">            }</span>
+<span class="source-line-no">308</span><span id="line-308">            rect.setStroke( PAINT_NONE );</span>
+<span class="source-line-no">309</span><span id="line-309">            rect.setStrokeOpacity( 0.0 );</span>
+<span class="source-line-no">310</span><span id="line-310">            templateGroup.addChild( rect );</span>
+<span class="source-line-no">311</span><span id="line-311"></span>
+<span class="source-line-no">312</span><span id="line-312">            final var text = createText( buffer );</span>
+<span class="source-line-no">313</span><span id="line-313">            text.setX( number( SVG_TEXT_SPACING ) );</span>
+<span class="source-line-no">314</span><span id="line-314">            text.setY( number( SVG_LINE_SPACING + SVG_LINE_HEIGHT + 1.0 ) );</span>
+<span class="source-line-no">315</span><span id="line-315">            templateGroup.addChild( text );</span>
+<span class="source-line-no">316</span><span id="line-316">        }</span>
+<span class="source-line-no">317</span><span id="line-317">        var y = yOffset;</span>
+<span class="source-line-no">318</span><span id="line-318">        final var x = 0.0;</span>
+<span class="source-line-no">319</span><span id="line-319">        m_Offset = new Point( x, y );</span>
+<span class="source-line-no">320</span><span id="line-320"></span>
+<span class="source-line-no">321</span><span id="line-321">        //---* Calculate the dimensions *--------------------------------------</span>
+<span class="source-line-no">322</span><span id="line-322">        final var width = 2.0 * SVG_TEXT_SPACING + maxTextLen * SVG_CHAR_WIDTH;</span>
+<span class="source-line-no">323</span><span id="line-323">        var height = 9.0 * SVG_LINE_SPACING + lines * SVG_LINE_HEIGHT;</span>
+<span class="source-line-no">324</span><span id="line-324">        m_Dimension = new Dimension( width + xAddon, height + yOffset );</span>
+<span class="source-line-no">325</span><span id="line-325">        setBaseDimension( width, height );</span>
+<span class="source-line-no">326</span><span id="line-326"></span>
+<span class="source-line-no">327</span><span id="line-327">        //---* The base rectangle *--------------------------------------------</span>
+<span class="source-line-no">328</span><span id="line-328">        final var rect = createRectangle( number( x ), number( y ), number( width ), number( height ) );</span>
+<span class="source-line-no">329</span><span id="line-329">        if( isFocusClass )</span>
+<span class="source-line-no">330</span><span id="line-330">        {</span>
+<span class="source-line-no">331</span><span id="line-331">            rect.setClass( "focusClass" );</span>
+<span class="source-line-no">332</span><span id="line-332">        }</span>
+<span class="source-line-no">333</span><span id="line-333">        else if( isIncludedInOutput )</span>
+<span class="source-line-no">334</span><span id="line-334">        {</span>
+<span class="source-line-no">335</span><span id="line-335">            rect.setClass( "otherClass" );</span>
+<span class="source-line-no">336</span><span id="line-336">        }</span>
+<span class="source-line-no">337</span><span id="line-337">        else</span>
+<span class="source-line-no">338</span><span id="line-338">        {</span>
+<span class="source-line-no">339</span><span id="line-339">            rect.setClass( "externalClass" );</span>
+<span class="source-line-no">340</span><span id="line-340">        }</span>
+<span class="source-line-no">341</span><span id="line-341">        typeGroup.addChild( rect );</span>
+<span class="source-line-no">342</span><span id="line-342">        typeGroup.setClipPath( URI.create( "#" + parent.addClippath( rect ) ) );</span>
+<span class="source-line-no">343</span><span id="line-343"></span>
+<span class="source-line-no">344</span><span id="line-344">        //---* The rectangle for the name and stereotype *---------------------</span>
+<span class="source-line-no">345</span><span id="line-345">        height = 3.0 * SVG_LINE_SPACING + (1 + stereotypes.length) * SVG_LINE_HEIGHT;</span>
+<span class="source-line-no">346</span><span id="line-346">        var line = createLine( number( x ), number( y + height ), number( x + width ), number( y + height ) );</span>
+<span class="source-line-no">347</span><span id="line-347">        line.setClass( "separator" );</span>
+<span class="source-line-no">348</span><span id="line-348">        typeGroup.addChild( line );</span>
+<span class="source-line-no">349</span><span id="line-349">        SVGText text;</span>
+<span class="source-line-no">350</span><span id="line-350">        var lineCounter = 0;</span>
+<span class="source-line-no">351</span><span id="line-351">        for( final var stereotype : stereotypes )</span>
+<span class="source-line-no">352</span><span id="line-352">        {</span>
+<span class="source-line-no">353</span><span id="line-353">            text = createText( stereotype );</span>
+<span class="source-line-no">354</span><span id="line-354">            text.setX( number( width / 2.0 - stereotype.length() * SVG_CHAR_WIDTH * 0.8 / 2.0 ) );</span>
+<span class="source-line-no">355</span><span id="line-355">            text.setY( number( y + SVG_LINE_SPACING + ++lineCounter * SVG_LINE_HEIGHT ) );</span>
+<span class="source-line-no">356</span><span id="line-356">            text.setClass( "stereotype" );</span>
+<span class="source-line-no">357</span><span id="line-357">            typeGroup.addChild( text );</span>
+<span class="source-line-no">358</span><span id="line-358">        }</span>
+<span class="source-line-no">359</span><span id="line-359">        text = createText( typeElement.getSimpleName() );</span>
+<span class="source-line-no">360</span><span id="line-360">        text.setX( number( width / 2.0 - typeElement.getSimpleName().length() * SVG_CHAR_WIDTH / 2.0 ) );</span>
+<span class="source-line-no">361</span><span id="line-361">        text.setY( number( y + SVG_LINE_SPACING + ++lineCounter * SVG_LINE_HEIGHT ) );</span>
+<span class="source-line-no">362</span><span id="line-362">        if( typeElement.isAbstract() ) text.setClass( "abstract" );</span>
+<span class="source-line-no">363</span><span id="line-363">        typeGroup.addChild( text );</span>
+<span class="source-line-no">364</span><span id="line-364">        y += height;</span>
+<span class="source-line-no">365</span><span id="line-365"></span>
+<span class="source-line-no">366</span><span id="line-366">        //---* The rectangle for the attributes *------------------------------</span>
+<span class="source-line-no">367</span><span id="line-367">        height = 3.0 * SVG_LINE_SPACING + max( 1, fields.size() ) * SVG_LINE_HEIGHT;</span>
+<span class="source-line-no">368</span><span id="line-368">        line = createLine( number( x ), number( y + height ), number( x + width ), number( y + height ) );</span>
+<span class="source-line-no">369</span><span id="line-369">        line.setClass( "separator" );</span>
+<span class="source-line-no">370</span><span id="line-370">        typeGroup.addChild( line );</span>
+<span class="source-line-no">371</span><span id="line-371">        if( !fields.isEmpty() )</span>
+<span class="source-line-no">372</span><span id="line-372">        {</span>
+<span class="source-line-no">373</span><span id="line-373">            lineCounter = 0;</span>
+<span class="source-line-no">374</span><span id="line-374">            for( final var field : fields )</span>
+<span class="source-line-no">375</span><span id="line-375">            {</span>
+<span class="source-line-no">376</span><span id="line-376">                text = field.toText();</span>
+<span class="source-line-no">377</span><span id="line-377">                text.setY( number( x + SVG_TEXT_SPACING ) );</span>
+<span class="source-line-no">378</span><span id="line-378">                text.setY( number( y + SVG_LINE_SPACING + ++lineCounter * SVG_LINE_HEIGHT ) );</span>
+<span class="source-line-no">379</span><span id="line-379">                typeGroup.addChild( text );</span>
+<span class="source-line-no">380</span><span id="line-380">            }</span>
+<span class="source-line-no">381</span><span id="line-381">        }</span>
+<span class="source-line-no">382</span><span id="line-382">        else</span>
+<span class="source-line-no">383</span><span id="line-383">        {</span>
+<span class="source-line-no">384</span><span id="line-384">            final var t = typeElement.getAttributes( false ).isEmpty() ? EMPTY_STRING : "\u2026";</span>
+<span class="source-line-no">385</span><span id="line-385">            text = createText( t );</span>
+<span class="source-line-no">386</span><span id="line-386">            text.setX( number( x + SVG_TEXT_SPACING ) );</span>
+<span class="source-line-no">387</span><span id="line-387">            text.setY( number(  y + SVG_LINE_SPACING + SVG_LINE_HEIGHT ) );</span>
+<span class="source-line-no">388</span><span id="line-388">            typeGroup.addChild( text );</span>
+<span class="source-line-no">389</span><span id="line-389">        }</span>
+<span class="source-line-no">390</span><span id="line-390">        y += height;</span>
+<span class="source-line-no">391</span><span id="line-391"></span>
+<span class="source-line-no">392</span><span id="line-392">        //---* The rectangle for the constructors and methods *----------------</span>
+<span class="source-line-no">393</span><span id="line-393">        if( !constructors.isEmpty() || !methods.isEmpty() )</span>
+<span class="source-line-no">394</span><span id="line-394">        {</span>
+<span class="source-line-no">395</span><span id="line-395">            lineCounter = 0;</span>
+<span class="source-line-no">396</span><span id="line-396">            for( final var constructor : constructors )</span>
+<span class="source-line-no">397</span><span id="line-397">            {</span>
+<span class="source-line-no">398</span><span id="line-398">                text = constructor.toText();</span>
+<span class="source-line-no">399</span><span id="line-399">                text.setX( number( x + SVG_TEXT_SPACING ) );</span>
+<span class="source-line-no">400</span><span id="line-400">                text.setY( number( y + SVG_LINE_SPACING + ++lineCounter * SVG_LINE_HEIGHT ) );</span>
+<span class="source-line-no">401</span><span id="line-401">                typeGroup.addChild( text );</span>
+<span class="source-line-no">402</span><span id="line-402">            }</span>
+<span class="source-line-no">403</span><span id="line-403">            for( final var method : methods )</span>
+<span class="source-line-no">404</span><span id="line-404">            {</span>
+<span class="source-line-no">405</span><span id="line-405">                text = method.toText();</span>
+<span class="source-line-no">406</span><span id="line-406">                text.setX( number( x + SVG_TEXT_SPACING ) );</span>
+<span class="source-line-no">407</span><span id="line-407">                text.setY( number( y + SVG_LINE_SPACING + ++lineCounter * SVG_LINE_HEIGHT ) );</span>
+<span class="source-line-no">408</span><span id="line-408">                typeGroup.addChild( text );</span>
+<span class="source-line-no">409</span><span id="line-409">            }</span>
+<span class="source-line-no">410</span><span id="line-410">        }</span>
+<span class="source-line-no">411</span><span id="line-411">        else</span>
+<span class="source-line-no">412</span><span id="line-412">        {</span>
+<span class="source-line-no">413</span><span id="line-413">            final var t = typeElement.getConstructors( false ).isEmpty() &amp;&amp; typeElement.getMethods( false ).isEmpty() ? EMPTY_STRING : "\u2026";</span>
+<span class="source-line-no">414</span><span id="line-414">            text = createText( t );</span>
+<span class="source-line-no">415</span><span id="line-415">            text.setX( number( x + SVG_TEXT_SPACING ) );</span>
+<span class="source-line-no">416</span><span id="line-416">            text.setY( number( y + SVG_LINE_SPACING + SVG_LINE_HEIGHT ) );</span>
+<span class="source-line-no">417</span><span id="line-417">            typeGroup.addChild( text );</span>
+<span class="source-line-no">418</span><span id="line-418">        }</span>
+<span class="source-line-no">419</span><span id="line-419"></span>
+<span class="source-line-no">420</span><span id="line-420">        //---* Add the template *----------------------------------------------</span>
+<span class="source-line-no">421</span><span id="line-421">        if( nonNull( templateGroup ) )</span>
+<span class="source-line-no">422</span><span id="line-422">        {</span>
+<span class="source-line-no">423</span><span id="line-423">            templateGroup.setTransform( translate( width - xAddon, 0 ) );</span>
+<span class="source-line-no">424</span><span id="line-424">            symbolGroup.addChild( templateGroup );</span>
+<span class="source-line-no">425</span><span id="line-425">        }</span>
+<span class="source-line-no">426</span><span id="line-426">    }   //  TypeSymbol()</span>
+<span class="source-line-no">427</span><span id="line-427"></span>
+<span class="source-line-no">428</span><span id="line-428">        /*---------*\</span>
+<span class="source-line-no">429</span><span id="line-429">    ====** Methods **==========================================================</span>
+<span class="source-line-no">430</span><span id="line-430">        \*---------*/</span>
+<span class="source-line-no">431</span><span id="line-431">    /**</span>
+<span class="source-line-no">432</span><span id="line-432">     *  Returns this {@code TypeSymbol} instance as an instance of</span>
+<span class="source-line-no">433</span><span id="line-433">     *  {@link SVGSymbol}.</span>
+<span class="source-line-no">434</span><span id="line-434">     *</span>
+<span class="source-line-no">435</span><span id="line-435">     *  @return This instance.</span>
+<span class="source-line-no">436</span><span id="line-436">     */</span>
+<span class="source-line-no">437</span><span id="line-437">    public final SVGSymbol asSVGSymbol() { return this; }</span>
+<span class="source-line-no">438</span><span id="line-438"></span>
+<span class="source-line-no">439</span><span id="line-439">    /**</span>
+<span class="source-line-no">440</span><span id="line-440">     *  Returns a</span>
+<span class="source-line-no">441</span><span id="line-441">     *  {@link SVGUse}</span>
+<span class="source-line-no">442</span><span id="line-442">     *  element for this symbol and calculates the connector end points.</span>
+<span class="source-line-no">443</span><span id="line-443">     *</span>
+<span class="source-line-no">444</span><span id="line-444">     *  @param  startingConnectors  The connectors that will originate from</span>
+<span class="source-line-no">445</span><span id="line-445">     *      this type element.</span>
+<span class="source-line-no">446</span><span id="line-446">     *  @param  endingConnectors    The connectors that will end at this type</span>
+<span class="source-line-no">447</span><span id="line-447">     *      element.</span>
+<span class="source-line-no">448</span><span id="line-448">     *  @return The new use element.</span>
+<span class="source-line-no">449</span><span id="line-449">     */</span>
+<span class="source-line-no">450</span><span id="line-450">    public final SVGUse createUse( final Collection&lt;UMLConnector&gt; startingConnectors, final Collection&lt;UMLConnector&gt; endingConnectors )</span>
+<span class="source-line-no">451</span><span id="line-451">    {</span>
+<span class="source-line-no">452</span><span id="line-452">        final var retValue = SVGUtils.createUse( URI.create( "#" + getQualifiedName() ) );</span>
+<span class="source-line-no">453</span><span id="line-453">        var y = m_Y;</span>
+<span class="source-line-no">454</span><span id="line-454">        retValue.setX( number( m_X ) );</span>
+<span class="source-line-no">455</span><span id="line-455">        retValue.setY( number( m_Y ) );</span>
+<span class="source-line-no">456</span><span id="line-456"></span>
+<span class="source-line-no">457</span><span id="line-457">        //---* Calculate the connector endings *-------------------------------</span>
+<span class="source-line-no">458</span><span id="line-458">        var count = 0;</span>
+<span class="source-line-no">459</span><span id="line-459">        y += m_Offset.y();</span>
+<span class="source-line-no">460</span><span id="line-460">        final var height = m_BaseDimension.height();</span>
+<span class="source-line-no">461</span><span id="line-461">        if( nonNull( startingConnectors ) &amp;&amp; !startingConnectors.isEmpty() )</span>
+<span class="source-line-no">462</span><span id="line-462">        {</span>
+<span class="source-line-no">463</span><span id="line-463">            final var distance = 50.0;</span>
+<span class="source-line-no">464</span><span id="line-464">            final var startPos = m_X + (m_BaseDimension.width() - (startingConnectors.size() - 1) * distance) / 2.0;</span>
+<span class="source-line-no">465</span><span id="line-465">            for( final var connector : startingConnectors )</span>
+<span class="source-line-no">466</span><span id="line-466">            {</span>
+<span class="source-line-no">467</span><span id="line-467">                connector.setStartPoint( startPos + count++ * distance, y );</span>
+<span class="source-line-no">468</span><span id="line-468">            }</span>
+<span class="source-line-no">469</span><span id="line-469">        }</span>
+<span class="source-line-no">470</span><span id="line-470">        if( nonNull( endingConnectors ) &amp;&amp; !endingConnectors.isEmpty() )</span>
+<span class="source-line-no">471</span><span id="line-471">        {</span>
+<span class="source-line-no">472</span><span id="line-472">            final var distance = 30.0;</span>
+<span class="source-line-no">473</span><span id="line-473">            final var startPos = m_X + (m_BaseDimension.width() - (endingConnectors.size() - 1) * distance) / 2.0;</span>
+<span class="source-line-no">474</span><span id="line-474">            count = 0;</span>
+<span class="source-line-no">475</span><span id="line-475">            for( final var line : endingConnectors )</span>
+<span class="source-line-no">476</span><span id="line-476">            {</span>
+<span class="source-line-no">477</span><span id="line-477">                line.setEndPoint( startPos + count++ * distance, y + height );</span>
+<span class="source-line-no">478</span><span id="line-478">            }</span>
+<span class="source-line-no">479</span><span id="line-479">        }</span>
+<span class="source-line-no">480</span><span id="line-480"></span>
+<span class="source-line-no">481</span><span id="line-481">        //---* Done *----------------------------------------------------------</span>
+<span class="source-line-no">482</span><span id="line-482">        return retValue;</span>
+<span class="source-line-no">483</span><span id="line-483">    }   //  createUse()</span>
+<span class="source-line-no">484</span><span id="line-484"></span>
+<span class="source-line-no">485</span><span id="line-485">    /**</span>
+<span class="source-line-no">486</span><span id="line-486">     *  {@inheritDoc}</span>
+<span class="source-line-no">487</span><span id="line-487">     */</span>
+<span class="source-line-no">488</span><span id="line-488">    @SuppressWarnings( "AccessingNonPublicFieldOfAnotherObject" )</span>
+<span class="source-line-no">489</span><span id="line-489">    @Override</span>
+<span class="source-line-no">490</span><span id="line-490">    public final boolean equals( final Object obj )</span>
+<span class="source-line-no">491</span><span id="line-491">    {</span>
+<span class="source-line-no">492</span><span id="line-492">        var retValue = obj == this;</span>
+<span class="source-line-no">493</span><span id="line-493">        if( !retValue &amp;&amp; (obj instanceof TypeSymbol other ) )</span>
+<span class="source-line-no">494</span><span id="line-494">        {</span>
+<span class="source-line-no">495</span><span id="line-495">            retValue = m_TypeElement.equals( other.m_TypeElement );</span>
+<span class="source-line-no">496</span><span id="line-496">        }</span>
+<span class="source-line-no">497</span><span id="line-497"></span>
+<span class="source-line-no">498</span><span id="line-498">        //---* Done *----------------------------------------------------------</span>
+<span class="source-line-no">499</span><span id="line-499">        return retValue;</span>
+<span class="source-line-no">500</span><span id="line-500">    }   //  equals()</span>
+<span class="source-line-no">501</span><span id="line-501"></span>
+<span class="source-line-no">502</span><span id="line-502">    /**</span>
+<span class="source-line-no">503</span><span id="line-503">     *  Returns the dimension for the SVG element representing the type element</span>
+<span class="source-line-no">504</span><span id="line-504">     *  in the UML diagram.</span>
+<span class="source-line-no">505</span><span id="line-505">     *</span>
+<span class="source-line-no">506</span><span id="line-506">     *  @return The dimension.</span>
+<span class="source-line-no">507</span><span id="line-507">     */</span>
+<span class="source-line-no">508</span><span id="line-508">    public final Dimension getDimension() { return m_Dimension; }</span>
+<span class="source-line-no">509</span><span id="line-509"></span>
+<span class="source-line-no">510</span><span id="line-510">    /**</span>
+<span class="source-line-no">511</span><span id="line-511">     *  Returns the position of the SVG element representing this UML class.</span>
+<span class="source-line-no">512</span><span id="line-512">     *</span>
+<span class="source-line-no">513</span><span id="line-513">     *  @return The coordinates of the upper left corner of the class diagram.</span>
+<span class="source-line-no">514</span><span id="line-514">     */</span>
+<span class="source-line-no">515</span><span id="line-515">    public final Point getPosition() { return new Point( m_X, m_Y ); }</span>
+<span class="source-line-no">516</span><span id="line-516"></span>
+<span class="source-line-no">517</span><span id="line-517">    /**</span>
+<span class="source-line-no">518</span><span id="line-518">     *  Returns the qualified name of the type element that is represented by</span>
+<span class="source-line-no">519</span><span id="line-519">     *  this symbol.</span>
+<span class="source-line-no">520</span><span id="line-520">     *</span>
+<span class="source-line-no">521</span><span id="line-521">     *  @return The qualified name.</span>
+<span class="source-line-no">522</span><span id="line-522">     */</span>
+<span class="source-line-no">523</span><span id="line-523">    public final String getQualifiedName() { return m_TypeElement.getQualifiedName().toString(); }</span>
+<span class="source-line-no">524</span><span id="line-524"></span>
+<span class="source-line-no">525</span><span id="line-525">    /**</span>
+<span class="source-line-no">526</span><span id="line-526">     *  Returns the type element that is represented by this symbol.</span>
+<span class="source-line-no">527</span><span id="line-527">     *</span>
+<span class="source-line-no">528</span><span id="line-528">     *  @return The type element.</span>
+<span class="source-line-no">529</span><span id="line-529">     */</span>
+<span class="source-line-no">530</span><span id="line-530">    public final UMLTypeElement getTypeElement() { return m_TypeElement; }</span>
+<span class="source-line-no">531</span><span id="line-531"></span>
+<span class="source-line-no">532</span><span id="line-532">    /**</span>
+<span class="source-line-no">533</span><span id="line-533">     *  {@inheritDoc}</span>
+<span class="source-line-no">534</span><span id="line-534">     */</span>
+<span class="source-line-no">535</span><span id="line-535">    @Override</span>
+<span class="source-line-no">536</span><span id="line-536">    public final int hashCode() { return m_TypeElement.hashCode(); }</span>
+<span class="source-line-no">537</span><span id="line-537"></span>
+<span class="source-line-no">538</span><span id="line-538">    /**</span>
+<span class="source-line-no">539</span><span id="line-539">     *  Returns {@code true} if the type element represented by this type</span>
+<span class="source-line-no">540</span><span id="line-540">     *  symbol is an interface. Different from</span>
+<span class="source-line-no">541</span><span id="line-541">     *  {@link javax.lang.model.element.ElementKind#isInterface()},</span>
+<span class="source-line-no">542</span><span id="line-542">     *  this method will return {@code false} if the type element is an</span>
+<span class="source-line-no">543</span><span id="line-543">     *  {@code annotation}.</span>
+<span class="source-line-no">544</span><span id="line-544">     *</span>
+<span class="source-line-no">545</span><span id="line-545">     *  @return {@code true} if the type element represented by this type</span>
+<span class="source-line-no">546</span><span id="line-546">     *      symbol is an interface, {@code false} otherwise.</span>
+<span class="source-line-no">547</span><span id="line-547">     */</span>
+<span class="source-line-no">548</span><span id="line-548">    public final boolean isInterface() { return m_TypeElement.isInterface(); }</span>
+<span class="source-line-no">549</span><span id="line-549"></span>
+<span class="source-line-no">550</span><span id="line-550">    /**</span>
+<span class="source-line-no">551</span><span id="line-551">     *  Sets the base dimension for the SVG element representing the type</span>
+<span class="source-line-no">552</span><span id="line-552">     *  element in the UML diagram.</span>
+<span class="source-line-no">553</span><span id="line-553">     *</span>
+<span class="source-line-no">554</span><span id="line-554">     *  @param  width   The width for the SVG element.</span>
+<span class="source-line-no">555</span><span id="line-555">     *  @param  height  The height for the SVG element.</span>
+<span class="source-line-no">556</span><span id="line-556">     */</span>
+<span class="source-line-no">557</span><span id="line-557">    public final void setBaseDimension( final double width, final double height ) { m_BaseDimension = new Dimension( width, height ); }</span>
+<span class="source-line-no">558</span><span id="line-558"></span>
+<span class="source-line-no">559</span><span id="line-559">    /**</span>
+<span class="source-line-no">560</span><span id="line-560">     *  Sets the X coordinate for the upper left corner of the symbol for the</span>
+<span class="source-line-no">561</span><span id="line-561">     *  class diagram.</span>
+<span class="source-line-no">562</span><span id="line-562">     *</span>
+<span class="source-line-no">563</span><span id="line-563">     *  @param x    The X coordinate.</span>
+<span class="source-line-no">564</span><span id="line-564">     */</span>
+<span class="source-line-no">565</span><span id="line-565">    public final void setX( final double x) { m_X = x; }</span>
+<span class="source-line-no">566</span><span id="line-566"></span>
+<span class="source-line-no">567</span><span id="line-567">    /**</span>
+<span class="source-line-no">568</span><span id="line-568">     *  Sets the Y coordinate for the upper left corner of the symbol for the</span>
+<span class="source-line-no">569</span><span id="line-569">     *  class diagram.</span>
+<span class="source-line-no">570</span><span id="line-570">     *</span>
+<span class="source-line-no">571</span><span id="line-571">     *  @param y    The Y coordinate.</span>
+<span class="source-line-no">572</span><span id="line-572">     */</span>
+<span class="source-line-no">573</span><span id="line-573">    public final void setY( final double y ) { m_Y = y; }</span>
+<span class="source-line-no">574</span><span id="line-574">}</span>
+<span class="source-line-no">575</span><span id="line-575">//  class TypeSymbol</span>
+<span class="source-line-no">576</span><span id="line-576"></span>
+<span class="source-line-no">577</span><span id="line-577">/*</span>
+<span class="source-line-no">578</span><span id="line-578"> *  End of File</span>
+<span class="source-line-no">579</span><span id="line-579"> */</span>
 
 
 

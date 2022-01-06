@@ -16,8 +16,12 @@
 /**
  *  Several internal classes for the taglet implementations.
  */
-
+@API( status = INTERNAL, since = "0.0.1" )
 package org.tquadrat.foundation.javadoc.internal;
+
+import static org.apiguardian.api.API.Status.INTERNAL;
+
+import org.apiguardian.api.API;
 
 /*
  *  End of File

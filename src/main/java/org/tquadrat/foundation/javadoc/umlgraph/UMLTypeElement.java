@@ -17,20 +17,20 @@
 
 package org.tquadrat.foundation.javadoc.umlgraph;
 
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 import static java.util.stream.Collectors.toList;
 import static javax.lang.model.element.ElementKind.CLASS;
 import static javax.lang.model.element.ElementKind.INTERFACE;
 import static javax.lang.model.element.Modifier.ABSTRACT;
 import static javax.lang.model.type.TypeKind.NONE;
 import static org.apiguardian.api.API.Status.INTERNAL;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.requireNonNullArgument;
 import static org.tquadrat.foundation.javadoc.umlgraph.Stereotype.ANNOTATION;
 import static org.tquadrat.foundation.javadoc.umlgraph.Stereotype.ENUM;
 import static org.tquadrat.foundation.javadoc.umlgraph.Stereotype.ERROR;
 import static org.tquadrat.foundation.javadoc.umlgraph.Stereotype.EXCEPTION;
 import static org.tquadrat.foundation.javadoc.umlgraph.Stereotype.TYPE;
-import static org.tquadrat.foundation.lang.Objects.isNull;
-import static org.tquadrat.foundation.lang.Objects.nonNull;
-import static org.tquadrat.foundation.lang.Objects.requireNonNullArgument;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
@@ -47,22 +47,19 @@ import java.util.List;
 import java.util.Set;
 
 import org.apiguardian.api.API;
-import org.tquadrat.foundation.annotation.ClassVersion;
-import org.tquadrat.foundation.svg.SVGSymbol;
-import org.tquadrat.foundation.util.StringUtils;
+import org.tquadrat.foundation.javadoc.internal.ToolKit;
+import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
 
 /**
  *  The wrapper for a
  *  {@link TypeElement}
  *  instance, enhanced by information needed for the creation of the UML graph.
  *
- *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: UMLTypeElement.java 820 2020-12-29 20:34:22Z tquadrat $
+ *  @author Thomas Thrien - thomas.thrien@tquadrat.org
+ *  @version $Id: UMLTypeElement.java 976 2022-01-06 11:39:58Z tquadrat $
  *  @since 0.0.5
- *
- *  @UMLGraph.link
  */
-@ClassVersion( sourceVersion = "$Id: UMLTypeElement.java 820 2020-12-29 20:34:22Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: UMLTypeElement.java 976 2022-01-06 11:39:58Z tquadrat $" )
 @API( status = INTERNAL, since = "0.0.5")
 public final class UMLTypeElement extends UMLElement implements TypeElement
 {
@@ -78,7 +75,7 @@ public final class UMLTypeElement extends UMLElement implements TypeElement
     ====** Attributes **=======================================================
         \*------------*/
     /**
-     *  The types that extends this class or implements this interface.
+     *  The types that extend this class or implements this interface.
      */
     private final Set<UMLTypeElement> m_ChildTypes = new HashSet<>();
 
@@ -138,7 +135,7 @@ public final class UMLTypeElement extends UMLElement implements TypeElement
      *  @param  layout    The instance of
      *      {@link UMLGraphLayout}
      *      that is used to render the document that finally contains the
-     *      {@link SVGSymbol}
+     *      {@link org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGSymbol}
      *      instance that is created by this method.
      *  @param  details The level of detail to show:<ul>
      *      <li>0: no details, only class name and package name; for an enum
@@ -247,7 +244,7 @@ public final class UMLTypeElement extends UMLElement implements TypeElement
 
         final var retValue = stereotype.stream()
             .map( Stereotype::toString )
-            .filter( StringUtils::isNotEmpty )
+            .filter( ToolKit::isNotEmpty )
             .toArray( String []::new );
 
         //---* Done *----------------------------------------------------------

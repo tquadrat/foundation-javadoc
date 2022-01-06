@@ -17,8 +17,8 @@
 
 package org.tquadrat.foundation.javadoc;
 
+import static java.lang.String.format;
 import static org.apiguardian.api.API.Status.STABLE;
-import static org.tquadrat.foundation.util.StringUtils.format;
 
 import javax.lang.model.element.Element;
 import java.util.EnumSet;
@@ -28,7 +28,7 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 import org.apiguardian.api.API;
-import org.tquadrat.foundation.annotation.ClassVersion;
+import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
 import com.sun.source.doctree.DocTree;
 import jdk.javadoc.doclet.Taglet;
 
@@ -36,13 +36,11 @@ import jdk.javadoc.doclet.Taglet;
  *  This inline tag inserts a hyperlink to an external URL into the
  *  documentation.
  *
- *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: HRefTaglet.java 890 2021-04-01 21:15:48Z tquadrat $
+ *  @author Thomas Thrien - thomas.thrien@tquadrat.org
+ *  @version $Id: HRefTaglet.java 977 2022-01-06 11:41:03Z tquadrat $
  *  @since 0.0.5
- *
- *  @UMLGraph.link
  */
-@ClassVersion( sourceVersion = "$Id: HRefTaglet.java 890 2021-04-01 21:15:48Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: HRefTaglet.java 977 2022-01-06 11:41:03Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
 public final class HRefTaglet implements Taglet
 {

@@ -17,12 +17,12 @@
 
 package org.tquadrat.foundation.javadoc;
 
+import static java.lang.String.format;
 import static org.apiguardian.api.API.Status.STABLE;
 import static org.tquadrat.foundation.javadoc.internal.Common.initHelperTaglets;
 import static org.tquadrat.foundation.javadoc.internal.Common.processInlineTags;
-import static org.tquadrat.foundation.lang.CommonConstants.EMPTY_STRING;
-import static org.tquadrat.foundation.util.StringUtils.format;
-import static org.tquadrat.foundation.util.StringUtils.isNotEmptyOrBlank;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.EMPTY_STRING;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.isNotEmptyOrBlank;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.element.Name;
@@ -34,7 +34,7 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 import org.apiguardian.api.API;
-import org.tquadrat.foundation.annotation.ClassVersion;
+import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
 import com.sun.source.doctree.DocTree;
 import jdk.javadoc.doclet.Doclet;
 import jdk.javadoc.doclet.DocletEnvironment;
@@ -45,17 +45,11 @@ import jdk.javadoc.doclet.Taglet;
  *  &quot;<code>{&#64;{@value #TAGLET_NAME} UNDERLINE ME}</code>&quot; would be
  *  shown as <u>UNDERLINE ME</u>.
  *
- *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @thanks Jamie Ho
- *  @version $Id: UnderlineTaglet.java 820 2020-12-29 20:34:22Z tquadrat $
+ *  @author Thomas Thrien - thomas.thrien@tquadrat.org
+ *  @version $Id: UnderlineTaglet.java 977 2022-01-06 11:41:03Z tquadrat $
  *  @since 0.0.5
- *
- *  @inspired   A tag like this is described in the samples for custom taglets
- *      in the Oracle documentation and elsewhere.
- *
- *  @UMLGraph.link
  */
-@ClassVersion( sourceVersion = "$Id: UnderlineTaglet.java 820 2020-12-29 20:34:22Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: UnderlineTaglet.java 977 2022-01-06 11:41:03Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
 public class UnderlineTaglet implements Taglet
 {

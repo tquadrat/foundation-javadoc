@@ -20,13 +20,13 @@ package org.tquadrat.foundation.javadoc.internal;
 import static java.lang.Math.floor;
 import static java.lang.Math.log10;
 import static java.lang.Math.round;
+import static java.lang.String.format;
 import static java.util.Collections.singletonList;
+import static java.util.Objects.isNull;
 import static java.util.stream.Collectors.joining;
 import static org.apiguardian.api.API.Status.MAINTAINED;
-import static org.tquadrat.foundation.lang.Objects.isNull;
-import static org.tquadrat.foundation.lang.Objects.requireNonNullArgument;
-import static org.tquadrat.foundation.util.StringUtils.format;
-import static org.tquadrat.foundation.util.StringUtils.isNotEmpty;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.isNotEmpty;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.requireNonNullArgument;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.element.Name;
@@ -41,13 +41,13 @@ import java.util.List;
 import java.util.function.Function;
 
 import org.apiguardian.api.API;
-import org.tquadrat.foundation.annotation.ClassVersion;
-import org.tquadrat.foundation.annotation.UtilityClass;
-import org.tquadrat.foundation.exception.PrivateConstructorForStaticClassCalledError;
-import org.tquadrat.foundation.exception.ValidationException;
 import org.tquadrat.foundation.javadoc.AnchorTaglet;
 import org.tquadrat.foundation.javadoc.HRefTaglet;
 import org.tquadrat.foundation.javadoc.UnderlineTaglet;
+import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
+import org.tquadrat.foundation.javadoc.internal.foundation.annotation.UtilityClass;
+import org.tquadrat.foundation.javadoc.internal.foundation.exception.PrivateConstructorForStaticClassCalledError;
+import org.tquadrat.foundation.javadoc.internal.foundation.exception.ValidationException;
 import com.sun.source.doctree.DocTree;
 import com.sun.source.util.DocTreeFactory;
 import jdk.javadoc.doclet.Doclet;
@@ -57,14 +57,12 @@ import jdk.javadoc.doclet.Taglet;
 /**
  *  Helper methods for the new taglet implementations.
  *
- *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: Common.java 840 2021-01-10 21:37:03Z tquadrat $
+ *  @author Thomas Thrien - thomas.thrien@tquadrat.org
+ *  @version $Id: Common.java 976 2022-01-06 11:39:58Z tquadrat $
  *  @since 0.0.5
- *
- *  @UMLGraph.link
  */
 @SuppressWarnings( "ClassWithTooManyFields" )
-@ClassVersion( sourceVersion = "$Id: Common.java 840 2021-01-10 21:37:03Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: Common.java 976 2022-01-06 11:39:58Z tquadrat $" )
 @API( status = MAINTAINED, since = "0.0.5")
 @UtilityClass
 public final class Common
@@ -252,8 +250,8 @@ public final class Common
                 case PACKAGE -> element.toString().replace( '.', '/' ) + "/package-info.java";
                 case MODULE -> "module-info.java";
                 case ANNOTATION_TYPE, CLASS, ENUM, INTERFACE, RECORD -> element.toString().replace( '.', '/' ) + ".java";
-                case CONSTRUCTOR, ENUM_CONSTANT, FIELD, METHOD -> format( "%s::%s", determineElementName( element.getEnclosingElement() ), element.toString() );
-                default -> format( "Don't know yet how to get the output name for '%1$s' of kind '%2$s'", element.toString(), element.getKind().toString() );
+                case CONSTRUCTOR, ENUM_CONSTANT, FIELD, METHOD -> format( "%s::%s", determineElementName( element.getEnclosingElement() ), element );
+                default -> format( "Don't know yet how to get the output name for '%1$s' of kind '%2$s'", element, element.getKind().toString() );
             };
 
         //---* Done *----------------------------------------------------------

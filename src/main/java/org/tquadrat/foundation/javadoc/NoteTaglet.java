@@ -30,16 +30,16 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.apiguardian.api.API;
-import org.tquadrat.foundation.annotation.ClassVersion;
+import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
 import com.sun.source.doctree.DocTree;
 import jdk.javadoc.doclet.Doclet;
 import jdk.javadoc.doclet.DocletEnvironment;
 import jdk.javadoc.doclet.Taglet;
 
 /**
- *  This taglet is used to add an important note to the documentation for an
- *  element.<br>
- *  <br>Only the tags
+ *  <p>{@summary This taglet is used to add an important note to the
+ *  documentation for an element.}</p>
+ *  <p>Only the tags</p>
  *  <ul>
  *  <li>{@link org.tquadrat.foundation.javadoc.AnchorTaglet @anchor}</li>
  *  <li>{@code @code}</li>
@@ -48,21 +48,18 @@ import jdk.javadoc.doclet.Taglet;
  *  <li>{@code @literal}</li>
  *  <li>{@link org.tquadrat.foundation.javadoc.UnderlineTaglet @underline}</li>
  *  </ul>
- *  are recognised in the text for this tag. If there are more than one
+ *  <p>are recognised in the text for this tag. If there are more than one
  *  occurrence for this tag in the comment, they are all merged into one single
- *  section.
+ *  section.</p>
+ *  <p>In particular the tags <code>{&#64;link}</code>,
+ *  <code>{&#64;linkplain }</code> and <code>{&#64;value}</code> will
+ *  <i>not</i> be interpreted inside a <code>{&#64;note}</code> block!</p>
  *
- *  @note   In particular the tags <code>{&#64;link}</code>,
- *      <code>{&#64;linkplain }</code> and  <code>{&#64;value}</code> will
- *      <i>not</i> be interpreted inside a <code>{&#64;note}</code> block!
- *
- *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: NoteTaglet.java 820 2020-12-29 20:34:22Z tquadrat $
+ *  @author Thomas Thrien - thomas.thrien@tquadrat.org
+ *  @version $Id: NoteTaglet.java 977 2022-01-06 11:41:03Z tquadrat $
  *  @since 0.0.5
- *
- *  @UMLGraph.link
  */
-@ClassVersion( sourceVersion = "$Id: NoteTaglet.java 820 2020-12-29 20:34:22Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: NoteTaglet.java 977 2022-01-06 11:41:03Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
 public class NoteTaglet implements Taglet
 {

@@ -1,3 +1,12 @@
 org.tquadrat.foundation.javadoc
 org.tquadrat.foundation.javadoc.internal
+org.tquadrat.foundation.javadoc.internal.foundation.annotation
+org.tquadrat.foundation.javadoc.internal.foundation.exception
+org.tquadrat.foundation.javadoc.internal.foundation.svg
+org.tquadrat.foundation.javadoc.internal.foundation.svg.internal
+org.tquadrat.foundation.javadoc.internal.foundation.svg.type
+org.tquadrat.foundation.javadoc.internal.foundation.util
+org.tquadrat.foundation.javadoc.internal.foundation.xml.builder
+org.tquadrat.foundation.javadoc.internal.foundation.xml.builder.internal
+org.tquadrat.foundation.javadoc.internal.foundation.xml.builder.spi
 org.tquadrat.foundation.javadoc.umlgraph

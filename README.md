@@ -1,5 +1,5 @@
-# tquadrat *Foundation Library*
+# tquadrat *Foundation* Tools
 ## `foundation-javadoc`
 ### Documentation
 
-- [Javadoc Reference](https://htmlpreview.github.io/?https://github.com/tquadrat/foundation-javadoc/blob/master/javadoc/index.html)
+- [Javadoc Reference](https://tquadrat.github.io/foundation-javadoc/javadoc/index.html)

@@ -18,13 +18,13 @@
 package org.tquadrat.foundation.javadoc.umlgraph;
 
 import static org.apiguardian.api.API.Status.INTERNAL;
-import static org.tquadrat.foundation.lang.Objects.requireNonNullArgument;
-import static org.tquadrat.foundation.svg.SVGUtils.SVGATTRIBUTE_PathDefinition;
-import static org.tquadrat.foundation.svg.SVGUtils.SVGELEMENT_Path;
-import static org.tquadrat.foundation.svg.SVGUtils.cubicCurveTo;
-import static org.tquadrat.foundation.svg.SVGUtils.lineToAbs;
-import static org.tquadrat.foundation.svg.SVGUtils.moveToAbs;
-import static org.tquadrat.foundation.svg.SVGUtils.vLineTo;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.requireNonNullArgument;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGATTRIBUTE_PathDefinition;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.SVGELEMENT_Path;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.cubicCurveTo;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.lineToAbs;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.moveToAbs;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.vLineTo;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -32,37 +32,26 @@ import java.util.Collection;
 import java.util.Map;
 
 import org.apiguardian.api.API;
-import org.tquadrat.foundation.annotation.ClassVersion;
-import org.tquadrat.foundation.svg.SVGElementAdapter;
-import org.tquadrat.foundation.svg.SVGPath;
-import org.tquadrat.foundation.svg.type.SVGNumber.SVGUserUnitValue;
-import org.tquadrat.foundation.svg.type.SVGPathElement;
+import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
+import org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGElementAdapter;
+import org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGPath;
+import org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGNumber.SVGUserUnitValue;
+import org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGPathElement;
 
 /**
  *  The representation of the lines that connects the type elements in a UML
  *  diagram. <br>
  *  <br>Instances of this class are used as if they are an instance of
- *  {@link org.tquadrat.foundation.svg.SVGPath SVGPath}.
+ *  {@link org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGPath SVGPath}.
  *
- *
- *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: UMLConnector.java 820 2020-12-29 20:34:22Z tquadrat $
+ *  @author Thomas Thrien - thomas.thrien@tquadrat.org
+ *  @version $Id: UMLConnector.java 976 2022-01-06 11:39:58Z tquadrat $
  *  @since 0.0.5
- *
- *  @UMLGraph.link
  */
-@ClassVersion( sourceVersion = "$Id: UMLConnector.java 820 2020-12-29 20:34:22Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: UMLConnector.java 976 2022-01-06 11:39:58Z tquadrat $" )
 @API( status = INTERNAL, since = "0.0.5")
 public final class UMLConnector extends SVGElementAdapter
 {
-        /*-----------*\
-    ====** Constants **========================================================
-        \*-----------*/
-    /**
-     *  An empty array of {@code UMLConnector} objects.
-     */
-    public static final UMLConnector [] EMPTY_UMLConnector_ARRAY = new UMLConnector [0];
-
         /*------------*\
     ====** Attributes **=======================================================
         \*------------*/
@@ -124,7 +113,7 @@ public final class UMLConnector extends SVGElementAdapter
         \*---------*/
     /**
      *  Returns this {@code UMLConnector} instance as an instance of
-     *  {@link org.tquadrat.foundation.svg.SVGPath SVGPath}.
+     *  {@link SVGPath}.
      *
      *  @return This instance.
      */
@@ -135,7 +124,7 @@ public final class UMLConnector extends SVGElementAdapter
      *
      *  @return The path definition.
      */
-    private final SVGPathElement [] composePath()
+    private final SVGPathElement[] composePath()
     {
         final var startX = m_StartPoint.x();
         final var startY = m_StartPoint.y();
@@ -177,7 +166,7 @@ public final class UMLConnector extends SVGElementAdapter
         /*
          * The original implementation of SVGPath.setPatDefinition() appends
          * the new path elements to the already existing ones, but we want to
-         * replace an existing path with the new one. Therefore we use here
+         * replace an existing path with the new one. Therefore, we use here
          * NO_APPEND in the call to setAttribute().
          */
         setAttribute( SVGATTRIBUTE_PathDefinition, SVGPathElement.toString( composePath() ), NO_APPEND );

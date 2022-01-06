@@ -29,19 +29,19 @@ import java.util.Set;
 import java.util.function.Function;
 
 import org.apiguardian.api.API;
-import org.tquadrat.foundation.annotation.ClassVersion;
+import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
 import com.sun.source.doctree.DocTree;
 import jdk.javadoc.doclet.Doclet;
 import jdk.javadoc.doclet.DocletEnvironment;
 import jdk.javadoc.doclet.Taglet;
 
 /**
- *  This taglet is used to add a reference to a document of some kind that
- *  inspired the current piece of code, either in its functionality or its
- *  implementation. <br>
- *  <br>The {@code @inspired} tag is allowed on {@code package} level,
- *  {@code class} level, and for methods.<br>
- *  <br>Only the tags
+ *  <p>{@summary This taglet is used to add a reference to a document of some
+ *  kind that inspired the current piece of code, either in its functionality
+ *  or its implementation.}</p>
+ *  <p>The {@code @inspired} tag is allowed on {@code package} level,
+ *  {@code class} level, and for methods.</p>
+ *  <p>Only the tags</p>
  *  <ul>
  *  <li>{@link org.tquadrat.foundation.javadoc.AnchorTaglet @anchor}</li>
  *  <li>{@code @code}</li>
@@ -50,15 +50,13 @@ import jdk.javadoc.doclet.Taglet;
  *  <li>{@code @literal}</li>
  *  <li>{@link org.tquadrat.foundation.javadoc.UnderlineTaglet @underline}</li>
  *  </ul>
- *  are recognised in the text for this tag.
+ *  <p>are recognised in the text for this tag.</p>
  *
- *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: InspiredTaglet.java 820 2020-12-29 20:34:22Z tquadrat $
+ *  @author Thomas Thrien - thomas.thrien@tquadrat.org
+ *  @version $Id: InspiredTaglet.java 977 2022-01-06 11:41:03Z tquadrat $
  *  @since 0.0.5
- *
- *  @UMLGraph.link
  */
-@ClassVersion( sourceVersion = "$Id: InspiredTaglet.java 820 2020-12-29 20:34:22Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: InspiredTaglet.java 977 2022-01-06 11:41:03Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
 public final class InspiredTaglet implements Taglet
 {

@@ -43,16 +43,16 @@
 <span class="source-line-no">030</span><span id="line-30">import java.util.stream.Collectors;</span>
 <span class="source-line-no">031</span><span id="line-31"></span>
 <span class="source-line-no">032</span><span id="line-32">import org.apiguardian.api.API;</span>
-<span class="source-line-no">033</span><span id="line-33">import org.tquadrat.foundation.annotation.ClassVersion;</span>
+<span class="source-line-no">033</span><span id="line-33">import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;</span>
 <span class="source-line-no">034</span><span id="line-34">import com.sun.source.doctree.DocTree;</span>
 <span class="source-line-no">035</span><span id="line-35">import jdk.javadoc.doclet.Doclet;</span>
 <span class="source-line-no">036</span><span id="line-36">import jdk.javadoc.doclet.DocletEnvironment;</span>
 <span class="source-line-no">037</span><span id="line-37">import jdk.javadoc.doclet.Taglet;</span>
 <span class="source-line-no">038</span><span id="line-38"></span>
 <span class="source-line-no">039</span><span id="line-39">/**</span>
-<span class="source-line-no">040</span><span id="line-40"> *  This taglet is used to add an important note to the documentation for an</span>
-<span class="source-line-no">041</span><span id="line-41"> *  element.&lt;br&gt;</span>
-<span class="source-line-no">042</span><span id="line-42"> *  &lt;br&gt;Only the tags</span>
+<span class="source-line-no">040</span><span id="line-40"> *  &lt;p&gt;{@summary This taglet is used to add an important note to the</span>
+<span class="source-line-no">041</span><span id="line-41"> *  documentation for an element.}&lt;/p&gt;</span>
+<span class="source-line-no">042</span><span id="line-42"> *  &lt;p&gt;Only the tags&lt;/p&gt;</span>
 <span class="source-line-no">043</span><span id="line-43"> *  &lt;ul&gt;</span>
 <span class="source-line-no">044</span><span id="line-44"> *  &lt;li&gt;{@link org.tquadrat.foundation.javadoc.AnchorTaglet @anchor}&lt;/li&gt;</span>
 <span class="source-line-no">045</span><span id="line-45"> *  &lt;li&gt;{@code @code}&lt;/li&gt;</span>
@@ -61,114 +61,111 @@
 <span class="source-line-no">048</span><span id="line-48"> *  &lt;li&gt;{@code @literal}&lt;/li&gt;</span>
 <span class="source-line-no">049</span><span id="line-49"> *  &lt;li&gt;{@link org.tquadrat.foundation.javadoc.UnderlineTaglet @underline}&lt;/li&gt;</span>
 <span class="source-line-no">050</span><span id="line-50"> *  &lt;/ul&gt;</span>
-<span class="source-line-no">051</span><span id="line-51"> *  are recognised in the text for this tag. If there are more than one</span>
+<span class="source-line-no">051</span><span id="line-51"> *  &lt;p&gt;are recognised in the text for this tag. If there are more than one</span>
 <span class="source-line-no">052</span><span id="line-52"> *  occurrence for this tag in the comment, they are all merged into one single</span>
-<span class="source-line-no">053</span><span id="line-53"> *  section.</span>
-<span class="source-line-no">054</span><span id="line-54"> *</span>
-<span class="source-line-no">055</span><span id="line-55"> *  @note   In particular the tags &lt;code&gt;{&amp;#64;link}&lt;/code&gt;,</span>
-<span class="source-line-no">056</span><span id="line-56"> *      &lt;code&gt;{&amp;#64;linkplain }&lt;/code&gt; and  &lt;code&gt;{&amp;#64;value}&lt;/code&gt; will</span>
-<span class="source-line-no">057</span><span id="line-57"> *      &lt;i&gt;not&lt;/i&gt; be interpreted inside a &lt;code&gt;{&amp;#64;note}&lt;/code&gt; block!</span>
-<span class="source-line-no">058</span><span id="line-58"> *</span>
-<span class="source-line-no">059</span><span id="line-59"> *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org</span>
-<span class="source-line-no">060</span><span id="line-60"> *  @version $Id: NoteTaglet.java 820 2020-12-29 20:34:22Z tquadrat $</span>
-<span class="source-line-no">061</span><span id="line-61"> *  @since 0.0.5</span>
-<span class="source-line-no">062</span><span id="line-62"> *</span>
-<span class="source-line-no">063</span><span id="line-63"> *  @UMLGraph.link</span>
-<span class="source-line-no">064</span><span id="line-64"> */</span>
-<span class="source-line-no">065</span><span id="line-65">@ClassVersion( sourceVersion = "$Id: NoteTaglet.java 820 2020-12-29 20:34:22Z tquadrat $" )</span>
-<span class="source-line-no">066</span><span id="line-66">@API( status = STABLE, since = "0.0.5" )</span>
-<span class="source-line-no">067</span><span id="line-67">public class NoteTaglet implements Taglet</span>
-<span class="source-line-no">068</span><span id="line-68">{</span>
-<span class="source-line-no">069</span><span id="line-69">        /*-----------*\</span>
-<span class="source-line-no">070</span><span id="line-70">    ====** Constants **========================================================</span>
-<span class="source-line-no">071</span><span id="line-71">        \*-----------*/</span>
-<span class="source-line-no">072</span><span id="line-72">    /**</span>
-<span class="source-line-no">073</span><span id="line-73">     *  The name of this taglet: {@value}.</span>
-<span class="source-line-no">074</span><span id="line-74">     */</span>
-<span class="source-line-no">075</span><span id="line-75">    public static final String TAGLET_NAME = "note";</span>
-<span class="source-line-no">076</span><span id="line-76"></span>
-<span class="source-line-no">077</span><span id="line-77">        /*------------*\</span>
-<span class="source-line-no">078</span><span id="line-78">    ====** Attributes **=======================================================</span>
-<span class="source-line-no">079</span><span id="line-79">        \*------------*/</span>
-<span class="source-line-no">080</span><span id="line-80">    /**</span>
-<span class="source-line-no">081</span><span id="line-81">     *  The doclet.</span>
-<span class="source-line-no">082</span><span id="line-82">     */</span>
-<span class="source-line-no">083</span><span id="line-83">    @SuppressWarnings( {"unused", "FieldCanBeLocal"} )</span>
-<span class="source-line-no">084</span><span id="line-84">    private Doclet m_Doclet;</span>
-<span class="source-line-no">085</span><span id="line-85"></span>
-<span class="source-line-no">086</span><span id="line-86">    /**</span>
-<span class="source-line-no">087</span><span id="line-87">     *  The doclet environment.</span>
-<span class="source-line-no">088</span><span id="line-88">     */</span>
-<span class="source-line-no">089</span><span id="line-89">    private DocletEnvironment m_DocletEnvironment;</span>
-<span class="source-line-no">090</span><span id="line-90"></span>
-<span class="source-line-no">091</span><span id="line-91">        /*--------------*\</span>
-<span class="source-line-no">092</span><span id="line-92">    ====** Constructors **=====================================================</span>
-<span class="source-line-no">093</span><span id="line-93">        \*--------------*/</span>
-<span class="source-line-no">094</span><span id="line-94">    /**</span>
-<span class="source-line-no">095</span><span id="line-95">     *  Creates a new {@code NoteTaglet} instance.</span>
-<span class="source-line-no">096</span><span id="line-96">     */</span>
-<span class="source-line-no">097</span><span id="line-97">    @SuppressWarnings( "RedundantNoArgConstructor" )</span>
-<span class="source-line-no">098</span><span id="line-98">    public NoteTaglet() { /* Just exists */ }</span>
-<span class="source-line-no">099</span><span id="line-99"></span>
-<span class="source-line-no">100</span><span id="line-100">        /*---------*\</span>
-<span class="source-line-no">101</span><span id="line-101">    ====** Methods **==========================================================</span>
-<span class="source-line-no">102</span><span id="line-102">        \*---------*/</span>
-<span class="source-line-no">103</span><span id="line-103">    /**</span>
-<span class="source-line-no">104</span><span id="line-104">     *  {@inheritDoc}</span>
-<span class="source-line-no">105</span><span id="line-105">     */</span>
-<span class="source-line-no">106</span><span id="line-106">    @Override</span>
-<span class="source-line-no">107</span><span id="line-107">    public final Set&lt;Location&gt; getAllowedLocations() { return EnumSet.allOf( Location.class ); }</span>
-<span class="source-line-no">108</span><span id="line-108"></span>
-<span class="source-line-no">109</span><span id="line-109">    /**</span>
-<span class="source-line-no">110</span><span id="line-110">     *  {@inheritDoc}</span>
-<span class="source-line-no">111</span><span id="line-111">     */</span>
-<span class="source-line-no">112</span><span id="line-112">    @Override</span>
-<span class="source-line-no">113</span><span id="line-113">    public final String getName() { return TAGLET_NAME; }</span>
-<span class="source-line-no">114</span><span id="line-114"></span>
-<span class="source-line-no">115</span><span id="line-115">    /**</span>
-<span class="source-line-no">116</span><span id="line-116">     *  {@inheritDoc}</span>
-<span class="source-line-no">117</span><span id="line-117">     */</span>
-<span class="source-line-no">118</span><span id="line-118">    @Override</span>
-<span class="source-line-no">119</span><span id="line-119">    public final void init( final DocletEnvironment docletEnvironment, final Doclet doclet )</span>
-<span class="source-line-no">120</span><span id="line-120">    {</span>
-<span class="source-line-no">121</span><span id="line-121">        Taglet.super.init( docletEnvironment, doclet );</span>
-<span class="source-line-no">122</span><span id="line-122">        m_Doclet = doclet;</span>
-<span class="source-line-no">123</span><span id="line-123">        m_DocletEnvironment = docletEnvironment;</span>
-<span class="source-line-no">124</span><span id="line-124">        initHelperTaglets( docletEnvironment, doclet );</span>
-<span class="source-line-no">125</span><span id="line-125">    }   //  init()</span>
-<span class="source-line-no">126</span><span id="line-126"></span>
-<span class="source-line-no">127</span><span id="line-127">    /**</span>
-<span class="source-line-no">128</span><span id="line-128">     *  {@inheritDoc}</span>
-<span class="source-line-no">129</span><span id="line-129">     */</span>
-<span class="source-line-no">130</span><span id="line-130">    @Override</span>
-<span class="source-line-no">131</span><span id="line-131">    public final boolean isInlineTag() { return false; }</span>
-<span class="source-line-no">132</span><span id="line-132"></span>
-<span class="source-line-no">133</span><span id="line-133">    /**</span>
-<span class="source-line-no">134</span><span id="line-134">     *  {@inheritDoc}</span>
-<span class="source-line-no">135</span><span id="line-135">     */</span>
-<span class="source-line-no">136</span><span id="line-136">    @Override</span>
-<span class="source-line-no">137</span><span id="line-137">    public final String toString( final List&lt;? extends DocTree&gt; tags, final Element element )</span>
-<span class="source-line-no">138</span><span id="line-138">    {</span>
-<span class="source-line-no">139</span><span id="line-139">        final var docTreeFactory = m_DocletEnvironment.getDocTrees().getDocTreeFactory();</span>
-<span class="source-line-no">140</span><span id="line-140">        final Function&lt;CharSequence,Name&gt; nameGenerator = m_DocletEnvironment.getElementUtils()::getName;</span>
-<span class="source-line-no">141</span><span id="line-141"></span>
-<span class="source-line-no">142</span><span id="line-142">        final var prefixLen = getName().length() + 1;</span>
-<span class="source-line-no">143</span><span id="line-143">        final var caption = tags.size() &gt; 1 ? "Notes" : "Note";</span>
-<span class="source-line-no">144</span><span id="line-144">        final var retValue = tags.stream()</span>
-<span class="source-line-no">145</span><span id="line-145">            .map( Object::toString )</span>
-<span class="source-line-no">146</span><span id="line-146">            .map( t -&gt; t.substring( prefixLen ).trim() )</span>
-<span class="source-line-no">147</span><span id="line-147">            .map( text -&gt; "\n&lt;li&gt;" + processInlineTags( text, docTreeFactory, element, nameGenerator ) + "&lt;/li&gt;" )</span>
-<span class="source-line-no">148</span><span id="line-148">            .collect( Collectors.joining( "", "\n&lt;dt&gt;&lt;span class=\"simpleTagLabel\"&gt;" + caption + ":&lt;/span&gt;&lt;/dt&gt;\n&lt;dd&gt;\n&lt;ul&gt;", "\n&lt;/ul&gt;\n&lt;/dd&gt;\n" ) );</span>
-<span class="source-line-no">149</span><span id="line-149"></span>
-<span class="source-line-no">150</span><span id="line-150">        //---* Done *----------------------------------------------------------</span>
-<span class="source-line-no">151</span><span id="line-151">        return retValue;</span>
-<span class="source-line-no">152</span><span id="line-152">    }   //  toString()</span>
-<span class="source-line-no">153</span><span id="line-153">}</span>
-<span class="source-line-no">154</span><span id="line-154">//  class NoteTaglet</span>
-<span class="source-line-no">155</span><span id="line-155"></span>
-<span class="source-line-no">156</span><span id="line-156">/*</span>
-<span class="source-line-no">157</span><span id="line-157"> *  End of File</span>
-<span class="source-line-no">158</span><span id="line-158"> */</span>
+<span class="source-line-no">053</span><span id="line-53"> *  section.&lt;/p&gt;</span>
+<span class="source-line-no">054</span><span id="line-54"> *  &lt;p&gt;In particular the tags &lt;code&gt;{&amp;#64;link}&lt;/code&gt;,</span>
+<span class="source-line-no">055</span><span id="line-55"> *  &lt;code&gt;{&amp;#64;linkplain }&lt;/code&gt; and &lt;code&gt;{&amp;#64;value}&lt;/code&gt; will</span>
+<span class="source-line-no">056</span><span id="line-56"> *  &lt;i&gt;not&lt;/i&gt; be interpreted inside a &lt;code&gt;{&amp;#64;note}&lt;/code&gt; block!&lt;/p&gt;</span>
+<span class="source-line-no">057</span><span id="line-57"> *</span>
+<span class="source-line-no">058</span><span id="line-58"> *  @author Thomas Thrien - thomas.thrien@tquadrat.org</span>
+<span class="source-line-no">059</span><span id="line-59"> *  @version $Id: NoteTaglet.java 977 2022-01-06 11:41:03Z tquadrat $</span>
+<span class="source-line-no">060</span><span id="line-60"> *  @since 0.0.5</span>
+<span class="source-line-no">061</span><span id="line-61"> */</span>
+<span class="source-line-no">062</span><span id="line-62">@ClassVersion( sourceVersion = "$Id: NoteTaglet.java 977 2022-01-06 11:41:03Z tquadrat $" )</span>
+<span class="source-line-no">063</span><span id="line-63">@API( status = STABLE, since = "0.0.5" )</span>
+<span class="source-line-no">064</span><span id="line-64">public class NoteTaglet implements Taglet</span>
+<span class="source-line-no">065</span><span id="line-65">{</span>
+<span class="source-line-no">066</span><span id="line-66">        /*-----------*\</span>
+<span class="source-line-no">067</span><span id="line-67">    ====** Constants **========================================================</span>
+<span class="source-line-no">068</span><span id="line-68">        \*-----------*/</span>
+<span class="source-line-no">069</span><span id="line-69">    /**</span>
+<span class="source-line-no">070</span><span id="line-70">     *  The name of this taglet: {@value}.</span>
+<span class="source-line-no">071</span><span id="line-71">     */</span>
+<span class="source-line-no">072</span><span id="line-72">    public static final String TAGLET_NAME = "note";</span>
+<span class="source-line-no">073</span><span id="line-73"></span>
+<span class="source-line-no">074</span><span id="line-74">        /*------------*\</span>
+<span class="source-line-no">075</span><span id="line-75">    ====** Attributes **=======================================================</span>
+<span class="source-line-no">076</span><span id="line-76">        \*------------*/</span>
+<span class="source-line-no">077</span><span id="line-77">    /**</span>
+<span class="source-line-no">078</span><span id="line-78">     *  The doclet.</span>
+<span class="source-line-no">079</span><span id="line-79">     */</span>
+<span class="source-line-no">080</span><span id="line-80">    @SuppressWarnings( {"unused", "FieldCanBeLocal"} )</span>
+<span class="source-line-no">081</span><span id="line-81">    private Doclet m_Doclet;</span>
+<span class="source-line-no">082</span><span id="line-82"></span>
+<span class="source-line-no">083</span><span id="line-83">    /**</span>
+<span class="source-line-no">084</span><span id="line-84">     *  The doclet environment.</span>
+<span class="source-line-no">085</span><span id="line-85">     */</span>
+<span class="source-line-no">086</span><span id="line-86">    private DocletEnvironment m_DocletEnvironment;</span>
+<span class="source-line-no">087</span><span id="line-87"></span>
+<span class="source-line-no">088</span><span id="line-88">        /*--------------*\</span>
+<span class="source-line-no">089</span><span id="line-89">    ====** Constructors **=====================================================</span>
+<span class="source-line-no">090</span><span id="line-90">        \*--------------*/</span>
+<span class="source-line-no">091</span><span id="line-91">    /**</span>
+<span class="source-line-no">092</span><span id="line-92">     *  Creates a new {@code NoteTaglet} instance.</span>
+<span class="source-line-no">093</span><span id="line-93">     */</span>
+<span class="source-line-no">094</span><span id="line-94">    @SuppressWarnings( "RedundantNoArgConstructor" )</span>
+<span class="source-line-no">095</span><span id="line-95">    public NoteTaglet() { /* Just exists */ }</span>
+<span class="source-line-no">096</span><span id="line-96"></span>
+<span class="source-line-no">097</span><span id="line-97">        /*---------*\</span>
+<span class="source-line-no">098</span><span id="line-98">    ====** Methods **==========================================================</span>
+<span class="source-line-no">099</span><span id="line-99">        \*---------*/</span>
+<span class="source-line-no">100</span><span id="line-100">    /**</span>
+<span class="source-line-no">101</span><span id="line-101">     *  {@inheritDoc}</span>
+<span class="source-line-no">102</span><span id="line-102">     */</span>
+<span class="source-line-no">103</span><span id="line-103">    @Override</span>
+<span class="source-line-no">104</span><span id="line-104">    public final Set&lt;Location&gt; getAllowedLocations() { return EnumSet.allOf( Location.class ); }</span>
+<span class="source-line-no">105</span><span id="line-105"></span>
+<span class="source-line-no">106</span><span id="line-106">    /**</span>
+<span class="source-line-no">107</span><span id="line-107">     *  {@inheritDoc}</span>
+<span class="source-line-no">108</span><span id="line-108">     */</span>
+<span class="source-line-no">109</span><span id="line-109">    @Override</span>
+<span class="source-line-no">110</span><span id="line-110">    public final String getName() { return TAGLET_NAME; }</span>
+<span class="source-line-no">111</span><span id="line-111"></span>
+<span class="source-line-no">112</span><span id="line-112">    /**</span>
+<span class="source-line-no">113</span><span id="line-113">     *  {@inheritDoc}</span>
+<span class="source-line-no">114</span><span id="line-114">     */</span>
+<span class="source-line-no">115</span><span id="line-115">    @Override</span>
+<span class="source-line-no">116</span><span id="line-116">    public final void init( final DocletEnvironment docletEnvironment, final Doclet doclet )</span>
+<span class="source-line-no">117</span><span id="line-117">    {</span>
+<span class="source-line-no">118</span><span id="line-118">        Taglet.super.init( docletEnvironment, doclet );</span>
+<span class="source-line-no">119</span><span id="line-119">        m_Doclet = doclet;</span>
+<span class="source-line-no">120</span><span id="line-120">        m_DocletEnvironment = docletEnvironment;</span>
+<span class="source-line-no">121</span><span id="line-121">        initHelperTaglets( docletEnvironment, doclet );</span>
+<span class="source-line-no">122</span><span id="line-122">    }   //  init()</span>
+<span class="source-line-no">123</span><span id="line-123"></span>
+<span class="source-line-no">124</span><span id="line-124">    /**</span>
+<span class="source-line-no">125</span><span id="line-125">     *  {@inheritDoc}</span>
+<span class="source-line-no">126</span><span id="line-126">     */</span>
+<span class="source-line-no">127</span><span id="line-127">    @Override</span>
+<span class="source-line-no">128</span><span id="line-128">    public final boolean isInlineTag() { return false; }</span>
+<span class="source-line-no">129</span><span id="line-129"></span>
+<span class="source-line-no">130</span><span id="line-130">    /**</span>
+<span class="source-line-no">131</span><span id="line-131">     *  {@inheritDoc}</span>
+<span class="source-line-no">132</span><span id="line-132">     */</span>
+<span class="source-line-no">133</span><span id="line-133">    @Override</span>
+<span class="source-line-no">134</span><span id="line-134">    public final String toString( final List&lt;? extends DocTree&gt; tags, final Element element )</span>
+<span class="source-line-no">135</span><span id="line-135">    {</span>
+<span class="source-line-no">136</span><span id="line-136">        final var docTreeFactory = m_DocletEnvironment.getDocTrees().getDocTreeFactory();</span>
+<span class="source-line-no">137</span><span id="line-137">        final Function&lt;CharSequence,Name&gt; nameGenerator = m_DocletEnvironment.getElementUtils()::getName;</span>
+<span class="source-line-no">138</span><span id="line-138"></span>
+<span class="source-line-no">139</span><span id="line-139">        final var prefixLen = getName().length() + 1;</span>
+<span class="source-line-no">140</span><span id="line-140">        final var caption = tags.size() &gt; 1 ? "Notes" : "Note";</span>
+<span class="source-line-no">141</span><span id="line-141">        final var retValue = tags.stream()</span>
+<span class="source-line-no">142</span><span id="line-142">            .map( Object::toString )</span>
+<span class="source-line-no">143</span><span id="line-143">            .map( t -&gt; t.substring( prefixLen ).trim() )</span>
+<span class="source-line-no">144</span><span id="line-144">            .map( text -&gt; "\n&lt;li&gt;" + processInlineTags( text, docTreeFactory, element, nameGenerator ) + "&lt;/li&gt;" )</span>
+<span class="source-line-no">145</span><span id="line-145">            .collect( Collectors.joining( "", "\n&lt;dt&gt;&lt;span class=\"simpleTagLabel\"&gt;" + caption + ":&lt;/span&gt;&lt;/dt&gt;\n&lt;dd&gt;\n&lt;ul&gt;", "\n&lt;/ul&gt;\n&lt;/dd&gt;\n" ) );</span>
+<span class="source-line-no">146</span><span id="line-146"></span>
+<span class="source-line-no">147</span><span id="line-147">        //---* Done *----------------------------------------------------------</span>
+<span class="source-line-no">148</span><span id="line-148">        return retValue;</span>
+<span class="source-line-no">149</span><span id="line-149">    }   //  toString()</span>
+<span class="source-line-no">150</span><span id="line-150">}</span>
+<span class="source-line-no">151</span><span id="line-151">//  class NoteTaglet</span>
+<span class="source-line-no">152</span><span id="line-152"></span>
+<span class="source-line-no">153</span><span id="line-153">/*</span>
+<span class="source-line-no">154</span><span id="line-154"> *  End of File</span>
+<span class="source-line-no">155</span><span id="line-155"> */</span>
 
 
 

@@ -23,16 +23,16 @@ import static org.tquadrat.foundation.javadoc.umlgraph.UMLDocument.UML_CSS;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.tquadrat.foundation.annotation.ClassVersion;
+import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
 import org.tquadrat.foundation.testutil.TestBaseClass;
 
 /**
  *  For some reasons the {@code uml.css} resource file with the CSS definitions
  *  was not found.
  *
- *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
+ *  @author Thomas Thrien - thomas.thrien@tquadrat.org
  */
-@ClassVersion( sourceVersion = "$Id: BugHunt_20201229_001.java 820 2020-12-29 20:34:22Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: BugHunt_20201229_001.java 976 2022-01-06 11:39:58Z tquadrat $" )
 @DisplayName( "org.tquadrat.foundation.javadoc.BugHunt_20201229_001" )
 public class BugHunt_20201229_001 extends TestBaseClass
 {
@@ -52,7 +52,7 @@ public class BugHunt_20201229_001 extends TestBaseClass
 
         final var cssResource = UmlGraphLinkTaglet.class.getResource( UML_CSS );
         assertNotNull( cssResource );
-        out.printf( "Resource URL for '%s': %s", UML_CSS, cssResource.toString() );
+        out.printf( "Resource URL for '%s': %s", UML_CSS, cssResource );
     }   //  retrieveResource()
 }
 //  class BugHunt_20201229_001

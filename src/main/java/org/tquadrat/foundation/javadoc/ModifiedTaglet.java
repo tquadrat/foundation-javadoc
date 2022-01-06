@@ -17,9 +17,9 @@
 
 package org.tquadrat.foundation.javadoc;
 
+import static java.lang.String.format;
 import static org.apiguardian.api.API.Status.STABLE;
 import static org.tquadrat.foundation.javadoc.internal.Common.parseNameAndEmail;
-import static org.tquadrat.foundation.util.StringUtils.format;
 
 import javax.lang.model.element.Element;
 import java.util.EnumSet;
@@ -27,30 +27,28 @@ import java.util.List;
 import java.util.Set;
 
 import org.apiguardian.api.API;
-import org.tquadrat.foundation.annotation.ClassVersion;
+import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
 import com.sun.source.doctree.DocTree;
 import jdk.javadoc.doclet.Taglet;
 
 /**
- *  This taglet is used to refer to the author of the modifications to a piece
- *  of code that was originally written by somebody else (named in the
- *  {@code @author} or the
- *  {@link AuthorTaglet @extauthor}
- *  tag. It requires that reference to the editor in the format below:
+ *  <p>{@summary This taglet is used to refer to the author of the
+ *  modifications for a piece of code that was originally written by somebody
+ *  else (named in the {@code @author} or the
+  * {@link AuthorTaglet @extauthor}
+  * tag).} It requires that reference to the editor in the format below:</p>
  *  <pre><code>  &#x40;modified &lt;<i>name</i>&gt; <b>-</b> &lt;<i>email address</i>&gt;</code></pre>
- *  Basically, this is the name of the editor, followed by their email address,
- *  separated by a hyphen (&quot;&#x2d;&quot; &amp;#x2d), surrounded by
- *  blanks.<br>
- *  <br>If there is no email address, just the name will be shown in the
- *  output.
+ *  <p>Basically, this is the name of the editor, followed by their email
+ *  address, separated by a hyphen (&quot;&#x2d;&quot; &amp;#x2d), surrounded
+ *  by blanks.</p>
+ *  <p>If there is no email address, just the name will be shown in the
+ *  output.</p>
  *
- *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: ModifiedTaglet.java 820 2020-12-29 20:34:22Z tquadrat $
+ *  @author Thomas Thrien - thomas.thrien@tquadrat.org
+ *  @version $Id: ModifiedTaglet.java 977 2022-01-06 11:41:03Z tquadrat $
  *  @since 0.0.5
- *
- *  @UMLGraph.link
  */
-@ClassVersion( sourceVersion = "$Id: ModifiedTaglet.java 820 2020-12-29 20:34:22Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: ModifiedTaglet.java 977 2022-01-06 11:41:03Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
 public final class ModifiedTaglet implements Taglet
 {

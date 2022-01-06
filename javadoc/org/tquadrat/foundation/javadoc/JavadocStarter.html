@@ -37,7 +37,7 @@ loadScripts(document, 'script');</script>
 <div>JavaScript is disabled on your browser.</div>
 </noscript>
 <div class="flex-box">
-<header role="banner" class="flex-header"><div style="overflow:auto;"><img src="../../../../resources/tquadrat_logo.jpg" alt="tquadrat.org"style="float:right;"><p style="font-family:sans-serif;font-size:40px;font-weight:bold;padding-left:30px;">tquadrat Foundation Library</p>      </div>
+<header role="banner" class="flex-header"><div style="overflow:auto;"><img src="../../../../resources/tquadrat_logo.jpg" alt="tquadrat.org"style="float:right;"><p style="font-family:sans-serif;font-size:40px;font-weight:bold;padding-left:30px;">tquadrat JavaDoc Extension</p>      </div>
 <nav role="navigation">
 <!-- ========= START OF TOP NAVBAR ======= -->
 <div class="top-nav" id="navbar-top">
@@ -84,25 +84,26 @@ loadScripts(document, 'script');</script>
 <div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">org.tquadrat.foundation.javadoc</a></div>
 <h1 title="Class JavadocStarter" class="title">Class JavadocStarter</h1>
 </div>
-<div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
+<div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
 <div class="inheritance">org.tquadrat.foundation.javadoc.JavadocStarter</div>
 </div>
 <section class="class-description" id="class-description">
 <hr>
-<div class="type-signature"><span class="annotations">@ProgramClass
-@ClassVersion(sourceVersion="$Id: JavadocStarter.java 823 2021-01-02 22:12:21Z tquadrat $")
+<div class="type-signature"><span class="annotations"><a href="internal/foundation/annotation/ProgramClass.html" title="annotation interface in org.tquadrat.foundation.javadoc.internal.foundation.annotation">@ProgramClass</a>
+<a href="internal/foundation/annotation/ClassVersion.html" title="annotation interface in org.tquadrat.foundation.javadoc.internal.foundation.annotation">@ClassVersion</a>(<a href="internal/foundation/annotation/ClassVersion.html#sourceVersion()">sourceVersion</a>="$Id: JavadocStarter.java 976 2022-01-06 11:39:58Z tquadrat $")
 <a href="https://apiguardian-team.github.io/apiguardian/docs/current/api/org/apiguardian/api/API.html" title="class or interface in org.apiguardian.api" class="external-link">@API</a>(<a href="https://apiguardian-team.github.io/apiguardian/docs/current/api/org/apiguardian/api/API.html#status()" title="class or interface in org.apiguardian.api" class="external-link">status</a>=<a href="https://apiguardian-team.github.io/apiguardian/docs/current/api/org/apiguardian/api/API.Status.html#STABLE" title="class or interface in org.apiguardian.api" class="external-link">STABLE</a>,
      <a href="https://apiguardian-team.github.io/apiguardian/docs/current/api/org/apiguardian/api/API.html#since()" title="class or interface in org.apiguardian.api" class="external-link">since</a>="0.1.0")
-</span><span class="modifiers">public final class </span><span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/JavadocStarter.html#line-145">JavadocStarter</a></span>
-<span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
-<div class="block">Executes the <code>JavaDoc</code> tool with a bunch of default
-  parameters.<br>
-  <br>The program takes the name of a file as the only command line argument;
+</span><span class="modifiers">public final class </span><span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/JavadocStarter.html#line-144">JavadocStarter</a></span>
+<span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
+<div class="block"><p>Executes the <code>JavaDoc</code> tool with a bunch of default
+  parameters.</p>
+  <p>The program takes the name of a file as the only command line argument;
   that file contains the Javadoc options and parameters, as described in
-  <a href="https://docs.oracle.com/en/java/javase/15/docs/specs/man/javadoc.html"><code>https://docs.oracle.com/en/java/javase/15/docs/specs/man/javadoc.html</code></a>
+  { href https://docs.oracle.com/en/java/javase/15/docs/specs/man/javadoc.html}
   and
-  <a href="https://docs.oracle.com/en/java/javase/15/docs/specs/javadoc/doc-comment-spec.html"><code>https://docs.oracle.com/en/java/javase/15/docs/specs/javadoc/doc-comment-spec.html</code></a>.<br>
-  <br> The following default settings are made by the program:<br><pre><code>
+  { href https://docs.oracle.com/en/java/javase/15/docs/specs/javadoc/doc-comment-spec.html}.</p>
+  <p>The following default settings are made by the program:</p>
+  <pre><code>
   -author
   -bottom Copyright © 2002-2021 by Thomas Thrien (tquadrat.org)
   -breakiterator
@@ -161,8 +162,8 @@ loadScripts(document, 'script');</script>
   -top &lt;div style='overflow:auto;'&gt;&lt;img src='{&#64;docRoot}/resources/tquadrat_logo.jpg' alt='tquadrat.org' style='float:right;''&gt;&lt;p style='font-family:sans-serif;font-size:40px;font-weight:bold;padding-left:30px;'&gt;tquadrat Foundation Library%lt;/p'&gt;&lt;/div&gt;'
   -use
   -version
-  </code></pre><br>
-  The format must have the following format:
+  </code></pre>
+  <p>The format must have the following format:</p>
   <ul>
       <li>Lines beginning with the '#' symbol are comments and will be
       ignored; same for empty lines.</li>
@@ -175,31 +176,13 @@ loadScripts(document, 'script');</script>
       either a package or a source file.</li>
   </ul></div>
 <dl class="notes">
-<dt><span class="simpleTagLabel">Author:</span></dt>
-  <dd>Thomas Thrien (<a href="mailto:thomas.thrien@tquadrat.org">thomas.thrien@tquadrat.org</a>)</dd>
+<dt>Author:</dt>
+<dd>Thomas Thrien - thomas.thrien@tquadrat.org</dd>
 <dt>Version:</dt>
-<dd>$Id: JavadocStarter.java 823 2021-01-02 22:12:21Z tquadrat $</dd>
+<dd>$Id: JavadocStarter.java 976 2022-01-06 11:39:58Z tquadrat $</dd>
 <dt>Since:</dt>
 <dd>0.1.0</dd>
-
-<dt>
-    <span class='simpleTagLabel'>UML Diagram</span>
-</dt>
-<dd>
-    <a class='module-graph'
-       href='doc-files/JavadocStarter.svg'>
-        <img alt='UML Diagram for "org.tquadrat.foundation.javadoc.JavadocStarter"'
-             src='doc-files/JavadocStarter.svg'
-             style='vertical-align:top'
-             width='250'>&#x2060;</img>
-        <span style='background:white; border: solid black 2px;'>
-            <h2>UML Diagram for &quot;org.tquadrat.foundation.javadoc.JavadocStarter&quot;</h2>
-            <img alt='UML Diagram for "org.tquadrat.foundation.javadoc.JavadocStarter"'
-                 src='doc-files/JavadocStarter.svg'
-                 style='border: solid black 1px; vertical-align:top'>&#x2060;</img>
-        </span>
-    </a>
-</dd></dl>
+</dl>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -212,23 +195,23 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Field</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-first even-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color"><code><a href="#LOGO" class="member-name-link">LOGO</a></code></div>
 <div class="col-last even-row-color">
 <div class="block">The name of the logo file: "tquadrat_logo.jpg".</div>
 </div>
-<div class="col-first odd-row-color"><code>private static final <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
+<div class="col-first odd-row-color"><code>private static final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
 <div class="col-second odd-row-color"><code><a href="#m_DefaultArguments" class="member-name-link">m_DefaultArguments</a></code></div>
 <div class="col-last odd-row-color">
 <div class="block">The default arguments.<br>
   <br>The map is immutable.</div>
 </div>
-<div class="col-first even-row-color"><code>private static final <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/net/URL.html" title="class or interface in java.net" class="external-link">URL</a>&gt;</code></div>
+<div class="col-first even-row-color"><code>private static final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/net/URL.html" title="class or interface in java.net" class="external-link">URL</a>&gt;</code></div>
 <div class="col-second even-row-color"><code><a href="#m_Links" class="member-name-link">m_Links</a></code></div>
 <div class="col-last even-row-color">
 <div class="block">The list of the Link URLs.</div>
 </div>
-<div class="col-first odd-row-color"><code>private static final <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
+<div class="col-first odd-row-color"><code>private static final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
 <div class="col-second odd-row-color"><code><a href="#m_ReplaceableArguments" class="member-name-link">m_ReplaceableArguments</a></code></div>
 <div class="col-last odd-row-color">
 <div class="block">The arguments that can be replaced by those on the command line.<br>
@@ -236,12 +219,12 @@ loadScripts(document, 'script');</script>
   will never be empty.<br>
   <br>The map as such is immutable.</div>
 </div>
-<div class="col-first even-row-color"><code>private static final <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
+<div class="col-first even-row-color"><code>private static final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
 <div class="col-second even-row-color"><code><a href="#m_Tags" class="member-name-link">m_Tags</a></code></div>
 <div class="col-last even-row-color">
 <div class="block">The tags and taglets.</div>
 </div>
-<div class="col-first odd-row-color"><code>private final <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/spi/ToolProvider.html" title="class or interface in java.util.spi" class="external-link">ToolProvider</a></code></div>
+<div class="col-first odd-row-color"><code>private final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/spi/ToolProvider.html" title="class or interface in java.util.spi" class="external-link">ToolProvider</a></code></div>
 <div class="col-second odd-row-color"><code><a href="#m_ToolProvider" class="member-name-link">m_ToolProvider</a></code></div>
 <div class="col-last odd-row-color">
 <div class="block">The tool provider.</div>
@@ -259,7 +242,7 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Constructor</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><code>private </code></div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(java.util.spi.ToolProvider)" class="member-name-link">JavadocStarter</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/spi/ToolProvider.html" title="class or interface in java.util.spi" class="external-link">ToolProvider</a>&nbsp;toolProvider)</code></div>
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(java.util.spi.ToolProvider)" class="member-name-link">JavadocStarter</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/spi/ToolProvider.html" title="class or interface in java.util.spi" class="external-link">ToolProvider</a>&nbsp;toolProvider)</code></div>
 <div class="col-last even-row-color">
 <div class="block">Creates a new <code>JavadocStarter</code> instance.</div>
 </div>
@@ -278,32 +261,32 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#execute(java.lang.String...)" class="member-name-link">execute</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>...&nbsp;args)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#execute(java.lang.String...)" class="member-name-link">execute</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>...&nbsp;args)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Does the program's work.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private final int</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#joinLines(java.lang.String%5B%5D,int,java.lang.StringBuilder)" class="member-name-link">joinLines</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]&nbsp;lines,
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#joinLines(java.lang.String%5B%5D,int,java.lang.StringBuilder)" class="member-name-link">joinLines</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]&nbsp;lines,
  int&nbsp;index,
- <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/StringBuilder.html" title="class or interface in java.lang" class="external-link">StringBuilder</a>&nbsp;currentLine)</code></div>
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/StringBuilder.html" title="class or interface in java.lang" class="external-link">StringBuilder</a>&nbsp;currentLine)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Joins lines in the options file that ends with a backslash with the
   next line and return the new index.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private final <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#loadOptions(java.io.File)" class="member-name-link">loadOptions</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/io/File.html" title="class or interface in java.io" class="external-link">File</a>&nbsp;optionsFile)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#loadOptions(java.io.File)" class="member-name-link">loadOptions</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/File.html" title="class or interface in java.io" class="external-link">File</a>&nbsp;optionsFile)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Reads the options file and returns the options from it.<br>
   <br>The source files and package names will get the key
   &quot;ARGUMENT&lt;<i>#</i>&gt;&quot; where <i>#</i> is a counter.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#main(java.lang.String...)" class="member-name-link">main</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>...&nbsp;args)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#main(java.lang.String...)" class="member-name-link">main</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>...&nbsp;args)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">The program entry point.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private final void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#writeLogo(java.io.File)" class="member-name-link">writeLogo</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/io/File.html" title="class or interface in java.io" class="external-link">File</a>&nbsp;targetFolder)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#writeLogo(java.io.File)" class="member-name-link">writeLogo</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/File.html" title="class or interface in java.io" class="external-link">File</a>&nbsp;targetFolder)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Writes the logo to the given folder.</div>
 </div>
@@ -311,8 +294,8 @@ loadScripts(document, 'script');</script>
 </div>
 </div>
 <div class="inherited-list">
-<h3 id="methods-inherited-from-class-java.lang.Object">Methods inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></h3>
-<code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#clone()" title="class or interface in java.lang" class="external-link">clone</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#finalize()" title="class or interface in java.lang" class="external-link">finalize</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link">hashCode</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#toString()" title="class or interface in java.lang" class="external-link">toString</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
+<h3 id="methods-inherited-from-class-java.lang.Object">Methods inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></h3>
+<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#clone()" title="class or interface in java.lang" class="external-link">clone</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#finalize()" title="class or interface in java.lang" class="external-link">finalize</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link">hashCode</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#toString()" title="class or interface in java.lang" class="external-link">toString</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
 </section>
 </li>
 </ul>
@@ -327,7 +310,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="LOGO">
 <h3>LOGO</h3>
-<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/JavadocStarter.html#line-156">LOGO</a></span></div>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/JavadocStarter.html#line-155">LOGO</a></span></div>
 <div class="block">The name of the logo file: "tquadrat_logo.jpg".</div>
 <dl class="notes">
 <dt>See Also:</dt>
@@ -342,14 +325,14 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="m_ToolProvider">
 <h3>m_ToolProvider</h3>
-<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/spi/ToolProvider.html" title="class or interface in java.util.spi" class="external-link">ToolProvider</a></span>&nbsp;<span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/JavadocStarter.html#line-164">m_ToolProvider</a></span></div>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/spi/ToolProvider.html" title="class or interface in java.util.spi" class="external-link">ToolProvider</a></span>&nbsp;<span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/JavadocStarter.html#line-163">m_ToolProvider</a></span></div>
 <div class="block">The tool provider.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="m_DefaultArguments">
 <h3>m_DefaultArguments</h3>
-<div class="member-signature"><span class="modifiers">private static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/JavadocStarter.html#line-173">m_DefaultArguments</a></span></div>
+<div class="member-signature"><span class="modifiers">private static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/JavadocStarter.html#line-172">m_DefaultArguments</a></span></div>
 <div class="block">The default arguments.<br>
   <br>The map is immutable.</div>
 </section>
@@ -357,14 +340,14 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="m_Links">
 <h3>m_Links</h3>
-<div class="member-signature"><span class="modifiers">private static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/net/URL.html" title="class or interface in java.net" class="external-link">URL</a>&gt;</span>&nbsp;<span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/JavadocStarter.html#line-178">m_Links</a></span></div>
+<div class="member-signature"><span class="modifiers">private static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/net/URL.html" title="class or interface in java.net" class="external-link">URL</a>&gt;</span>&nbsp;<span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/JavadocStarter.html#line-177">m_Links</a></span></div>
 <div class="block">The list of the Link URLs.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="m_ReplaceableArguments">
 <h3>m_ReplaceableArguments</h3>
-<div class="member-signature"><span class="modifiers">private static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/JavadocStarter.html#line-186">m_ReplaceableArguments</a></span></div>
+<div class="member-signature"><span class="modifiers">private static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/JavadocStarter.html#line-185">m_ReplaceableArguments</a></span></div>
 <div class="block">The arguments that can be replaced by those on the command line.<br>
   <br>The key is the argument name, the value is the arguments value; it
   will never be empty.<br>
@@ -374,7 +357,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="m_Tags">
 <h3>m_Tags</h3>
-<div class="member-signature"><span class="modifiers">private static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/JavadocStarter.html#line-191">m_Tags</a></span></div>
+<div class="member-signature"><span class="modifiers">private static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/JavadocStarter.html#line-190">m_Tags</a></span></div>
 <div class="block">The tags and taglets.</div>
 </section>
 </li>
@@ -389,7 +372,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="&lt;init&gt;(java.util.spi.ToolProvider)">
 <h3>JavadocStarter</h3>
-<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/JavadocStarter.html#line-287">JavadocStarter</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/spi/ToolProvider.html" title="class or interface in java.util.spi" class="external-link">ToolProvider</a>&nbsp;toolProvider)</span></div>
+<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/JavadocStarter.html#line-286">JavadocStarter</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/spi/ToolProvider.html" title="class or interface in java.util.spi" class="external-link">ToolProvider</a>&nbsp;toolProvider)</span></div>
 <div class="block">Creates a new <code>JavadocStarter</code> instance.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -408,14 +391,14 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="execute(java.lang.String...)">
 <h3>execute</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/JavadocStarter.html#line-302">execute</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>...&nbsp;args)</span>
-                   throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></span></div>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/JavadocStarter.html#line-301">execute</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>...&nbsp;args)</span>
+                   throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></span></div>
 <div class="block">Does the program's work.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>args</code> - The command line arguments.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></code> - A problem occurred when determine the project
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></code> - A problem occurred when determine the project
       location.</dd>
 </dl>
 </section>
@@ -423,9 +406,9 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="joinLines(java.lang.String[],int,java.lang.StringBuilder)">
 <h3>joinLines</h3>
-<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/JavadocStarter.html#line-362">joinLines</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]&nbsp;lines,
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/JavadocStarter.html#line-361">joinLines</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]&nbsp;lines,
  int&nbsp;index,
- <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/StringBuilder.html" title="class or interface in java.lang" class="external-link">StringBuilder</a>&nbsp;currentLine)</span></div>
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/StringBuilder.html" title="class or interface in java.lang" class="external-link">StringBuilder</a>&nbsp;currentLine)</span></div>
 <div class="block">Joins lines in the options file that ends with a backslash with the
   next line and return the new index.</div>
 <dl class="notes">
@@ -441,8 +424,8 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="loadOptions(java.io.File)">
 <h3>loadOptions</h3>
-<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/JavadocStarter.html#line-387">loadOptions</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/io/File.html" title="class or interface in java.io" class="external-link">File</a>&nbsp;optionsFile)</span>
-                                      throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></span></div>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/JavadocStarter.html#line-386">loadOptions</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/File.html" title="class or interface in java.io" class="external-link">File</a>&nbsp;optionsFile)</span>
+                                      throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></span></div>
 <div class="block">Reads the options file and returns the options from it.<br>
   <br>The source files and package names will get the key
   &quot;ARGUMENT&lt;<i>#</i>&gt;&quot; where <i>#</i> is a counter.</div>
@@ -453,14 +436,14 @@ loadScripts(document, 'script');</script>
 <dd>The options from the file, or from
       <a href="#m_ReplaceableArguments"><code>m_ReplaceableArguments</code></a>.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></code> - A problem occurred when reading the options file.</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></code> - A problem occurred when reading the options file.</dd>
 </dl>
 </section>
 </li>
 <li>
 <section class="detail" id="main(java.lang.String...)">
 <h3>main</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/JavadocStarter.html#line-441">main</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>...&nbsp;args)</span></div>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/JavadocStarter.html#line-440">main</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>...&nbsp;args)</span></div>
 <div class="block">The program entry point.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -471,14 +454,14 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="writeLogo(java.io.File)">
 <h3>writeLogo</h3>
-<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/JavadocStarter.html#line-488">writeLogo</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/io/File.html" title="class or interface in java.io" class="external-link">File</a>&nbsp;targetFolder)</span>
-                      throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></span></div>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/JavadocStarter.html#line-487">writeLogo</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/File.html" title="class or interface in java.io" class="external-link">File</a>&nbsp;targetFolder)</span>
+                      throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></span></div>
 <div class="block">Writes the logo to the given folder.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>targetFolder</code> - The destination folder.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></code> - Cannot write the logo file.</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></code> - Cannot write the logo file.</dd>
 </dl>
 </section>
 </li>

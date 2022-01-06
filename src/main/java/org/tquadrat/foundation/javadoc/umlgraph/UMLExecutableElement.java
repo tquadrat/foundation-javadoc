@@ -17,9 +17,9 @@
 
 package org.tquadrat.foundation.javadoc.umlgraph;
 
+import static java.lang.String.format;
 import static java.util.stream.Collectors.joining;
 import static org.apiguardian.api.API.Status.INTERNAL;
-import static org.tquadrat.foundation.util.StringUtils.format;
 
 import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.ExecutableElement;
@@ -29,41 +29,24 @@ import javax.lang.model.type.TypeMirror;
 import java.util.List;
 
 import org.apiguardian.api.API;
-import org.tquadrat.foundation.annotation.ClassVersion;
-import org.tquadrat.foundation.lang.Lazy;
+import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
 
 /**
  *  The wrapper for an
  *  {@link ExecutableElement}
  *  instance, enhanced by information needed for the creation of the UML graph.
  *
- *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: UMLExecutableElement.java 820 2020-12-29 20:34:22Z tquadrat $
+ *  @author Thomas Thrien - thomas.thrien@tquadrat.org
+ *  @version $Id: UMLExecutableElement.java 976 2022-01-06 11:39:58Z tquadrat $
  *  @since 0.0.5
- *
- *  @UMLGraph.link
  */
-@ClassVersion( sourceVersion = "$Id: UMLExecutableElement.java 820 2020-12-29 20:34:22Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: UMLExecutableElement.java 976 2022-01-06 11:39:58Z tquadrat $" )
 @API( status = INTERNAL, since = "0.0.5" )
-public abstract sealed class UMLExecutableElement extends UMLMemberElement implements ExecutableElement
-    permits UMLConstructorElement, UMLMethodElement
+public abstract class UMLExecutableElement extends UMLMemberElement implements ExecutableElement
 {
-        /*-----------*\
-    ====** Constants **========================================================
-        \*-----------*/
-    /**
-     *  An empty array of {@code UMLExecutableElement} objects.
-     */
-    public static final UMLExecutableElement [] EMPTY_UMLExecutableElement_ARRAY = new UMLExecutableElement [0];
-
         /*------------*\
     ====** Attributes **=======================================================
         \*------------*/
-    /**
-     *  The cached parameters list.
-     */
-    private final Lazy<String> m_UMLParameters;
-
     /**
      *  The wrapped executable element.
      */
@@ -81,8 +64,6 @@ public abstract sealed class UMLExecutableElement extends UMLMemberElement imple
     {
         super( element );
         m_Wrapped = element; // Null check is done by super constructor.
-
-        m_UMLParameters = Lazy.use( this::retrieveParameters );
     }   //  UMLExecutableElement()
 
         /*---------*\
@@ -105,7 +86,7 @@ public abstract sealed class UMLExecutableElement extends UMLMemberElement imple
      *
      *  @return The parameters list.
      */
-    public final String getParametersList() { return m_UMLParameters.get(); }
+    public final String getParametersList() { return retrieveParameters(); }
 
     /**
      *  {@inheritDoc}

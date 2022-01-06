@@ -17,20 +17,20 @@
 
 package org.tquadrat.foundation.javadoc;
 
+import static java.lang.String.format;
 import static java.lang.System.err;
 import static java.lang.System.out;
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.nio.file.Files.copy;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import static java.util.Locale.UK;
+import static java.util.Objects.isNull;
 import static java.util.stream.Collectors.joining;
 import static org.apiguardian.api.API.Status.STABLE;
-import static org.tquadrat.foundation.lang.CommonConstants.EMPTY_STRING;
-import static org.tquadrat.foundation.lang.CommonConstants.EMPTY_String_ARRAY;
-import static org.tquadrat.foundation.lang.CommonConstants.UTF8;
-import static org.tquadrat.foundation.lang.Objects.isNull;
-import static org.tquadrat.foundation.lang.Objects.requireNotEmptyArgument;
-import static org.tquadrat.foundation.util.StringUtils.format;
-import static org.tquadrat.foundation.util.StringUtils.splitString;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.EMPTY_STRING;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.EMPTY_String_ARRAY;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.requireNotEmptyArgument;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.splitString;
 
 import javax.lang.model.SourceVersion;
 import java.io.File;
@@ -49,21 +49,22 @@ import java.util.TreeMap;
 import java.util.spi.ToolProvider;
 
 import org.apiguardian.api.API;
-import org.tquadrat.foundation.annotation.ClassVersion;
-import org.tquadrat.foundation.annotation.ProgramClass;
-import org.tquadrat.foundation.exception.ApplicationError;
-import org.tquadrat.foundation.exception.EmptyArgumentException;
-import org.tquadrat.foundation.exception.LambdaContainerException;
+import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
+import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ProgramClass;
+import org.tquadrat.foundation.javadoc.internal.foundation.exception.ApplicationError;
+import org.tquadrat.foundation.javadoc.internal.foundation.exception.EmptyArgumentException;
+import org.tquadrat.foundation.javadoc.internal.foundation.exception.LambdaContainerException;
 
 /**
- *  {@summary Executes the {@code JavaDoc} tool with a bunch of default
- *  parameters.}<br>
- *  <br>The program takes the name of a file as the only command line argument;
+ *  <p>{@summary Executes the {@code JavaDoc} tool with a bunch of default
+ *  parameters.}</p>
+ *  <p>The program takes the name of a file as the only command line argument;
  *  that file contains the Javadoc options and parameters, as described in
- *  {@href https://docs.oracle.com/en/java/javase/15/docs/specs/man/javadoc.html}
+ *  { href https://docs.oracle.com/en/java/javase/15/docs/specs/man/javadoc.html}
  *  and
- *  {@href https://docs.oracle.com/en/java/javase/15/docs/specs/javadoc/doc-comment-spec.html}.<br>
- *  <br> The following default settings are made by the program:<br><pre><code>
+ *  { href https://docs.oracle.com/en/java/javase/15/docs/specs/javadoc/doc-comment-spec.html}.</p>
+ *  <p>The following default settings are made by the program:</p>
+ *  <pre><code>
  *  -author
  *  -bottom Copyright © 2002-2021 by Thomas Thrien (tquadrat.org)
  *  -breakiterator
@@ -122,8 +123,8 @@ import org.tquadrat.foundation.exception.LambdaContainerException;
  *  -top &lt;div style='overflow:auto;'&gt;&lt;img src='{&#64;docRoot}/resources/tquadrat_logo.jpg' alt='tquadrat.org' style='float:right;''&gt;&lt;p style='font-family:sans-serif;font-size:40px;font-weight:bold;padding-left:30px;'&gt;tquadrat Foundation Library%lt;/p'&gt;&lt;/div&gt;'
  *  -use
  *  -version
- *  </code></pre><br>
- *  The format must have the following format:
+ *  </code></pre>
+ *  <p>The format must have the following format:</p>
  *  <ul>
  *      <li>Lines beginning with the '#' symbol are comments and will be
  *      ignored; same for empty lines.</li>
@@ -136,14 +137,12 @@ import org.tquadrat.foundation.exception.LambdaContainerException;
  *      either a package or a source file.</li>
  *  </ul>
  *
- *  @extauthor  Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: JavadocStarter.java 823 2021-01-02 22:12:21Z tquadrat $
+ *  @author  Thomas Thrien - thomas.thrien@tquadrat.org
+ *  @version $Id: JavadocStarter.java 976 2022-01-06 11:39:58Z tquadrat $
  *  @since 0.1.0
- *
- *  @UMLGraph.link
  */
 @ProgramClass
-@ClassVersion( sourceVersion = "$Id: JavadocStarter.java 823 2021-01-02 22:12:21Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: JavadocStarter.java 976 2022-01-06 11:39:58Z tquadrat $" )
 @API( status = STABLE, since = "0.1.0" )
 public final class JavadocStarter
 {
@@ -197,11 +196,11 @@ public final class JavadocStarter
         final Map<String,String> defaultArguments = new TreeMap<>();
         defaultArguments.put( "-author", EMPTY_STRING );
         defaultArguments.put( "-breakiterator", EMPTY_STRING );
-        defaultArguments.put( "-charset", UTF8.name() );
-        defaultArguments.put( "-docencoding", UTF8.name() );
+        defaultArguments.put( "-charset", UTF_8.name() );
+        defaultArguments.put( "-docencoding", UTF_8.name() );
         defaultArguments.put( "-docfilessubdirs", EMPTY_STRING );
         defaultArguments.put( "--enable-preview", EMPTY_STRING );
-        defaultArguments.put( "-encoding", UTF8.name() );
+        defaultArguments.put( "-encoding", UTF_8.name() );
         defaultArguments.put( "-html5", EMPTY_STRING );
         defaultArguments.put( "-javafx", EMPTY_STRING );
         defaultArguments.put( "-keywords", EMPTY_STRING );
@@ -386,7 +385,7 @@ public final class JavadocStarter
      */
     private final Map<String,String> loadOptions( final File optionsFile ) throws IOException
     {
-        final var lines = Files.readAllLines( optionsFile.toPath(), UTF8 ).toArray( String[]::new );
+        final var lines = Files.readAllLines( optionsFile.toPath(), UTF_8 ).toArray( String[]::new );
         var counter = 0;
         var index = 0;
         final Map<String,String> retValue = new TreeMap<>( m_DefaultArguments );

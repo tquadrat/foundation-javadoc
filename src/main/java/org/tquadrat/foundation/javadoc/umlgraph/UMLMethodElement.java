@@ -26,8 +26,8 @@ import static org.apiguardian.api.API.Status.INTERNAL;
 import javax.lang.model.element.ExecutableElement;
 
 import org.apiguardian.api.API;
-import org.tquadrat.foundation.annotation.ClassVersion;
-import org.tquadrat.foundation.svg.SVGText;
+import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
+import org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGText;
 
 /**
  *  The wrapper for an
@@ -35,24 +35,14 @@ import org.tquadrat.foundation.svg.SVGText;
  *  instance that represents a constructor, enhanced by information needed for
  *  the creation of the UML graph.
  *
- *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: UMLMethodElement.java 820 2020-12-29 20:34:22Z tquadrat $
+ *  @author Thomas Thrien - thomas.thrien@tquadrat.org
+ *  @version $Id: UMLMethodElement.java 976 2022-01-06 11:39:58Z tquadrat $
  *  @since 0.0.5
- *
- *  @UMLGraph.link
  */
-@ClassVersion( sourceVersion = "$Id: UMLMethodElement.java 820 2020-12-29 20:34:22Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: UMLMethodElement.java 976 2022-01-06 11:39:58Z tquadrat $" )
 @API( status = INTERNAL, since = "0.0.5")
 public final class UMLMethodElement extends UMLExecutableElement
 {
-        /*-----------*\
-    ====** Constants **========================================================
-        \*-----------*/
-    /**
-     *  An empty array of {@code UMLMethodElement} objects.
-     */
-    public static final UMLMethodElement [] EMPTY_UMLMethodElement_ARRAY = new UMLMethodElement [0];
-
         /*--------------*\
     ====** Constructors **=====================================================
         \*--------------*/

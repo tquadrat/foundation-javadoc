@@ -23,10 +23,10 @@ import static java.util.Arrays.asList;
 import static java.util.Collections.unmodifiableMap;
 import static java.util.stream.Collectors.joining;
 import static org.apiguardian.api.API.Status.DEPRECATED;
-import static org.tquadrat.foundation.lang.CommonConstants.EMPTY_STRING;
-import static org.tquadrat.foundation.lang.CommonConstants.EMPTY_String_ARRAY;
-import static org.tquadrat.foundation.util.StringUtils.isNotEmptyOrBlank;
-import static org.tquadrat.foundation.util.StringUtils.splitString;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.EMPTY_STRING;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.EMPTY_String_ARRAY;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.isNotEmptyOrBlank;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.splitString;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,25 +37,24 @@ import java.util.TreeMap;
 import java.util.spi.ToolProvider;
 
 import org.apiguardian.api.API;
-import org.tquadrat.foundation.annotation.ClassVersion;
-import org.tquadrat.foundation.annotation.ProgramClass;
-import org.tquadrat.foundation.exception.ApplicationError;
-import org.tquadrat.foundation.exception.LambdaContainerException;
+import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
+import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ProgramClass;
+import org.tquadrat.foundation.javadoc.internal.foundation.exception.ApplicationError;
+import org.tquadrat.foundation.javadoc.internal.foundation.exception.LambdaContainerException;
 
 /**
  *  Executes the {@code JavaDoc} tool with a bunch of default parameters.
  *
- *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: Starter.java 821 2020-12-31 00:05:27Z tquadrat $
+ *  @author Thomas Thrien - thomas.thrien@tquadrat.org
+ *  @version $Id: Starter.java 976 2022-01-06 11:39:58Z tquadrat $
  *  @since 0.0.5
  *
- *  @UMLGraph.link
  *
  *  @deprecated This program was replaced by
  *      {@link JavadocStarter}.
  */
 @ProgramClass
-@ClassVersion( sourceVersion = "$Id: Starter.java 821 2020-12-31 00:05:27Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: Starter.java 976 2022-01-06 11:39:58Z tquadrat $" )
 @API( status = DEPRECATED, since = "0.0.5" )
 @Deprecated( since = "0.1.0", forRemoval = true )
 public final class Starter
@@ -112,7 +111,7 @@ public final class Starter
         defaultArguments.put( "-version", null );
         defaultArguments.put( "-J-Duser.language=en", null );
         /*
-         * We cannot use Map.copyOf() here because some of the values are null.
+         * We cannot use Map.copyOf() here because some values are null.
          */
         m_DefaultArguments = unmodifiableMap( defaultArguments );
 

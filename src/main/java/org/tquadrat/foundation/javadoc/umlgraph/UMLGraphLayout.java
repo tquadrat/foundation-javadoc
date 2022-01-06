@@ -20,15 +20,16 @@ package org.tquadrat.foundation.javadoc.umlgraph;
 import static java.lang.Math.signum;
 import static java.util.Arrays.stream;
 import static java.util.Collections.emptyList;
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 import static org.apiguardian.api.API.Status.INTERNAL;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.requireNonNullArgument;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.requireNotEmptyArgument;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.createRectangle;
+import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.number;
 import static org.tquadrat.foundation.javadoc.umlgraph.UMLConnectorType.IMPLEMENTATION;
 import static org.tquadrat.foundation.javadoc.umlgraph.UMLConnectorType.INHERITANCE;
 import static org.tquadrat.foundation.javadoc.umlgraph.UMLDocument.SVG_ELEMENT_SPACING;
-import static org.tquadrat.foundation.lang.Objects.nonNull;
-import static org.tquadrat.foundation.lang.Objects.requireNonNullArgument;
-import static org.tquadrat.foundation.lang.Objects.requireNotEmptyArgument;
-import static org.tquadrat.foundation.svg.SVGUtils.createRectangle;
-import static org.tquadrat.foundation.svg.SVGUtils.number;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -40,20 +41,17 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.apiguardian.api.API;
-import org.tquadrat.foundation.annotation.ClassVersion;
 import org.tquadrat.foundation.javadoc.internal.JavadocError;
-import org.tquadrat.foundation.lang.Lazy;
+import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
 
 /**
- *  This class is used to layout the UML graph.
+ *  This class is used to lay out the UML graph.
  *
- *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: UMLGraphLayout.java 820 2020-12-29 20:34:22Z tquadrat $
+ *  @author Thomas Thrien - thomas.thrien@tquadrat.org
+ *  @version $Id: UMLGraphLayout.java 976 2022-01-06 11:39:58Z tquadrat $
  *  @since 0.0.5
- *
- *  @UMLGraph.link
  */
-@ClassVersion( sourceVersion = "$Id: UMLGraphLayout.java 820 2020-12-29 20:34:22Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: UMLGraphLayout.java 976 2022-01-06 11:39:58Z tquadrat $" )
 @API( status = INTERNAL, since = "0.0.5")
 public final class UMLGraphLayout
 {
@@ -61,15 +59,13 @@ public final class UMLGraphLayout
     ====** Inner Classes **====================================================
         \*---------------*/
     /**
-     *  This class is used to layout the UML graph.
+     *  This class is used to lay out the UML graph.
      *
-     *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
-     *  @version $Id: UMLGraphLayout.java 820 2020-12-29 20:34:22Z tquadrat $
+     *  @author Thomas Thrien - thomas.thrien@tquadrat.org
+     *  @version $Id: UMLGraphLayout.java 976 2022-01-06 11:39:58Z tquadrat $
      *  @since 0.0.5
-     *
-     *  @UMLGraph.link
      */
-    @ClassVersion( sourceVersion = "$Id: UMLGraphLayout.java 820 2020-12-29 20:34:22Z tquadrat $" )
+    @ClassVersion( sourceVersion = "$Id: UMLGraphLayout.java 976 2022-01-06 11:39:58Z tquadrat $" )
     @API( status = INTERNAL, since = "0.0.5")
     public static final class UMLGraphLayoutRow
     {
@@ -238,14 +234,6 @@ public final class UMLGraphLayout
     }
     //  class UMLGraphLayoutRow
 
-        /*-----------*\
-    ====** Constants **========================================================
-        \*-----------*/
-    /**
-     *  An empty array of {@code UMLGraphLayoutRow} objects.
-     */
-    public static final UMLGraphLayoutRow [] EMPTY_UMLGraphLayoutRow_ARRAY = new UMLGraphLayoutRow [0];
-
         /*------------*\
     ====** Attributes **=======================================================
         \*------------*/
@@ -386,22 +374,22 @@ public final class UMLGraphLayout
             final List<UMLGraphLayoutRow> rowBuffer = new ArrayList<>();
             for( final var row : rowMirror )
             {
-                final var optionalRow = Lazy.use( UMLGraphLayoutRow::new );
+                UMLGraphLayoutRow optionalRow = null;
                 for( final var typeSymbol : row.getContents() )
                 {
                     final var hasChildInThisRow = stream( typeSymbol.getTypeElement().getChildTypes() )
                         .anyMatch( c -> row.findByName( c.getQualifiedName().toString() ).isPresent() );
                     if( hasChildInThisRow )
                     {
-                        optionalRow.get().addSymbol( typeSymbol );
+                        if( isNull( optionalRow ) ) optionalRow = new UMLGraphLayoutRow();
+                        optionalRow.addSymbol( typeSymbol );
                         changed = true;
                     }
                 }
-                if( optionalRow.isPresent() )
+                if( nonNull( optionalRow ) )
                 {
-                    final var tempRow = optionalRow.get();
-                    rowBuffer.add( tempRow );
-                    for( final var typeSymbol : tempRow.getContents() )
+                    rowBuffer.add( optionalRow );
+                    for( final var typeSymbol : optionalRow.getContents() )
                     {
                         row.removeSymbol( typeSymbol );
                     }
@@ -434,16 +422,14 @@ public final class UMLGraphLayout
         //---* Calculate the positions for the elements *----------------------
         final Comparator<UMLConnector> endPosSorter = ( c1, c2) -> (int) signum( c1.getChildTypeSymbol().getPosition().x() - c2.getChildTypeSymbol().getPosition().x() );
         final Comparator<UMLConnector> startPosSorter = ( c1, c2) -> (int) signum( c1.getParentTypeSymbol().getPosition().x() - c2.getParentTypeSymbol().getPosition().x() );
-        List<UMLConnector> startingConnectors = emptyList();
-        List<UMLConnector> endingConnectors = emptyList();
         var y = SVG_ELEMENT_SPACING / 2.0;
 
         for( final var row : m_Rows )
         {
             for( final var symbol : row.getContents() )
             {
-                startingConnectors = new ArrayList<>( m_StartingConnectors.getOrDefault( symbol.getQualifiedName(), emptyList() ) );
-                endingConnectors = new ArrayList<>( m_EndingConnectors.getOrDefault( symbol.getQualifiedName(), emptyList() ) );
+                final List<UMLConnector> startingConnectors = new ArrayList<>( m_StartingConnectors.getOrDefault( symbol.getQualifiedName(), emptyList() ) );
+                final List<UMLConnector> endingConnectors = new ArrayList<>( m_EndingConnectors.getOrDefault( symbol.getQualifiedName(), emptyList() ) );
                 startingConnectors.sort( startPosSorter );
                 endingConnectors.sort( endPosSorter );
                 symbol.setY( y );
@@ -461,7 +447,7 @@ public final class UMLGraphLayout
      *  Call this method if all elements were added to the current row.
      *
      *  @param  atEnd   {@code true} if the row should be added to the
-     *      end, {@code false} if it should be added to the begin of the
+     *      end, {@code false} if it should be added to the beginning of the
      *      row's list.
      */
     public final void finishRow( final boolean atEnd )

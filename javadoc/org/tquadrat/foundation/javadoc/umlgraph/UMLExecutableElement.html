@@ -8,8 +8,6 @@
 <meta name="description" content="declaration: package: org.tquadrat.foundation.javadoc.umlgraph, class: UMLExecutableElement">
 <meta name="generator" content="javadoc/ClassWriterImpl">
 <meta name="keywords" content="org.tquadrat.foundation.javadoc.umlgraph.UMLExecutableElement class">
-<meta name="keywords" content="EMPTY_UMLExecutableElement_ARRAY">
-<meta name="keywords" content="m_UMLParameters">
 <meta name="keywords" content="m_Wrapped">
 <meta name="keywords" content="getDefaultValue()">
 <meta name="keywords" content="getParameters()">
@@ -39,7 +37,7 @@ loadScripts(document, 'script');</script>
 <div>JavaScript is disabled on your browser.</div>
 </noscript>
 <div class="flex-box">
-<header role="banner" class="flex-header"><div style="overflow:auto;"><img src="../../../../../resources/tquadrat_logo.jpg" alt="tquadrat.org"style="float:right;"><p style="font-family:sans-serif;font-size:40px;font-weight:bold;padding-left:30px;">tquadrat Foundation Library</p>      </div>
+<header role="banner" class="flex-header"><div style="overflow:auto;"><img src="../../../../../resources/tquadrat_logo.jpg" alt="tquadrat.org"style="float:right;"><p style="font-family:sans-serif;font-size:40px;font-weight:bold;padding-left:30px;">tquadrat JavaDoc Extension</p>      </div>
 <nav role="navigation">
 <!-- ========= START OF TOP NAVBAR ======= -->
 <div class="top-nav" id="navbar-top">
@@ -86,7 +84,7 @@ loadScripts(document, 'script');</script>
 <div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">org.tquadrat.foundation.javadoc.umlgraph</a></div>
 <h1 title="Class UMLExecutableElement" class="title">Class UMLExecutableElement</h1>
 </div>
-<div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
+<div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
 <div class="inheritance"><a href="UMLElement.html" title="class in org.tquadrat.foundation.javadoc.umlgraph">org.tquadrat.foundation.javadoc.umlgraph.UMLElement</a>
 <div class="inheritance"><a href="UMLMemberElement.html" title="class in org.tquadrat.foundation.javadoc.umlgraph">org.tquadrat.foundation.javadoc.umlgraph.UMLMemberElement</a>
 <div class="inheritance">org.tquadrat.foundation.javadoc.umlgraph.UMLExecutableElement</div>
@@ -96,49 +94,30 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>All Implemented Interfaces:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/AnnotatedConstruct.html" title="class or interface in javax.lang.model" class="external-link">AnnotatedConstruct</a></code>, <code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/Element.html" title="class or interface in javax.lang.model.element" class="external-link">Element</a></code>, <code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html" title="class or interface in javax.lang.model.element" class="external-link">ExecutableElement</a></code>, <code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/Parameterizable.html" title="class or interface in javax.lang.model.element" class="external-link">Parameterizable</a></code></dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/AnnotatedConstruct.html" title="class or interface in javax.lang.model" class="external-link">AnnotatedConstruct</a></code>, <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/Element.html" title="class or interface in javax.lang.model.element" class="external-link">Element</a></code>, <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html" title="class or interface in javax.lang.model.element" class="external-link">ExecutableElement</a></code>, <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/Parameterizable.html" title="class or interface in javax.lang.model.element" class="external-link">Parameterizable</a></code></dd>
 </dl>
 <dl class="notes">
 <dt>Direct Known Subclasses:</dt>
 <dd><code><a href="UMLConstructorElement.html" title="class in org.tquadrat.foundation.javadoc.umlgraph">UMLConstructorElement</a></code>, <code><a href="UMLMethodElement.html" title="class in org.tquadrat.foundation.javadoc.umlgraph">UMLMethodElement</a></code></dd>
 </dl>
 <hr>
-<div class="type-signature"><span class="annotations">@ClassVersion(sourceVersion="$Id: UMLExecutableElement.java 820 2020-12-29 20:34:22Z tquadrat $")
+<div class="type-signature"><span class="annotations"><a href="../internal/foundation/annotation/ClassVersion.html" title="annotation interface in org.tquadrat.foundation.javadoc.internal.foundation.annotation">@ClassVersion</a>(<a href="../internal/foundation/annotation/ClassVersion.html#sourceVersion()">sourceVersion</a>="$Id: UMLExecutableElement.java 976 2022-01-06 11:39:58Z tquadrat $")
 <a href="https://apiguardian-team.github.io/apiguardian/docs/current/api/org/apiguardian/api/API.html" title="class or interface in org.apiguardian.api" class="external-link">@API</a>(<a href="https://apiguardian-team.github.io/apiguardian/docs/current/api/org/apiguardian/api/API.html#status()" title="class or interface in org.apiguardian.api" class="external-link">status</a>=<a href="https://apiguardian-team.github.io/apiguardian/docs/current/api/org/apiguardian/api/API.Status.html#INTERNAL" title="class or interface in org.apiguardian.api" class="external-link">INTERNAL</a>,
      <a href="https://apiguardian-team.github.io/apiguardian/docs/current/api/org/apiguardian/api/API.html#since()" title="class or interface in org.apiguardian.api" class="external-link">since</a>="0.0.5")
-</span><span class="modifiers">public abstract sealed class </span><span class="element-name"><a href="../../../../../src-html/org/tquadrat/foundation/javadoc/umlgraph/UMLExecutableElement.html#line-46">UMLExecutableElement</a></span>
+</span><span class="modifiers">public abstract class </span><span class="element-name"><a href="../../../../../src-html/org/tquadrat/foundation/javadoc/umlgraph/UMLExecutableElement.html#line-43">UMLExecutableElement</a></span>
 <span class="extends-implements">extends <a href="UMLMemberElement.html" title="class in org.tquadrat.foundation.javadoc.umlgraph">UMLMemberElement</a>
-implements <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html" title="class or interface in javax.lang.model.element" class="external-link">ExecutableElement</a></span>
-<span class="permits">permits <a href="UMLConstructorElement.html" title="class in org.tquadrat.foundation.javadoc.umlgraph">UMLConstructorElement</a>, <a href="UMLMethodElement.html" title="class in org.tquadrat.foundation.javadoc.umlgraph">UMLMethodElement</a></span></div>
+implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html" title="class or interface in javax.lang.model.element" class="external-link">ExecutableElement</a></span></div>
 <div class="block">The wrapper for an
-  <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html" title="class or interface in javax.lang.model.element" class="external-link"><code>ExecutableElement</code></a>
+  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html" title="class or interface in javax.lang.model.element" class="external-link"><code>ExecutableElement</code></a>
   instance, enhanced by information needed for the creation of the UML graph.</div>
 <dl class="notes">
-<dt><span class="simpleTagLabel">Author:</span></dt>
-  <dd>Thomas Thrien (<a href="mailto:thomas.thrien@tquadrat.org">thomas.thrien@tquadrat.org</a>)</dd>
+<dt>Author:</dt>
+<dd>Thomas Thrien - thomas.thrien@tquadrat.org</dd>
 <dt>Version:</dt>
-<dd>$Id: UMLExecutableElement.java 820 2020-12-29 20:34:22Z tquadrat $</dd>
+<dd>$Id: UMLExecutableElement.java 976 2022-01-06 11:39:58Z tquadrat $</dd>
 <dt>Since:</dt>
 <dd>0.0.5</dd>
-
-<dt>
-    <span class='simpleTagLabel'>UML Diagram</span>
-</dt>
-<dd>
-    <a class='module-graph'
-       href='doc-files/UMLExecutableElement.svg'>
-        <img alt='UML Diagram for "org.tquadrat.foundation.javadoc.umlgraph.UMLExecutableElement"'
-             src='doc-files/UMLExecutableElement.svg'
-             style='vertical-align:top'
-             width='250'>&#x2060;</img>
-        <span style='background:white; border: solid black 2px;'>
-            <h2>UML Diagram for &quot;org.tquadrat.foundation.javadoc.umlgraph.UMLExecutableElement&quot;</h2>
-            <img alt='UML Diagram for "org.tquadrat.foundation.javadoc.umlgraph.UMLExecutableElement"'
-                 src='doc-files/UMLExecutableElement.svg'
-                 style='border: solid black 1px; vertical-align:top'>&#x2060;</img>
-        </span>
-    </a>
-</dd></dl>
+</dl>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -151,28 +130,12 @@ implements <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.comp
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Field</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code>static final <a href="UMLExecutableElement.html" title="class in org.tquadrat.foundation.javadoc.umlgraph">UMLExecutableElement</a>[]</code></div>
-<div class="col-second even-row-color"><code><a href="#EMPTY_UMLExecutableElement_ARRAY" class="member-name-link">EMPTY_UMLExecutableElement_ARRAY</a></code></div>
-<div class="col-last even-row-color">
-<div class="block">An empty array of <code>UMLExecutableElement</code> objects.</div>
-</div>
-<div class="col-first odd-row-color"><code>private final org.tquadrat.foundation.lang.Lazy&lt;<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
-<div class="col-second odd-row-color"><code><a href="#m_UMLParameters" class="member-name-link">m_UMLParameters</a></code></div>
-<div class="col-last odd-row-color">
-<div class="block">The cached parameters list.</div>
-</div>
-<div class="col-first even-row-color"><code>private final <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html" title="class or interface in javax.lang.model.element" class="external-link">ExecutableElement</a></code></div>
+<div class="col-first even-row-color"><code>private final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html" title="class or interface in javax.lang.model.element" class="external-link">ExecutableElement</a></code></div>
 <div class="col-second even-row-color"><code><a href="#m_Wrapped" class="member-name-link">m_Wrapped</a></code></div>
 <div class="col-last even-row-color">
 <div class="block">The wrapped executable element.</div>
 </div>
 </div>
-<div class="inherited-list">
-<h3 id="fields-inherited-from-class-org.tquadrat.foundation.javadoc.umlgraph.UMLMemberElement">Fields inherited from class&nbsp;org.tquadrat.foundation.javadoc.umlgraph.<a href="UMLMemberElement.html" title="class in org.tquadrat.foundation.javadoc.umlgraph">UMLMemberElement</a></h3>
-<code><a href="UMLMemberElement.html#EMPTY_UMLMemberElement_ARRAY">EMPTY_UMLMemberElement_ARRAY</a></code></div>
-<div class="inherited-list">
-<h3 id="fields-inherited-from-class-org.tquadrat.foundation.javadoc.umlgraph.UMLElement">Fields inherited from class&nbsp;org.tquadrat.foundation.javadoc.umlgraph.<a href="UMLElement.html" title="class in org.tquadrat.foundation.javadoc.umlgraph">UMLElement</a></h3>
-<code><a href="UMLElement.html#EMPTY_UMLElement_ARRAY">EMPTY_UMLElement_ARRAY</a></code></div>
 </section>
 </li>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
@@ -185,7 +148,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.comp
 <div class="table-header col-second">Constructor</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><code>protected </code></div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(javax.lang.model.element.ExecutableElement)" class="member-name-link">UMLExecutableElement</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html" title="class or interface in javax.lang.model.element" class="external-link">ExecutableElement</a>&nbsp;element)</code></div>
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(javax.lang.model.element.ExecutableElement)" class="member-name-link">UMLExecutableElement</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html" title="class or interface in javax.lang.model.element" class="external-link">ExecutableElement</a>&nbsp;element)</code></div>
 <div class="col-last even-row-color">
 <div class="block">Creates a new <code>UMLExecutableElement</code> instance.</div>
 </div>
@@ -203,27 +166,27 @@ implements <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.comp
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/AnnotationValue.html" title="class or interface in javax.lang.model.element" class="external-link">AnnotationValue</a></code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/AnnotationValue.html" title="class or interface in javax.lang.model.element" class="external-link">AnnotationValue</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getDefaultValue()" class="member-name-link">getDefaultValue</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"></div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;? extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/VariableElement.html" title="class or interface in javax.lang.model.element" class="external-link">VariableElement</a>&gt;</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;? extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/VariableElement.html" title="class or interface in javax.lang.model.element" class="external-link">VariableElement</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getParameters()" class="member-name-link">getParameters</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"></div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getParametersList()" class="member-name-link">getParametersList</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the parameters list as a String, including the parentheses.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/type/TypeMirror.html" title="class or interface in javax.lang.model.type" class="external-link">TypeMirror</a></code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/type/TypeMirror.html" title="class or interface in javax.lang.model.type" class="external-link">TypeMirror</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getReceiverType()" class="member-name-link">getReceiverType</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"></div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/type/TypeMirror.html" title="class or interface in javax.lang.model.type" class="external-link">TypeMirror</a></code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/type/TypeMirror.html" title="class or interface in javax.lang.model.type" class="external-link">TypeMirror</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getReturnType()" class="member-name-link">getReturnType</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"></div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;? extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/type/TypeMirror.html" title="class or interface in javax.lang.model.type" class="external-link">TypeMirror</a>&gt;</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;? extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/type/TypeMirror.html" title="class or interface in javax.lang.model.type" class="external-link">TypeMirror</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getThrownTypes()" class="member-name-link">getThrownTypes</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"></div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;? extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/TypeParameterElement.html" title="class or interface in javax.lang.model.element" class="external-link">TypeParameterElement</a>&gt;</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;? extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/TypeParameterElement.html" title="class or interface in javax.lang.model.element" class="external-link">TypeParameterElement</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTypeParameters()" class="member-name-link">getTypeParameters</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"></div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final boolean</code></div>
@@ -232,7 +195,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.comp
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final boolean</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isVarArgs()" class="member-name-link">isVarArgs</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"></div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private final <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#retrieveParameters()" class="member-name-link">retrieveParameters</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Composes the parameters list for this executable element to a String.</div>
@@ -247,14 +210,14 @@ implements <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.comp
 <h3 id="methods-inherited-from-class-org.tquadrat.foundation.javadoc.umlgraph.UMLElement">Methods inherited from class&nbsp;org.tquadrat.foundation.javadoc.umlgraph.<a href="UMLElement.html" title="class in org.tquadrat.foundation.javadoc.umlgraph">UMLElement</a></h3>
 <code><a href="UMLElement.html#accept(javax.lang.model.element.ElementVisitor,P)">accept</a>, <a href="UMLElement.html#asType()">asType</a>, <a href="UMLElement.html#getAnnotation(java.lang.Class)">getAnnotation</a>, <a href="UMLElement.html#getAnnotationMirrors()">getAnnotationMirrors</a>, <a href="UMLElement.html#getAnnotationsByType(java.lang.Class)">getAnnotationsByType</a>, <a href="UMLElement.html#getEnclosedElements()">getEnclosedElements</a>, <a href="UMLElement.html#getKind()">getKind</a>, <a href="UMLElement.html#getModifiers()">getModifiers</a>, <a href="UMLElement.html#getSimpleName()">getSimpleName</a>, <a href="UMLElement.html#isAPI(javax.lang.model.element.Element)">isAPI</a>, <a href="UMLElement.html#isAttribute(javax.lang.model.element.Element)">isAttribute</a>, <a href="UMLElement.html#isConstructor(javax.lang.model.element.Element)">isConstructor</a>, <a href="UMLElement.html#isMethod(javax.lang.model.element.Element)">isMethod</a></code></div>
 <div class="inherited-list">
-<h3 id="methods-inherited-from-class-java.lang.Object">Methods inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></h3>
-<code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#clone()" title="class or interface in java.lang" class="external-link">clone</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#finalize()" title="class or interface in java.lang" class="external-link">finalize</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link">hashCode</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
+<h3 id="methods-inherited-from-class-java.lang.Object">Methods inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></h3>
+<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#clone()" title="class or interface in java.lang" class="external-link">clone</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#finalize()" title="class or interface in java.lang" class="external-link">finalize</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link">hashCode</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
 <div class="inherited-list">
-<h3 id="methods-inherited-from-class-javax.lang.model.element.Element">Methods inherited from interface&nbsp;javax.lang.model.element.<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/Element.html" title="class or interface in javax.lang.model.element" class="external-link">Element</a></h3>
-<code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/Element.html#accept(javax.lang.model.element.ElementVisitor,P)" title="class or interface in javax.lang.model.element" class="external-link">accept</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/Element.html#equals(java.lang.Object)" title="class or interface in javax.lang.model.element" class="external-link">equals</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/Element.html#getAnnotation(java.lang.Class)" title="class or interface in javax.lang.model.element" class="external-link">getAnnotation</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/Element.html#getAnnotationMirrors()" title="class or interface in javax.lang.model.element" class="external-link">getAnnotationMirrors</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/Element.html#getAnnotationsByType(java.lang.Class)" title="class or interface in javax.lang.model.element" class="external-link">getAnnotationsByType</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/Element.html#getEnclosedElements()" title="class or interface in javax.lang.model.element" class="external-link">getEnclosedElements</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/Element.html#getEnclosingElement()" title="class or interface in javax.lang.model.element" class="external-link">getEnclosingElement</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/Element.html#getKind()" title="class or interface in javax.lang.model.element" class="external-link">getKind</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/Element.html#getModifiers()" title="class or interface in javax.lang.model.element" class="external-link">getModifiers</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/Element.html#hashCode()" title="class or interface in javax.lang.model.element" class="external-link">hashCode</a></code></div>
+<h3 id="methods-inherited-from-class-javax.lang.model.element.Element">Methods inherited from interface&nbsp;javax.lang.model.element.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/Element.html" title="class or interface in javax.lang.model.element" class="external-link">Element</a></h3>
+<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/Element.html#accept(javax.lang.model.element.ElementVisitor,P)" title="class or interface in javax.lang.model.element" class="external-link">accept</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/Element.html#equals(java.lang.Object)" title="class or interface in javax.lang.model.element" class="external-link">equals</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/Element.html#getAnnotation(java.lang.Class)" title="class or interface in javax.lang.model.element" class="external-link">getAnnotation</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/Element.html#getAnnotationMirrors()" title="class or interface in javax.lang.model.element" class="external-link">getAnnotationMirrors</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/Element.html#getAnnotationsByType(java.lang.Class)" title="class or interface in javax.lang.model.element" class="external-link">getAnnotationsByType</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/Element.html#getEnclosedElements()" title="class or interface in javax.lang.model.element" class="external-link">getEnclosedElements</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/Element.html#getEnclosingElement()" title="class or interface in javax.lang.model.element" class="external-link">getEnclosingElement</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/Element.html#getKind()" title="class or interface in javax.lang.model.element" class="external-link">getKind</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/Element.html#getModifiers()" title="class or interface in javax.lang.model.element" class="external-link">getModifiers</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/Element.html#hashCode()" title="class or interface in javax.lang.model.element" class="external-link">hashCode</a></code></div>
 <div class="inherited-list">
-<h3 id="methods-inherited-from-class-javax.lang.model.element.ExecutableElement">Methods inherited from interface&nbsp;javax.lang.model.element.<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html" title="class or interface in javax.lang.model.element" class="external-link">ExecutableElement</a></h3>
-<code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html#asType()" title="class or interface in javax.lang.model.element" class="external-link">asType</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html#getSimpleName()" title="class or interface in javax.lang.model.element" class="external-link">getSimpleName</a></code></div>
+<h3 id="methods-inherited-from-class-javax.lang.model.element.ExecutableElement">Methods inherited from interface&nbsp;javax.lang.model.element.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html" title="class or interface in javax.lang.model.element" class="external-link">ExecutableElement</a></h3>
+<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html#asType()" title="class or interface in javax.lang.model.element" class="external-link">asType</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html#getSimpleName()" title="class or interface in javax.lang.model.element" class="external-link">getSimpleName</a></code></div>
 </section>
 </li>
 </ul>
@@ -267,23 +230,9 @@ implements <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.comp
 <h2>Field Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="EMPTY_UMLExecutableElement_ARRAY">
-<h3>EMPTY_UMLExecutableElement_ARRAY</h3>
-<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="UMLExecutableElement.html" title="class in org.tquadrat.foundation.javadoc.umlgraph">UMLExecutableElement</a>[]</span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org/tquadrat/foundation/javadoc/umlgraph/UMLExecutableElement.html#line-57">EMPTY_UMLExecutableElement_ARRAY</a></span></div>
-<div class="block">An empty array of <code>UMLExecutableElement</code> objects.</div>
-</section>
-</li>
-<li>
-<section class="detail" id="m_UMLParameters">
-<h3>m_UMLParameters</h3>
-<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type">org.tquadrat.foundation.lang.Lazy&lt;<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org/tquadrat/foundation/javadoc/umlgraph/UMLExecutableElement.html#line-65">m_UMLParameters</a></span></div>
-<div class="block">The cached parameters list.</div>
-</section>
-</li>
-<li>
 <section class="detail" id="m_Wrapped">
 <h3>m_Wrapped</h3>
-<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html" title="class or interface in javax.lang.model.element" class="external-link">ExecutableElement</a></span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org/tquadrat/foundation/javadoc/umlgraph/UMLExecutableElement.html#line-70">m_Wrapped</a></span></div>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html" title="class or interface in javax.lang.model.element" class="external-link">ExecutableElement</a></span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org/tquadrat/foundation/javadoc/umlgraph/UMLExecutableElement.html#line-53">m_Wrapped</a></span></div>
 <div class="block">The wrapped executable element.</div>
 </section>
 </li>
@@ -298,7 +247,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.comp
 <li>
 <section class="detail" id="&lt;init&gt;(javax.lang.model.element.ExecutableElement)">
 <h3>UMLExecutableElement</h3>
-<div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org/tquadrat/foundation/javadoc/umlgraph/UMLExecutableElement.html#line-80">UMLExecutableElement</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html" title="class or interface in javax.lang.model.element" class="external-link">ExecutableElement</a>&nbsp;element)</span></div>
+<div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org/tquadrat/foundation/javadoc/umlgraph/UMLExecutableElement.html#line-63">UMLExecutableElement</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html" title="class or interface in javax.lang.model.element" class="external-link">ExecutableElement</a>&nbsp;element)</span></div>
 <div class="block">Creates a new <code>UMLExecutableElement</code> instance.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -317,27 +266,27 @@ implements <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.comp
 <li>
 <section class="detail" id="getDefaultValue()">
 <h3>getDefaultValue</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/AnnotationValue.html" title="class or interface in javax.lang.model.element" class="external-link">AnnotationValue</a></span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org/tquadrat/foundation/javadoc/umlgraph/UMLExecutableElement.html#line-94">getDefaultValue</a></span>()</div>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/AnnotationValue.html" title="class or interface in javax.lang.model.element" class="external-link">AnnotationValue</a></span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org/tquadrat/foundation/javadoc/umlgraph/UMLExecutableElement.html#line-75">getDefaultValue</a></span>()</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html#getDefaultValue()" title="class or interface in javax.lang.model.element" class="external-link">getDefaultValue</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html" title="class or interface in javax.lang.model.element" class="external-link">ExecutableElement</a></code></dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html#getDefaultValue()" title="class or interface in javax.lang.model.element" class="external-link">getDefaultValue</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html" title="class or interface in javax.lang.model.element" class="external-link">ExecutableElement</a></code></dd>
 </dl>
 </section>
 </li>
 <li>
 <section class="detail" id="getParameters()">
 <h3>getParameters</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;? extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/VariableElement.html" title="class or interface in javax.lang.model.element" class="external-link">VariableElement</a>&gt;</span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org/tquadrat/foundation/javadoc/umlgraph/UMLExecutableElement.html#line-100">getParameters</a></span>()</div>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;? extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/VariableElement.html" title="class or interface in javax.lang.model.element" class="external-link">VariableElement</a>&gt;</span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org/tquadrat/foundation/javadoc/umlgraph/UMLExecutableElement.html#line-81">getParameters</a></span>()</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html#getParameters()" title="class or interface in javax.lang.model.element" class="external-link">getParameters</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html" title="class or interface in javax.lang.model.element" class="external-link">ExecutableElement</a></code></dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html#getParameters()" title="class or interface in javax.lang.model.element" class="external-link">getParameters</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html" title="class or interface in javax.lang.model.element" class="external-link">ExecutableElement</a></code></dd>
 </dl>
 </section>
 </li>
 <li>
 <section class="detail" id="getParametersList()">
 <h3>getParametersList</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org/tquadrat/foundation/javadoc/umlgraph/UMLExecutableElement.html#line-108">getParametersList</a></span>()</div>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org/tquadrat/foundation/javadoc/umlgraph/UMLExecutableElement.html#line-89">getParametersList</a></span>()</div>
 <div class="block">Returns the parameters list as a String, including the parentheses.</div>
 <dl class="notes">
 <dt>Returns:</dt>
@@ -348,69 +297,69 @@ implements <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.comp
 <li>
 <section class="detail" id="getReceiverType()">
 <h3>getReceiverType</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/type/TypeMirror.html" title="class or interface in javax.lang.model.type" class="external-link">TypeMirror</a></span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org/tquadrat/foundation/javadoc/umlgraph/UMLExecutableElement.html#line-113">getReceiverType</a></span>()</div>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/type/TypeMirror.html" title="class or interface in javax.lang.model.type" class="external-link">TypeMirror</a></span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org/tquadrat/foundation/javadoc/umlgraph/UMLExecutableElement.html#line-94">getReceiverType</a></span>()</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html#getReceiverType()" title="class or interface in javax.lang.model.element" class="external-link">getReceiverType</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html" title="class or interface in javax.lang.model.element" class="external-link">ExecutableElement</a></code></dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html#getReceiverType()" title="class or interface in javax.lang.model.element" class="external-link">getReceiverType</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html" title="class or interface in javax.lang.model.element" class="external-link">ExecutableElement</a></code></dd>
 </dl>
 </section>
 </li>
 <li>
 <section class="detail" id="getReturnType()">
 <h3>getReturnType</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/type/TypeMirror.html" title="class or interface in javax.lang.model.type" class="external-link">TypeMirror</a></span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org/tquadrat/foundation/javadoc/umlgraph/UMLExecutableElement.html#line-119">getReturnType</a></span>()</div>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/type/TypeMirror.html" title="class or interface in javax.lang.model.type" class="external-link">TypeMirror</a></span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org/tquadrat/foundation/javadoc/umlgraph/UMLExecutableElement.html#line-100">getReturnType</a></span>()</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html#getReturnType()" title="class or interface in javax.lang.model.element" class="external-link">getReturnType</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html" title="class or interface in javax.lang.model.element" class="external-link">ExecutableElement</a></code></dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html#getReturnType()" title="class or interface in javax.lang.model.element" class="external-link">getReturnType</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html" title="class or interface in javax.lang.model.element" class="external-link">ExecutableElement</a></code></dd>
 </dl>
 </section>
 </li>
 <li>
 <section class="detail" id="getThrownTypes()">
 <h3>getThrownTypes</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;? extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/type/TypeMirror.html" title="class or interface in javax.lang.model.type" class="external-link">TypeMirror</a>&gt;</span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org/tquadrat/foundation/javadoc/umlgraph/UMLExecutableElement.html#line-125">getThrownTypes</a></span>()</div>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;? extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/type/TypeMirror.html" title="class or interface in javax.lang.model.type" class="external-link">TypeMirror</a>&gt;</span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org/tquadrat/foundation/javadoc/umlgraph/UMLExecutableElement.html#line-106">getThrownTypes</a></span>()</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html#getThrownTypes()" title="class or interface in javax.lang.model.element" class="external-link">getThrownTypes</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html" title="class or interface in javax.lang.model.element" class="external-link">ExecutableElement</a></code></dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html#getThrownTypes()" title="class or interface in javax.lang.model.element" class="external-link">getThrownTypes</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html" title="class or interface in javax.lang.model.element" class="external-link">ExecutableElement</a></code></dd>
 </dl>
 </section>
 </li>
 <li>
 <section class="detail" id="getTypeParameters()">
 <h3>getTypeParameters</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;? extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/TypeParameterElement.html" title="class or interface in javax.lang.model.element" class="external-link">TypeParameterElement</a>&gt;</span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org/tquadrat/foundation/javadoc/umlgraph/UMLExecutableElement.html#line-131">getTypeParameters</a></span>()</div>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;? extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/TypeParameterElement.html" title="class or interface in javax.lang.model.element" class="external-link">TypeParameterElement</a>&gt;</span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org/tquadrat/foundation/javadoc/umlgraph/UMLExecutableElement.html#line-112">getTypeParameters</a></span>()</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html#getTypeParameters()" title="class or interface in javax.lang.model.element" class="external-link">getTypeParameters</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html" title="class or interface in javax.lang.model.element" class="external-link">ExecutableElement</a></code></dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html#getTypeParameters()" title="class or interface in javax.lang.model.element" class="external-link">getTypeParameters</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html" title="class or interface in javax.lang.model.element" class="external-link">ExecutableElement</a></code></dd>
 <dt>Specified by:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/Parameterizable.html#getTypeParameters()" title="class or interface in javax.lang.model.element" class="external-link">getTypeParameters</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/Parameterizable.html" title="class or interface in javax.lang.model.element" class="external-link">Parameterizable</a></code></dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/Parameterizable.html#getTypeParameters()" title="class or interface in javax.lang.model.element" class="external-link">getTypeParameters</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/Parameterizable.html" title="class or interface in javax.lang.model.element" class="external-link">Parameterizable</a></code></dd>
 </dl>
 </section>
 </li>
 <li>
 <section class="detail" id="isDefault()">
 <h3>isDefault</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org/tquadrat/foundation/javadoc/umlgraph/UMLExecutableElement.html#line-137">isDefault</a></span>()</div>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org/tquadrat/foundation/javadoc/umlgraph/UMLExecutableElement.html#line-118">isDefault</a></span>()</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html#isDefault()" title="class or interface in javax.lang.model.element" class="external-link">isDefault</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html" title="class or interface in javax.lang.model.element" class="external-link">ExecutableElement</a></code></dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html#isDefault()" title="class or interface in javax.lang.model.element" class="external-link">isDefault</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html" title="class or interface in javax.lang.model.element" class="external-link">ExecutableElement</a></code></dd>
 </dl>
 </section>
 </li>
 <li>
 <section class="detail" id="isVarArgs()">
 <h3>isVarArgs</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org/tquadrat/foundation/javadoc/umlgraph/UMLExecutableElement.html#line-143">isVarArgs</a></span>()</div>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org/tquadrat/foundation/javadoc/umlgraph/UMLExecutableElement.html#line-124">isVarArgs</a></span>()</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html#isVarArgs()" title="class or interface in javax.lang.model.element" class="external-link">isVarArgs</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html" title="class or interface in javax.lang.model.element" class="external-link">ExecutableElement</a></code></dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html#isVarArgs()" title="class or interface in javax.lang.model.element" class="external-link">isVarArgs</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/ExecutableElement.html" title="class or interface in javax.lang.model.element" class="external-link">ExecutableElement</a></code></dd>
 </dl>
 </section>
 </li>
 <li>
 <section class="detail" id="retrieveParameters()">
 <h3>retrieveParameters</h3>
-<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org/tquadrat/foundation/javadoc/umlgraph/UMLExecutableElement.html#line-151">retrieveParameters</a></span>()</div>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org/tquadrat/foundation/javadoc/umlgraph/UMLExecutableElement.html#line-132">retrieveParameters</a></span>()</div>
 <div class="block">Composes the parameters list for this executable element to a String.</div>
 <dl class="notes">
 <dt>Returns:</dt>

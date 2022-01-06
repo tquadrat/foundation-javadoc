@@ -17,20 +17,20 @@
 
 package org.tquadrat.foundation.javadoc;
 
+import static java.lang.String.format;
 import static java.lang.System.out;
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Comparator.comparing;
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 import static java.util.stream.Collectors.joining;
 import static org.apiguardian.api.API.Status.STABLE;
 import static org.tquadrat.foundation.javadoc.internal.Common.getOutputFileObject;
 import static org.tquadrat.foundation.javadoc.internal.Common.initHelperTaglets;
-import static org.tquadrat.foundation.lang.CommonConstants.CHAR_ZWNBSP;
-import static org.tquadrat.foundation.lang.CommonConstants.EMPTY_STRING;
-import static org.tquadrat.foundation.lang.CommonConstants.UTF8;
-import static org.tquadrat.foundation.lang.Objects.isNull;
-import static org.tquadrat.foundation.lang.Objects.nonNull;
-import static org.tquadrat.foundation.lang.Objects.requireNonNullArgument;
-import static org.tquadrat.foundation.util.StringUtils.format;
-import static org.tquadrat.foundation.xml.builder.XMLBuilderUtils.createXMLElement;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.CHAR_ZWNBSP;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.EMPTY_STRING;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.requireNonNullArgument;
+import static org.tquadrat.foundation.javadoc.internal.foundation.xml.builder.XMLBuilderUtils.createXMLElement;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
@@ -49,13 +49,12 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 import org.apiguardian.api.API;
-import org.tquadrat.foundation.annotation.ClassVersion;
 import org.tquadrat.foundation.javadoc.internal.JavadocError;
+import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
 import org.tquadrat.foundation.javadoc.umlgraph.UMLDocument;
 import org.tquadrat.foundation.javadoc.umlgraph.UMLGraphLayout;
+import org.tquadrat.foundation.javadoc.umlgraph.UMLGraphLayout.UMLGraphLayoutRow;
 import org.tquadrat.foundation.javadoc.umlgraph.UMLTypeElement;
-import org.tquadrat.foundation.lang.AutoLock;
-import org.tquadrat.foundation.lang.Lazy;
 import com.sun.source.doctree.DocTree;
 import jdk.javadoc.doclet.Doclet;
 import jdk.javadoc.doclet.DocletEnvironment;
@@ -67,16 +66,14 @@ import jdk.javadoc.doclet.Taglet;
  *  created for this class and added to the document.<br>
  *  <br>The JavaDoc generation will be serialised on this taglet.
  *
- *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: UmlGraphLinkTaglet.java 840 2021-01-10 21:37:03Z tquadrat $
+ *  @author Thomas Thrien - thomas.thrien@tquadrat.org
+ *  @version $Id: UmlGraphLinkTaglet.java 976 2022-01-06 11:39:58Z tquadrat $
  *  @since 0.1.0
- *
- *  @UMLGraph.link
  */
 /*
  * Update the version in the method init!!
  */
-@ClassVersion( sourceVersion = "$Id: UmlGraphLinkTaglet.java 840 2021-01-10 21:37:03Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: UmlGraphLinkTaglet.java 976 2022-01-06 11:39:58Z tquadrat $" )
 @API( status = STABLE, since = "0.1.0" )
 public class UmlGraphLinkTaglet implements Taglet
 {
@@ -114,14 +111,13 @@ public class UmlGraphLinkTaglet implements Taglet
     /**
      *  The lock that controls the processing for this taglet.
      */
-    private static final AutoLock m_Lock;
+    private static final Lock m_Lock;
 
     static
     {
         m_ClassRegistry = new TreeMap<>( comparing( Name::toString ) );
 
-        final Lock lock = new ReentrantLock();
-        m_Lock = AutoLock.of( lock );
+        m_Lock = new ReentrantLock();
     }
 
         /*--------------*\
@@ -252,8 +248,9 @@ public class UmlGraphLinkTaglet implements Taglet
         final var typeUtils = m_DocletEnvironment.getTypeUtils();
 
         //---* Fill the cache *------------------------------------------------
-        try( @SuppressWarnings( "unused" ) final var l = m_Lock.lock() )
+        try
         {
+            m_Lock.lock();
             if( m_ClassRegistry.isEmpty() )
             {
                 //---* Load all the included type elements *-------------------
@@ -271,6 +268,10 @@ public class UmlGraphLinkTaglet implements Taglet
                 List.copyOf( m_ClassRegistry.values() )
                     .forEach( this::initInheritance );
             }
+        }
+        finally
+        {
+            m_Lock.unlock();
         }
     }   //  init()
 
@@ -343,13 +344,14 @@ public class UmlGraphLinkTaglet implements Taglet
         layout.finishRow( true );
 
         //---* Create the row for direct parents of the focus class *----------
-        var optionalRow = Lazy.use( layout::newRow );
-        try( @SuppressWarnings( "unused" ) final var l = m_Lock.lock() )
+        UMLGraphLayoutRow optionalRow = null;
+        try
         {
+            m_Lock.lock();
             for( final var parent : retrieveParents( focusClass ) )
             {
                 var symbol = parent.createSymbol( layout, details, false );
-                row = hasParent( parent ) ? optionalRow.get() : noParentRow;
+                row = hasParent( parent ) ? (optionalRow = layout.newRow()) : noParentRow;
                 if( document.addSymbol( symbol ) )
                 {
                     row.addSymbol( symbol );
@@ -361,14 +363,14 @@ public class UmlGraphLinkTaglet implements Taglet
                 }
                 layout.createConnector( symbol, focusClassSymbol );
             }
-            while( optionalRow.isPresent() )
+            while( nonNull( optionalRow ) )
             {
                 //---* Add the row to the layout *-----------------------------
                 layout.finishRow( false );
 
                 //---* Get the current row *-----------------------------------
-                row = optionalRow.get();
-                optionalRow = Lazy.use( layout::newRow );
+                row = optionalRow;
+                optionalRow = null;
 
                 //---* Scan the classes for their parents *--------------------
                 final var rowContents = row.getContents();
@@ -378,7 +380,7 @@ public class UmlGraphLinkTaglet implements Taglet
                     for( final var parent : retrieveParents( currentClass ) )
                     {
                         var parentSymbol = parent.createSymbol( layout, details, false );
-                        row = hasParent( parent ) ? optionalRow.get() : noParentRow;
+                        row = hasParent( parent ) ? (optionalRow = layout.newRow()) : noParentRow;
                         if( document.addSymbol( parentSymbol ) )
                         {
                             row.addSymbol( parentSymbol );
@@ -392,6 +394,10 @@ public class UmlGraphLinkTaglet implements Taglet
                     }
                 }
             }
+        }
+        finally
+        {
+            m_Lock.unlock();
         }
 
         //---* Distribute the elements in the layout *-------------------------
@@ -415,8 +421,10 @@ public class UmlGraphLinkTaglet implements Taglet
 
         final Collection<UMLTypeElement> retValue = new ArrayList<>();
 
-        try( @SuppressWarnings( "unused" ) final var l = m_Lock.lock() )
+        try
         {
+            m_Lock.lock();
+
             for( final var typeMirror : typeUtils.directSupertypes( typeElement.asType() ) )
             {
                 final var element = typeUtils.asElement( typeMirror );
@@ -441,6 +449,10 @@ public class UmlGraphLinkTaglet implements Taglet
                     }
                 }
             }
+        }
+        finally
+        {
+            m_Lock.unlock();
         }
 
         //---* Done *----------------------------------------------------------
@@ -500,13 +512,14 @@ public class UmlGraphLinkTaglet implements Taglet
                 .setAttribute( "alt", caption2 )
                 .setAttribute( "src", imageFileName );
 
-            retValue = dtElement.toString() + ddElement.toString();
+            retValue = dtElement.toString().concat( ddElement.toString() );
 
             //---* Create the UML document *-----------------------------------
             final var umlDocument = new UMLDocument();
 
-            try( @SuppressWarnings( "unused" ) final var l = m_Lock.lock() )
+            try
             {
+                m_Lock.lock();
                 final var details = m_DocletEnvironment.getModuleMode() == ModuleMode.API ? 1 : 2;
 
                 //---* Get the UML type element *------------------------------
@@ -521,12 +534,16 @@ public class UmlGraphLinkTaglet implements Taglet
                 //---* Layout the image *--------------------------------------
                 layout( umlDocument, umlTypeElement, details );
             }
+            finally
+            {
+                m_Lock.unlock();
+            }
 
             //---* Write the new picture *-------------------------------------
             out.printf( "Generating %s\n", imageFile.getName() );
             try( final var outputStream = imageFile.openOutputStream() )
             {
-                outputStream.write( umlDocument.toString().getBytes( UTF8 ) );
+                outputStream.write( umlDocument.toString().getBytes( UTF_8 ) );
             }
             catch( final IOException e )
             {

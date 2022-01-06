@@ -30,20 +30,20 @@
 <span class="source-line-no">017</span><span id="line-17"></span>
 <span class="source-line-no">018</span><span id="line-18">package org.tquadrat.foundation.javadoc;</span>
 <span class="source-line-no">019</span><span id="line-19"></span>
-<span class="source-line-no">020</span><span id="line-20">import static java.lang.System.err;</span>
-<span class="source-line-no">021</span><span id="line-21">import static java.lang.System.out;</span>
-<span class="source-line-no">022</span><span id="line-22">import static java.nio.file.Files.copy;</span>
-<span class="source-line-no">023</span><span id="line-23">import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;</span>
-<span class="source-line-no">024</span><span id="line-24">import static java.util.Locale.UK;</span>
-<span class="source-line-no">025</span><span id="line-25">import static java.util.stream.Collectors.joining;</span>
-<span class="source-line-no">026</span><span id="line-26">import static org.apiguardian.api.API.Status.STABLE;</span>
-<span class="source-line-no">027</span><span id="line-27">import static org.tquadrat.foundation.lang.CommonConstants.EMPTY_STRING;</span>
-<span class="source-line-no">028</span><span id="line-28">import static org.tquadrat.foundation.lang.CommonConstants.EMPTY_String_ARRAY;</span>
-<span class="source-line-no">029</span><span id="line-29">import static org.tquadrat.foundation.lang.CommonConstants.UTF8;</span>
-<span class="source-line-no">030</span><span id="line-30">import static org.tquadrat.foundation.lang.Objects.isNull;</span>
-<span class="source-line-no">031</span><span id="line-31">import static org.tquadrat.foundation.lang.Objects.requireNotEmptyArgument;</span>
-<span class="source-line-no">032</span><span id="line-32">import static org.tquadrat.foundation.util.StringUtils.format;</span>
-<span class="source-line-no">033</span><span id="line-33">import static org.tquadrat.foundation.util.StringUtils.splitString;</span>
+<span class="source-line-no">020</span><span id="line-20">import static java.lang.String.format;</span>
+<span class="source-line-no">021</span><span id="line-21">import static java.lang.System.err;</span>
+<span class="source-line-no">022</span><span id="line-22">import static java.lang.System.out;</span>
+<span class="source-line-no">023</span><span id="line-23">import static java.nio.charset.StandardCharsets.UTF_8;</span>
+<span class="source-line-no">024</span><span id="line-24">import static java.nio.file.Files.copy;</span>
+<span class="source-line-no">025</span><span id="line-25">import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;</span>
+<span class="source-line-no">026</span><span id="line-26">import static java.util.Locale.UK;</span>
+<span class="source-line-no">027</span><span id="line-27">import static java.util.Objects.isNull;</span>
+<span class="source-line-no">028</span><span id="line-28">import static java.util.stream.Collectors.joining;</span>
+<span class="source-line-no">029</span><span id="line-29">import static org.apiguardian.api.API.Status.STABLE;</span>
+<span class="source-line-no">030</span><span id="line-30">import static org.tquadrat.foundation.javadoc.internal.ToolKit.EMPTY_STRING;</span>
+<span class="source-line-no">031</span><span id="line-31">import static org.tquadrat.foundation.javadoc.internal.ToolKit.EMPTY_String_ARRAY;</span>
+<span class="source-line-no">032</span><span id="line-32">import static org.tquadrat.foundation.javadoc.internal.ToolKit.requireNotEmptyArgument;</span>
+<span class="source-line-no">033</span><span id="line-33">import static org.tquadrat.foundation.javadoc.internal.ToolKit.splitString;</span>
 <span class="source-line-no">034</span><span id="line-34"></span>
 <span class="source-line-no">035</span><span id="line-35">import javax.lang.model.SourceVersion;</span>
 <span class="source-line-no">036</span><span id="line-36">import java.io.File;</span>
@@ -62,458 +62,457 @@
 <span class="source-line-no">049</span><span id="line-49">import java.util.spi.ToolProvider;</span>
 <span class="source-line-no">050</span><span id="line-50"></span>
 <span class="source-line-no">051</span><span id="line-51">import org.apiguardian.api.API;</span>
-<span class="source-line-no">052</span><span id="line-52">import org.tquadrat.foundation.annotation.ClassVersion;</span>
-<span class="source-line-no">053</span><span id="line-53">import org.tquadrat.foundation.annotation.ProgramClass;</span>
-<span class="source-line-no">054</span><span id="line-54">import org.tquadrat.foundation.exception.ApplicationError;</span>
-<span class="source-line-no">055</span><span id="line-55">import org.tquadrat.foundation.exception.EmptyArgumentException;</span>
-<span class="source-line-no">056</span><span id="line-56">import org.tquadrat.foundation.exception.LambdaContainerException;</span>
+<span class="source-line-no">052</span><span id="line-52">import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;</span>
+<span class="source-line-no">053</span><span id="line-53">import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ProgramClass;</span>
+<span class="source-line-no">054</span><span id="line-54">import org.tquadrat.foundation.javadoc.internal.foundation.exception.ApplicationError;</span>
+<span class="source-line-no">055</span><span id="line-55">import org.tquadrat.foundation.javadoc.internal.foundation.exception.EmptyArgumentException;</span>
+<span class="source-line-no">056</span><span id="line-56">import org.tquadrat.foundation.javadoc.internal.foundation.exception.LambdaContainerException;</span>
 <span class="source-line-no">057</span><span id="line-57"></span>
 <span class="source-line-no">058</span><span id="line-58">/**</span>
-<span class="source-line-no">059</span><span id="line-59"> *  {@summary Executes the {@code JavaDoc} tool with a bunch of default</span>
-<span class="source-line-no">060</span><span id="line-60"> *  parameters.}&lt;br&gt;</span>
-<span class="source-line-no">061</span><span id="line-61"> *  &lt;br&gt;The program takes the name of a file as the only command line argument;</span>
+<span class="source-line-no">059</span><span id="line-59"> *  &lt;p&gt;{@summary Executes the {@code JavaDoc} tool with a bunch of default</span>
+<span class="source-line-no">060</span><span id="line-60"> *  parameters.}&lt;/p&gt;</span>
+<span class="source-line-no">061</span><span id="line-61"> *  &lt;p&gt;The program takes the name of a file as the only command line argument;</span>
 <span class="source-line-no">062</span><span id="line-62"> *  that file contains the Javadoc options and parameters, as described in</span>
-<span class="source-line-no">063</span><span id="line-63"> *  {@href https://docs.oracle.com/en/java/javase/15/docs/specs/man/javadoc.html}</span>
+<span class="source-line-no">063</span><span id="line-63"> *  { href https://docs.oracle.com/en/java/javase/15/docs/specs/man/javadoc.html}</span>
 <span class="source-line-no">064</span><span id="line-64"> *  and</span>
-<span class="source-line-no">065</span><span id="line-65"> *  {@href https://docs.oracle.com/en/java/javase/15/docs/specs/javadoc/doc-comment-spec.html}.&lt;br&gt;</span>
-<span class="source-line-no">066</span><span id="line-66"> *  &lt;br&gt; The following default settings are made by the program:&lt;br&gt;&lt;pre&gt;&lt;code&gt;</span>
-<span class="source-line-no">067</span><span id="line-67"> *  -author</span>
-<span class="source-line-no">068</span><span id="line-68"> *  -bottom Copyright © 2002-2021 by Thomas Thrien (tquadrat.org)</span>
-<span class="source-line-no">069</span><span id="line-69"> *  -breakiterator</span>
-<span class="source-line-no">070</span><span id="line-70"> *  -charset UTF-8</span>
-<span class="source-line-no">071</span><span id="line-71"> *  -docencoding UTF-8</span>
-<span class="source-line-no">072</span><span id="line-72"> *  -docfilessubdirs</span>
-<span class="source-line-no">073</span><span id="line-73"> *  --enable-preview</span>
-<span class="source-line-no">074</span><span id="line-74"> *  -encoding UTF-8</span>
-<span class="source-line-no">075</span><span id="line-75"> *  --expand-requires all</span>
-<span class="source-line-no">076</span><span id="line-76"> *  -footer ""</span>
-<span class="source-line-no">077</span><span id="line-77"> *  -header ""</span>
-<span class="source-line-no">078</span><span id="line-78"> *  -html5</span>
-<span class="source-line-no">079</span><span id="line-79"> *  -javafx</span>
-<span class="source-line-no">080</span><span id="line-80"> *  -keywords</span>
-<span class="source-line-no">081</span><span id="line-81"> *  -link https://docs.oracle.com/en/java/javase/15/docs/api/</span>
-<span class="source-line-no">082</span><span id="line-82"> *  -link https://apiguardian-team.github.io/apiguardian/docs/current/api/</span>
-<span class="source-line-no">083</span><span id="line-83"> *  -linksource</span>
-<span class="source-line-no">084</span><span id="line-84"> *  -locale en_GB</span>
-<span class="source-line-no">085</span><span id="line-85"> *  -notimestamp</span>
-<span class="source-line-no">086</span><span id="line-86"> *  -private</span>
-<span class="source-line-no">087</span><span id="line-87"> *  -quiet</span>
-<span class="source-line-no">088</span><span id="line-88"> *  -serialwarn</span>
-<span class="source-line-no">089</span><span id="line-89"> *  --show-members private</span>
-<span class="source-line-no">090</span><span id="line-90"> *  --show-module-contents all</span>
-<span class="source-line-no">091</span><span id="line-91"> *  --show-packages all</span>
-<span class="source-line-no">092</span><span id="line-92"> *  --show-types private</span>
-<span class="source-line-no">093</span><span id="line-93"> *  -source 15</span>
-<span class="source-line-no">094</span><span id="line-94"> *  -sourcetab 4</span>
-<span class="source-line-no">095</span><span id="line-95"> *  -splitindex</span>
-<span class="source-line-no">096</span><span id="line-96"> *  -tag note</span>
-<span class="source-line-no">097</span><span id="line-97"> *  -tag param</span>
-<span class="source-line-no">098</span><span id="line-98"> *  -tag return</span>
-<span class="source-line-no">099</span><span id="line-99"> *  -tag throws</span>
-<span class="source-line-no">100</span><span id="line-100"> *  -tag author</span>
-<span class="source-line-no">101</span><span id="line-101"> *  -tag extauthor</span>
-<span class="source-line-no">102</span><span id="line-102"> *  -tag thanks</span>
-<span class="source-line-no">103</span><span id="line-103"> *  -tag modified</span>
-<span class="source-line-no">104</span><span id="line-104"> *  -tag version</span>
-<span class="source-line-no">105</span><span id="line-105"> *  -tag since</span>
-<span class="source-line-no">106</span><span id="line-106"> *  -tag see</span>
-<span class="source-line-no">107</span><span id="line-107"> *  -tag inspired</span>
-<span class="source-line-no">108</span><span id="line-108"> *  -tag UMLGraph.link</span>
-<span class="source-line-no">109</span><span id="line-109"> *  -tag todo</span>
-<span class="source-line-no">110</span><span id="line-110"> *  -taglet org.tquadrat.foundation.javadoc.AuthorTaglet</span>
-<span class="source-line-no">111</span><span id="line-111"> *  -taglet org.tquadrat.foundation.javadoc.AnchorTaglet</span>
-<span class="source-line-no">112</span><span id="line-112"> *  -taglet org.tquadrat.foundation.javadoc.HRefTaglet</span>
-<span class="source-line-no">113</span><span id="line-113"> *  -taglet org.tquadrat.foundation.javadoc.IgnoreTaglet</span>
-<span class="source-line-no">114</span><span id="line-114"> *  -taglet org.tquadrat.foundation.javadoc.IncludeTaglet</span>
-<span class="source-line-no">115</span><span id="line-115"> *  -taglet org.tquadrat.foundation.javadoc.InspiredTaglet</span>
-<span class="source-line-no">116</span><span id="line-116"> *  -taglet org.tquadrat.foundation.javadoc.ModifiedTaglet</span>
-<span class="source-line-no">117</span><span id="line-117"> *  -taglet org.tquadrat.foundation.javadoc.NoteTaglet</span>
-<span class="source-line-no">118</span><span id="line-118"> *  -taglet org.tquadrat.foundation.javadoc.ThanksTaglet</span>
-<span class="source-line-no">119</span><span id="line-119"> *  -taglet org.tquadrat.foundation.javadoc.ToDoTaglet</span>
-<span class="source-line-no">120</span><span id="line-120"> *  -taglet org.tquadrat.foundation.javadoc.UmlGraphLinkTaglet</span>
-<span class="source-line-no">121</span><span id="line-121"> *  -taglet org.tquadrat.foundation.javadoc.UnderlineTaglet</span>
-<span class="source-line-no">122</span><span id="line-122"> *  -top &amp;lt;div style='overflow:auto;'&amp;gt;&amp;lt;img src='{&amp;#64;docRoot}/resources/tquadrat_logo.jpg' alt='tquadrat.org' style='float:right;''&amp;gt;&amp;lt;p style='font-family:sans-serif;font-size:40px;font-weight:bold;padding-left:30px;'&amp;gt;tquadrat Foundation Library%lt;/p'&amp;gt;&amp;lt;/div&amp;gt;'</span>
-<span class="source-line-no">123</span><span id="line-123"> *  -use</span>
-<span class="source-line-no">124</span><span id="line-124"> *  -version</span>
-<span class="source-line-no">125</span><span id="line-125"> *  &lt;/code&gt;&lt;/pre&gt;&lt;br&gt;</span>
-<span class="source-line-no">126</span><span id="line-126"> *  The format must have the following format:</span>
-<span class="source-line-no">127</span><span id="line-127"> *  &lt;ul&gt;</span>
-<span class="source-line-no">128</span><span id="line-128"> *      &lt;li&gt;Lines beginning with the '#' symbol are comments and will be</span>
-<span class="source-line-no">129</span><span id="line-129"> *      ignored; same for empty lines.&lt;/li&gt;</span>
-<span class="source-line-no">130</span><span id="line-130"> *      &lt;li&gt;A line with an option starts with a '-' hyphen; the arguments for</span>
-<span class="source-line-no">131</span><span id="line-131"> *      the option are separated with a blank from the option itself.&lt;/li&gt;</span>
-<span class="source-line-no">132</span><span id="line-132"> *      &lt;li&gt;Usually, the end of the line terminates an option, but a backslash</span>
-<span class="source-line-no">133</span><span id="line-133"> *      as the last character of the line allows to extend the option into the</span>
-<span class="source-line-no">134</span><span id="line-134"> *      next line.&lt;/li&gt;</span>
-<span class="source-line-no">135</span><span id="line-135"> *      &lt;li&gt;Each non-empty line that does not contain an option or a comment is</span>
-<span class="source-line-no">136</span><span id="line-136"> *      either a package or a source file.&lt;/li&gt;</span>
-<span class="source-line-no">137</span><span id="line-137"> *  &lt;/ul&gt;</span>
-<span class="source-line-no">138</span><span id="line-138"> *</span>
-<span class="source-line-no">139</span><span id="line-139"> *  @extauthor  Thomas Thrien - thomas.thrien@tquadrat.org</span>
-<span class="source-line-no">140</span><span id="line-140"> *  @version $Id: JavadocStarter.java 823 2021-01-02 22:12:21Z tquadrat $</span>
-<span class="source-line-no">141</span><span id="line-141"> *  @since 0.1.0</span>
-<span class="source-line-no">142</span><span id="line-142"> *</span>
-<span class="source-line-no">143</span><span id="line-143"> *  @UMLGraph.link</span>
-<span class="source-line-no">144</span><span id="line-144"> */</span>
-<span class="source-line-no">145</span><span id="line-145">@ProgramClass</span>
-<span class="source-line-no">146</span><span id="line-146">@ClassVersion( sourceVersion = "$Id: JavadocStarter.java 823 2021-01-02 22:12:21Z tquadrat $" )</span>
-<span class="source-line-no">147</span><span id="line-147">@API( status = STABLE, since = "0.1.0" )</span>
-<span class="source-line-no">148</span><span id="line-148">public final class JavadocStarter</span>
-<span class="source-line-no">149</span><span id="line-149">{</span>
-<span class="source-line-no">150</span><span id="line-150">        /*-----------*\</span>
-<span class="source-line-no">151</span><span id="line-151">    ====** Constants **========================================================</span>
-<span class="source-line-no">152</span><span id="line-152">        \*-----------*/</span>
-<span class="source-line-no">153</span><span id="line-153">    /**</span>
-<span class="source-line-no">154</span><span id="line-154">     *  The name of the logo file: {@value}.</span>
-<span class="source-line-no">155</span><span id="line-155">     */</span>
-<span class="source-line-no">156</span><span id="line-156">    public static final String LOGO = "tquadrat_logo.jpg";</span>
-<span class="source-line-no">157</span><span id="line-157"></span>
-<span class="source-line-no">158</span><span id="line-158">        /*------------*\</span>
-<span class="source-line-no">159</span><span id="line-159">    ====** Attributes **=======================================================</span>
-<span class="source-line-no">160</span><span id="line-160">        \*------------*/</span>
-<span class="source-line-no">161</span><span id="line-161">    /**</span>
-<span class="source-line-no">162</span><span id="line-162">     *  The tool provider.</span>
-<span class="source-line-no">163</span><span id="line-163">     */</span>
-<span class="source-line-no">164</span><span id="line-164">    private final ToolProvider m_ToolProvider;</span>
-<span class="source-line-no">165</span><span id="line-165"></span>
-<span class="source-line-no">166</span><span id="line-166">        /*------------------------*\</span>
-<span class="source-line-no">167</span><span id="line-167">    ====** Static Initialisations **===========================================</span>
-<span class="source-line-no">168</span><span id="line-168">        \*------------------------*/</span>
-<span class="source-line-no">169</span><span id="line-169">    /**</span>
-<span class="source-line-no">170</span><span id="line-170">     *  The default arguments.&lt;br&gt;</span>
-<span class="source-line-no">171</span><span id="line-171">     *  &lt;br&gt;The map is immutable.</span>
-<span class="source-line-no">172</span><span id="line-172">     */</span>
-<span class="source-line-no">173</span><span id="line-173">    private static final Map&lt;String,String&gt; m_DefaultArguments;</span>
-<span class="source-line-no">174</span><span id="line-174"></span>
-<span class="source-line-no">175</span><span id="line-175">    /**</span>
-<span class="source-line-no">176</span><span id="line-176">     *  The list of the Link URLs.</span>
-<span class="source-line-no">177</span><span id="line-177">     */</span>
-<span class="source-line-no">178</span><span id="line-178">    private static final Collection&lt;URL&gt; m_Links = new ArrayList&lt;&gt;();</span>
-<span class="source-line-no">179</span><span id="line-179"></span>
-<span class="source-line-no">180</span><span id="line-180">    /**</span>
-<span class="source-line-no">181</span><span id="line-181">     *  The arguments that can be replaced by those on the command line.&lt;br&gt;</span>
-<span class="source-line-no">182</span><span id="line-182">     *  &lt;br&gt;The key is the argument name, the value is the arguments value; it</span>
-<span class="source-line-no">183</span><span id="line-183">     *  will never be empty.&lt;br&gt;</span>
-<span class="source-line-no">184</span><span id="line-184">     *  &lt;br&gt;The map as such is immutable.</span>
-<span class="source-line-no">185</span><span id="line-185">     */</span>
-<span class="source-line-no">186</span><span id="line-186">    private static final Map&lt;String,String&gt; m_ReplaceableArguments;</span>
-<span class="source-line-no">187</span><span id="line-187"></span>
-<span class="source-line-no">188</span><span id="line-188">    /**</span>
-<span class="source-line-no">189</span><span id="line-189">     *  The tags and taglets.</span>
-<span class="source-line-no">190</span><span id="line-190">     */</span>
-<span class="source-line-no">191</span><span id="line-191">    private static final List&lt;String&gt; m_Tags;</span>
-<span class="source-line-no">192</span><span id="line-192"></span>
-<span class="source-line-no">193</span><span id="line-193">    static</span>
-<span class="source-line-no">194</span><span id="line-194">    {</span>
-<span class="source-line-no">195</span><span id="line-195">        Locale.setDefault( UK );</span>
-<span class="source-line-no">196</span><span id="line-196"></span>
-<span class="source-line-no">197</span><span id="line-197">        final Map&lt;String,String&gt; defaultArguments = new TreeMap&lt;&gt;();</span>
-<span class="source-line-no">198</span><span id="line-198">        defaultArguments.put( "-author", EMPTY_STRING );</span>
-<span class="source-line-no">199</span><span id="line-199">        defaultArguments.put( "-breakiterator", EMPTY_STRING );</span>
-<span class="source-line-no">200</span><span id="line-200">        defaultArguments.put( "-charset", UTF8.name() );</span>
-<span class="source-line-no">201</span><span id="line-201">        defaultArguments.put( "-docencoding", UTF8.name() );</span>
-<span class="source-line-no">202</span><span id="line-202">        defaultArguments.put( "-docfilessubdirs", EMPTY_STRING );</span>
-<span class="source-line-no">203</span><span id="line-203">        defaultArguments.put( "--enable-preview", EMPTY_STRING );</span>
-<span class="source-line-no">204</span><span id="line-204">        defaultArguments.put( "-encoding", UTF8.name() );</span>
-<span class="source-line-no">205</span><span id="line-205">        defaultArguments.put( "-html5", EMPTY_STRING );</span>
-<span class="source-line-no">206</span><span id="line-206">        defaultArguments.put( "-javafx", EMPTY_STRING );</span>
-<span class="source-line-no">207</span><span id="line-207">        defaultArguments.put( "-keywords", EMPTY_STRING );</span>
-<span class="source-line-no">208</span><span id="line-208">        defaultArguments.put( "-linksource", EMPTY_STRING );</span>
-<span class="source-line-no">209</span><span id="line-209">        defaultArguments.put( "-locale", UK.toString() );</span>
-<span class="source-line-no">210</span><span id="line-210">        defaultArguments.put( "-notimestamp", EMPTY_STRING );</span>
-<span class="source-line-no">211</span><span id="line-211">        defaultArguments.put( "-quiet", EMPTY_STRING );</span>
-<span class="source-line-no">212</span><span id="line-212">        defaultArguments.put( "-serialwarn", EMPTY_STRING );</span>
-<span class="source-line-no">213</span><span id="line-213">        defaultArguments.put( "-source", Integer.toString( SourceVersion.latest().ordinal() ) );</span>
-<span class="source-line-no">214</span><span id="line-214">        defaultArguments.put( "-sourcetab", "4" );</span>
-<span class="source-line-no">215</span><span id="line-215">        defaultArguments.put( "-splitindex", EMPTY_STRING );</span>
-<span class="source-line-no">216</span><span id="line-216">        defaultArguments.put( "-use", EMPTY_STRING );</span>
-<span class="source-line-no">217</span><span id="line-217">        defaultArguments.put( "-version", EMPTY_STRING );</span>
-<span class="source-line-no">218</span><span id="line-218">        //defaultArguments.put( "-J--enable-preview", EMPTY_STRING );</span>
-<span class="source-line-no">219</span><span id="line-219">        m_DefaultArguments = Map.copyOf( defaultArguments );</span>
-<span class="source-line-no">220</span><span id="line-220"></span>
-<span class="source-line-no">221</span><span id="line-221">        final Map&lt;String,String&gt; replaceableArguments = new TreeMap&lt;&gt;();</span>
-<span class="source-line-no">222</span><span id="line-222">        replaceableArguments.put( "-bottom", format( "Copyright © 2002-%s by Thomas Thrien (tquadrat.org)", Year.now() ) );</span>
-<span class="source-line-no">223</span><span id="line-223">        replaceableArguments.put( "-d", "./doc" );</span>
-<span class="source-line-no">224</span><span id="line-224">        replaceableArguments.put( "--expand-requires", "all" );</span>
-<span class="source-line-no">225</span><span id="line-225">        replaceableArguments.put( "-footer", " " );</span>
-<span class="source-line-no">226</span><span id="line-226">        replaceableArguments.put( "-header", " " );</span>
-<span class="source-line-no">227</span><span id="line-227">        replaceableArguments.put( "--show-members", "private" );</span>
-<span class="source-line-no">228</span><span id="line-228">        replaceableArguments.put( "--show-module-contents", "all" );</span>
-<span class="source-line-no">229</span><span id="line-229">        replaceableArguments.put( "--show-packages", "all" );</span>
-<span class="source-line-no">230</span><span id="line-230">        replaceableArguments.put( "--show-types", "private" );</span>
-<span class="source-line-no">231</span><span id="line-231">        m_ReplaceableArguments = Map.copyOf( replaceableArguments );</span>
-<span class="source-line-no">232</span><span id="line-232"></span>
-<span class="source-line-no">233</span><span id="line-233">        m_Tags = List.of</span>
-<span class="source-line-no">234</span><span id="line-234">        (</span>
-<span class="source-line-no">235</span><span id="line-235">            //---* Register the Taglets *--------------------------------------</span>
-<span class="source-line-no">236</span><span id="line-236">            "-taglet " + AuthorTaglet.class.getName(),</span>
-<span class="source-line-no">237</span><span id="line-237">            "-taglet " + AnchorTaglet.class.getName(),</span>
-<span class="source-line-no">238</span><span id="line-238">            "-taglet " + HRefTaglet.class.getName(),</span>
-<span class="source-line-no">239</span><span id="line-239">            "-taglet " + IgnoreTaglet.class.getName(),</span>
-<span class="source-line-no">240</span><span id="line-240">            "-taglet " + IncludeTaglet.class.getName(),</span>
-<span class="source-line-no">241</span><span id="line-241">            "-taglet " + InspiredTaglet.class.getName(),</span>
-<span class="source-line-no">242</span><span id="line-242">            "-taglet " + ModifiedTaglet.class.getName(),</span>
-<span class="source-line-no">243</span><span id="line-243">            "-taglet " + NoteTaglet.class.getName(),</span>
-<span class="source-line-no">244</span><span id="line-244">            "-taglet " + ThanksTaglet.class.getName(),</span>
-<span class="source-line-no">245</span><span id="line-245">            "-taglet " + ToDoTaglet.class.getName(),</span>
-<span class="source-line-no">246</span><span id="line-246">            "-taglet " + UmlGraphLinkTaglet.class.getName(),</span>
-<span class="source-line-no">247</span><span id="line-247">            "-taglet " + UnderlineTaglet.class.getName(),</span>
-<span class="source-line-no">248</span><span id="line-248"></span>
-<span class="source-line-no">249</span><span id="line-249">            //---* Define the sequence *---------------------------------------</span>
-<span class="source-line-no">250</span><span id="line-250">            "-tag " + NoteTaglet.TAGLET_NAME,</span>
-<span class="source-line-no">251</span><span id="line-251">            "-tag param",</span>
-<span class="source-line-no">252</span><span id="line-252">            "-tag return",</span>
-<span class="source-line-no">253</span><span id="line-253">            "-tag throws",</span>
-<span class="source-line-no">254</span><span id="line-254">            "-tag author",</span>
-<span class="source-line-no">255</span><span id="line-255">            "-tag " + AuthorTaglet.TAGLET_NAME,</span>
-<span class="source-line-no">256</span><span id="line-256">            "-tag " + ThanksTaglet.TAGLET_NAME,</span>
-<span class="source-line-no">257</span><span id="line-257">            "-tag " + ModifiedTaglet.TAGLET_NAME,</span>
-<span class="source-line-no">258</span><span id="line-258">            "-tag version",</span>
-<span class="source-line-no">259</span><span id="line-259">            "-tag since",</span>
-<span class="source-line-no">260</span><span id="line-260">            "-tag see",</span>
-<span class="source-line-no">261</span><span id="line-261">            "-tag " + InspiredTaglet.TAGLET_NAME,</span>
-<span class="source-line-no">262</span><span id="line-262">            "-tag " + UmlGraphLinkTaglet.TAGLET_NAME,</span>
-<span class="source-line-no">263</span><span id="line-263">            "-tag " + ToDoTaglet.TAGLET_NAME</span>
-<span class="source-line-no">264</span><span id="line-264">        );</span>
-<span class="source-line-no">265</span><span id="line-265"></span>
-<span class="source-line-no">266</span><span id="line-266">        //---* The links *-----------------------------------------------------</span>
-<span class="source-line-no">267</span><span id="line-267">        try</span>
-<span class="source-line-no">268</span><span id="line-268">        {</span>
-<span class="source-line-no">269</span><span id="line-269">            m_Links.add( new URL( "https://docs.oracle.com/en/java/javase/15/docs/api/" ) );</span>
-<span class="source-line-no">270</span><span id="line-270">            m_Links.add( new URL( "https://apiguardian-team.github.io/apiguardian/docs/current/api/" ) );</span>
-<span class="source-line-no">271</span><span id="line-271">        }</span>
-<span class="source-line-no">272</span><span id="line-272">        catch( final MalformedURLException e )</span>
-<span class="source-line-no">273</span><span id="line-273">        {</span>
-<span class="source-line-no">274</span><span id="line-274">            //---* Should never happen *---------------------------------------</span>
-<span class="source-line-no">275</span><span id="line-275">            throw new ExceptionInInitializerError( e );</span>
-<span class="source-line-no">276</span><span id="line-276">        }</span>
-<span class="source-line-no">277</span><span id="line-277">    }</span>
-<span class="source-line-no">278</span><span id="line-278"></span>
-<span class="source-line-no">279</span><span id="line-279">        /*--------------*\</span>
-<span class="source-line-no">280</span><span id="line-280">    ====** Constructors **=====================================================</span>
-<span class="source-line-no">281</span><span id="line-281">        \*--------------*/</span>
-<span class="source-line-no">282</span><span id="line-282">    /**</span>
-<span class="source-line-no">283</span><span id="line-283">     *  Creates a new {@code JavadocStarter} instance.</span>
-<span class="source-line-no">284</span><span id="line-284">     *</span>
-<span class="source-line-no">285</span><span id="line-285">     *  @param  toolProvider    The tool provider for the Javadoc tool.</span>
-<span class="source-line-no">286</span><span id="line-286">     */</span>
-<span class="source-line-no">287</span><span id="line-287">    private JavadocStarter( final ToolProvider toolProvider )</span>
-<span class="source-line-no">288</span><span id="line-288">    {</span>
-<span class="source-line-no">289</span><span id="line-289">        m_ToolProvider = toolProvider;</span>
-<span class="source-line-no">290</span><span id="line-290">    }   //  JavadocStarter()</span>
-<span class="source-line-no">291</span><span id="line-291"></span>
-<span class="source-line-no">292</span><span id="line-292">        /*---------*\</span>
-<span class="source-line-no">293</span><span id="line-293">    ====** Methods **==========================================================</span>
-<span class="source-line-no">294</span><span id="line-294">        \*---------*/</span>
-<span class="source-line-no">295</span><span id="line-295">    /**</span>
-<span class="source-line-no">296</span><span id="line-296">     *  Does the program's work.</span>
-<span class="source-line-no">297</span><span id="line-297">     *</span>
-<span class="source-line-no">298</span><span id="line-298">     *  @param  args    The command line arguments.</span>
-<span class="source-line-no">299</span><span id="line-299">     *  @throws IOException A problem occurred when determine the project</span>
-<span class="source-line-no">300</span><span id="line-300">     *      location.</span>
-<span class="source-line-no">301</span><span id="line-301">     */</span>
-<span class="source-line-no">302</span><span id="line-302">    public final void execute( final String... args ) throws IOException</span>
-<span class="source-line-no">303</span><span id="line-303">    {</span>
-<span class="source-line-no">304</span><span id="line-304">        final var optionsFile = new File( requireNotEmptyArgument( args, "args" )[0] ).getAbsoluteFile();</span>
-<span class="source-line-no">305</span><span id="line-305">        if( !optionsFile.exists() ) throw new FileNotFoundException( optionsFile.getAbsolutePath() );</span>
-<span class="source-line-no">306</span><span id="line-306"></span>
-<span class="source-line-no">307</span><span id="line-307">        final List&lt;String&gt; localArgs = new ArrayList&lt;&gt;();</span>
-<span class="source-line-no">308</span><span id="line-308">        final var currentOptions = loadOptions( optionsFile );</span>
-<span class="source-line-no">309</span><span id="line-309"></span>
-<span class="source-line-no">310</span><span id="line-310">        out.println( "Options loaded" );</span>
-<span class="source-line-no">311</span><span id="line-311"></span>
-<span class="source-line-no">312</span><span id="line-312">        m_Tags.stream()</span>
-<span class="source-line-no">313</span><span id="line-313">            .map( t -&gt; splitString( t, ' ' ) )</span>
-<span class="source-line-no">314</span><span id="line-314">            .map( List::of )</span>
-<span class="source-line-no">315</span><span id="line-315">            .forEach( localArgs::addAll );</span>
-<span class="source-line-no">316</span><span id="line-316"></span>
-<span class="source-line-no">317</span><span id="line-317">        m_Links.stream()</span>
-<span class="source-line-no">318</span><span id="line-318">            .map( link -&gt; List.of( "-link", link.toExternalForm() ) )</span>
-<span class="source-line-no">319</span><span id="line-319">            .forEach( localArgs::addAll );</span>
-<span class="source-line-no">320</span><span id="line-320"></span>
-<span class="source-line-no">321</span><span id="line-321">        currentOptions.forEach( (k,v) -&gt;</span>
-<span class="source-line-no">322</span><span id="line-322">        {</span>
-<span class="source-line-no">323</span><span id="line-323">            if( k.startsWith( "-" ) )</span>
-<span class="source-line-no">324</span><span id="line-324">            {</span>
-<span class="source-line-no">325</span><span id="line-325">                localArgs.add( k );</span>
-<span class="source-line-no">326</span><span id="line-326">            }</span>
-<span class="source-line-no">327</span><span id="line-327">            if( !v.isEmpty() )</span>
-<span class="source-line-no">328</span><span id="line-328">            {</span>
-<span class="source-line-no">329</span><span id="line-329">                if( v.isBlank() )</span>
-<span class="source-line-no">330</span><span id="line-330">                {</span>
-<span class="source-line-no">331</span><span id="line-331">                    localArgs.add( "\"\"" );</span>
-<span class="source-line-no">332</span><span id="line-332">                }</span>
-<span class="source-line-no">333</span><span id="line-333">                else</span>
-<span class="source-line-no">334</span><span id="line-334">                {</span>
-<span class="source-line-no">335</span><span id="line-335">                    localArgs.add( v );</span>
-<span class="source-line-no">336</span><span id="line-336">                }</span>
-<span class="source-line-no">337</span><span id="line-337">            }</span>
-<span class="source-line-no">338</span><span id="line-338">        } );</span>
-<span class="source-line-no">339</span><span id="line-339"></span>
-<span class="source-line-no">340</span><span id="line-340">        //---* Show the command line *-----------------------------------------</span>
-<span class="source-line-no">341</span><span id="line-341">        out.println( localArgs.stream().collect( joining( " ", "javadoc ", EMPTY_STRING ) ) );</span>
-<span class="source-line-no">342</span><span id="line-342"></span>
-<span class="source-line-no">343</span><span id="line-343">        //---* Execute the tool *----------------------------------------------</span>
-<span class="source-line-no">344</span><span id="line-344">        if( m_ToolProvider.run( out, err, localArgs.toArray( EMPTY_String_ARRAY ) ) == 0 )</span>
-<span class="source-line-no">345</span><span id="line-345">        {</span>
-<span class="source-line-no">346</span><span id="line-346"></span>
-<span class="source-line-no">347</span><span id="line-347">            //---* Write the logo file *---------------------------------------</span>
-<span class="source-line-no">348</span><span id="line-348">            final var targetFolder = new File( currentOptions.get( "-d" ), "resources" );</span>
-<span class="source-line-no">349</span><span id="line-349">            writeLogo( targetFolder );</span>
-<span class="source-line-no">350</span><span id="line-350">        }</span>
-<span class="source-line-no">351</span><span id="line-351">    }   //  execute()</span>
-<span class="source-line-no">352</span><span id="line-352"></span>
-<span class="source-line-no">353</span><span id="line-353">    /**</span>
-<span class="source-line-no">354</span><span id="line-354">     *  Joins lines in the options file that ends with a backslash with the</span>
-<span class="source-line-no">355</span><span id="line-355">     *  next line and return the new index.</span>
-<span class="source-line-no">356</span><span id="line-356">     *</span>
-<span class="source-line-no">357</span><span id="line-357">     *  @param  lines   The lines from the options file.</span>
-<span class="source-line-no">358</span><span id="line-358">     *  @param  index   The current index.</span>
-<span class="source-line-no">359</span><span id="line-359">     *  @param  currentLine The contents for the current line.</span>
-<span class="source-line-no">360</span><span id="line-360">     *  @return The new index.</span>
-<span class="source-line-no">361</span><span id="line-361">     */</span>
-<span class="source-line-no">362</span><span id="line-362">    private final int joinLines( final String[] lines, final int index, final StringBuilder currentLine )</span>
-<span class="source-line-no">363</span><span id="line-363">    {</span>
-<span class="source-line-no">364</span><span id="line-364">        var retValue = index;</span>
-<span class="source-line-no">365</span><span id="line-365">        var lastChar = currentLine.length() - 1;</span>
-<span class="source-line-no">366</span><span id="line-366">        while( (retValue &lt; lines.length) &amp;&amp; (currentLine.charAt( lastChar ) == '\\') )</span>
-<span class="source-line-no">367</span><span id="line-367">        {</span>
-<span class="source-line-no">368</span><span id="line-368">            currentLine.setLength( lastChar );</span>
-<span class="source-line-no">369</span><span id="line-369">            currentLine.append( lines [++retValue].trim() );</span>
-<span class="source-line-no">370</span><span id="line-370">            lastChar = currentLine.length() - 1;</span>
-<span class="source-line-no">371</span><span id="line-371">        }</span>
-<span class="source-line-no">372</span><span id="line-372"></span>
-<span class="source-line-no">373</span><span id="line-373">        //---* Done *----------------------------------------------------------</span>
-<span class="source-line-no">374</span><span id="line-374">        return retValue;</span>
-<span class="source-line-no">375</span><span id="line-375">    }   //  joinLines()</span>
-<span class="source-line-no">376</span><span id="line-376"></span>
-<span class="source-line-no">377</span><span id="line-377">    /**</span>
-<span class="source-line-no">378</span><span id="line-378">     *  Reads the options file and returns the options from it.&lt;br&gt;</span>
-<span class="source-line-no">379</span><span id="line-379">     *  &lt;br&gt;The source files and package names will get the key</span>
-<span class="source-line-no">380</span><span id="line-380">     *  &amp;quot;ARGUMENT&amp;lt;&lt;i&gt;#&lt;/i&gt;&amp;gt;&amp;quot; where &lt;i&gt;#&lt;/i&gt; is a counter.</span>
-<span class="source-line-no">381</span><span id="line-381">     *</span>
-<span class="source-line-no">382</span><span id="line-382">     *  @param  optionsFile The options file.</span>
-<span class="source-line-no">383</span><span id="line-383">     *  @return The options from the file, or from</span>
-<span class="source-line-no">384</span><span id="line-384">     *      {@link #m_ReplaceableArguments}.</span>
-<span class="source-line-no">385</span><span id="line-385">     *  @throws IOException A problem occurred when reading the options file.</span>
-<span class="source-line-no">386</span><span id="line-386">     */</span>
-<span class="source-line-no">387</span><span id="line-387">    private final Map&lt;String,String&gt; loadOptions( final File optionsFile ) throws IOException</span>
-<span class="source-line-no">388</span><span id="line-388">    {</span>
-<span class="source-line-no">389</span><span id="line-389">        final var lines = Files.readAllLines( optionsFile.toPath(), UTF8 ).toArray( String[]::new );</span>
-<span class="source-line-no">390</span><span id="line-390">        var counter = 0;</span>
-<span class="source-line-no">391</span><span id="line-391">        var index = 0;</span>
-<span class="source-line-no">392</span><span id="line-392">        final Map&lt;String,String&gt; retValue = new TreeMap&lt;&gt;( m_DefaultArguments );</span>
-<span class="source-line-no">393</span><span id="line-393">        retValue.putAll( m_ReplaceableArguments );</span>
-<span class="source-line-no">394</span><span id="line-394">        retValue.put( "-d", optionsFile.getParent() );</span>
-<span class="source-line-no">395</span><span id="line-395"></span>
-<span class="source-line-no">396</span><span id="line-396">        ReadLoop: while( index &lt; lines.length )</span>
-<span class="source-line-no">397</span><span id="line-397">        {</span>
-<span class="source-line-no">398</span><span id="line-398">            final var currentLine = new StringBuilder( lines [index].trim() );</span>
-<span class="source-line-no">399</span><span id="line-399">            if( currentLine.isEmpty() || (currentLine.charAt( 0 ) == '#') )</span>
-<span class="source-line-no">400</span><span id="line-400">            {</span>
-<span class="source-line-no">401</span><span id="line-401">                //---* Comment *-----------------------------------------------</span>
-<span class="source-line-no">402</span><span id="line-402">                ++index;</span>
-<span class="source-line-no">403</span><span id="line-403">                continue ReadLoop;</span>
-<span class="source-line-no">404</span><span id="line-404">            }</span>
-<span class="source-line-no">405</span><span id="line-405"></span>
-<span class="source-line-no">406</span><span id="line-406">            if( currentLine.charAt( 0 ) == '-' )</span>
-<span class="source-line-no">407</span><span id="line-407">            {</span>
-<span class="source-line-no">408</span><span id="line-408">                index = joinLines( lines, index, currentLine );</span>
-<span class="source-line-no">409</span><span id="line-409"></span>
-<span class="source-line-no">410</span><span id="line-410">                //---* An option *---------------------------------------------</span>
-<span class="source-line-no">411</span><span id="line-411">                final var pos = currentLine.indexOf( " " );</span>
-<span class="source-line-no">412</span><span id="line-412">                if( pos &lt; 0 )</span>
-<span class="source-line-no">413</span><span id="line-413">                {</span>
-<span class="source-line-no">414</span><span id="line-414">                    //---* Option without argument *---------------------------</span>
-<span class="source-line-no">415</span><span id="line-415">                    retValue.put( currentLine.toString(), EMPTY_STRING );</span>
-<span class="source-line-no">416</span><span id="line-416">                }</span>
-<span class="source-line-no">417</span><span id="line-417">                else</span>
-<span class="source-line-no">418</span><span id="line-418">                {</span>
-<span class="source-line-no">419</span><span id="line-419">                    //---* Option with an argument *---------------------------</span>
-<span class="source-line-no">420</span><span id="line-420">                    final var key = currentLine.substring( 0, pos );</span>
-<span class="source-line-no">421</span><span id="line-421">                    final var value = currentLine.substring( pos ).trim();</span>
-<span class="source-line-no">422</span><span id="line-422">                    retValue.put( key, value );</span>
-<span class="source-line-no">423</span><span id="line-423">                }</span>
-<span class="source-line-no">424</span><span id="line-424">                ++index;</span>
-<span class="source-line-no">425</span><span id="line-425">                continue ReadLoop;</span>
-<span class="source-line-no">426</span><span id="line-426">            }</span>
-<span class="source-line-no">427</span><span id="line-427"></span>
-<span class="source-line-no">428</span><span id="line-428">            index = joinLines( lines, index, currentLine ) + 1;</span>
-<span class="source-line-no">429</span><span id="line-429">            retValue.put( format( "ARGUMENT&lt;%d&gt;", ++counter ), currentLine.toString() );</span>
-<span class="source-line-no">430</span><span id="line-430">        }   //  ReadLoop:</span>
-<span class="source-line-no">431</span><span id="line-431"></span>
-<span class="source-line-no">432</span><span id="line-432">        //---* Done *----------------------------------------------------------</span>
-<span class="source-line-no">433</span><span id="line-433">        return retValue;</span>
-<span class="source-line-no">434</span><span id="line-434">    }   //  loadOptions()</span>
-<span class="source-line-no">435</span><span id="line-435"></span>
-<span class="source-line-no">436</span><span id="line-436">    /**</span>
-<span class="source-line-no">437</span><span id="line-437">     *  The program entry point.</span>
-<span class="source-line-no">438</span><span id="line-438">     *</span>
-<span class="source-line-no">439</span><span id="line-439">     *  @param  args    The command line arguments.</span>
-<span class="source-line-no">440</span><span id="line-440">     */</span>
-<span class="source-line-no">441</span><span id="line-441">    public static void main( final String... args )</span>
-<span class="source-line-no">442</span><span id="line-442">    {</span>
-<span class="source-line-no">443</span><span id="line-443">        try</span>
-<span class="source-line-no">444</span><span id="line-444">        {</span>
-<span class="source-line-no">445</span><span id="line-445">            ToolProvider.findFirst( "javadoc" )</span>
-<span class="source-line-no">446</span><span id="line-446">                .ifPresentOrElse( toolProvider -&gt;</span>
-<span class="source-line-no">447</span><span id="line-447">                {</span>
-<span class="source-line-no">448</span><span id="line-448">                    final var application = new JavadocStarter( toolProvider );</span>
-<span class="source-line-no">449</span><span id="line-449">                    try</span>
-<span class="source-line-no">450</span><span id="line-450">                    {</span>
-<span class="source-line-no">451</span><span id="line-451">                        application.execute( args );</span>
-<span class="source-line-no">452</span><span id="line-452">                    }</span>
-<span class="source-line-no">453</span><span id="line-453">                    catch( final EmptyArgumentException | IOException e )</span>
-<span class="source-line-no">454</span><span id="line-454">                    {</span>
-<span class="source-line-no">455</span><span id="line-455">                        throw new LambdaContainerException( e );</span>
-<span class="source-line-no">456</span><span id="line-456">                    }</span>
-<span class="source-line-no">457</span><span id="line-457">                },</span>
-<span class="source-line-no">458</span><span id="line-458">                () -&gt; { throw new ApplicationError( "Cannot find Tool 'javadoc'" ); } );</span>
-<span class="source-line-no">459</span><span id="line-459">        }</span>
-<span class="source-line-no">460</span><span id="line-460">        catch( final LambdaContainerException e )</span>
-<span class="source-line-no">461</span><span id="line-461">        {</span>
-<span class="source-line-no">462</span><span id="line-462">            if( e.checkIfExpected( EmptyArgumentException.class ) )</span>
-<span class="source-line-no">463</span><span id="line-463">            {</span>
-<span class="source-line-no">464</span><span id="line-464">                err.println( "No options file provided" );</span>
-<span class="source-line-no">465</span><span id="line-465">            }</span>
-<span class="source-line-no">466</span><span id="line-466">            else if( e.checkIfExpected( FileNotFoundException.class ) )</span>
-<span class="source-line-no">467</span><span id="line-467">            {</span>
-<span class="source-line-no">468</span><span id="line-468">                err.printf( "Options file '%s' not found%n", e.getCause().getMessage() );</span>
-<span class="source-line-no">469</span><span id="line-469">            }</span>
-<span class="source-line-no">470</span><span id="line-470">            else</span>
-<span class="source-line-no">471</span><span id="line-471">            {</span>
-<span class="source-line-no">472</span><span id="line-472">                e.getCause().printStackTrace( err );</span>
-<span class="source-line-no">473</span><span id="line-473">            }</span>
-<span class="source-line-no">474</span><span id="line-474">        }</span>
-<span class="source-line-no">475</span><span id="line-475">        catch( final Throwable t )</span>
-<span class="source-line-no">476</span><span id="line-476">        {</span>
-<span class="source-line-no">477</span><span id="line-477">            //---* Handle any previously unhandled exceptions *----------------</span>
-<span class="source-line-no">478</span><span id="line-478">            t.printStackTrace( err );</span>
-<span class="source-line-no">479</span><span id="line-479">        }</span>
-<span class="source-line-no">480</span><span id="line-480">    }   //  main()</span>
-<span class="source-line-no">481</span><span id="line-481"></span>
-<span class="source-line-no">482</span><span id="line-482">    /**</span>
-<span class="source-line-no">483</span><span id="line-483">     *  Writes the logo to the given folder.</span>
-<span class="source-line-no">484</span><span id="line-484">     *</span>
-<span class="source-line-no">485</span><span id="line-485">     *  @param  targetFolder    The destination folder.</span>
-<span class="source-line-no">486</span><span id="line-486">     *  @throws IOException Cannot write the logo file.</span>
-<span class="source-line-no">487</span><span id="line-487">     */</span>
-<span class="source-line-no">488</span><span id="line-488">    private final void writeLogo( final File targetFolder ) throws IOException</span>
-<span class="source-line-no">489</span><span id="line-489">    {</span>
-<span class="source-line-no">490</span><span id="line-490">        final var logoResource = getClass().getResource( "resources/" + LOGO );</span>
-<span class="source-line-no">491</span><span id="line-491">        if( isNull( logoResource ) ) throw new ApplicationError( format( "Resource '%s' is missing", LOGO ) );</span>
-<span class="source-line-no">492</span><span id="line-492">        final var outputFile = new File( targetFolder, LOGO ).getAbsoluteFile().toPath();</span>
-<span class="source-line-no">493</span><span id="line-493">        try( final var inputStream = logoResource.openStream() )</span>
-<span class="source-line-no">494</span><span id="line-494">        {</span>
-<span class="source-line-no">495</span><span id="line-495">            copy( inputStream, outputFile, REPLACE_EXISTING );</span>
-<span class="source-line-no">496</span><span id="line-496">        }</span>
-<span class="source-line-no">497</span><span id="line-497">    }   //  writeLogo()</span>
-<span class="source-line-no">498</span><span id="line-498">}</span>
-<span class="source-line-no">499</span><span id="line-499">//  class JavadocStarter</span>
-<span class="source-line-no">500</span><span id="line-500"></span>
-<span class="source-line-no">501</span><span id="line-501">/*</span>
-<span class="source-line-no">502</span><span id="line-502"> *  End of File</span>
-<span class="source-line-no">503</span><span id="line-503"> */</span>
+<span class="source-line-no">065</span><span id="line-65"> *  { href https://docs.oracle.com/en/java/javase/15/docs/specs/javadoc/doc-comment-spec.html}.&lt;/p&gt;</span>
+<span class="source-line-no">066</span><span id="line-66"> *  &lt;p&gt;The following default settings are made by the program:&lt;/p&gt;</span>
+<span class="source-line-no">067</span><span id="line-67"> *  &lt;pre&gt;&lt;code&gt;</span>
+<span class="source-line-no">068</span><span id="line-68"> *  -author</span>
+<span class="source-line-no">069</span><span id="line-69"> *  -bottom Copyright © 2002-2021 by Thomas Thrien (tquadrat.org)</span>
+<span class="source-line-no">070</span><span id="line-70"> *  -breakiterator</span>
+<span class="source-line-no">071</span><span id="line-71"> *  -charset UTF-8</span>
+<span class="source-line-no">072</span><span id="line-72"> *  -docencoding UTF-8</span>
+<span class="source-line-no">073</span><span id="line-73"> *  -docfilessubdirs</span>
+<span class="source-line-no">074</span><span id="line-74"> *  --enable-preview</span>
+<span class="source-line-no">075</span><span id="line-75"> *  -encoding UTF-8</span>
+<span class="source-line-no">076</span><span id="line-76"> *  --expand-requires all</span>
+<span class="source-line-no">077</span><span id="line-77"> *  -footer ""</span>
+<span class="source-line-no">078</span><span id="line-78"> *  -header ""</span>
+<span class="source-line-no">079</span><span id="line-79"> *  -html5</span>
+<span class="source-line-no">080</span><span id="line-80"> *  -javafx</span>
+<span class="source-line-no">081</span><span id="line-81"> *  -keywords</span>
+<span class="source-line-no">082</span><span id="line-82"> *  -link https://docs.oracle.com/en/java/javase/15/docs/api/</span>
+<span class="source-line-no">083</span><span id="line-83"> *  -link https://apiguardian-team.github.io/apiguardian/docs/current/api/</span>
+<span class="source-line-no">084</span><span id="line-84"> *  -linksource</span>
+<span class="source-line-no">085</span><span id="line-85"> *  -locale en_GB</span>
+<span class="source-line-no">086</span><span id="line-86"> *  -notimestamp</span>
+<span class="source-line-no">087</span><span id="line-87"> *  -private</span>
+<span class="source-line-no">088</span><span id="line-88"> *  -quiet</span>
+<span class="source-line-no">089</span><span id="line-89"> *  -serialwarn</span>
+<span class="source-line-no">090</span><span id="line-90"> *  --show-members private</span>
+<span class="source-line-no">091</span><span id="line-91"> *  --show-module-contents all</span>
+<span class="source-line-no">092</span><span id="line-92"> *  --show-packages all</span>
+<span class="source-line-no">093</span><span id="line-93"> *  --show-types private</span>
+<span class="source-line-no">094</span><span id="line-94"> *  -source 15</span>
+<span class="source-line-no">095</span><span id="line-95"> *  -sourcetab 4</span>
+<span class="source-line-no">096</span><span id="line-96"> *  -splitindex</span>
+<span class="source-line-no">097</span><span id="line-97"> *  -tag note</span>
+<span class="source-line-no">098</span><span id="line-98"> *  -tag param</span>
+<span class="source-line-no">099</span><span id="line-99"> *  -tag return</span>
+<span class="source-line-no">100</span><span id="line-100"> *  -tag throws</span>
+<span class="source-line-no">101</span><span id="line-101"> *  -tag author</span>
+<span class="source-line-no">102</span><span id="line-102"> *  -tag extauthor</span>
+<span class="source-line-no">103</span><span id="line-103"> *  -tag thanks</span>
+<span class="source-line-no">104</span><span id="line-104"> *  -tag modified</span>
+<span class="source-line-no">105</span><span id="line-105"> *  -tag version</span>
+<span class="source-line-no">106</span><span id="line-106"> *  -tag since</span>
+<span class="source-line-no">107</span><span id="line-107"> *  -tag see</span>
+<span class="source-line-no">108</span><span id="line-108"> *  -tag inspired</span>
+<span class="source-line-no">109</span><span id="line-109"> *  -tag UMLGraph.link</span>
+<span class="source-line-no">110</span><span id="line-110"> *  -tag todo</span>
+<span class="source-line-no">111</span><span id="line-111"> *  -taglet org.tquadrat.foundation.javadoc.AuthorTaglet</span>
+<span class="source-line-no">112</span><span id="line-112"> *  -taglet org.tquadrat.foundation.javadoc.AnchorTaglet</span>
+<span class="source-line-no">113</span><span id="line-113"> *  -taglet org.tquadrat.foundation.javadoc.HRefTaglet</span>
+<span class="source-line-no">114</span><span id="line-114"> *  -taglet org.tquadrat.foundation.javadoc.IgnoreTaglet</span>
+<span class="source-line-no">115</span><span id="line-115"> *  -taglet org.tquadrat.foundation.javadoc.IncludeTaglet</span>
+<span class="source-line-no">116</span><span id="line-116"> *  -taglet org.tquadrat.foundation.javadoc.InspiredTaglet</span>
+<span class="source-line-no">117</span><span id="line-117"> *  -taglet org.tquadrat.foundation.javadoc.ModifiedTaglet</span>
+<span class="source-line-no">118</span><span id="line-118"> *  -taglet org.tquadrat.foundation.javadoc.NoteTaglet</span>
+<span class="source-line-no">119</span><span id="line-119"> *  -taglet org.tquadrat.foundation.javadoc.ThanksTaglet</span>
+<span class="source-line-no">120</span><span id="line-120"> *  -taglet org.tquadrat.foundation.javadoc.ToDoTaglet</span>
+<span class="source-line-no">121</span><span id="line-121"> *  -taglet org.tquadrat.foundation.javadoc.UmlGraphLinkTaglet</span>
+<span class="source-line-no">122</span><span id="line-122"> *  -taglet org.tquadrat.foundation.javadoc.UnderlineTaglet</span>
+<span class="source-line-no">123</span><span id="line-123"> *  -top &amp;lt;div style='overflow:auto;'&amp;gt;&amp;lt;img src='{&amp;#64;docRoot}/resources/tquadrat_logo.jpg' alt='tquadrat.org' style='float:right;''&amp;gt;&amp;lt;p style='font-family:sans-serif;font-size:40px;font-weight:bold;padding-left:30px;'&amp;gt;tquadrat Foundation Library%lt;/p'&amp;gt;&amp;lt;/div&amp;gt;'</span>
+<span class="source-line-no">124</span><span id="line-124"> *  -use</span>
+<span class="source-line-no">125</span><span id="line-125"> *  -version</span>
+<span class="source-line-no">126</span><span id="line-126"> *  &lt;/code&gt;&lt;/pre&gt;</span>
+<span class="source-line-no">127</span><span id="line-127"> *  &lt;p&gt;The format must have the following format:&lt;/p&gt;</span>
+<span class="source-line-no">128</span><span id="line-128"> *  &lt;ul&gt;</span>
+<span class="source-line-no">129</span><span id="line-129"> *      &lt;li&gt;Lines beginning with the '#' symbol are comments and will be</span>
+<span class="source-line-no">130</span><span id="line-130"> *      ignored; same for empty lines.&lt;/li&gt;</span>
+<span class="source-line-no">131</span><span id="line-131"> *      &lt;li&gt;A line with an option starts with a '-' hyphen; the arguments for</span>
+<span class="source-line-no">132</span><span id="line-132"> *      the option are separated with a blank from the option itself.&lt;/li&gt;</span>
+<span class="source-line-no">133</span><span id="line-133"> *      &lt;li&gt;Usually, the end of the line terminates an option, but a backslash</span>
+<span class="source-line-no">134</span><span id="line-134"> *      as the last character of the line allows to extend the option into the</span>
+<span class="source-line-no">135</span><span id="line-135"> *      next line.&lt;/li&gt;</span>
+<span class="source-line-no">136</span><span id="line-136"> *      &lt;li&gt;Each non-empty line that does not contain an option or a comment is</span>
+<span class="source-line-no">137</span><span id="line-137"> *      either a package or a source file.&lt;/li&gt;</span>
+<span class="source-line-no">138</span><span id="line-138"> *  &lt;/ul&gt;</span>
+<span class="source-line-no">139</span><span id="line-139"> *</span>
+<span class="source-line-no">140</span><span id="line-140"> *  @author  Thomas Thrien - thomas.thrien@tquadrat.org</span>
+<span class="source-line-no">141</span><span id="line-141"> *  @version $Id: JavadocStarter.java 976 2022-01-06 11:39:58Z tquadrat $</span>
+<span class="source-line-no">142</span><span id="line-142"> *  @since 0.1.0</span>
+<span class="source-line-no">143</span><span id="line-143"> */</span>
+<span class="source-line-no">144</span><span id="line-144">@ProgramClass</span>
+<span class="source-line-no">145</span><span id="line-145">@ClassVersion( sourceVersion = "$Id: JavadocStarter.java 976 2022-01-06 11:39:58Z tquadrat $" )</span>
+<span class="source-line-no">146</span><span id="line-146">@API( status = STABLE, since = "0.1.0" )</span>
+<span class="source-line-no">147</span><span id="line-147">public final class JavadocStarter</span>
+<span class="source-line-no">148</span><span id="line-148">{</span>
+<span class="source-line-no">149</span><span id="line-149">        /*-----------*\</span>
+<span class="source-line-no">150</span><span id="line-150">    ====** Constants **========================================================</span>
+<span class="source-line-no">151</span><span id="line-151">        \*-----------*/</span>
+<span class="source-line-no">152</span><span id="line-152">    /**</span>
+<span class="source-line-no">153</span><span id="line-153">     *  The name of the logo file: {@value}.</span>
+<span class="source-line-no">154</span><span id="line-154">     */</span>
+<span class="source-line-no">155</span><span id="line-155">    public static final String LOGO = "tquadrat_logo.jpg";</span>
+<span class="source-line-no">156</span><span id="line-156"></span>
+<span class="source-line-no">157</span><span id="line-157">        /*------------*\</span>
+<span class="source-line-no">158</span><span id="line-158">    ====** Attributes **=======================================================</span>
+<span class="source-line-no">159</span><span id="line-159">        \*------------*/</span>
+<span class="source-line-no">160</span><span id="line-160">    /**</span>
+<span class="source-line-no">161</span><span id="line-161">     *  The tool provider.</span>
+<span class="source-line-no">162</span><span id="line-162">     */</span>
+<span class="source-line-no">163</span><span id="line-163">    private final ToolProvider m_ToolProvider;</span>
+<span class="source-line-no">164</span><span id="line-164"></span>
+<span class="source-line-no">165</span><span id="line-165">        /*------------------------*\</span>
+<span class="source-line-no">166</span><span id="line-166">    ====** Static Initialisations **===========================================</span>
+<span class="source-line-no">167</span><span id="line-167">        \*------------------------*/</span>
+<span class="source-line-no">168</span><span id="line-168">    /**</span>
+<span class="source-line-no">169</span><span id="line-169">     *  The default arguments.&lt;br&gt;</span>
+<span class="source-line-no">170</span><span id="line-170">     *  &lt;br&gt;The map is immutable.</span>
+<span class="source-line-no">171</span><span id="line-171">     */</span>
+<span class="source-line-no">172</span><span id="line-172">    private static final Map&lt;String,String&gt; m_DefaultArguments;</span>
+<span class="source-line-no">173</span><span id="line-173"></span>
+<span class="source-line-no">174</span><span id="line-174">    /**</span>
+<span class="source-line-no">175</span><span id="line-175">     *  The list of the Link URLs.</span>
+<span class="source-line-no">176</span><span id="line-176">     */</span>
+<span class="source-line-no">177</span><span id="line-177">    private static final Collection&lt;URL&gt; m_Links = new ArrayList&lt;&gt;();</span>
+<span class="source-line-no">178</span><span id="line-178"></span>
+<span class="source-line-no">179</span><span id="line-179">    /**</span>
+<span class="source-line-no">180</span><span id="line-180">     *  The arguments that can be replaced by those on the command line.&lt;br&gt;</span>
+<span class="source-line-no">181</span><span id="line-181">     *  &lt;br&gt;The key is the argument name, the value is the arguments value; it</span>
+<span class="source-line-no">182</span><span id="line-182">     *  will never be empty.&lt;br&gt;</span>
+<span class="source-line-no">183</span><span id="line-183">     *  &lt;br&gt;The map as such is immutable.</span>
+<span class="source-line-no">184</span><span id="line-184">     */</span>
+<span class="source-line-no">185</span><span id="line-185">    private static final Map&lt;String,String&gt; m_ReplaceableArguments;</span>
+<span class="source-line-no">186</span><span id="line-186"></span>
+<span class="source-line-no">187</span><span id="line-187">    /**</span>
+<span class="source-line-no">188</span><span id="line-188">     *  The tags and taglets.</span>
+<span class="source-line-no">189</span><span id="line-189">     */</span>
+<span class="source-line-no">190</span><span id="line-190">    private static final List&lt;String&gt; m_Tags;</span>
+<span class="source-line-no">191</span><span id="line-191"></span>
+<span class="source-line-no">192</span><span id="line-192">    static</span>
+<span class="source-line-no">193</span><span id="line-193">    {</span>
+<span class="source-line-no">194</span><span id="line-194">        Locale.setDefault( UK );</span>
+<span class="source-line-no">195</span><span id="line-195"></span>
+<span class="source-line-no">196</span><span id="line-196">        final Map&lt;String,String&gt; defaultArguments = new TreeMap&lt;&gt;();</span>
+<span class="source-line-no">197</span><span id="line-197">        defaultArguments.put( "-author", EMPTY_STRING );</span>
+<span class="source-line-no">198</span><span id="line-198">        defaultArguments.put( "-breakiterator", EMPTY_STRING );</span>
+<span class="source-line-no">199</span><span id="line-199">        defaultArguments.put( "-charset", UTF_8.name() );</span>
+<span class="source-line-no">200</span><span id="line-200">        defaultArguments.put( "-docencoding", UTF_8.name() );</span>
+<span class="source-line-no">201</span><span id="line-201">        defaultArguments.put( "-docfilessubdirs", EMPTY_STRING );</span>
+<span class="source-line-no">202</span><span id="line-202">        defaultArguments.put( "--enable-preview", EMPTY_STRING );</span>
+<span class="source-line-no">203</span><span id="line-203">        defaultArguments.put( "-encoding", UTF_8.name() );</span>
+<span class="source-line-no">204</span><span id="line-204">        defaultArguments.put( "-html5", EMPTY_STRING );</span>
+<span class="source-line-no">205</span><span id="line-205">        defaultArguments.put( "-javafx", EMPTY_STRING );</span>
+<span class="source-line-no">206</span><span id="line-206">        defaultArguments.put( "-keywords", EMPTY_STRING );</span>
+<span class="source-line-no">207</span><span id="line-207">        defaultArguments.put( "-linksource", EMPTY_STRING );</span>
+<span class="source-line-no">208</span><span id="line-208">        defaultArguments.put( "-locale", UK.toString() );</span>
+<span class="source-line-no">209</span><span id="line-209">        defaultArguments.put( "-notimestamp", EMPTY_STRING );</span>
+<span class="source-line-no">210</span><span id="line-210">        defaultArguments.put( "-quiet", EMPTY_STRING );</span>
+<span class="source-line-no">211</span><span id="line-211">        defaultArguments.put( "-serialwarn", EMPTY_STRING );</span>
+<span class="source-line-no">212</span><span id="line-212">        defaultArguments.put( "-source", Integer.toString( SourceVersion.latest().ordinal() ) );</span>
+<span class="source-line-no">213</span><span id="line-213">        defaultArguments.put( "-sourcetab", "4" );</span>
+<span class="source-line-no">214</span><span id="line-214">        defaultArguments.put( "-splitindex", EMPTY_STRING );</span>
+<span class="source-line-no">215</span><span id="line-215">        defaultArguments.put( "-use", EMPTY_STRING );</span>
+<span class="source-line-no">216</span><span id="line-216">        defaultArguments.put( "-version", EMPTY_STRING );</span>
+<span class="source-line-no">217</span><span id="line-217">        //defaultArguments.put( "-J--enable-preview", EMPTY_STRING );</span>
+<span class="source-line-no">218</span><span id="line-218">        m_DefaultArguments = Map.copyOf( defaultArguments );</span>
+<span class="source-line-no">219</span><span id="line-219"></span>
+<span class="source-line-no">220</span><span id="line-220">        final Map&lt;String,String&gt; replaceableArguments = new TreeMap&lt;&gt;();</span>
+<span class="source-line-no">221</span><span id="line-221">        replaceableArguments.put( "-bottom", format( "Copyright © 2002-%s by Thomas Thrien (tquadrat.org)", Year.now() ) );</span>
+<span class="source-line-no">222</span><span id="line-222">        replaceableArguments.put( "-d", "./doc" );</span>
+<span class="source-line-no">223</span><span id="line-223">        replaceableArguments.put( "--expand-requires", "all" );</span>
+<span class="source-line-no">224</span><span id="line-224">        replaceableArguments.put( "-footer", " " );</span>
+<span class="source-line-no">225</span><span id="line-225">        replaceableArguments.put( "-header", " " );</span>
+<span class="source-line-no">226</span><span id="line-226">        replaceableArguments.put( "--show-members", "private" );</span>
+<span class="source-line-no">227</span><span id="line-227">        replaceableArguments.put( "--show-module-contents", "all" );</span>
+<span class="source-line-no">228</span><span id="line-228">        replaceableArguments.put( "--show-packages", "all" );</span>
+<span class="source-line-no">229</span><span id="line-229">        replaceableArguments.put( "--show-types", "private" );</span>
+<span class="source-line-no">230</span><span id="line-230">        m_ReplaceableArguments = Map.copyOf( replaceableArguments );</span>
+<span class="source-line-no">231</span><span id="line-231"></span>
+<span class="source-line-no">232</span><span id="line-232">        m_Tags = List.of</span>
+<span class="source-line-no">233</span><span id="line-233">        (</span>
+<span class="source-line-no">234</span><span id="line-234">            //---* Register the Taglets *--------------------------------------</span>
+<span class="source-line-no">235</span><span id="line-235">            "-taglet " + AuthorTaglet.class.getName(),</span>
+<span class="source-line-no">236</span><span id="line-236">            "-taglet " + AnchorTaglet.class.getName(),</span>
+<span class="source-line-no">237</span><span id="line-237">            "-taglet " + HRefTaglet.class.getName(),</span>
+<span class="source-line-no">238</span><span id="line-238">            "-taglet " + IgnoreTaglet.class.getName(),</span>
+<span class="source-line-no">239</span><span id="line-239">            "-taglet " + IncludeTaglet.class.getName(),</span>
+<span class="source-line-no">240</span><span id="line-240">            "-taglet " + InspiredTaglet.class.getName(),</span>
+<span class="source-line-no">241</span><span id="line-241">            "-taglet " + ModifiedTaglet.class.getName(),</span>
+<span class="source-line-no">242</span><span id="line-242">            "-taglet " + NoteTaglet.class.getName(),</span>
+<span class="source-line-no">243</span><span id="line-243">            "-taglet " + ThanksTaglet.class.getName(),</span>
+<span class="source-line-no">244</span><span id="line-244">            "-taglet " + ToDoTaglet.class.getName(),</span>
+<span class="source-line-no">245</span><span id="line-245">            "-taglet " + UmlGraphLinkTaglet.class.getName(),</span>
+<span class="source-line-no">246</span><span id="line-246">            "-taglet " + UnderlineTaglet.class.getName(),</span>
+<span class="source-line-no">247</span><span id="line-247"></span>
+<span class="source-line-no">248</span><span id="line-248">            //---* Define the sequence *---------------------------------------</span>
+<span class="source-line-no">249</span><span id="line-249">            "-tag " + NoteTaglet.TAGLET_NAME,</span>
+<span class="source-line-no">250</span><span id="line-250">            "-tag param",</span>
+<span class="source-line-no">251</span><span id="line-251">            "-tag return",</span>
+<span class="source-line-no">252</span><span id="line-252">            "-tag throws",</span>
+<span class="source-line-no">253</span><span id="line-253">            "-tag author",</span>
+<span class="source-line-no">254</span><span id="line-254">            "-tag " + AuthorTaglet.TAGLET_NAME,</span>
+<span class="source-line-no">255</span><span id="line-255">            "-tag " + ThanksTaglet.TAGLET_NAME,</span>
+<span class="source-line-no">256</span><span id="line-256">            "-tag " + ModifiedTaglet.TAGLET_NAME,</span>
+<span class="source-line-no">257</span><span id="line-257">            "-tag version",</span>
+<span class="source-line-no">258</span><span id="line-258">            "-tag since",</span>
+<span class="source-line-no">259</span><span id="line-259">            "-tag see",</span>
+<span class="source-line-no">260</span><span id="line-260">            "-tag " + InspiredTaglet.TAGLET_NAME,</span>
+<span class="source-line-no">261</span><span id="line-261">            "-tag " + UmlGraphLinkTaglet.TAGLET_NAME,</span>
+<span class="source-line-no">262</span><span id="line-262">            "-tag " + ToDoTaglet.TAGLET_NAME</span>
+<span class="source-line-no">263</span><span id="line-263">        );</span>
+<span class="source-line-no">264</span><span id="line-264"></span>
+<span class="source-line-no">265</span><span id="line-265">        //---* The links *-----------------------------------------------------</span>
+<span class="source-line-no">266</span><span id="line-266">        try</span>
+<span class="source-line-no">267</span><span id="line-267">        {</span>
+<span class="source-line-no">268</span><span id="line-268">            m_Links.add( new URL( "https://docs.oracle.com/en/java/javase/15/docs/api/" ) );</span>
+<span class="source-line-no">269</span><span id="line-269">            m_Links.add( new URL( "https://apiguardian-team.github.io/apiguardian/docs/current/api/" ) );</span>
+<span class="source-line-no">270</span><span id="line-270">        }</span>
+<span class="source-line-no">271</span><span id="line-271">        catch( final MalformedURLException e )</span>
+<span class="source-line-no">272</span><span id="line-272">        {</span>
+<span class="source-line-no">273</span><span id="line-273">            //---* Should never happen *---------------------------------------</span>
+<span class="source-line-no">274</span><span id="line-274">            throw new ExceptionInInitializerError( e );</span>
+<span class="source-line-no">275</span><span id="line-275">        }</span>
+<span class="source-line-no">276</span><span id="line-276">    }</span>
+<span class="source-line-no">277</span><span id="line-277"></span>
+<span class="source-line-no">278</span><span id="line-278">        /*--------------*\</span>
+<span class="source-line-no">279</span><span id="line-279">    ====** Constructors **=====================================================</span>
+<span class="source-line-no">280</span><span id="line-280">        \*--------------*/</span>
+<span class="source-line-no">281</span><span id="line-281">    /**</span>
+<span class="source-line-no">282</span><span id="line-282">     *  Creates a new {@code JavadocStarter} instance.</span>
+<span class="source-line-no">283</span><span id="line-283">     *</span>
+<span class="source-line-no">284</span><span id="line-284">     *  @param  toolProvider    The tool provider for the Javadoc tool.</span>
+<span class="source-line-no">285</span><span id="line-285">     */</span>
+<span class="source-line-no">286</span><span id="line-286">    private JavadocStarter( final ToolProvider toolProvider )</span>
+<span class="source-line-no">287</span><span id="line-287">    {</span>
+<span class="source-line-no">288</span><span id="line-288">        m_ToolProvider = toolProvider;</span>
+<span class="source-line-no">289</span><span id="line-289">    }   //  JavadocStarter()</span>
+<span class="source-line-no">290</span><span id="line-290"></span>
+<span class="source-line-no">291</span><span id="line-291">        /*---------*\</span>
+<span class="source-line-no">292</span><span id="line-292">    ====** Methods **==========================================================</span>
+<span class="source-line-no">293</span><span id="line-293">        \*---------*/</span>
+<span class="source-line-no">294</span><span id="line-294">    /**</span>
+<span class="source-line-no">295</span><span id="line-295">     *  Does the program's work.</span>
+<span class="source-line-no">296</span><span id="line-296">     *</span>
+<span class="source-line-no">297</span><span id="line-297">     *  @param  args    The command line arguments.</span>
+<span class="source-line-no">298</span><span id="line-298">     *  @throws IOException A problem occurred when determine the project</span>
+<span class="source-line-no">299</span><span id="line-299">     *      location.</span>
+<span class="source-line-no">300</span><span id="line-300">     */</span>
+<span class="source-line-no">301</span><span id="line-301">    public final void execute( final String... args ) throws IOException</span>
+<span class="source-line-no">302</span><span id="line-302">    {</span>
+<span class="source-line-no">303</span><span id="line-303">        final var optionsFile = new File( requireNotEmptyArgument( args, "args" )[0] ).getAbsoluteFile();</span>
+<span class="source-line-no">304</span><span id="line-304">        if( !optionsFile.exists() ) throw new FileNotFoundException( optionsFile.getAbsolutePath() );</span>
+<span class="source-line-no">305</span><span id="line-305"></span>
+<span class="source-line-no">306</span><span id="line-306">        final List&lt;String&gt; localArgs = new ArrayList&lt;&gt;();</span>
+<span class="source-line-no">307</span><span id="line-307">        final var currentOptions = loadOptions( optionsFile );</span>
+<span class="source-line-no">308</span><span id="line-308"></span>
+<span class="source-line-no">309</span><span id="line-309">        out.println( "Options loaded" );</span>
+<span class="source-line-no">310</span><span id="line-310"></span>
+<span class="source-line-no">311</span><span id="line-311">        m_Tags.stream()</span>
+<span class="source-line-no">312</span><span id="line-312">            .map( t -&gt; splitString( t, ' ' ) )</span>
+<span class="source-line-no">313</span><span id="line-313">            .map( List::of )</span>
+<span class="source-line-no">314</span><span id="line-314">            .forEach( localArgs::addAll );</span>
+<span class="source-line-no">315</span><span id="line-315"></span>
+<span class="source-line-no">316</span><span id="line-316">        m_Links.stream()</span>
+<span class="source-line-no">317</span><span id="line-317">            .map( link -&gt; List.of( "-link", link.toExternalForm() ) )</span>
+<span class="source-line-no">318</span><span id="line-318">            .forEach( localArgs::addAll );</span>
+<span class="source-line-no">319</span><span id="line-319"></span>
+<span class="source-line-no">320</span><span id="line-320">        currentOptions.forEach( (k,v) -&gt;</span>
+<span class="source-line-no">321</span><span id="line-321">        {</span>
+<span class="source-line-no">322</span><span id="line-322">            if( k.startsWith( "-" ) )</span>
+<span class="source-line-no">323</span><span id="line-323">            {</span>
+<span class="source-line-no">324</span><span id="line-324">                localArgs.add( k );</span>
+<span class="source-line-no">325</span><span id="line-325">            }</span>
+<span class="source-line-no">326</span><span id="line-326">            if( !v.isEmpty() )</span>
+<span class="source-line-no">327</span><span id="line-327">            {</span>
+<span class="source-line-no">328</span><span id="line-328">                if( v.isBlank() )</span>
+<span class="source-line-no">329</span><span id="line-329">                {</span>
+<span class="source-line-no">330</span><span id="line-330">                    localArgs.add( "\"\"" );</span>
+<span class="source-line-no">331</span><span id="line-331">                }</span>
+<span class="source-line-no">332</span><span id="line-332">                else</span>
+<span class="source-line-no">333</span><span id="line-333">                {</span>
+<span class="source-line-no">334</span><span id="line-334">                    localArgs.add( v );</span>
+<span class="source-line-no">335</span><span id="line-335">                }</span>
+<span class="source-line-no">336</span><span id="line-336">            }</span>
+<span class="source-line-no">337</span><span id="line-337">        } );</span>
+<span class="source-line-no">338</span><span id="line-338"></span>
+<span class="source-line-no">339</span><span id="line-339">        //---* Show the command line *-----------------------------------------</span>
+<span class="source-line-no">340</span><span id="line-340">        out.println( localArgs.stream().collect( joining( " ", "javadoc ", EMPTY_STRING ) ) );</span>
+<span class="source-line-no">341</span><span id="line-341"></span>
+<span class="source-line-no">342</span><span id="line-342">        //---* Execute the tool *----------------------------------------------</span>
+<span class="source-line-no">343</span><span id="line-343">        if( m_ToolProvider.run( out, err, localArgs.toArray( EMPTY_String_ARRAY ) ) == 0 )</span>
+<span class="source-line-no">344</span><span id="line-344">        {</span>
+<span class="source-line-no">345</span><span id="line-345"></span>
+<span class="source-line-no">346</span><span id="line-346">            //---* Write the logo file *---------------------------------------</span>
+<span class="source-line-no">347</span><span id="line-347">            final var targetFolder = new File( currentOptions.get( "-d" ), "resources" );</span>
+<span class="source-line-no">348</span><span id="line-348">            writeLogo( targetFolder );</span>
+<span class="source-line-no">349</span><span id="line-349">        }</span>
+<span class="source-line-no">350</span><span id="line-350">    }   //  execute()</span>
+<span class="source-line-no">351</span><span id="line-351"></span>
+<span class="source-line-no">352</span><span id="line-352">    /**</span>
+<span class="source-line-no">353</span><span id="line-353">     *  Joins lines in the options file that ends with a backslash with the</span>
+<span class="source-line-no">354</span><span id="line-354">     *  next line and return the new index.</span>
+<span class="source-line-no">355</span><span id="line-355">     *</span>
+<span class="source-line-no">356</span><span id="line-356">     *  @param  lines   The lines from the options file.</span>
+<span class="source-line-no">357</span><span id="line-357">     *  @param  index   The current index.</span>
+<span class="source-line-no">358</span><span id="line-358">     *  @param  currentLine The contents for the current line.</span>
+<span class="source-line-no">359</span><span id="line-359">     *  @return The new index.</span>
+<span class="source-line-no">360</span><span id="line-360">     */</span>
+<span class="source-line-no">361</span><span id="line-361">    private final int joinLines( final String[] lines, final int index, final StringBuilder currentLine )</span>
+<span class="source-line-no">362</span><span id="line-362">    {</span>
+<span class="source-line-no">363</span><span id="line-363">        var retValue = index;</span>
+<span class="source-line-no">364</span><span id="line-364">        var lastChar = currentLine.length() - 1;</span>
+<span class="source-line-no">365</span><span id="line-365">        while( (retValue &lt; lines.length) &amp;&amp; (currentLine.charAt( lastChar ) == '\\') )</span>
+<span class="source-line-no">366</span><span id="line-366">        {</span>
+<span class="source-line-no">367</span><span id="line-367">            currentLine.setLength( lastChar );</span>
+<span class="source-line-no">368</span><span id="line-368">            currentLine.append( lines [++retValue].trim() );</span>
+<span class="source-line-no">369</span><span id="line-369">            lastChar = currentLine.length() - 1;</span>
+<span class="source-line-no">370</span><span id="line-370">        }</span>
+<span class="source-line-no">371</span><span id="line-371"></span>
+<span class="source-line-no">372</span><span id="line-372">        //---* Done *----------------------------------------------------------</span>
+<span class="source-line-no">373</span><span id="line-373">        return retValue;</span>
+<span class="source-line-no">374</span><span id="line-374">    }   //  joinLines()</span>
+<span class="source-line-no">375</span><span id="line-375"></span>
+<span class="source-line-no">376</span><span id="line-376">    /**</span>
+<span class="source-line-no">377</span><span id="line-377">     *  Reads the options file and returns the options from it.&lt;br&gt;</span>
+<span class="source-line-no">378</span><span id="line-378">     *  &lt;br&gt;The source files and package names will get the key</span>
+<span class="source-line-no">379</span><span id="line-379">     *  &amp;quot;ARGUMENT&amp;lt;&lt;i&gt;#&lt;/i&gt;&amp;gt;&amp;quot; where &lt;i&gt;#&lt;/i&gt; is a counter.</span>
+<span class="source-line-no">380</span><span id="line-380">     *</span>
+<span class="source-line-no">381</span><span id="line-381">     *  @param  optionsFile The options file.</span>
+<span class="source-line-no">382</span><span id="line-382">     *  @return The options from the file, or from</span>
+<span class="source-line-no">383</span><span id="line-383">     *      {@link #m_ReplaceableArguments}.</span>
+<span class="source-line-no">384</span><span id="line-384">     *  @throws IOException A problem occurred when reading the options file.</span>
+<span class="source-line-no">385</span><span id="line-385">     */</span>
+<span class="source-line-no">386</span><span id="line-386">    private final Map&lt;String,String&gt; loadOptions( final File optionsFile ) throws IOException</span>
+<span class="source-line-no">387</span><span id="line-387">    {</span>
+<span class="source-line-no">388</span><span id="line-388">        final var lines = Files.readAllLines( optionsFile.toPath(), UTF_8 ).toArray( String[]::new );</span>
+<span class="source-line-no">389</span><span id="line-389">        var counter = 0;</span>
+<span class="source-line-no">390</span><span id="line-390">        var index = 0;</span>
+<span class="source-line-no">391</span><span id="line-391">        final Map&lt;String,String&gt; retValue = new TreeMap&lt;&gt;( m_DefaultArguments );</span>
+<span class="source-line-no">392</span><span id="line-392">        retValue.putAll( m_ReplaceableArguments );</span>
+<span class="source-line-no">393</span><span id="line-393">        retValue.put( "-d", optionsFile.getParent() );</span>
+<span class="source-line-no">394</span><span id="line-394"></span>
+<span class="source-line-no">395</span><span id="line-395">        ReadLoop: while( index &lt; lines.length )</span>
+<span class="source-line-no">396</span><span id="line-396">        {</span>
+<span class="source-line-no">397</span><span id="line-397">            final var currentLine = new StringBuilder( lines [index].trim() );</span>
+<span class="source-line-no">398</span><span id="line-398">            if( currentLine.isEmpty() || (currentLine.charAt( 0 ) == '#') )</span>
+<span class="source-line-no">399</span><span id="line-399">            {</span>
+<span class="source-line-no">400</span><span id="line-400">                //---* Comment *-----------------------------------------------</span>
+<span class="source-line-no">401</span><span id="line-401">                ++index;</span>
+<span class="source-line-no">402</span><span id="line-402">                continue ReadLoop;</span>
+<span class="source-line-no">403</span><span id="line-403">            }</span>
+<span class="source-line-no">404</span><span id="line-404"></span>
+<span class="source-line-no">405</span><span id="line-405">            if( currentLine.charAt( 0 ) == '-' )</span>
+<span class="source-line-no">406</span><span id="line-406">            {</span>
+<span class="source-line-no">407</span><span id="line-407">                index = joinLines( lines, index, currentLine );</span>
+<span class="source-line-no">408</span><span id="line-408"></span>
+<span class="source-line-no">409</span><span id="line-409">                //---* An option *---------------------------------------------</span>
+<span class="source-line-no">410</span><span id="line-410">                final var pos = currentLine.indexOf( " " );</span>
+<span class="source-line-no">411</span><span id="line-411">                if( pos &lt; 0 )</span>
+<span class="source-line-no">412</span><span id="line-412">                {</span>
+<span class="source-line-no">413</span><span id="line-413">                    //---* Option without argument *---------------------------</span>
+<span class="source-line-no">414</span><span id="line-414">                    retValue.put( currentLine.toString(), EMPTY_STRING );</span>
+<span class="source-line-no">415</span><span id="line-415">                }</span>
+<span class="source-line-no">416</span><span id="line-416">                else</span>
+<span class="source-line-no">417</span><span id="line-417">                {</span>
+<span class="source-line-no">418</span><span id="line-418">                    //---* Option with an argument *---------------------------</span>
+<span class="source-line-no">419</span><span id="line-419">                    final var key = currentLine.substring( 0, pos );</span>
+<span class="source-line-no">420</span><span id="line-420">                    final var value = currentLine.substring( pos ).trim();</span>
+<span class="source-line-no">421</span><span id="line-421">                    retValue.put( key, value );</span>
+<span class="source-line-no">422</span><span id="line-422">                }</span>
+<span class="source-line-no">423</span><span id="line-423">                ++index;</span>
+<span class="source-line-no">424</span><span id="line-424">                continue ReadLoop;</span>
+<span class="source-line-no">425</span><span id="line-425">            }</span>
+<span class="source-line-no">426</span><span id="line-426"></span>
+<span class="source-line-no">427</span><span id="line-427">            index = joinLines( lines, index, currentLine ) + 1;</span>
+<span class="source-line-no">428</span><span id="line-428">            retValue.put( format( "ARGUMENT&lt;%d&gt;", ++counter ), currentLine.toString() );</span>
+<span class="source-line-no">429</span><span id="line-429">        }   //  ReadLoop:</span>
+<span class="source-line-no">430</span><span id="line-430"></span>
+<span class="source-line-no">431</span><span id="line-431">        //---* Done *----------------------------------------------------------</span>
+<span class="source-line-no">432</span><span id="line-432">        return retValue;</span>
+<span class="source-line-no">433</span><span id="line-433">    }   //  loadOptions()</span>
+<span class="source-line-no">434</span><span id="line-434"></span>
+<span class="source-line-no">435</span><span id="line-435">    /**</span>
+<span class="source-line-no">436</span><span id="line-436">     *  The program entry point.</span>
+<span class="source-line-no">437</span><span id="line-437">     *</span>
+<span class="source-line-no">438</span><span id="line-438">     *  @param  args    The command line arguments.</span>
+<span class="source-line-no">439</span><span id="line-439">     */</span>
+<span class="source-line-no">440</span><span id="line-440">    public static void main( final String... args )</span>
+<span class="source-line-no">441</span><span id="line-441">    {</span>
+<span class="source-line-no">442</span><span id="line-442">        try</span>
+<span class="source-line-no">443</span><span id="line-443">        {</span>
+<span class="source-line-no">444</span><span id="line-444">            ToolProvider.findFirst( "javadoc" )</span>
+<span class="source-line-no">445</span><span id="line-445">                .ifPresentOrElse( toolProvider -&gt;</span>
+<span class="source-line-no">446</span><span id="line-446">                {</span>
+<span class="source-line-no">447</span><span id="line-447">                    final var application = new JavadocStarter( toolProvider );</span>
+<span class="source-line-no">448</span><span id="line-448">                    try</span>
+<span class="source-line-no">449</span><span id="line-449">                    {</span>
+<span class="source-line-no">450</span><span id="line-450">                        application.execute( args );</span>
+<span class="source-line-no">451</span><span id="line-451">                    }</span>
+<span class="source-line-no">452</span><span id="line-452">                    catch( final EmptyArgumentException | IOException e )</span>
+<span class="source-line-no">453</span><span id="line-453">                    {</span>
+<span class="source-line-no">454</span><span id="line-454">                        throw new LambdaContainerException( e );</span>
+<span class="source-line-no">455</span><span id="line-455">                    }</span>
+<span class="source-line-no">456</span><span id="line-456">                },</span>
+<span class="source-line-no">457</span><span id="line-457">                () -&gt; { throw new ApplicationError( "Cannot find Tool 'javadoc'" ); } );</span>
+<span class="source-line-no">458</span><span id="line-458">        }</span>
+<span class="source-line-no">459</span><span id="line-459">        catch( final LambdaContainerException e )</span>
+<span class="source-line-no">460</span><span id="line-460">        {</span>
+<span class="source-line-no">461</span><span id="line-461">            if( e.checkIfExpected( EmptyArgumentException.class ) )</span>
+<span class="source-line-no">462</span><span id="line-462">            {</span>
+<span class="source-line-no">463</span><span id="line-463">                err.println( "No options file provided" );</span>
+<span class="source-line-no">464</span><span id="line-464">            }</span>
+<span class="source-line-no">465</span><span id="line-465">            else if( e.checkIfExpected( FileNotFoundException.class ) )</span>
+<span class="source-line-no">466</span><span id="line-466">            {</span>
+<span class="source-line-no">467</span><span id="line-467">                err.printf( "Options file '%s' not found%n", e.getCause().getMessage() );</span>
+<span class="source-line-no">468</span><span id="line-468">            }</span>
+<span class="source-line-no">469</span><span id="line-469">            else</span>
+<span class="source-line-no">470</span><span id="line-470">            {</span>
+<span class="source-line-no">471</span><span id="line-471">                e.getCause().printStackTrace( err );</span>
+<span class="source-line-no">472</span><span id="line-472">            }</span>
+<span class="source-line-no">473</span><span id="line-473">        }</span>
+<span class="source-line-no">474</span><span id="line-474">        catch( final Throwable t )</span>
+<span class="source-line-no">475</span><span id="line-475">        {</span>
+<span class="source-line-no">476</span><span id="line-476">            //---* Handle any previously unhandled exceptions *----------------</span>
+<span class="source-line-no">477</span><span id="line-477">            t.printStackTrace( err );</span>
+<span class="source-line-no">478</span><span id="line-478">        }</span>
+<span class="source-line-no">479</span><span id="line-479">    }   //  main()</span>
+<span class="source-line-no">480</span><span id="line-480"></span>
+<span class="source-line-no">481</span><span id="line-481">    /**</span>
+<span class="source-line-no">482</span><span id="line-482">     *  Writes the logo to the given folder.</span>
+<span class="source-line-no">483</span><span id="line-483">     *</span>
+<span class="source-line-no">484</span><span id="line-484">     *  @param  targetFolder    The destination folder.</span>
+<span class="source-line-no">485</span><span id="line-485">     *  @throws IOException Cannot write the logo file.</span>
+<span class="source-line-no">486</span><span id="line-486">     */</span>
+<span class="source-line-no">487</span><span id="line-487">    private final void writeLogo( final File targetFolder ) throws IOException</span>
+<span class="source-line-no">488</span><span id="line-488">    {</span>
+<span class="source-line-no">489</span><span id="line-489">        final var logoResource = getClass().getResource( "resources/" + LOGO );</span>
+<span class="source-line-no">490</span><span id="line-490">        if( isNull( logoResource ) ) throw new ApplicationError( format( "Resource '%s' is missing", LOGO ) );</span>
+<span class="source-line-no">491</span><span id="line-491">        final var outputFile = new File( targetFolder, LOGO ).getAbsoluteFile().toPath();</span>
+<span class="source-line-no">492</span><span id="line-492">        try( final var inputStream = logoResource.openStream() )</span>
+<span class="source-line-no">493</span><span id="line-493">        {</span>
+<span class="source-line-no">494</span><span id="line-494">            copy( inputStream, outputFile, REPLACE_EXISTING );</span>
+<span class="source-line-no">495</span><span id="line-495">        }</span>
+<span class="source-line-no">496</span><span id="line-496">    }   //  writeLogo()</span>
+<span class="source-line-no">497</span><span id="line-497">}</span>
+<span class="source-line-no">498</span><span id="line-498">//  class JavadocStarter</span>
+<span class="source-line-no">499</span><span id="line-499"></span>
+<span class="source-line-no">500</span><span id="line-500">/*</span>
+<span class="source-line-no">501</span><span id="line-501"> *  End of File</span>
+<span class="source-line-no">502</span><span id="line-502"> */</span>
 
 
 
