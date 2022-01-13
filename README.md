@@ -44,9 +44,9 @@ This gives you the following new features:
  * `@todo <task.list>` – This tag can be used to add a list of open issues to the documentation for a module or a package.
  * `@UMLGraph.link` – With this tag a UML graph can be added to the documentation for a class.
  * `{@anchor #<name> <text>}` – This tag allows to add an HTML anchor to the documentation.
- * '{@href <url> [<text>]}' – With this tag a hyperlink can be added to the documentation; different from the `{@link}` and `{@linkplain}` tags, this is used to refer to external resources.
+ * `{@href <url> [<text>]}` – With this tag a hyperlink can be added to the documentation; different from the `{@link}` and `{@linkplain}` tags, this is used to refer to external resources.
  * `{@underline <text>}` – If text needs to be underlined, this is the tag.
- * {@include <file> [<processMode>]}` – This tag allows including other files from the source path into the JavaDoc documentation.
+ * `{@include <file> [<processMode>]}` – This tag allows including other files from the source path into the JavaDoc documentation.
  * `{@ignore <text>}` – The standard tag `@hidden` allows to exclude the whole documentation for an element (a type, method or field) from the generated Javadoc documentation. With the tag `{@ignore}` it is possible to exclude just the text inside.
 
 Details about the usage of the tags can be found in the JavaDoc.
@@ -57,3 +57,69 @@ Details about the usage of the tags can be found in the JavaDoc.
 ### Documentation
 
 - [Javadoc Reference](https://tquadrat.github.io/foundation-javadoc/javadoc/index.html)
+  - Integration into Gradle
+    Add the following stuff to your `build.gradle` file:
+      ```Groovy
+      /**
+       *  The JavaDoc taglets.
+       */
+      def tagletList = []
+      for( def className : [
+          /* The inline tags */
+          "AnchorTaglet",
+          "HRefTaglet",
+          "IgnoreTaglet",
+          "IncludeTaglet",
+          "UnderlineTaglet",
+
+          /* The block taglets - sequence is relevant! */
+          "NoteTaglet",
+          "AuthorTaglet",
+          "ThanksTaglet",
+          "ModifiedTaglet",
+          "InspiredTaglet",
+          "UmlGraphLinkTaglet",
+          "ToDoTaglet"] )
+      {
+          tagletList.add( String.join( ".", "org.tquadrat.foundation.javadoc", className ) )
+      }
+
+      /**
+       *  The JavaDoc tags; this defines the sequence how the tags will appear in the
+       *  documentation.
+       */
+     def tagList = ["note", "param", "return", "throws", "author", "extauthor",
+     "thanks", "modified", "version", "since", "see", "inspired",
+     "UMLGraph.link", "todo" ]
+
+    configurations {
+        tquadratTaglet
+    }   //  configurations
+
+    dependencies {
+        //---* The JavaDoc extensions *--------------------------------------------
+        tquadratTaglet 'org.tquadrat.tool:org.tquadrat.foundation.javadoc:0.1.0'
+    }   //  dependencies
+
+    tasks.named( 'javadoc' ) {
+        mustRunAfter "jar"
+
+        //---* Configure JavaDoc *-------------------------------------------------
+        options {
+            jFlags( "-Dorg.tquadrat.foundation.todo.base=$projectDir",
+                /*
+                 * Refer the the additional include roots with the ${…}
+                 * notation.
+                 */
+                "-Dorg.tquadrat.foundation.include.root.module=$projectDir",
+                "-Dorg.tquadrat.foundation.include.root.source=$projectDir/src/main/java",
+                "-Dorg.tquadrat.foundation.include.root.resources=$projectDir/src/main/resources",
+                "-Dorg.tquadrat.foundation.include.root.javadoc=$projectDir/src/main/javadoc",
+                "-Dorg.tquadrat.foundation.include.root.project=$projectDir/.." )
+
+            tagletPath configurations.tquadratTaglet.files as List
+            taglets tagletList
+            tags tagList
+        }
+    }
+    ```
