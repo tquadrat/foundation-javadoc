@@ -458,7 +458,7 @@ public final class TypeSymbol extends SVGElementAdapter
         var count = 0;
         y += m_Offset.y();
         final var height = m_BaseDimension.height();
-        if( nonNull( startingConnectors ) && !startingConnectors.isEmpty() )
+        if( !requireNonNullArgument( startingConnectors, "startingConnectors" ).isEmpty() )
         {
             final var distance = 50.0;
             final var startPos = m_X + (m_BaseDimension.width() - (startingConnectors.size() - 1) * distance) / 2.0;
@@ -467,7 +467,7 @@ public final class TypeSymbol extends SVGElementAdapter
                 connector.setStartPoint( startPos + count++ * distance, y );
             }
         }
-        if( nonNull( endingConnectors ) && !endingConnectors.isEmpty() )
+        if( !requireNonNullArgument( endingConnectors, "endingConnectors" ).isEmpty() )
         {
             final var distance = 30.0;
             final var startPos = m_X + (m_BaseDimension.width() - (endingConnectors.size() - 1) * distance) / 2.0;

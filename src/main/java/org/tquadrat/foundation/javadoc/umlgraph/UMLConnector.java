@@ -124,7 +124,7 @@ public final class UMLConnector extends SVGElementAdapter
      *
      *  @return The path definition.
      */
-    private final SVGPathElement[] composePath()
+    private final SVGPathElement [] composePath()
     {
         final var startX = m_StartPoint.x();
         final var startY = m_StartPoint.y();

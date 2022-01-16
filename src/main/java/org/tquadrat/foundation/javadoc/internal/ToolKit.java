@@ -152,6 +152,12 @@ public class ToolKit
     public static final int NOT_FOUND = -1;
 
     /**
+     *  A String containing the sequence &quot;null&quot;.
+     */
+    @API( status = STABLE, since = "0.0.5" )
+    public static final String NULL_STRING;
+
+    /**
      *  The attribute name for an XML attribute holding a class name: {@value}.
      */
     @API( status = STABLE, since = "0.0.5" )
@@ -219,6 +225,7 @@ public class ToolKit
     {
         EMPTY_STRING = "";
         NULL_CHAR = '\u0000';
+        NULL_STRING = String.valueOf( (Object) null ).intern();
     }
 
         /*--------------*\

@@ -51,6 +51,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import org.apiguardian.api.API;
 import org.tquadrat.foundation.javadoc.internal.JavadocError;
 import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
+import org.tquadrat.foundation.javadoc.internal.foundation.lang.Lazy;
 import org.tquadrat.foundation.javadoc.umlgraph.UMLDocument;
 import org.tquadrat.foundation.javadoc.umlgraph.UMLGraphLayout;
 import org.tquadrat.foundation.javadoc.umlgraph.UMLGraphLayout.UMLGraphLayoutRow;
@@ -344,14 +345,14 @@ public class UmlGraphLinkTaglet implements Taglet
         layout.finishRow( true );
 
         //---* Create the row for direct parents of the focus class *----------
-        UMLGraphLayoutRow optionalRow = null;
+        var optionalRow = Lazy.use( layout::newRow );
         try
         {
             m_Lock.lock();
             for( final var parent : retrieveParents( focusClass ) )
             {
                 var symbol = parent.createSymbol( layout, details, false );
-                row = hasParent( parent ) ? (optionalRow = layout.newRow()) : noParentRow;
+                row = hasParent( parent ) ? optionalRow.get() : noParentRow;
                 if( document.addSymbol( symbol ) )
                 {
                     row.addSymbol( symbol );
@@ -363,14 +364,14 @@ public class UmlGraphLinkTaglet implements Taglet
                 }
                 layout.createConnector( symbol, focusClassSymbol );
             }
-            while( nonNull( optionalRow ) )
+            while( optionalRow.isPresent() )
             {
                 //---* Add the row to the layout *-----------------------------
                 layout.finishRow( false );
 
                 //---* Get the current row *-----------------------------------
-                row = optionalRow;
-                optionalRow = null;
+                row = optionalRow.get();
+                optionalRow = Lazy.use( layout::newRow );
 
                 //---* Scan the classes for their parents *--------------------
                 final var rowContents = row.getContents();
@@ -380,7 +381,7 @@ public class UmlGraphLinkTaglet implements Taglet
                     for( final var parent : retrieveParents( currentClass ) )
                     {
                         var parentSymbol = parent.createSymbol( layout, details, false );
-                        row = hasParent( parent ) ? (optionalRow = layout.newRow()) : noParentRow;
+                        row = hasParent( parent ) ? optionalRow.get() : noParentRow;
                         if( document.addSymbol( parentSymbol ) )
                         {
                             row.addSymbol( parentSymbol );

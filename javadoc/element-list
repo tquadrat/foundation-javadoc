@@ -2,6 +2,8 @@ org.tquadrat.foundation.javadoc
 org.tquadrat.foundation.javadoc.internal
 org.tquadrat.foundation.javadoc.internal.foundation.annotation
 org.tquadrat.foundation.javadoc.internal.foundation.exception
+org.tquadrat.foundation.javadoc.internal.foundation.lang
+org.tquadrat.foundation.javadoc.internal.foundation.lang.internal
 org.tquadrat.foundation.javadoc.internal.foundation.svg
 org.tquadrat.foundation.javadoc.internal.foundation.svg.internal
 org.tquadrat.foundation.javadoc.internal.foundation.svg.type
