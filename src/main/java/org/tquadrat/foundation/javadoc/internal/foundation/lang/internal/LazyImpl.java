@@ -38,12 +38,12 @@ import org.tquadrat.foundation.javadoc.internal.foundation.lang.Lazy;
  *  {@link Lazy}.
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: LazyImpl.java 840 2021-01-10 21:37:03Z tquadrat $
+ *  @version $Id: LazyImpl.java 991 2022-01-16 16:58:29Z tquadrat $
  *  @since 0.0.5
  *
  *  @param  <T> The type of the value for this instance of {@code Lazy}.
  */
-@ClassVersion( sourceVersion = "$Id: LazyImpl.java 840 2021-01-10 21:37:03Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: LazyImpl.java 991 2022-01-16 16:58:29Z tquadrat $" )
 @API( status = INTERNAL, since = "0.0.5" )
 public final class LazyImpl<T> implements Lazy<T>
 {

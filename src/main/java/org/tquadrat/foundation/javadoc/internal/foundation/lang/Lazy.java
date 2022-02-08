@@ -20,7 +20,6 @@ package org.tquadrat.foundation.javadoc.internal.foundation.lang;
 import static org.apiguardian.api.API.Status.STABLE;
 import static org.tquadrat.foundation.javadoc.internal.ToolKit.requireNonNullArgument;
 
-import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -34,12 +33,12 @@ import org.tquadrat.foundation.javadoc.internal.foundation.lang.internal.LazyImp
  *  <p>{@summary A holder for a lazy initialised object instance.}</p>
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: Lazy.java 820 2020-12-29 20:34:22Z tquadrat $
+ *  @version $Id: Lazy.java 991 2022-01-16 16:58:29Z tquadrat $
  *  @since 0.1.0
  *
  *  @param  <T> The type of the value for this instance of {@code Lazy}.
  */
-@ClassVersion( sourceVersion = "$Id: Lazy.java 820 2020-12-29 20:34:22Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: Lazy.java 991 2022-01-16 16:58:29Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
 public interface Lazy<T>
 {

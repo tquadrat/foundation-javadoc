@@ -91,10 +91,10 @@ import org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils;
  *  instances.
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: TypeSymbol.java 976 2022-01-06 11:39:58Z tquadrat $
+ *  @version $Id: TypeSymbol.java 991 2022-01-16 16:58:29Z tquadrat $
  *  @since 0.0.5
  */
-@ClassVersion( sourceVersion = "$Id: TypeSymbol.java 976 2022-01-06 11:39:58Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: TypeSymbol.java 991 2022-01-16 16:58:29Z tquadrat $" )
 @API( status = INTERNAL, since = "0.0.5")
 public final class TypeSymbol extends SVGElementAdapter
 {

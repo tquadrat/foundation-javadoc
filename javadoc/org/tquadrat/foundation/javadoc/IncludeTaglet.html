@@ -8,18 +8,7 @@
 <meta name="description" content="declaration: package: org.tquadrat.foundation.javadoc, class: IncludeTaglet">
 <meta name="generator" content="javadoc/ClassWriterImpl">
 <meta name="keywords" content="org.tquadrat.foundation.javadoc.IncludeTaglet class">
-<meta name="keywords" content="MSG_ProcessingProblem">
-<meta name="keywords" content="PROPERTY_INCLUDE_ROOT_PREFIX">
-<meta name="keywords" content="SOURCE_SNIP_END">
-<meta name="keywords" content="SOURCE_SNIP_START">
 <meta name="keywords" content="TAGLET_NAME">
-<meta name="keywords" content="m_Doclet">
-<meta name="keywords" content="m_DocletEnvironment">
-<meta name="keywords" content="getAllowedLocations()">
-<meta name="keywords" content="getName()">
-<meta name="keywords" content="init()">
-<meta name="keywords" content="isInlineTag()">
-<meta name="keywords" content="rootPathRetriever()">
 <meta name="keywords" content="toString()">
 <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../../../script-dir/jquery-ui.min.css" title="Style">
@@ -87,7 +76,9 @@ loadScripts(document, 'script');</script>
 <h1 title="Class IncludeTaglet" class="title">Class IncludeTaglet</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
+<div class="inheritance"><a href="internal/OtherFileTagletBase.html" title="class in org.tquadrat.foundation.javadoc.internal">org.tquadrat.foundation.javadoc.internal.OtherFileTagletBase</a>
 <div class="inheritance">org.tquadrat.foundation.javadoc.IncludeTaglet</div>
+</div>
 </div>
 <section class="class-description" id="class-description">
 <dl class="notes">
@@ -98,9 +89,8 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="annotations"><a href="internal/foundation/annotation/ClassVersion.html" title="annotation interface in org.tquadrat.foundation.javadoc.internal.foundation.annotation">@ClassVersion</a>(<a href="internal/foundation/annotation/ClassVersion.html#sourceVersion()">sourceVersion</a>="$Id: IncludeTaglet.java 976 2022-01-06 11:39:58Z tquadrat $")
 <a href="https://apiguardian-team.github.io/apiguardian/docs/current/api/org/apiguardian/api/API.html" title="class or interface in org.apiguardian.api" class="external-link">@API</a>(<a href="https://apiguardian-team.github.io/apiguardian/docs/current/api/org/apiguardian/api/API.html#status()" title="class or interface in org.apiguardian.api" class="external-link">status</a>=<a href="https://apiguardian-team.github.io/apiguardian/docs/current/api/org/apiguardian/api/API.Status.html#STABLE" title="class or interface in org.apiguardian.api" class="external-link">STABLE</a>,
      <a href="https://apiguardian-team.github.io/apiguardian/docs/current/api/org/apiguardian/api/API.html#since()" title="class or interface in org.apiguardian.api" class="external-link">since</a>="0.0.5")
-</span><span class="modifiers">public class </span><span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/IncludeTaglet.html#line-115">IncludeTaglet</a></span>
-<span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
-implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.javadoc/jdk/javadoc/doclet/Taglet.html" title="class or interface in jdk.javadoc.doclet" class="external-link">Taglet</a></span></div>
+</span><span class="modifiers">public class </span><span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/IncludeTaglet.html#line-100">IncludeTaglet</a></span>
+<span class="extends-implements">extends <a href="internal/OtherFileTagletBase.html" title="class in org.tquadrat.foundation.javadoc.internal">OtherFileTagletBase</a></span></div>
 <div class="block"><p>This taglet allows to include the contents of an external file
   into the JavaDoc documentation. This is particularly useful when the
   contents of resource files (like a DTD or an XML Schema) should be shown in
@@ -112,12 +102,12 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.javad
   <code>org/tquadrat/foundation/javadoc/IncludeTaglet.java</code>.</p>
   <p>But additional roots can be provided through system properties, where
   the name of the new root will be prefixed by
-  <a href="#PROPERTY_INCLUDE_ROOT_PREFIX">"org.tquadrat.foundation.include.root"</a>, like
+  <a href="internal/OtherFileTagletBase.html#PROPERTY_INCLUDE_ROOT_PREFIX">"org.tquadrat.foundation.include.root"</a>, like
   <code>org.tquadrat.foundation.include.root.resources</code>. To use this root,
   prefix the path in the tag with <code>${resources}</code>.</p>
   <p>The file contents can be processed in some way before it will be
   included; refer to
-  <a href="IncludeTaglet.ProcessMode.html" title="enum class in org.tquadrat.foundation.javadoc"><code>IncludeTaglet.ProcessMode</code></a>
+  <a href="internal/OtherFileTagletBase.ProcessMode.html" title="enum class in org.tquadrat.foundation.javadoc.internal"><code>OtherFileTagletBase.ProcessMode</code></a>
   for the details.</p>
   <p>The use of this tag will look like this:</p>
   <pre><code>&hellip; {&#64;include &lt;<i>filename</i>&gt;:&lt;<i>processMode</i>&gt;} &hellip;</code></pre>
@@ -160,17 +150,9 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.javad
 <li>
 <section class="nested-class-summary" id="nested-class-summary">
 <h2>Nested Class Summary</h2>
-<div class="caption"><span>Nested Classes</span></div>
-<div class="summary-table three-column-summary">
-<div class="table-header col-first">Modifier and Type</div>
-<div class="table-header col-second">Class</div>
-<div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code>static enum&nbsp;</code></div>
-<div class="col-second even-row-color"><code><a href="IncludeTaglet.ProcessMode.html" class="type-name-link" title="enum class in org.tquadrat.foundation.javadoc">IncludeTaglet.ProcessMode</a></code></div>
-<div class="col-last even-row-color">
-<div class="block">The process modes for the included file.</div>
-</div>
-</div>
+<div class="inherited-list">
+<h2 id="nested-classes-inherited-from-class-org.tquadrat.foundation.javadoc.internal.OtherFileTagletBase">Nested classes/interfaces inherited from class&nbsp;org.tquadrat.foundation.javadoc.internal.<a href="internal/OtherFileTagletBase.html" title="class in org.tquadrat.foundation.javadoc.internal">OtherFileTagletBase</a></h2>
+<code><a href="internal/OtherFileTagletBase.ProcessMode.html" title="enum class in org.tquadrat.foundation.javadoc.internal">OtherFileTagletBase.ProcessMode</a></code></div>
 <div class="inherited-list">
 <h2 id="nested-classes-inherited-from-class-jdk.javadoc.doclet.Taglet">Nested classes/interfaces inherited from interface&nbsp;jdk.javadoc.doclet.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.javadoc/jdk/javadoc/doclet/Taglet.html" title="class or interface in jdk.javadoc.doclet" class="external-link">Taglet</a></h2>
 <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.javadoc/jdk/javadoc/doclet/Taglet.Location.html" title="class or interface in jdk.javadoc.doclet" class="external-link">Taglet.Location</a></code></div>
@@ -185,44 +167,15 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.javad
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Field</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code>private <a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.javadoc/jdk/javadoc/doclet/Doclet.html" title="class or interface in jdk.javadoc.doclet" class="external-link">Doclet</a></code></div>
-<div class="col-second even-row-color"><code><a href="#m_Doclet" class="member-name-link">m_Doclet</a></code></div>
-<div class="col-last even-row-color">
-<div class="block">The doclet.</div>
-</div>
-<div class="col-first odd-row-color"><code>private <a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.javadoc/jdk/javadoc/doclet/DocletEnvironment.html" title="class or interface in jdk.javadoc.doclet" class="external-link">DocletEnvironment</a></code></div>
-<div class="col-second odd-row-color"><code><a href="#m_DocletEnvironment" class="member-name-link">m_DocletEnvironment</a></code></div>
-<div class="col-last odd-row-color">
-<div class="block">The doclet environment.</div>
-</div>
-<div class="col-first even-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second even-row-color"><code><a href="#MSG_ProcessingProblem" class="member-name-link">MSG_ProcessingProblem</a></code></div>
-<div class="col-last even-row-color">
-<div class="block">The error message indicating a problem when processing the include
-  file.</div>
-</div>
-<div class="col-first odd-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second odd-row-color"><code><a href="#PROPERTY_INCLUDE_ROOT_PREFIX" class="member-name-link">PROPERTY_INCLUDE_ROOT_PREFIX</a></code></div>
-<div class="col-last odd-row-color">
-<div class="block">The prefix for the name of a property that holds the root for path of
-  an include file: "org.tquadrat.foundation.include.root".</div>
-</div>
-<div class="col-first even-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second even-row-color"><code><a href="#SOURCE_SNIP_END" class="member-name-link">SOURCE_SNIP_END</a></code></div>
-<div class="col-last even-row-color">
-<div class="block">The snippet end marker for source code: "/*SNIP_END*/".</div>
-</div>
-<div class="col-first odd-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second odd-row-color"><code><a href="#SOURCE_SNIP_START" class="member-name-link">SOURCE_SNIP_START</a></code></div>
-<div class="col-last odd-row-color">
-<div class="block">The snippet start marker for source code: "/*SNIP_START*/".</div>
-</div>
 <div class="col-first even-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color"><code><a href="#TAGLET_NAME" class="member-name-link">TAGLET_NAME</a></code></div>
 <div class="col-last even-row-color">
 <div class="block">The name of this taglet: "include".</div>
 </div>
 </div>
+<div class="inherited-list">
+<h3 id="fields-inherited-from-class-org.tquadrat.foundation.javadoc.internal.OtherFileTagletBase">Fields inherited from class&nbsp;org.tquadrat.foundation.javadoc.internal.<a href="internal/OtherFileTagletBase.html" title="class in org.tquadrat.foundation.javadoc.internal">OtherFileTagletBase</a></h3>
+<code><a href="internal/OtherFileTagletBase.html#MSG_ProcessingProblem">MSG_ProcessingProblem</a>, <a href="internal/OtherFileTagletBase.html#PROPERTY_INCLUDE_ROOT_PREFIX">PROPERTY_INCLUDE_ROOT_PREFIX</a>, <a href="internal/OtherFileTagletBase.html#SOURCE_SNIP_END">SOURCE_SNIP_END</a>, <a href="internal/OtherFileTagletBase.html#SOURCE_SNIP_START">SOURCE_SNIP_START</a></code></div>
 </section>
 </li>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
@@ -245,40 +198,22 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.javad
 <section class="method-summary" id="method-summary">
 <h2>Method Summary</h2>
 <div id="method-summary-table">
-<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="method-summary-table-tab0" role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table', 3)" class="active-table-tab">All Methods</button><button id="method-summary-table-tab1" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab1', 3)" class="table-tab">Static Methods</button><button id="method-summary-table-tab2" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab2', 3)" class="table-tab">Instance Methods</button><button id="method-summary-table-tab4" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab4', 3)" class="table-tab">Concrete Methods</button></div>
+<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="method-summary-table-tab0" role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table', 3)" class="active-table-tab">All Methods</button><button id="method-summary-table-tab2" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab2', 3)" class="table-tab">Instance Methods</button><button id="method-summary-table-tab4" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab4', 3)" class="table-tab">Concrete Methods</button></div>
 <div id="method-summary-table.tabpanel" role="tabpanel">
 <div class="summary-table three-column-summary" aria-labelledby="method-summary-table-tab0">
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.javadoc/jdk/javadoc/doclet/Taglet.Location.html" title="class or interface in jdk.javadoc.doclet" class="external-link">Taglet.Location</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getAllowedLocations()" class="member-name-link">getAllowedLocations</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"></div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getName()" class="member-name-link">getName</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"></div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#init(jdk.javadoc.doclet.DocletEnvironment,jdk.javadoc.doclet.Doclet)" class="member-name-link">init</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.javadoc/jdk/javadoc/doclet/DocletEnvironment.html" title="class or interface in jdk.javadoc.doclet" class="external-link">DocletEnvironment</a>&nbsp;docletEnvironment,
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.javadoc/jdk/javadoc/doclet/Doclet.html" title="class or interface in jdk.javadoc.doclet" class="external-link">Doclet</a>&nbsp;doclet)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"></div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final boolean</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isInlineTag()" class="member-name-link">isInlineTag</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"></div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>private static final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#rootPathRetriever(java.lang.String)" class="member-name-link">rootPathRetriever</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;variable)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block">Looks up the system properties for a root path for include files with
-  the given name (the full name would be the prefix
-  <a href="#PROPERTY_INCLUDE_ROOT_PREFIX">"org.tquadrat.foundation.include.root"</a>
-  appended by the argument, separated by a '.'.</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toString(java.util.List,javax.lang.model.element.Element)" class="member-name-link">toString</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;? extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.compiler/com/sun/source/doctree/DocTree.html" title="class or interface in com.sun.source.doctree" class="external-link">DocTree</a>&gt;&nbsp;tags,
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toString(java.util.List,javax.lang.model.element.Element)" class="member-name-link">toString</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;? extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.compiler/com/sun/source/doctree/DocTree.html" title="class or interface in com.sun.source.doctree" class="external-link">DocTree</a>&gt;&nbsp;tags,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/Element.html" title="class or interface in javax.lang.model.element" class="external-link">Element</a>&nbsp;element)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"></div>
 </div>
 </div>
 </div>
+<div class="inherited-list">
+<h3 id="methods-inherited-from-class-org.tquadrat.foundation.javadoc.internal.OtherFileTagletBase">Methods inherited from class&nbsp;org.tquadrat.foundation.javadoc.internal.<a href="internal/OtherFileTagletBase.html" title="class in org.tquadrat.foundation.javadoc.internal">OtherFileTagletBase</a></h3>
+<code><a href="internal/OtherFileTagletBase.html#getAllowedLocations()">getAllowedLocations</a>, <a href="internal/OtherFileTagletBase.html#getDoclet()">getDoclet</a>, <a href="internal/OtherFileTagletBase.html#getEnvironment()">getEnvironment</a>, <a href="internal/OtherFileTagletBase.html#getName()">getName</a>, <a href="internal/OtherFileTagletBase.html#init(jdk.javadoc.doclet.DocletEnvironment,jdk.javadoc.doclet.Doclet)">init</a>, <a href="internal/OtherFileTagletBase.html#isInlineTag()">isInlineTag</a>, <a href="internal/OtherFileTagletBase.html#rootPathRetriever(java.lang.String)">rootPathRetriever</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-java.lang.Object">Methods inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></h3>
 <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#clone()" title="class or interface in java.lang" class="external-link">clone</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#finalize()" title="class or interface in java.lang" class="external-link">finalize</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link">hashCode</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#toString()" title="class or interface in java.lang" class="external-link">toString</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
@@ -297,75 +232,9 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.javad
 <h2>Field Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="MSG_ProcessingProblem">
-<h3>MSG_ProcessingProblem</h3>
-<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/IncludeTaglet.html#line-459">MSG_ProcessingProblem</a></span></div>
-<div class="block">The error message indicating a problem when processing the include
-  file.</div>
-<dl class="notes">
-<dt>See Also:</dt>
-<dd>
-<ul class="see-list">
-<li><a href="../../../../constant-values.html#org.tquadrat.foundation.javadoc.IncludeTaglet.MSG_ProcessingProblem">Constant Field Values</a></li>
-</ul>
-</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="PROPERTY_INCLUDE_ROOT_PREFIX">
-<h3>PROPERTY_INCLUDE_ROOT_PREFIX</h3>
-<div class="member-signature"><span class="annotations"><a href="https://apiguardian-team.github.io/apiguardian/docs/current/api/org/apiguardian/api/API.html" title="class or interface in org.apiguardian.api" class="external-link">@API</a>(<a href="https://apiguardian-team.github.io/apiguardian/docs/current/api/org/apiguardian/api/API.html#status()" title="class or interface in org.apiguardian.api" class="external-link">status</a>=<a href="https://apiguardian-team.github.io/apiguardian/docs/current/api/org/apiguardian/api/API.Status.html#STABLE" title="class or interface in org.apiguardian.api" class="external-link">STABLE</a>,
-     <a href="https://apiguardian-team.github.io/apiguardian/docs/current/api/org/apiguardian/api/API.html#since()" title="class or interface in org.apiguardian.api" class="external-link">since</a>="0.1.0")
-</span><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/IncludeTaglet.html#line-467">PROPERTY_INCLUDE_ROOT_PREFIX</a></span></div>
-<div class="block">The prefix for the name of a property that holds the root for path of
-  an include file: "org.tquadrat.foundation.include.root". It will be set on the <code>javadoc</code>
-  command line like this:
-  <pre><code>-J-Dorg.tquadrat.foundation.include.root.&lt;<i>name</i>&gt;=&lt;<i>path</i>&gt;</code></pre></div>
-<dl class="notes">
-<dt>See Also:</dt>
-<dd>
-<ul class="see-list">
-<li><a href="../../../../constant-values.html#org.tquadrat.foundation.javadoc.IncludeTaglet.PROPERTY_INCLUDE_ROOT_PREFIX">Constant Field Values</a></li>
-</ul>
-</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="SOURCE_SNIP_END">
-<h3>SOURCE_SNIP_END</h3>
-<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/IncludeTaglet.html#line-473">SOURCE_SNIP_END</a></span></div>
-<div class="block">The snippet end marker for source code: "/*SNIP_END*/".</div>
-<dl class="notes">
-<dt>See Also:</dt>
-<dd>
-<ul class="see-list">
-<li><a href="../../../../constant-values.html#org.tquadrat.foundation.javadoc.IncludeTaglet.SOURCE_SNIP_END">Constant Field Values</a></li>
-</ul>
-</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="SOURCE_SNIP_START">
-<h3>SOURCE_SNIP_START</h3>
-<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/IncludeTaglet.html#line-478">SOURCE_SNIP_START</a></span></div>
-<div class="block">The snippet start marker for source code: "/*SNIP_START*/".</div>
-<dl class="notes">
-<dt>See Also:</dt>
-<dd>
-<ul class="see-list">
-<li><a href="../../../../constant-values.html#org.tquadrat.foundation.javadoc.IncludeTaglet.SOURCE_SNIP_START">Constant Field Values</a></li>
-</ul>
-</dd>
-</dl>
-</section>
-</li>
-<li>
 <section class="detail" id="TAGLET_NAME">
 <h3>TAGLET_NAME</h3>
-<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/IncludeTaglet.html#line-483">TAGLET_NAME</a></span></div>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/IncludeTaglet.html#line-110">TAGLET_NAME</a></span></div>
 <div class="block">The name of this taglet: "include".</div>
 <dl class="notes">
 <dt>See Also:</dt>
@@ -375,20 +244,6 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.javad
 </ul>
 </dd>
 </dl>
-</section>
-</li>
-<li>
-<section class="detail" id="m_Doclet">
-<h3>m_Doclet</h3>
-<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.javadoc/jdk/javadoc/doclet/Doclet.html" title="class or interface in jdk.javadoc.doclet" class="external-link">Doclet</a></span>&nbsp;<span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/IncludeTaglet.html#line-491">m_Doclet</a></span></div>
-<div class="block">The doclet.</div>
-</section>
-</li>
-<li>
-<section class="detail" id="m_DocletEnvironment">
-<h3>m_DocletEnvironment</h3>
-<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.javadoc/jdk/javadoc/doclet/DocletEnvironment.html" title="class or interface in jdk.javadoc.doclet" class="external-link">DocletEnvironment</a></span>&nbsp;<span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/IncludeTaglet.html#line-497">m_DocletEnvironment</a></span></div>
-<div class="block">The doclet environment.</div>
 </section>
 </li>
 </ul>
@@ -402,7 +257,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.javad
 <li>
 <section class="detail" id="&lt;init&gt;()">
 <h3>IncludeTaglet</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/IncludeTaglet.html#line-505">IncludeTaglet</a></span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/IncludeTaglet.html#line-118">IncludeTaglet</a></span>()</div>
 <div class="block">Creates a new <code>IncludeTaglet</code> instance.</div>
 </section>
 </li>
@@ -415,72 +270,15 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.javad
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="getAllowedLocations()">
-<h3>getAllowedLocations</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.javadoc/jdk/javadoc/doclet/Taglet.Location.html" title="class or interface in jdk.javadoc.doclet" class="external-link">Taglet.Location</a>&gt;</span>&nbsp;<span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/IncludeTaglet.html#line-514">getAllowedLocations</a></span>()</div>
-<dl class="notes">
-<dt>Specified by:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.javadoc/jdk/javadoc/doclet/Taglet.html#getAllowedLocations()" title="class or interface in jdk.javadoc.doclet" class="external-link">getAllowedLocations</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.javadoc/jdk/javadoc/doclet/Taglet.html" title="class or interface in jdk.javadoc.doclet" class="external-link">Taglet</a></code></dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="getName()">
-<h3>getName</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/IncludeTaglet.html#line-520">getName</a></span>()</div>
-<dl class="notes">
-<dt>Specified by:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.javadoc/jdk/javadoc/doclet/Taglet.html#getName()" title="class or interface in jdk.javadoc.doclet" class="external-link">getName</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.javadoc/jdk/javadoc/doclet/Taglet.html" title="class or interface in jdk.javadoc.doclet" class="external-link">Taglet</a></code></dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="init(jdk.javadoc.doclet.DocletEnvironment,jdk.javadoc.doclet.Doclet)">
-<h3>init</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/IncludeTaglet.html#line-526">init</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.javadoc/jdk/javadoc/doclet/DocletEnvironment.html" title="class or interface in jdk.javadoc.doclet" class="external-link">DocletEnvironment</a>&nbsp;docletEnvironment,
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.javadoc/jdk/javadoc/doclet/Doclet.html" title="class or interface in jdk.javadoc.doclet" class="external-link">Doclet</a>&nbsp;doclet)</span></div>
-<dl class="notes">
-<dt>Specified by:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.javadoc/jdk/javadoc/doclet/Taglet.html#init(jdk.javadoc.doclet.DocletEnvironment,jdk.javadoc.doclet.Doclet)" title="class or interface in jdk.javadoc.doclet" class="external-link">init</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.javadoc/jdk/javadoc/doclet/Taglet.html" title="class or interface in jdk.javadoc.doclet" class="external-link">Taglet</a></code></dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="isInlineTag()">
-<h3>isInlineTag</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/IncludeTaglet.html#line-538">isInlineTag</a></span>()</div>
-<dl class="notes">
-<dt>Specified by:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.javadoc/jdk/javadoc/doclet/Taglet.html#isInlineTag()" title="class or interface in jdk.javadoc.doclet" class="external-link">isInlineTag</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.javadoc/jdk/javadoc/doclet/Taglet.html" title="class or interface in jdk.javadoc.doclet" class="external-link">Taglet</a></code></dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="rootPathRetriever(java.lang.String)">
-<h3>rootPathRetriever</h3>
-<div class="member-signature"><span class="modifiers">private static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/IncludeTaglet.html#line-552">rootPathRetriever</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;variable)</span></div>
-<div class="block">Looks up the system properties for a root path for include files with
-  the given name (the full name would be the prefix
-  <a href="#PROPERTY_INCLUDE_ROOT_PREFIX">"org.tquadrat.foundation.include.root"</a>
-  appended by the argument, separated by a '.'.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>variable</code> - The name of the root path.</dd>
-<dt>Returns:</dt>
-<dd>An instance of
-      <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link"><code>Optional</code></a>
-      that holds the path.</dd>
-</dl>
-</section>
-</li>
-<li>
 <section class="detail" id="toString(java.util.List,javax.lang.model.element.Element)">
 <h3>toString</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/IncludeTaglet.html#line-569">toString</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;? extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.compiler/com/sun/source/doctree/DocTree.html" title="class or interface in com.sun.source.doctree" class="external-link">DocTree</a>&gt;&nbsp;tags,
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name"><a href="../../../../src-html/org/tquadrat/foundation/javadoc/IncludeTaglet.html#line-130">toString</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;? extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.compiler/com/sun/source/doctree/DocTree.html" title="class or interface in com.sun.source.doctree" class="external-link">DocTree</a>&gt;&nbsp;tags,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/Element.html" title="class or interface in javax.lang.model.element" class="external-link">Element</a>&nbsp;element)</span></div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.javadoc/jdk/javadoc/doclet/Taglet.html#toString(java.util.List,javax.lang.model.element.Element)" title="class or interface in jdk.javadoc.doclet" class="external-link">toString</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.javadoc/jdk/javadoc/doclet/Taglet.html" title="class or interface in jdk.javadoc.doclet" class="external-link">Taglet</a></code></dd>
+<dt>Specified by:</dt>
+<dd><code><a href="internal/OtherFileTagletBase.html#toString(java.util.List,javax.lang.model.element.Element)">toString</a></code>&nbsp;in class&nbsp;<code><a href="internal/OtherFileTagletBase.html" title="class in org.tquadrat.foundation.javadoc.internal">OtherFileTagletBase</a></code></dd>
 </dl>
 </section>
 </li>

@@ -18,12 +18,13 @@
 package org.tquadrat.foundation.javadoc;
 
 import static java.lang.String.format;
-import static java.lang.System.out;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Comparator.comparing;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static java.util.stream.Collectors.joining;
+import static javax.tools.Diagnostic.Kind.NOTE;
+import static javax.tools.Diagnostic.Kind.WARNING;
 import static org.apiguardian.api.API.Status.STABLE;
 import static org.tquadrat.foundation.javadoc.internal.Common.getOutputFileObject;
 import static org.tquadrat.foundation.javadoc.internal.Common.initHelperTaglets;
@@ -54,27 +55,27 @@ import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersi
 import org.tquadrat.foundation.javadoc.internal.foundation.lang.Lazy;
 import org.tquadrat.foundation.javadoc.umlgraph.UMLDocument;
 import org.tquadrat.foundation.javadoc.umlgraph.UMLGraphLayout;
-import org.tquadrat.foundation.javadoc.umlgraph.UMLGraphLayout.UMLGraphLayoutRow;
 import org.tquadrat.foundation.javadoc.umlgraph.UMLTypeElement;
 import com.sun.source.doctree.DocTree;
 import jdk.javadoc.doclet.Doclet;
 import jdk.javadoc.doclet.DocletEnvironment;
 import jdk.javadoc.doclet.DocletEnvironment.ModuleMode;
+import jdk.javadoc.doclet.StandardDoclet;
 import jdk.javadoc.doclet.Taglet;
 
 /**
- *  When this tag is added to the documentation of a class, a UML graph will be
- *  created for this class and added to the document.<br>
- *  <br>The JavaDoc generation will be serialised on this taglet.
+ *  <p>{@summary When this tag is added to the documentation of a class, a UML
+ *  graph will be created for this class and added to the documentation.}</p>
+ *  <p>The JavaDoc generation will be serialised on this taglet.</p>
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: UmlGraphLinkTaglet.java 976 2022-01-06 11:39:58Z tquadrat $
+ *  @version $Id: UmlGraphLinkTaglet.java 991 2022-01-16 16:58:29Z tquadrat $
  *  @since 0.1.0
  */
 /*
  * Update the version in the method init!!
  */
-@ClassVersion( sourceVersion = "$Id: UmlGraphLinkTaglet.java 976 2022-01-06 11:39:58Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: UmlGraphLinkTaglet.java 991 2022-01-16 16:58:29Z tquadrat $" )
 @API( status = STABLE, since = "0.1.0" )
 public class UmlGraphLinkTaglet implements Taglet
 {
@@ -541,14 +542,23 @@ public class UmlGraphLinkTaglet implements Taglet
             }
 
             //---* Write the new picture *-------------------------------------
-            out.printf( "Generating %s\n", imageFile.getName() );
+            if( m_Doclet instanceof StandardDoclet doclet )
+            {
+                doclet.getReporter().print( NOTE, "Generating %s".formatted( imageFile.getName() ) );
+//                if( nonNull( out ) ) out.printf( "Generating %s\n", imageFile.getName() );
+            }
             try( final var outputStream = imageFile.openOutputStream() )
             {
                 outputStream.write( umlDocument.toString().getBytes( UTF_8 ) );
             }
             catch( final IOException e )
             {
-                throw new JavadocError( format( "Problems on writing the UMLGraph for %s to %s", typeElement.getSimpleName(), imageFile.getName() ), e );
+                final var message = "Problems on writing the UMLGraph for %s to %s";
+                if( m_Doclet instanceof StandardDoclet doclet )
+                {
+                    doclet.getReporter().print( WARNING, element, message.formatted( typeElement.getSimpleName(), imageFile.getName() ) );
+                }
+                throw new JavadocError( message.formatted( typeElement.getSimpleName(), imageFile.getName() ), e );
             }
         }
 
