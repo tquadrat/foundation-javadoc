@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2020 by Thomas Thrien.
+ * Copyright © 2002-2024 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  *
@@ -89,7 +89,6 @@ public final class CreateSourceHTML
      *  @param  outputPath  The output path.
      *  @throws IOException Reading or writing failed.
      */
-    @SuppressWarnings( "resource" )
     public static final void execute( final File inputFile, final File outputPath ) throws IOException
     {
         if ( !requireNonNullArgument( inputFile, "inputFile" ).exists() )

@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2020 by Thomas Thrien.
+ * Copyright © 2002-2024 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -71,7 +71,7 @@ public final class SVGGenericElement extends SVGElementAdapter
      *
      *  @param  parent  The parent element.
      */
-    @SuppressWarnings( {"PublicMethodNotExposedInInterface", "InstanceofConcreteClass"} )
+    @SuppressWarnings( {"PublicMethodNotExposedInInterface", "InstanceofConcreteClass", "unused"} )
     public final void registerWithParent( final SVGElement parent)
     {
         if( (requireNonNullArgument( parent, "parent" ) instanceof SVGElementImpl parentElement) )

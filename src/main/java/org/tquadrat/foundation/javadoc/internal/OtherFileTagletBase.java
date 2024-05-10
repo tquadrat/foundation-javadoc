@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2022 by Thomas Thrien.
+ * Copyright © 2002-2024 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  *
@@ -91,10 +91,10 @@ import jdk.javadoc.doclet.Taglet;
  *  </ul>
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: IncludeTaglet.java 976 2022-01-06 11:39:58Z tquadrat $
+ *  @version $Id: OtherFileTagletBase.java 1013 2022-02-08 21:30:29Z tquadrat $
  *  @since 0.1.0
  */
-@ClassVersion( sourceVersion = "$Id: IncludeTaglet.java 976 2022-01-06 11:39:58Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: OtherFileTagletBase.java 1013 2022-02-08 21:30:29Z tquadrat $" )
 @API( status = STABLE, since = "0.1.0" )
 public abstract class OtherFileTagletBase implements Taglet
 {
@@ -105,11 +105,11 @@ public abstract class OtherFileTagletBase implements Taglet
      *  The process modes for the included file.
      *
      *  @author Thomas Thrien - thomas.thrien@tquadrat.org
-     *  @version $Id: IncludeTaglet.java 976 2022-01-06 11:39:58Z tquadrat $
+     *  @version $Id: OtherFileTagletBase.java 1013 2022-02-08 21:30:29Z tquadrat $
      *  @since 0.0.5
      */
     @SuppressWarnings( "InnerClassTooDeeplyNested" )
-    @ClassVersion( sourceVersion = "$Id: IncludeTaglet.java 976 2022-01-06 11:39:58Z tquadrat $" )
+    @ClassVersion( sourceVersion = "$Id: OtherFileTagletBase.java 1013 2022-02-08 21:30:29Z tquadrat $" )
     @API( status = INTERNAL, since = "0.0.5", consumers = "org.tquadrat.foundation.javadoc" )
     public enum ProcessMode
     {
@@ -215,7 +215,7 @@ public abstract class OtherFileTagletBase implements Taglet
                 {
                     lines = bufferedReader.lines()
                         .map( ToolKit::escapeHTML )
-                        .collect( toList() );
+                        .toList();
                 }
                 catch( final IOException e )
                 {
@@ -452,11 +452,13 @@ public abstract class OtherFileTagletBase implements Taglet
     /**
      *  The snippet end marker for source code: {@value}.
      */
+    @SuppressWarnings( "UnnecessaryUnicodeEscape" )
     public static final String SOURCE_SNIP_END = "/\u002ASNIP_END\u002A/";
 
     /**
      *  The snippet start marker for source code: {@value}.
      */
+    @SuppressWarnings( "UnnecessaryUnicodeEscape" )
     public static final String SOURCE_SNIP_START = "/\u002ASNIP_START\u002A/";
 
         /*------------*\
@@ -527,6 +529,7 @@ public abstract class OtherFileTagletBase implements Taglet
      *
      *  @return The reference to the doclet.
      */
+    @SuppressWarnings( "unused" )
     protected final Doclet getDoclet() { return m_Doclet; }
 
     /**

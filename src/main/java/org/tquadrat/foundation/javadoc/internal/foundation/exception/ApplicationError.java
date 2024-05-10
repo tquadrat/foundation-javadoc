@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2022 by Thomas Thrien.
+ * Copyright © 2002-2024 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  *
@@ -38,7 +38,7 @@ import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersi
  *  @version $Id: ApplicationError.java 976 2022-01-06 11:39:58Z tquadrat $
  *  @since 0.0.5
  */
-@SuppressWarnings( "ClassWithTooManyConstructors" )
+@SuppressWarnings( {"ClassWithTooManyConstructors", "unused"} )
 @ClassVersion( sourceVersion = "$Id: ApplicationError.java 976 2022-01-06 11:39:58Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
 public class ApplicationError extends Error

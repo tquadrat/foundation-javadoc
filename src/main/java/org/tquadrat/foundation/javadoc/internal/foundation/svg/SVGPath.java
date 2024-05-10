@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2020 by Thomas Thrien.
+ * Copyright © 2002-2024 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -76,6 +76,7 @@ public interface SVGPath extends SVGElementWithChildren, AllowsConditionalProces
      *
      *  @throws IllegalArgumentException    The type is less than 0.
      */
+    @SuppressWarnings( "unused" )
     public default void setPathLength( final double length ) { setPathLength( number( length ) ); }
 
     /**
@@ -92,6 +93,7 @@ public interface SVGPath extends SVGElementWithChildren, AllowsConditionalProces
      *
      *  @throws IllegalArgumentException    The type is less than 0.
      */
+    @SuppressWarnings( "unused" )
     public default void setPathLength( final long length ) { setPathLength( number( length ) ); }
 }
 //  interface SVGPath

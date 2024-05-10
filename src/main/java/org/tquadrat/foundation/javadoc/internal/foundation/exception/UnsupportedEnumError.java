@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2020 by Thomas Thrien.
+ * Copyright © 2002-2024 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -80,6 +80,7 @@ public final class UnsupportedEnumError extends Error
      *  @param  type    The class of the enum.
      *  @param  value   The unsupported value.
      */
+    @SuppressWarnings( "unused" )
     public UnsupportedEnumError( final Class<? extends Enum<?>> type, final String value )
     {
         super( format( MSG_UnsupportedEnum, requireNonNullArgument( type, "type" ).getName(), requireNotEmptyArgument( value, "value" ) ) );

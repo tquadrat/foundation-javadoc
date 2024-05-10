@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2020 by Thomas Thrien.
+ * Copyright © 2002-2024 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -33,6 +33,7 @@ import org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGNumber.SV
  *  @version $Id: SVGLine.java 977 2022-01-06 11:41:03Z tquadrat $
  *  @since 0.0.5
  */
+@SuppressWarnings( "unused" )
 @ClassVersion( sourceVersion = "$Id: SVGLine.java 977 2022-01-06 11:41:03Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
 public interface SVGLine extends SVGElementWithChildren, AllowsConditionalProcessingAttributes, AllowsGlobalEventAttributes, AllowsGraphicalEventAttributes, AllowsPresentationAttributes, AllowsStyleAttributes

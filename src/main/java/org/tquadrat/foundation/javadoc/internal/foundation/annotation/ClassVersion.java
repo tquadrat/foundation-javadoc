@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2022 by Thomas Thrien.
+ * Copyright © 2002-2024 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -42,6 +42,7 @@ import org.apiguardian.api.API;
  *  @version $Id: ClassVersion.java 976 2022-01-06 11:39:58Z tquadrat $
  *  @since 0.0.5
  */
+@SuppressWarnings( "unused" )
 @Documented
 @Retention( RUNTIME )
 @Target( TYPE )

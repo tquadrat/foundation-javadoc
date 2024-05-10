@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- *  Copyright © 2002-2020 by Thomas Thrien.
+ *  Copyright © 2002-2024 by Thomas Thrien.
  *  All Rights Reserved.
  * ============================================================================
  *  Licensed to the public under the agreements of the GNU Lesser General Public
@@ -38,7 +38,7 @@ import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersi
  *  @version $Id: IllegalOperationException.java 976 2022-01-06 11:39:58Z tquadrat $
  *  @since 0.1.0
  */
-@SuppressWarnings( "ClassWithTooManyConstructors" )
+@SuppressWarnings( {"ClassWithTooManyConstructors", "unused"} )
 @ClassVersion( sourceVersion = "$Id: IllegalOperationException.java 976 2022-01-06 11:39:58Z tquadrat $" )
 @API( status = STABLE, since = "0.1.0" )
 public class IllegalOperationException extends RuntimeException

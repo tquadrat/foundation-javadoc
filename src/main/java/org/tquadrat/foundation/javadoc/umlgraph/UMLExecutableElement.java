@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2020 by Thomas Thrien.
+ * Copyright © 2002-2024 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -148,6 +148,7 @@ public abstract class UMLExecutableElement extends UMLMemberElement implements E
                 {
                     buffer.setLength( length - 2 );
                 }
+                //noinspection UnnecessaryUnicodeEscape
                 buffer.append( "\u2026" );
             }
 

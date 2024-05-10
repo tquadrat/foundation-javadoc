@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2020 by Thomas Thrien.
+ * Copyright © 2002-2024 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -58,6 +58,7 @@ public final class EmptyArgumentException extends NullArgumentException
     /**
      *  Creates a new instance of {@code EmptyArgumentException}.
      */
+    @SuppressWarnings( "unused" )
     public EmptyArgumentException() { this( null ); }
 
     /**

@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2020 by Thomas Thrien.
+ * Copyright © 2002-2024 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -381,6 +381,7 @@ public final class TypeSymbol extends SVGElementAdapter
         }
         else
         {
+            @SuppressWarnings( "UnnecessaryUnicodeEscape" )
             final var t = typeElement.getAttributes( false ).isEmpty() ? EMPTY_STRING : "\u2026";
             text = createText( t );
             text.setX( number( x + SVG_TEXT_SPACING ) );
@@ -410,6 +411,7 @@ public final class TypeSymbol extends SVGElementAdapter
         }
         else
         {
+            @SuppressWarnings( "UnnecessaryUnicodeEscape" )
             final var t = typeElement.getConstructors( false ).isEmpty() && typeElement.getMethods( false ).isEmpty() ? EMPTY_STRING : "\u2026";
             text = createText( t );
             text.setX( number( x + SVG_TEXT_SPACING ) );
@@ -434,6 +436,7 @@ public final class TypeSymbol extends SVGElementAdapter
      *
      *  @return This instance.
      */
+    @SuppressWarnings( "unused" )
     public final SVGSymbol asSVGSymbol() { return this; }
 
     /**

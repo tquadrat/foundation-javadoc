@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2021 by Thomas Thrien.
+ * Copyright © 2002-2024 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -80,7 +80,7 @@ public final class AttributeSupport extends NamespaceSupport
      *  {@value ToolKit#XMLATTRIBUTE_Id}
      *  is always the first attribute.
      */
-    @SuppressWarnings( "IfStatementWithTooManyBranches" )
+    @SuppressWarnings( {"IfStatementWithTooManyBranches", "unused"} )
     public static final Comparator<String> ID_ALWAYS_FIRST_COMPARATOR = ( a1, a2) ->
     {
         var retValue = 0;
@@ -141,6 +141,7 @@ public final class AttributeSupport extends NamespaceSupport
      *  @param  owner   The element that owns this {@code AttributeSupport}
      *      instance.
      */
+    @SuppressWarnings( "unused" )
     public AttributeSupport( final Element owner )
     {
         this( owner, true, DEFAULT_COMPARATOR );
@@ -168,6 +169,7 @@ public final class AttributeSupport extends NamespaceSupport
      *  @param  sortOrder   The comparator that determines the sort order for
      *      the attribute of the owning element.
      */
+    @SuppressWarnings( "unused" )
     public AttributeSupport( final Element owner, final Comparator<String> sortOrder )
     {
         this( owner, true, sortOrder );

@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2020 by Thomas Thrien.
+ * Copyright © 2002-2024 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -100,7 +100,7 @@ public final class SVGGroupImpl extends SVGElementImpl implements SVGGroup
             SVGELEMENT_Switch, SVGELEMENT_Text, SVGELEMENT_View ) );
 
         final Collection<String> attributes = new ArrayList<>();
-        attributes.addAll( List.of( SVGATTRIBUTE_Id ) );
+        attributes.add( SVGATTRIBUTE_Id );
         attributes.addAll( CORE_ATTRIBUTES );
         attributes.addAll( AllowsStyleAttributes.STYLE_ATTRIBUTES );
         attributes.addAll( AllowsConditionalProcessingAttributes.CONDITIONALPROCESSING_ATTRIBUTES );

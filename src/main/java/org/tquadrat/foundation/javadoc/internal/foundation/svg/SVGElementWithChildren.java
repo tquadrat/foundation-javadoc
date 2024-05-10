@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2020 by Thomas Thrien.
+ * Copyright © 2002-2024 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -56,6 +56,7 @@ public interface SVGElementWithChildren extends SVGElement
      *
      *  @param  description The description.
      */
+    @SuppressWarnings( "unused" )
     public void setDescription( final CharSequence description );
 }
 //  interface SVGElementWithChildren

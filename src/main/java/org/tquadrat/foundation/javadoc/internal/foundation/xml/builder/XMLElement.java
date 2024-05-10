@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2021 by Thomas Thrien.
+ * Copyright © 2002-2024 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -64,7 +64,7 @@ import org.tquadrat.foundation.javadoc.internal.foundation.xml.builder.spi.Eleme
  *  @version $Id: XMLElement.java 976 2022-01-06 11:39:58Z tquadrat $
  *  @since 0.0.5
  */
-@SuppressWarnings( {"ClassWithTooManyMethods"} )
+@SuppressWarnings( {"ClassWithTooManyMethods", "unused"} )
 @ClassVersion( sourceVersion = "$Id: XMLElement.java 976 2022-01-06 11:39:58Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
 public interface XMLElement extends Element
@@ -114,11 +114,6 @@ public interface XMLElement extends Element
         /*-----------*\
     ====** Constants **========================================================
         \*-----------*/
-    /**
-     *  An empty array of {@code XMLElement} objects.
-     */
-    public static final XMLElement [] EMPTY_XMLElement_ARRAY = new XMLElement [0];
-
     /**
      *  The indicator that values for an attribute should not be appended.
      *

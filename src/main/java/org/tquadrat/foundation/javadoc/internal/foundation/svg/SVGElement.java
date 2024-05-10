@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2020 by Thomas Thrien.
+ * Copyright © 2002-2024 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -45,18 +45,11 @@ import org.tquadrat.foundation.javadoc.internal.foundation.xml.builder.spi.Eleme
  *  @version $Id: SVGElement.java 976 2022-01-06 11:39:58Z tquadrat $
  *  @since 0.0.5
  */
+@SuppressWarnings( "unused" )
 @ClassVersion( sourceVersion = "$Id: SVGElement.java 976 2022-01-06 11:39:58Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
 public interface SVGElement extends Element
 {
-        /*-----------*\
-    ====** Constants **========================================================
-        \*-----------*/
-    /**
-     *  An empty array of {@code SVGElement} objects.
-     */
-    public static final SVGElement [] EMPTY_SVGElement_ARRAY = new SVGElement [0];
-
         /*------------------------*\
     ====** Static Initialisations **===========================================
         \*------------------------*/
@@ -103,6 +96,7 @@ public interface SVGElement extends Element
      *      not valid for the element, or no attributes are allowed at all, or
      *      the type is not a valid NMToken.
      */
+    @SuppressWarnings( "UnusedReturnValue" )
     public XMLElement setId( final String id ) throws IllegalArgumentException;
 
     /**

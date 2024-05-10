@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2022 by Thomas Thrien.
+ * Copyright © 2002-2024 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -118,6 +118,7 @@ public class ToolKit
      * For some reason, JavaDoc refuses to accept both &#8208; and &#x2010;
      * as valid entities.
      */
+    @SuppressWarnings( "UnnecessaryUnicodeEscape" )
     @API( status = STABLE, since = "0.0.5" )
     public static final char CHAR_HYPHEN = '\u2010';
 

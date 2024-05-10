@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2021 by Thomas Thrien.
+ * Copyright © 2002-2024 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -61,7 +61,7 @@ import org.tquadrat.foundation.javadoc.internal.foundation.xml.builder.internal.
  *  @version $Id: XMLBuilderUtils.java 976 2022-01-06 11:39:58Z tquadrat $
  *  @since 0.0.5
  */
-@SuppressWarnings( "ClassWithTooManyMethods" )
+@SuppressWarnings( {"ClassWithTooManyMethods", "unused"} )
 @UtilityClass
 @ClassVersion( sourceVersion = "$Id: XMLBuilderUtils.java 976 2022-01-06 11:39:58Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
@@ -167,7 +167,7 @@ public final class XMLBuilderUtils
      *  @version $Id: XMLBuilderUtils.java 976 2022-01-06 11:39:58Z tquadrat $
      *  @since 0.0.5
      */
-    @SuppressWarnings( "PublicInnerClass" )
+    @SuppressWarnings( {"PublicInnerClass", "unused"} )
     @ClassVersion( sourceVersion = "$Id: XMLBuilderUtils.java 976 2022-01-06 11:39:58Z tquadrat $" )
     @API( status = STABLE, since = "0.0.5" )
     public static class ValidatorChangeEvent extends EventObject
@@ -249,7 +249,7 @@ public final class XMLBuilderUtils
      *  The interface for listeners to
      *  {@link ValidatorChangeEvent}s
      *
-     *  author Thomas Thrien - thomas.thrien@tquadrat.org
+     *  @author Thomas Thrien - thomas.thrien@tquadrat.org
      *  @version $Id: XMLBuilderUtils.java 976 2022-01-06 11:39:58Z tquadrat $
      *  @since 0.0.5
      */
@@ -944,7 +944,7 @@ public final class XMLBuilderUtils
                     }
                 }
 
-                //---* House keeping: get rid of the dead references *---------
+                //---* Housekeeping: get rid of the dead references *----------
                 if( removed ) m_ValidatorChangeListeners.removeIf( r -> isNull( r.get() ) );
             }
         }

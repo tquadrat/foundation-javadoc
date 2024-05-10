@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2021 by Thomas Thrien.
+ * Copyright © 2002-2024 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -131,6 +131,7 @@ public interface SVG extends SVGElementWithChildren, AllowsConditionalProcessing
      *  @param  value   The default scripting language for this {@code <svg>}
      *      element.
      */
+    @SuppressWarnings( "unused" )
     public void setContentScriptType( final MimeType value );
 
     /**
@@ -162,6 +163,7 @@ public interface SVG extends SVGElementWithChildren, AllowsConditionalProcessing
      *  @param  value   The type; if {@code null} the
      *      attribute will be removed.
      */
+    @SuppressWarnings( "unused" )
     public void setPreserveAspectRatio( final SVGPreserveAspectRatio value );
 
     /**
@@ -178,6 +180,7 @@ public interface SVG extends SVGElementWithChildren, AllowsConditionalProcessing
      *  @return The SVG {@code <style>} element with the style sheet
      *      definitions.
      */
+    @SuppressWarnings( "UnusedReturnValue" )
     public SVGStyle setStyleSheet( final CharSequence... styles );
 
     /**
@@ -188,7 +191,7 @@ public interface SVG extends SVGElementWithChildren, AllowsConditionalProcessing
      *  @param  width   The width of the area.
      *  @param  height  The height of the area.
      */
-    @SuppressWarnings( "UseOfConcreteClass" )
+    @SuppressWarnings( {"UseOfConcreteClass", "unused"} )
     public void setViewBox( final SVGNumber x, final SVGNumber y, final SVGNumber width, final SVGNumber height );
 
     /**
@@ -229,6 +232,7 @@ public interface SVG extends SVGElementWithChildren, AllowsConditionalProcessing
      *      {@value SVGUtils#SVGATTRIBUTE_ZoomAndPan}, {@code false} disables
      *      it by setting the attribute to &quot;{@code disable}&quot;.
      */
+    @SuppressWarnings( "unused" )
     public void setZoomAndPan( final boolean flag );
 }
 //  interface SVG

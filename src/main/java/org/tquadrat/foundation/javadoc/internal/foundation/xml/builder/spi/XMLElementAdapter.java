@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2020 by Thomas Thrien.
+ * Copyright © 2002-2024 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -50,6 +50,7 @@ public abstract class XMLElementAdapter extends XMLElementImpl
      *
      *  @param  elementName The element name.
      */
+    @SuppressWarnings( "unused" )
     protected XMLElementAdapter( final String elementName ) { super( elementName ); }
 
     /**

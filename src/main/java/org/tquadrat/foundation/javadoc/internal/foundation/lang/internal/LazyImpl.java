@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2021 by Thomas Thrien.
+ * Copyright © 2002-2024 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -83,7 +83,6 @@ public final class LazyImpl<T> implements Lazy<T>
      *      instance on the first call to
      *      {@link #get()}.
      */
-    @SuppressWarnings( "resource" )
     public LazyImpl( final Supplier<T> supplier )
     {
         m_Supplier = requireNonNullArgument( supplier, "supplier" );
@@ -111,6 +110,7 @@ public final class LazyImpl<T> implements Lazy<T>
     /**
      *  {@inheritDoc}
      */
+    @SuppressWarnings( "rawtypes" )
     @Override
     public final boolean equals( final Object obj )
     {

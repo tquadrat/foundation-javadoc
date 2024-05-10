@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2022 by Thomas Thrien.
+ * Copyright © 2002-2024 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  *
@@ -94,10 +94,10 @@ import com.sun.source.doctree.DocTree;
  *  </ul>
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: IncludeTaglet.java 976 2022-01-06 11:39:58Z tquadrat $
+ *  @version $Id: IncludeTaglet.java 1013 2022-02-08 21:30:29Z tquadrat $
  *  @since 0.0.5
  */
-@ClassVersion( sourceVersion = "$Id: IncludeTaglet.java 976 2022-01-06 11:39:58Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: IncludeTaglet.java 1013 2022-02-08 21:30:29Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
 public class IncludeTaglet extends OtherFileTagletBase
 {
@@ -225,7 +225,6 @@ public class IncludeTaglet extends OtherFileTagletBase
                 //---* A relative path *---------------------------------------
                 try
                 {
-                    @SuppressWarnings( "resource" )
                     final var inputFile = getEnvironment().getJavaFileManager().getFileForInput( SOURCE_PATH, EMPTY_STRING, fileName );
                     if( nonNull( inputFile) )
                     {

@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2021 by Thomas Thrien.
+ * Copyright © 2002-2024 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  *
@@ -90,15 +90,6 @@ public class ListBasedComparator<T,K> implements Comparator<T>
         public final K getKey( final T instance ) { return (K) instance; }
     }
     //  class SimpleKeyProvider
-
-        /*-----------*\
-    ====** Constants **========================================================
-        \*-----------*/
-    /**
-     *  An empty array of {@code ListBasedComparator<T>} objects.
-     */
-    @SuppressWarnings( "rawtypes" )
-    public static final ListBasedComparator [] EMPTY_ListBasedComparator_ARRAY = new ListBasedComparator [0];
 
         /*------------*\
     ====** Attributes **=======================================================
@@ -213,7 +204,7 @@ public class ListBasedComparator<T,K> implements Comparator<T>
     /**
      *  {@inheritDoc}
      */
-    @SuppressWarnings( {"unchecked"} )
+    @SuppressWarnings( {"unchecked", "rawtypes"} )
     @Override
     public final int compare( final T o1, final T o2 )
     {

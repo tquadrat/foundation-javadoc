@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2020 by Thomas Thrien.
+ * Copyright © 2002-2024 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -117,6 +117,7 @@ public final class UMLConnector extends SVGElementAdapter
      *
      *  @return This instance.
      */
+    @SuppressWarnings( "unused" )
     public final SVGPath asSVGPath() { return this; }
 
     /**

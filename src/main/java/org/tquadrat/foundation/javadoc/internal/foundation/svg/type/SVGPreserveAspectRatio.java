@@ -138,14 +138,6 @@ public enum SVGPreserveAspectRatio
     @API( status = STABLE, since = "0.0.5" )
     XMAX_YMAX( "xMaxYMax" );
 
-        /*-----------*\
-    ====** Constants **========================================================
-        \*-----------*/
-    /**
-     *  An empty array of {@code SVGPreserveAspectRatio} objects.
-     */
-    public static final SVGPreserveAspectRatio [] EMPTY_SVGPreserveAspectRatio_ARRAY = new SVGPreserveAspectRatio [0];
-
         /*------------*\
     ====** Attributes **=======================================================
         \*------------*/

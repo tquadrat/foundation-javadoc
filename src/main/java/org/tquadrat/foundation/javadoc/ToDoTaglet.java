@@ -24,7 +24,6 @@ import static java.util.Objects.nonNull;
 import static org.apiguardian.api.API.Status.STABLE;
 import static org.tquadrat.foundation.javadoc.internal.Common.initHelperTaglets;
 import static org.tquadrat.foundation.javadoc.internal.ToolKit.EMPTY_STRING;
-import static org.tquadrat.foundation.javadoc.internal.ToolKit.isEmptyOrBlank;
 
 import javax.lang.model.element.Element;
 import java.io.BufferedReader;
@@ -35,8 +34,11 @@ import java.io.IOException;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
+import java.util.StringJoiner;
 
 import org.apiguardian.api.API;
+import org.commonmark.parser.Parser;
+import org.commonmark.renderer.html.HtmlRenderer;
 import org.tquadrat.foundation.javadoc.internal.JavadocError;
 import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
 import com.sun.source.doctree.DocTree;
@@ -47,14 +49,14 @@ import jdk.javadoc.doclet.Taglet;
 /**
  *  <p>{@summary With this taglet, it is possible to add a list of open points
  *  to the <i>documentation</i> of a module or a package.} The parameter of the
- *  tag is the (absolute) path to a simple text file; this path will be
- *  combined with the path provided by the
+ *  tag is the (absolute) path to a text file in Markdown format; this path
+ *  will be combined with the path provided by the
  *  {@linkplain System#getProperty(String, String) system property}
  *  {@value #PROPERTY_TODO_BASE}
  *  (if any).</p>
  *  <p>In the file, each open point consists of a sequence of lines that will
- *  end with an empty line. HTML tags are taken as they are, JavaDoc tags are
- *  not interpreted.</p>
+ *  end with an empty line (a <i>paragraph</i> in Markdown). HTML tags are
+ *  taken as they are, JavaDoc tags will be not interpreted.</p>
  *  <p>So the {@code module-info.java} file for a project may look like
  *  this:</p>
  *  <pre><code> &#47;**
@@ -92,10 +94,8 @@ import jdk.javadoc.doclet.Taglet;
  *                List):</span>
  *            </dt>
  *            <dd>
- *              <ul>
- *                <li>Cleanup the class comments</li>
- *                <li>Re-think the parser implementation</li>
- *              </ul>
+ *              <p>Cleanup the class comments</p>
+ *              <p>Re-think the parser implementation</p>
  *            </dd>
  *          </dl>
  *          <div class="block">&hellip;</div>
@@ -107,6 +107,8 @@ import jdk.javadoc.doclet.Taglet;
  *  <p>With Maven or Gradle, the base path can be easily set to the project
  *  root.</p>
  *
+ *  <p>The file is interpreted as Markdown since version 0.2.0, before it was a
+ *  plain text file.</p>
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
  *  @version $Id: ToDoTaglet.java 978 2022-01-06 12:47:52Z tquadrat $
  *  @since 0.0.5
@@ -195,37 +197,25 @@ public final class ToDoTaglet implements Taglet
     public final boolean isInlineTag() { return false; }
 
     /**
-     *  Processes the given file and adds its contents to the provided
-     *  {@link StringBuilder}.<br>
-     *  <br>Each todo entry will be added as a {@code <li>} item.
+     *  <p>{@summary Parses the given file as a Markdown files and adds the
+     *  result to the provided
+     *  {@link StringBuilder}.}</p>
      *
      *  @param  file    The file with the todo list.
      *  @param  buffer  The destination for the output.
      */
     private static final void processFile( final File file, final StringBuilder buffer )
     {
+        final var fileContents = new StringJoiner( "\n" );
         try( final var reader = new BufferedReader( new FileReader( file ) ) )
         {
             var line = EMPTY_STRING;
-            var isLIOpen = false;
-            ReadLineLoop: while( nonNull( line ) )
+            ReadLineLoop: while( nonNull( line = reader.readLine() ) )
             {
-                line = reader.readLine();
-                if( isEmptyOrBlank( line ) )
-                {
-                    if( isLIOpen ) buffer.append( "</li>" );
-                    isLIOpen = false;
-                }
-                else
-                {
-                    //---* Skip comments *-------------------------------------
-                    if( line.startsWith( "#" ) ) continue ReadLineLoop;
+                //---* Skip comments *-------------------------------------
+                if( line.startsWith( "#" ) ) continue ReadLineLoop;
 
-                    //---* Add the task description *--------------------------
-                    buffer.append( isLIOpen ? " " : "\n<li>" );
-                    isLIOpen = true;
-                    buffer.append( line );
-                }
+                fileContents.add( line );
             }   //  ReadLineLoop:
         }
         catch( final FileNotFoundException e )
@@ -237,12 +227,21 @@ public final class ToDoTaglet implements Taglet
         {
             throw new JavadocError( format( "Problems on processing '%s'", file.getAbsolutePath() ), e );
         }
+
+        //---* Get the Markdown Parser and Renderer *--------------------------
+        final var parser = Parser.builder()
+            .build();
+        final var renderer = HtmlRenderer.builder()
+            .build();
+
+        //---* Parse the input and render it to HTML *-------------------------
+        final var document = parser.parse( fileContents.toString() );
+        buffer.append( renderer.render( document ) );
     }   //  processFile()
 
     /**
      *  {@inheritDoc}
      */
-    @SuppressWarnings( "resource" )
     @Override
     public final String toString( final List<? extends DocTree> tags, final Element element )
     {
@@ -269,9 +268,7 @@ public final class ToDoTaglet implements Taglet
 
                 <dt><span class="simpleTagLabel">Open Issues (The <i>ToDo</i> List):</span></dt>
                 <dd>
-                  <ul>
                    %s
-                 </ul>
                 </dd>
                 """;
 

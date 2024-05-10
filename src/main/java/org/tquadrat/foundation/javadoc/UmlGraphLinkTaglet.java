@@ -69,13 +69,13 @@ import jdk.javadoc.doclet.Taglet;
  *  <p>The JavaDoc generation will be serialised on this taglet.</p>
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: UmlGraphLinkTaglet.java 991 2022-01-16 16:58:29Z tquadrat $
+ *  @version $Id: UmlGraphLinkTaglet.java 1013 2022-02-08 21:30:29Z tquadrat $
  *  @since 0.1.0
  */
 /*
  * Update the version in the method init!!
  */
-@ClassVersion( sourceVersion = "$Id: UmlGraphLinkTaglet.java 991 2022-01-16 16:58:29Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: UmlGraphLinkTaglet.java 1013 2022-02-08 21:30:29Z tquadrat $" )
 @API( status = STABLE, since = "0.1.0" )
 public class UmlGraphLinkTaglet implements Taglet
 {

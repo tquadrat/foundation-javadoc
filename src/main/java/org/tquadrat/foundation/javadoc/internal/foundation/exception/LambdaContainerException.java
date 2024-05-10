@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- *  Copyright © 2002-2020 by Thomas Thrien.
+ *  Copyright © 2002-2024 by Thomas Thrien.
  *  All Rights Reserved.
  * ============================================================================
  *  Licensed to the public under the agreements of the GNU Lesser General Public
@@ -135,6 +135,7 @@ public final class LambdaContainerException extends RuntimeException
      *  @return {@code true} if the contained Exception is among the list of
      *      expected exceptions, {@code false} otherwise.
      */
+    @SuppressWarnings( "unused" )
     public final boolean checkIfExpected( final Collection<Class<? extends Exception>> expected )
     {
         final var retValue = checkIfExpected( requireNonNullArgument( expected, "expected" ).stream() );
@@ -172,7 +173,7 @@ public final class LambdaContainerException extends RuntimeException
      *      {@link UnexpectedException} that is thrown when the contained
      *      Exception was not expected.
      */
-    @SuppressWarnings( "ProhibitedExceptionDeclared" )
+    @SuppressWarnings( {"ProhibitedExceptionDeclared", "unused"} )
     public final <T> T getCheckedCause( final Class<T> exceptionType ) throws RuntimeException
     {
         final var cause = getCause();

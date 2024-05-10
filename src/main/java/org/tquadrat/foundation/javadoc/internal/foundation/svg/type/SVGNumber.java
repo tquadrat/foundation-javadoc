@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2020 by Thomas Thrien.
+ * Copyright © 2002-2024 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -207,20 +207,6 @@ public sealed class SVGNumber
     }
     //  class SVGUserUnitValue
 
-        /*-----------*\
-    ====** Constants **========================================================
-        \*-----------*/
-    /**
-     *  An empty array of {@code SVGNumber} objects.
-     */
-    public static final SVGNumber [] EMPTY_SVGNumber_ARRAY = new SVGNumber [0];
-
-    /**
-     *  An empty array of {@code SVGDegree} objects.
-     */
-    @SuppressWarnings( "ClassReferencesSubclass" )
-    public static final SVGDegree [] EMPTY_SVGDegree_ARRAY = new SVGDegree [0];
-
         /*------------*\
     ====** Attributes **=======================================================
         \*------------*/
@@ -328,6 +314,7 @@ public sealed class SVGNumber
      *  @return {@code true} if the type is 0 (or 0.0), {@code false}
      *      otherwise.
      */
+    @SuppressWarnings( "unused" )
     public final boolean isZero() { return m_IsZero; }
 
     /**

@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- *  Copyright © 2002-2021 by Thomas Thrien.
+ *  Copyright © 2002-2024 by Thomas Thrien.
  *  All Rights Reserved.
  * ============================================================================
  *  Licensed to the public under the agreements of the GNU Lesser General Public
@@ -66,10 +66,8 @@ public final class IdeaStarter
      *
      * @param args The command line arguments.
      */
-    @SuppressWarnings( "CallToPrintStackTrace" )
     public static final void main( final String... args )
     {
-        //noinspection TryWithIdenticalCatches
         try
         {
             final var currentDir = new File( "." ).getCanonicalFile().getAbsoluteFile();

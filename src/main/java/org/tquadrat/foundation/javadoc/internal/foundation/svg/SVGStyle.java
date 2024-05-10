@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2020 by Thomas Thrien.
+ * Copyright © 2002-2024 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -33,14 +33,6 @@ import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersi
 @API( status = STABLE, since = "0.0.5" )
 public interface SVGStyle extends SVGElement
 {
-        /*-----------*\
-    ====** Constants **========================================================
-        \*-----------*/
-    /**
-     *  An empty array of {@code SVGStyle} objects.
-     */
-    public static final SVGStyle [] EMPTY_SVGStyle_ARRAY = new SVGStyle [0];
-
         /*---------*\
     ====** Methods **==========================================================
         \*---------*/

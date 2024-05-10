@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2020 by Thomas Thrien.
+ * Copyright © 2002-2024 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -317,6 +317,7 @@ public final class UMLGraphLayout
      *  @param  height  The height of the rectangle.
      *  @return The id for the clippath element.
      */
+    @SuppressWarnings( "unused" )
     public final String addClippath( final double x, final double y, final double width, final double height )
     {
         final var clipRectangle = createRectangle( number( x ), number( y ), number( width ), number( height ) );

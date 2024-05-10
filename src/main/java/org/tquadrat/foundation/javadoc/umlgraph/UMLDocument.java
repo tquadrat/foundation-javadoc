@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2020 by Thomas Thrien.
+ * Copyright © 2002-2024 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -262,6 +262,7 @@ public class UMLDocument
      *
      *  @return The SVG root element.
      */
+    @SuppressWarnings( "unused" )
     public final SVG getSVGRoot() { return m_Root; }
 
     /**
@@ -294,7 +295,6 @@ public class UMLDocument
     private static final String [] loadCSS() throws IOException
     {
         final String [] styles;
-        final var module = UmlGraphLinkTaglet.class.getModule();
         final var cssResource = UmlGraphLinkTaglet.class.getResource( UML_CSS );
         if( isNull( cssResource ) )
         {

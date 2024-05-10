@@ -169,7 +169,7 @@ public enum SVGUnit
      *  @param  unit    The unit String.
      *  @return The {@code SVGUnit} for the given unit.
      */
-    @SuppressWarnings( "AccessingNonPublicFieldOfAnotherObject" )
+    @SuppressWarnings( {"AccessingNonPublicFieldOfAnotherObject", "unused"} )
     @API( status = STABLE, since = "0.0.5" )
     public static final SVGUnit valueForUnit( final String unit )
     {

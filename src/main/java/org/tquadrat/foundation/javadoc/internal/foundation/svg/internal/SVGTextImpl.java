@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2018 by Thomas Thrien.
+ * Copyright © 2002-2024 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -74,7 +74,7 @@ public final class SVGTextImpl extends SVGTextBase implements SVGText
         childElements.addAll( ANIMATION.getElements() );
         childElements.addAll( DESCRIPTIVE.getElements() );
         childElements.addAll( TEXT_CONTENT.getElements() );
-        childElements.addAll( List.of( SVGELEMENT_Anchor ) );
+        childElements.add( SVGELEMENT_Anchor );
 
         final Collection<String> attributes = new ArrayList<>();
         attributes.addAll( List.of( SVGATTRIBUTE_Id, SVGATTRIBUTE_x,

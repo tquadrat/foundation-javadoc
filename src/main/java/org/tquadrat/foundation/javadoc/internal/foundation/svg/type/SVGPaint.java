@@ -92,7 +92,7 @@ public sealed class SVGPaint extends ValueBase
      *
      *  @param  color   The colour.
      */
-    @SuppressWarnings( "UseOfConcreteClass" )
+    @SuppressWarnings( {"UseOfConcreteClass", "unused"} )
     public SVGPaint( final SVGColor color )
     {
         m_Value = requireNonNullArgument( color, "color" ).value();

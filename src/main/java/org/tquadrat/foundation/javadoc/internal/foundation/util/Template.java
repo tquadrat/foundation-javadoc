@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- *  Copyright © 2002-2021 by Thomas Thrien.
+ *  Copyright © 2002-2024 by Thomas Thrien.
  *  All Rights Reserved.
  * ============================================================================
  *  Licensed to the public under the agreements of the GNU Lesser General Public
@@ -62,6 +62,7 @@ import org.tquadrat.foundation.javadoc.internal.foundation.exception.ImpossibleE
  *  @version $Id: Template.java 977 2022-01-06 11:41:03Z tquadrat $
  *  @since 0.1.0
  */
+@SuppressWarnings( "unused" )
 @ClassVersion( sourceVersion = "$Id: Template.java 977 2022-01-06 11:41:03Z tquadrat $" )
 @API( status = STABLE, since = "0.1.0" )
 public class Template implements Serializable
@@ -85,7 +86,7 @@ public class Template implements Serializable
      */
     @SuppressWarnings( "RegExpUnnecessaryNonCapturingGroup" )
     @API( status = STABLE, since = "0.1.0" )
-    public static final String VARIABLE_PATTERN = "\\$\\{((?:_)|(?:[~/=%:&]?\\p{IsAlphabetic}(?:\\p{IsAlphabetic}|\\p{Digit}|_|.)*?))}";
+    public static final String VARIABLE_PATTERN = "\\$\\{((?:_)|(?:[~/=%:&]?\\p{IsAlphabetic}(?:\\p{IsAlphabetic}|\\d|_|.)*?))}";
 
     /**
      *  The template for variables: {@value}. The argument is the name of the

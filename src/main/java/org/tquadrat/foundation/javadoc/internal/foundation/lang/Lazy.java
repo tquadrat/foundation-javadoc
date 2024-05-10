@@ -72,6 +72,7 @@ public interface Lazy<T>
      *
      *  @param  consumer    The consumer.
      */
+    @SuppressWarnings( "unused" )
     public default void ifPresent( final Consumer<? super T> consumer )
     {
         if( isPresent() ) requireNonNullArgument( consumer, "consumer" ).accept( get() );
@@ -139,6 +140,7 @@ public interface Lazy<T>
      *  @throws X   When not initialised, the exception created by the given
      *      supplier will be thrown.
      */
+    @SuppressWarnings( "unused" )
     public <X extends Throwable> T orElseThrow( Supplier<? extends X> exceptionSupplier ) throws X;
 
     /**

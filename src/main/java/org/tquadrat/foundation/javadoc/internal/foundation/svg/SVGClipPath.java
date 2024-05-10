@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2020 by Thomas Thrien.
+ * Copyright © 2002-2024 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -48,6 +48,7 @@ public interface SVGClipPath extends AllowsConditionalProcessingAttributes, Allo
      *      represents values in the current user coordinate system in place at
      *      the time when the {@code <clipPath>} element is referenced.
      */
+    @SuppressWarnings( "unused" )
     public void setClipPathUnits( final boolean flag );
 }
 //  interface SVGClipPath

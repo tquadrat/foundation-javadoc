@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2021 by Thomas Thrien.
+ * Copyright © 2002-2024 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -303,7 +303,6 @@ public final class Common
      *      file object.
      */
     @API( status = MAINTAINED, since = "0.0.5" )
-    @SuppressWarnings( "resource" )
     public static final FileObject getOutputFileObject( final DocletEnvironment environment, final TypeElement typeElement, final String fileName ) throws IOException
     {
         final var elementUtils = requireNonNullArgument( environment, "environment" ).getElementUtils();
@@ -495,14 +494,7 @@ public final class Common
                                                 else
                                                 {
                                                     term = body.substring( 0, p );
-                                                    if( body.length() > p )
-                                                    {
-                                                        description = body.substring( p + 1 ).trim();
-                                                    }
-                                                    else
-                                                    {
-                                                        description = term;
-                                                    }
+                                                    description = body.substring( p + 1 ).trim();
                                                 }
                                             }
                                             docTree = docTreeFactory.newIndexTree( docTreeFactory.newTextTree( term ), singletonList( docTreeFactory.newTextTree( description ) ) );

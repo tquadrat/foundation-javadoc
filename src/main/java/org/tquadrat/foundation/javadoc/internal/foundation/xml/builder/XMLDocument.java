@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2018 by Thomas Thrien.
+ * Copyright © 2002-2024 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  *
@@ -42,7 +42,7 @@ import org.tquadrat.foundation.javadoc.internal.foundation.xml.builder.spi.Docum
  *  @version $Id: XMLDocument.java 976 2022-01-06 11:39:58Z tquadrat $
  *  @since 0.0.5
  */
-@SuppressWarnings( "ClassWithTooManyMethods" )
+@SuppressWarnings( {"ClassWithTooManyMethods", "unused"} )
 @ClassVersion( sourceVersion = "$Id: XMLDocument.java 976 2022-01-06 11:39:58Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
 public interface XMLDocument extends Document<XMLElement>

@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2020 by Thomas Thrien.
+ * Copyright © 2002-2024 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -56,6 +56,7 @@ public interface Document<E extends Element>
      *      {@link Optional}
      *      that holds the value for that attribute.
      */
+    @SuppressWarnings( "unused" )
     public default Optional<String> getAttribute( final String name ) { return getRootElement().getAttribute( name ); }
 
     /**
