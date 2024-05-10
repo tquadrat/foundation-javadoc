@@ -126,496 +126,498 @@
 <span class="source-line-no">113</span><span id="line-113">        \*------------*/</span>
 <span class="source-line-no">114</span><span id="line-114">    /**</span>
 <span class="source-line-no">115</span><span id="line-115">     *  The template text.</span>
-<span class="source-line-no">116</span><span id="line-116">     */</span>
-<span class="source-line-no">117</span><span id="line-117">    private final String m_TemplateText;</span>
-<span class="source-line-no">118</span><span id="line-118"></span>
-<span class="source-line-no">119</span><span id="line-119">        /*------------------------*\</span>
-<span class="source-line-no">120</span><span id="line-120">    ====** Static Initialisations **===========================================</span>
-<span class="source-line-no">121</span><span id="line-121">        \*------------------------*/</span>
-<span class="source-line-no">122</span><span id="line-122">    /**</span>
-<span class="source-line-no">123</span><span id="line-123">     *  The pattern that is used to identify a variable in a char sequence.</span>
-<span class="source-line-no">124</span><span id="line-124">     *</span>
-<span class="source-line-no">125</span><span id="line-125">     *  @see #replaceVariable(CharSequence, Map...)</span>
-<span class="source-line-no">126</span><span id="line-126">     *  @see #replaceVariable(Map...)</span>
-<span class="source-line-no">127</span><span id="line-127">     *  @see #findVariables(CharSequence)</span>
-<span class="source-line-no">128</span><span id="line-128">     *  @see #findVariables()</span>
-<span class="source-line-no">129</span><span id="line-129">     *  @see #VARIABLE_PATTERN</span>
-<span class="source-line-no">130</span><span id="line-130">     */</span>
-<span class="source-line-no">131</span><span id="line-131">    private static final Pattern m_VariablePattern;</span>
-<span class="source-line-no">132</span><span id="line-132"></span>
-<span class="source-line-no">133</span><span id="line-133">    /**</span>
-<span class="source-line-no">134</span><span id="line-134">     *  The serial version UID for objects of this class: {@value}.</span>
-<span class="source-line-no">135</span><span id="line-135">     *</span>
-<span class="source-line-no">136</span><span id="line-136">     *  @hidden</span>
-<span class="source-line-no">137</span><span id="line-137">     */</span>
-<span class="source-line-no">138</span><span id="line-138">    @Serial</span>
-<span class="source-line-no">139</span><span id="line-139">    private static final long serialVersionUID = 1L;</span>
-<span class="source-line-no">140</span><span id="line-140"></span>
-<span class="source-line-no">141</span><span id="line-141">    static</span>
-<span class="source-line-no">142</span><span id="line-142">    {</span>
-<span class="source-line-no">143</span><span id="line-143">        //---* The regex patterns *--------------------------------------------</span>
-<span class="source-line-no">144</span><span id="line-144">        try</span>
-<span class="source-line-no">145</span><span id="line-145">        {</span>
-<span class="source-line-no">146</span><span id="line-146">            m_VariablePattern = compile( VARIABLE_PATTERN );</span>
-<span class="source-line-no">147</span><span id="line-147">        }</span>
-<span class="source-line-no">148</span><span id="line-148">        catch( final PatternSyntaxException e )</span>
-<span class="source-line-no">149</span><span id="line-149">        {</span>
-<span class="source-line-no">150</span><span id="line-150">            throw new ImpossibleExceptionError( "The patterns are constant values that have been tested", e );</span>
-<span class="source-line-no">151</span><span id="line-151">        }</span>
-<span class="source-line-no">152</span><span id="line-152">    }</span>
-<span class="source-line-no">153</span><span id="line-153"></span>
-<span class="source-line-no">154</span><span id="line-154">        /*--------------*\</span>
-<span class="source-line-no">155</span><span id="line-155">    ====** Constructors **=====================================================</span>
-<span class="source-line-no">156</span><span id="line-156">        \*--------------*/</span>
-<span class="source-line-no">157</span><span id="line-157">    /**</span>
-<span class="source-line-no">158</span><span id="line-158">     *  Creates a new instance of {@code Template}.</span>
-<span class="source-line-no">159</span><span id="line-159">     *</span>
-<span class="source-line-no">160</span><span id="line-160">     *  @param  templateText    The template text, containing variable in the</span>
-<span class="source-line-no">161</span><span id="line-161">     *      form &lt;code&gt;${&amp;lt;&lt;i&gt;name&lt;/i&gt;&amp;gt;}&lt;/code&gt;.</span>
-<span class="source-line-no">162</span><span id="line-162">     */</span>
-<span class="source-line-no">163</span><span id="line-163">    public Template( final CharSequence templateText )</span>
-<span class="source-line-no">164</span><span id="line-164">    {</span>
-<span class="source-line-no">165</span><span id="line-165">        m_TemplateText = requireNonNullArgument( templateText, "templateText" ).toString();</span>
-<span class="source-line-no">166</span><span id="line-166">    }   //  Template()</span>
-<span class="source-line-no">167</span><span id="line-167"></span>
-<span class="source-line-no">168</span><span id="line-168">        /*---------*\</span>
-<span class="source-line-no">169</span><span id="line-169">    ====** Methods **==========================================================</span>
-<span class="source-line-no">170</span><span id="line-170">        \*---------*/</span>
-<span class="source-line-no">171</span><span id="line-171">    /**</span>
-<span class="source-line-no">172</span><span id="line-172">     *  Escapes backslash ('\') and dollar sign ('$') for regex replacements.</span>
-<span class="source-line-no">173</span><span id="line-173">     *</span>
-<span class="source-line-no">174</span><span id="line-174">     *  @param  s   The source string.</span>
-<span class="source-line-no">175</span><span id="line-175">     *  @return The string with the escaped characters.</span>
-<span class="source-line-no">176</span><span id="line-176">     *</span>
-<span class="source-line-no">177</span><span id="line-177">     *  @see java.util.regex.Matcher#appendReplacement(StringBuffer,String)</span>
+<span class="source-line-no">116</span><span id="line-116">     *</span>
+<span class="source-line-no">117</span><span id="line-117">     *  @serial</span>
+<span class="source-line-no">118</span><span id="line-118">     */</span>
+<span class="source-line-no">119</span><span id="line-119">    private final String m_TemplateText;</span>
+<span class="source-line-no">120</span><span id="line-120"></span>
+<span class="source-line-no">121</span><span id="line-121">        /*------------------------*\</span>
+<span class="source-line-no">122</span><span id="line-122">    ====** Static Initialisations **===========================================</span>
+<span class="source-line-no">123</span><span id="line-123">        \*------------------------*/</span>
+<span class="source-line-no">124</span><span id="line-124">    /**</span>
+<span class="source-line-no">125</span><span id="line-125">     *  The pattern that is used to identify a variable in a char sequence.</span>
+<span class="source-line-no">126</span><span id="line-126">     *</span>
+<span class="source-line-no">127</span><span id="line-127">     *  @see #replaceVariable(CharSequence, Map...)</span>
+<span class="source-line-no">128</span><span id="line-128">     *  @see #replaceVariable(Map...)</span>
+<span class="source-line-no">129</span><span id="line-129">     *  @see #findVariables(CharSequence)</span>
+<span class="source-line-no">130</span><span id="line-130">     *  @see #findVariables()</span>
+<span class="source-line-no">131</span><span id="line-131">     *  @see #VARIABLE_PATTERN</span>
+<span class="source-line-no">132</span><span id="line-132">     */</span>
+<span class="source-line-no">133</span><span id="line-133">    private static final Pattern m_VariablePattern;</span>
+<span class="source-line-no">134</span><span id="line-134"></span>
+<span class="source-line-no">135</span><span id="line-135">    /**</span>
+<span class="source-line-no">136</span><span id="line-136">     *  The serial version UID for objects of this class: {@value}.</span>
+<span class="source-line-no">137</span><span id="line-137">     *</span>
+<span class="source-line-no">138</span><span id="line-138">     *  @hidden</span>
+<span class="source-line-no">139</span><span id="line-139">     */</span>
+<span class="source-line-no">140</span><span id="line-140">    @Serial</span>
+<span class="source-line-no">141</span><span id="line-141">    private static final long serialVersionUID = 1L;</span>
+<span class="source-line-no">142</span><span id="line-142"></span>
+<span class="source-line-no">143</span><span id="line-143">    static</span>
+<span class="source-line-no">144</span><span id="line-144">    {</span>
+<span class="source-line-no">145</span><span id="line-145">        //---* The regex patterns *--------------------------------------------</span>
+<span class="source-line-no">146</span><span id="line-146">        try</span>
+<span class="source-line-no">147</span><span id="line-147">        {</span>
+<span class="source-line-no">148</span><span id="line-148">            m_VariablePattern = compile( VARIABLE_PATTERN );</span>
+<span class="source-line-no">149</span><span id="line-149">        }</span>
+<span class="source-line-no">150</span><span id="line-150">        catch( final PatternSyntaxException e )</span>
+<span class="source-line-no">151</span><span id="line-151">        {</span>
+<span class="source-line-no">152</span><span id="line-152">            throw new ImpossibleExceptionError( "The patterns are constant values that have been tested", e );</span>
+<span class="source-line-no">153</span><span id="line-153">        }</span>
+<span class="source-line-no">154</span><span id="line-154">    }</span>
+<span class="source-line-no">155</span><span id="line-155"></span>
+<span class="source-line-no">156</span><span id="line-156">        /*--------------*\</span>
+<span class="source-line-no">157</span><span id="line-157">    ====** Constructors **=====================================================</span>
+<span class="source-line-no">158</span><span id="line-158">        \*--------------*/</span>
+<span class="source-line-no">159</span><span id="line-159">    /**</span>
+<span class="source-line-no">160</span><span id="line-160">     *  Creates a new instance of {@code Template}.</span>
+<span class="source-line-no">161</span><span id="line-161">     *</span>
+<span class="source-line-no">162</span><span id="line-162">     *  @param  templateText    The template text, containing variable in the</span>
+<span class="source-line-no">163</span><span id="line-163">     *      form &lt;code&gt;${&amp;lt;&lt;i&gt;name&lt;/i&gt;&amp;gt;}&lt;/code&gt;.</span>
+<span class="source-line-no">164</span><span id="line-164">     */</span>
+<span class="source-line-no">165</span><span id="line-165">    public Template( final CharSequence templateText )</span>
+<span class="source-line-no">166</span><span id="line-166">    {</span>
+<span class="source-line-no">167</span><span id="line-167">        m_TemplateText = requireNonNullArgument( templateText, "templateText" ).toString();</span>
+<span class="source-line-no">168</span><span id="line-168">    }   //  Template()</span>
+<span class="source-line-no">169</span><span id="line-169"></span>
+<span class="source-line-no">170</span><span id="line-170">        /*---------*\</span>
+<span class="source-line-no">171</span><span id="line-171">    ====** Methods **==========================================================</span>
+<span class="source-line-no">172</span><span id="line-172">        \*---------*/</span>
+<span class="source-line-no">173</span><span id="line-173">    /**</span>
+<span class="source-line-no">174</span><span id="line-174">     *  Escapes backslash ('\') and dollar sign ('$') for regex replacements.</span>
+<span class="source-line-no">175</span><span id="line-175">     *</span>
+<span class="source-line-no">176</span><span id="line-176">     *  @param  s   The source string.</span>
+<span class="source-line-no">177</span><span id="line-177">     *  @return The string with the escaped characters.</span>
 <span class="source-line-no">178</span><span id="line-178">     *</span>
-<span class="source-line-no">179</span><span id="line-179">     *  @since 0.1.0</span>
-<span class="source-line-no">180</span><span id="line-180">     */</span>
-<span class="source-line-no">181</span><span id="line-181">    @API( status = INTERNAL, since = "0.1.0" )</span>
-<span class="source-line-no">182</span><span id="line-182">    private static String escapeRegexReplacement( final CharSequence s )</span>
-<span class="source-line-no">183</span><span id="line-183">    {</span>
-<span class="source-line-no">184</span><span id="line-184">        assert nonNull( s ) : "s is null";</span>
-<span class="source-line-no">185</span><span id="line-185"></span>
-<span class="source-line-no">186</span><span id="line-186">        //---* Escape the backslashes and dollar signs *-------------------</span>
-<span class="source-line-no">187</span><span id="line-187">        final var len = s.length();</span>
-<span class="source-line-no">188</span><span id="line-188">        final var retValue = new StringBuilder( (len * 12) / 10 );</span>
-<span class="source-line-no">189</span><span id="line-189">        char c;</span>
-<span class="source-line-no">190</span><span id="line-190">        EscapeLoop: for( var i = 0; i &lt; len; ++i )</span>
-<span class="source-line-no">191</span><span id="line-191">        {</span>
-<span class="source-line-no">192</span><span id="line-192">            c = s.charAt( i );</span>
-<span class="source-line-no">193</span><span id="line-193">            switch( c )</span>
-<span class="source-line-no">194</span><span id="line-194">            {</span>
-<span class="source-line-no">195</span><span id="line-195">                case '\\':</span>
-<span class="source-line-no">196</span><span id="line-196">                case '$':</span>
-<span class="source-line-no">197</span><span id="line-197">                    retValue.append( '\\' ); // The fall through is intended here!</span>
-<span class="source-line-no">198</span><span id="line-198">                    //$FALL-THROUGH$</span>
-<span class="source-line-no">199</span><span id="line-199">                default: // Do nothing ...</span>
-<span class="source-line-no">200</span><span id="line-200">            }</span>
-<span class="source-line-no">201</span><span id="line-201">            retValue.append( c );</span>
-<span class="source-line-no">202</span><span id="line-202">        }   //  EscapeLoop:</span>
-<span class="source-line-no">203</span><span id="line-203"></span>
-<span class="source-line-no">204</span><span id="line-204">        //---* Done *----------------------------------------------------------</span>
-<span class="source-line-no">205</span><span id="line-205">        return retValue.toString();</span>
-<span class="source-line-no">206</span><span id="line-206">    }   //  escapeRegexReplacement()</span>
-<span class="source-line-no">207</span><span id="line-207"></span>
-<span class="source-line-no">208</span><span id="line-208">    /**</span>
-<span class="source-line-no">209</span><span id="line-209">     *  Collects all the variables of the form</span>
-<span class="source-line-no">210</span><span id="line-210">     *  &lt;code&gt;${&lt;i&gt;&amp;lt;name&amp;gt;&lt;/i&gt;}&lt;/code&gt; in the given String.&lt;br&gt;</span>
-<span class="source-line-no">211</span><span id="line-211">     *  &lt;br&gt;If there are not any variables in the given String, an empty</span>
-<span class="source-line-no">212</span><span id="line-212">     *  {@link Set}</span>
-<span class="source-line-no">213</span><span id="line-213">     *  will be returned.&lt;br&gt;</span>
-<span class="source-line-no">214</span><span id="line-214">     *  &lt;br&gt;A valid variable name may not contain any other characters than the</span>
-<span class="source-line-no">215</span><span id="line-215">     *  letters from 'a' to 'z' (upper case and lower case), the digits from</span>
-<span class="source-line-no">216</span><span id="line-216">     *  '0' to '9' and the special characters underscore ('_') and dot ('.'),</span>
-<span class="source-line-no">217</span><span id="line-217">     *  after an optional prefix character.&lt;br&gt;</span>
-<span class="source-line-no">218</span><span id="line-218">     *  &lt;br&gt;Allowed prefixes are the tilde ('~'), the slash ('/'), the equal</span>
-<span class="source-line-no">219</span><span id="line-219">     *  sign ('='), the colon (':'), the percent sign ('%'), and the ampersand</span>
-<span class="source-line-no">220</span><span id="line-220">     *  ('&amp;amp;').&lt;br&gt;</span>
-<span class="source-line-no">221</span><span id="line-221">     *  &lt;br&gt;Finally, there is the single underscore that is allowed as a</span>
-<span class="source-line-no">222</span><span id="line-222">     *  special variable.</span>
-<span class="source-line-no">223</span><span id="line-223">     *</span>
-<span class="source-line-no">224</span><span id="line-224">     *  @param  text    The text with the variables; may be {@code null}.</span>
-<span class="source-line-no">225</span><span id="line-225">     *  @return A {@code Collection} with the variable (names).</span>
-<span class="source-line-no">226</span><span id="line-226">     *</span>
-<span class="source-line-no">227</span><span id="line-227">     *  @see #VARIABLE_PATTERN</span>
+<span class="source-line-no">179</span><span id="line-179">     *  @see java.util.regex.Matcher#appendReplacement(StringBuffer,String)</span>
+<span class="source-line-no">180</span><span id="line-180">     *</span>
+<span class="source-line-no">181</span><span id="line-181">     *  @since 0.1.0</span>
+<span class="source-line-no">182</span><span id="line-182">     */</span>
+<span class="source-line-no">183</span><span id="line-183">    @API( status = INTERNAL, since = "0.1.0" )</span>
+<span class="source-line-no">184</span><span id="line-184">    private static String escapeRegexReplacement( final CharSequence s )</span>
+<span class="source-line-no">185</span><span id="line-185">    {</span>
+<span class="source-line-no">186</span><span id="line-186">        assert nonNull( s ) : "s is null";</span>
+<span class="source-line-no">187</span><span id="line-187"></span>
+<span class="source-line-no">188</span><span id="line-188">        //---* Escape the backslashes and dollar signs *-------------------</span>
+<span class="source-line-no">189</span><span id="line-189">        final var len = s.length();</span>
+<span class="source-line-no">190</span><span id="line-190">        final var retValue = new StringBuilder( (len * 12) / 10 );</span>
+<span class="source-line-no">191</span><span id="line-191">        char c;</span>
+<span class="source-line-no">192</span><span id="line-192">        EscapeLoop: for( var i = 0; i &lt; len; ++i )</span>
+<span class="source-line-no">193</span><span id="line-193">        {</span>
+<span class="source-line-no">194</span><span id="line-194">            c = s.charAt( i );</span>
+<span class="source-line-no">195</span><span id="line-195">            switch( c )</span>
+<span class="source-line-no">196</span><span id="line-196">            {</span>
+<span class="source-line-no">197</span><span id="line-197">                case '\\':</span>
+<span class="source-line-no">198</span><span id="line-198">                case '$':</span>
+<span class="source-line-no">199</span><span id="line-199">                    retValue.append( '\\' ); // The fall through is intended here!</span>
+<span class="source-line-no">200</span><span id="line-200">                    //$FALL-THROUGH$</span>
+<span class="source-line-no">201</span><span id="line-201">                default: // Do nothing ...</span>
+<span class="source-line-no">202</span><span id="line-202">            }</span>
+<span class="source-line-no">203</span><span id="line-203">            retValue.append( c );</span>
+<span class="source-line-no">204</span><span id="line-204">        }   //  EscapeLoop:</span>
+<span class="source-line-no">205</span><span id="line-205"></span>
+<span class="source-line-no">206</span><span id="line-206">        //---* Done *----------------------------------------------------------</span>
+<span class="source-line-no">207</span><span id="line-207">        return retValue.toString();</span>
+<span class="source-line-no">208</span><span id="line-208">    }   //  escapeRegexReplacement()</span>
+<span class="source-line-no">209</span><span id="line-209"></span>
+<span class="source-line-no">210</span><span id="line-210">    /**</span>
+<span class="source-line-no">211</span><span id="line-211">     *  Collects all the variables of the form</span>
+<span class="source-line-no">212</span><span id="line-212">     *  &lt;code&gt;${&lt;i&gt;&amp;lt;name&amp;gt;&lt;/i&gt;}&lt;/code&gt; in the given String.&lt;br&gt;</span>
+<span class="source-line-no">213</span><span id="line-213">     *  &lt;br&gt;If there are not any variables in the given String, an empty</span>
+<span class="source-line-no">214</span><span id="line-214">     *  {@link Set}</span>
+<span class="source-line-no">215</span><span id="line-215">     *  will be returned.&lt;br&gt;</span>
+<span class="source-line-no">216</span><span id="line-216">     *  &lt;br&gt;A valid variable name may not contain any other characters than the</span>
+<span class="source-line-no">217</span><span id="line-217">     *  letters from 'a' to 'z' (upper case and lower case), the digits from</span>
+<span class="source-line-no">218</span><span id="line-218">     *  '0' to '9' and the special characters underscore ('_') and dot ('.'),</span>
+<span class="source-line-no">219</span><span id="line-219">     *  after an optional prefix character.&lt;br&gt;</span>
+<span class="source-line-no">220</span><span id="line-220">     *  &lt;br&gt;Allowed prefixes are the tilde ('~'), the slash ('/'), the equal</span>
+<span class="source-line-no">221</span><span id="line-221">     *  sign ('='), the colon (':'), the percent sign ('%'), and the ampersand</span>
+<span class="source-line-no">222</span><span id="line-222">     *  ('&amp;amp;').&lt;br&gt;</span>
+<span class="source-line-no">223</span><span id="line-223">     *  &lt;br&gt;Finally, there is the single underscore that is allowed as a</span>
+<span class="source-line-no">224</span><span id="line-224">     *  special variable.</span>
+<span class="source-line-no">225</span><span id="line-225">     *</span>
+<span class="source-line-no">226</span><span id="line-226">     *  @param  text    The text with the variables; may be {@code null}.</span>
+<span class="source-line-no">227</span><span id="line-227">     *  @return A {@code Collection} with the variable (names).</span>
 <span class="source-line-no">228</span><span id="line-228">     *</span>
-<span class="source-line-no">229</span><span id="line-229">     *  @since 0.0.5</span>
-<span class="source-line-no">230</span><span id="line-230">     */</span>
-<span class="source-line-no">231</span><span id="line-231">    @API( status = STABLE, since = "0.0.5" )</span>
-<span class="source-line-no">232</span><span id="line-232">    public static final Set&lt;String&gt; findVariables( final CharSequence text )</span>
-<span class="source-line-no">233</span><span id="line-233">    {</span>
-<span class="source-line-no">234</span><span id="line-234">        final Collection&lt;String&gt; buffer = new HashSet&lt;&gt;();</span>
-<span class="source-line-no">235</span><span id="line-235">        if( nonNull( text ) )</span>
-<span class="source-line-no">236</span><span id="line-236">        {</span>
-<span class="source-line-no">237</span><span id="line-237">            final var matcher = m_VariablePattern.matcher( text );</span>
-<span class="source-line-no">238</span><span id="line-238">            String found;</span>
-<span class="source-line-no">239</span><span id="line-239">            while( matcher.find() )</span>
-<span class="source-line-no">240</span><span id="line-240">            {</span>
-<span class="source-line-no">241</span><span id="line-241">                found = matcher.group( 1 );</span>
-<span class="source-line-no">242</span><span id="line-242">                buffer.add( found );</span>
-<span class="source-line-no">243</span><span id="line-243">            }</span>
-<span class="source-line-no">244</span><span id="line-244">        }</span>
-<span class="source-line-no">245</span><span id="line-245">        final var retValue = Set.copyOf( buffer );</span>
-<span class="source-line-no">246</span><span id="line-246"></span>
-<span class="source-line-no">247</span><span id="line-247">        //---* Done *----------------------------------------------------------</span>
-<span class="source-line-no">248</span><span id="line-248">        return retValue;</span>
-<span class="source-line-no">249</span><span id="line-249">    }   //  findVariables()</span>
-<span class="source-line-no">250</span><span id="line-250"></span>
-<span class="source-line-no">251</span><span id="line-251">    /**</span>
-<span class="source-line-no">252</span><span id="line-252">     *  Collects all the variables of the form</span>
-<span class="source-line-no">253</span><span id="line-253">     *  &lt;code&gt;${&lt;i&gt;&amp;lt;name&amp;gt;&lt;/i&gt;}&lt;/code&gt; in the adjusted template.&lt;br&gt;</span>
-<span class="source-line-no">254</span><span id="line-254">     *  &lt;br&gt;If there are not any variables in there, an empty</span>
-<span class="source-line-no">255</span><span id="line-255">     *  {@link Collection}</span>
-<span class="source-line-no">256</span><span id="line-256">     *  will be returned.&lt;br&gt;</span>
-<span class="source-line-no">257</span><span id="line-257">     *  &lt;br&gt;A valid variable name may not contain any other characters than the</span>
-<span class="source-line-no">258</span><span id="line-258">     *  letters from 'a' to 'z' (upper case and lower case), the digits from</span>
-<span class="source-line-no">259</span><span id="line-259">     *  '0' to '9' and the special characters underscore ('_') and dot ('.'),</span>
-<span class="source-line-no">260</span><span id="line-260">     *  after an optional prefix character.&lt;br&gt;</span>
-<span class="source-line-no">261</span><span id="line-261">     *  &lt;br&gt;Allowed prefixes are the tilde ('~'), the slash ('/'), the equal</span>
-<span class="source-line-no">262</span><span id="line-262">     *  sign ('='), the colon (':'), the percent sign ('%'), and the ampersand</span>
-<span class="source-line-no">263</span><span id="line-263">     *  ('&amp;amp;').&lt;br&gt;</span>
-<span class="source-line-no">264</span><span id="line-264">     *  &lt;br&gt;Finally, there is the single underscore that is allowed as a</span>
-<span class="source-line-no">265</span><span id="line-265">     *  special variable.</span>
-<span class="source-line-no">266</span><span id="line-266">     *</span>
-<span class="source-line-no">267</span><span id="line-267">     *  @return A {@code Collection} with the variable (names).</span>
+<span class="source-line-no">229</span><span id="line-229">     *  @see #VARIABLE_PATTERN</span>
+<span class="source-line-no">230</span><span id="line-230">     *</span>
+<span class="source-line-no">231</span><span id="line-231">     *  @since 0.0.5</span>
+<span class="source-line-no">232</span><span id="line-232">     */</span>
+<span class="source-line-no">233</span><span id="line-233">    @API( status = STABLE, since = "0.0.5" )</span>
+<span class="source-line-no">234</span><span id="line-234">    public static final Set&lt;String&gt; findVariables( final CharSequence text )</span>
+<span class="source-line-no">235</span><span id="line-235">    {</span>
+<span class="source-line-no">236</span><span id="line-236">        final Collection&lt;String&gt; buffer = new HashSet&lt;&gt;();</span>
+<span class="source-line-no">237</span><span id="line-237">        if( nonNull( text ) )</span>
+<span class="source-line-no">238</span><span id="line-238">        {</span>
+<span class="source-line-no">239</span><span id="line-239">            final var matcher = m_VariablePattern.matcher( text );</span>
+<span class="source-line-no">240</span><span id="line-240">            String found;</span>
+<span class="source-line-no">241</span><span id="line-241">            while( matcher.find() )</span>
+<span class="source-line-no">242</span><span id="line-242">            {</span>
+<span class="source-line-no">243</span><span id="line-243">                found = matcher.group( 1 );</span>
+<span class="source-line-no">244</span><span id="line-244">                buffer.add( found );</span>
+<span class="source-line-no">245</span><span id="line-245">            }</span>
+<span class="source-line-no">246</span><span id="line-246">        }</span>
+<span class="source-line-no">247</span><span id="line-247">        final var retValue = Set.copyOf( buffer );</span>
+<span class="source-line-no">248</span><span id="line-248"></span>
+<span class="source-line-no">249</span><span id="line-249">        //---* Done *----------------------------------------------------------</span>
+<span class="source-line-no">250</span><span id="line-250">        return retValue;</span>
+<span class="source-line-no">251</span><span id="line-251">    }   //  findVariables()</span>
+<span class="source-line-no">252</span><span id="line-252"></span>
+<span class="source-line-no">253</span><span id="line-253">    /**</span>
+<span class="source-line-no">254</span><span id="line-254">     *  Collects all the variables of the form</span>
+<span class="source-line-no">255</span><span id="line-255">     *  &lt;code&gt;${&lt;i&gt;&amp;lt;name&amp;gt;&lt;/i&gt;}&lt;/code&gt; in the adjusted template.&lt;br&gt;</span>
+<span class="source-line-no">256</span><span id="line-256">     *  &lt;br&gt;If there are not any variables in there, an empty</span>
+<span class="source-line-no">257</span><span id="line-257">     *  {@link Collection}</span>
+<span class="source-line-no">258</span><span id="line-258">     *  will be returned.&lt;br&gt;</span>
+<span class="source-line-no">259</span><span id="line-259">     *  &lt;br&gt;A valid variable name may not contain any other characters than the</span>
+<span class="source-line-no">260</span><span id="line-260">     *  letters from 'a' to 'z' (upper case and lower case), the digits from</span>
+<span class="source-line-no">261</span><span id="line-261">     *  '0' to '9' and the special characters underscore ('_') and dot ('.'),</span>
+<span class="source-line-no">262</span><span id="line-262">     *  after an optional prefix character.&lt;br&gt;</span>
+<span class="source-line-no">263</span><span id="line-263">     *  &lt;br&gt;Allowed prefixes are the tilde ('~'), the slash ('/'), the equal</span>
+<span class="source-line-no">264</span><span id="line-264">     *  sign ('='), the colon (':'), the percent sign ('%'), and the ampersand</span>
+<span class="source-line-no">265</span><span id="line-265">     *  ('&amp;amp;').&lt;br&gt;</span>
+<span class="source-line-no">266</span><span id="line-266">     *  &lt;br&gt;Finally, there is the single underscore that is allowed as a</span>
+<span class="source-line-no">267</span><span id="line-267">     *  special variable.</span>
 <span class="source-line-no">268</span><span id="line-268">     *</span>
-<span class="source-line-no">269</span><span id="line-269">     *  @see #VARIABLE_PATTERN</span>
-<span class="source-line-no">270</span><span id="line-270">     */</span>
-<span class="source-line-no">271</span><span id="line-271">    public final Set&lt;String&gt; findVariables()</span>
-<span class="source-line-no">272</span><span id="line-272">    {</span>
-<span class="source-line-no">273</span><span id="line-273">        final var retValue = findVariables( m_TemplateText );</span>
-<span class="source-line-no">274</span><span id="line-274"></span>
-<span class="source-line-no">275</span><span id="line-275">        //---* Done *----------------------------------------------------------</span>
-<span class="source-line-no">276</span><span id="line-276">        return retValue;</span>
-<span class="source-line-no">277</span><span id="line-277">    }   //  findVariables()</span>
-<span class="source-line-no">278</span><span id="line-278"></span>
-<span class="source-line-no">279</span><span id="line-279">    /**</span>
-<span class="source-line-no">280</span><span id="line-280">     *  Checks whether the adjusted template contains the variable of</span>
-<span class="source-line-no">281</span><span id="line-281">     *  the form &lt;code&gt;${&lt;i&gt;&amp;lt;name&amp;gt;&lt;/i&gt;}&lt;/code&gt; (matching the pattern</span>
-<span class="source-line-no">282</span><span id="line-282">     *  given in</span>
-<span class="source-line-no">283</span><span id="line-283">     *  {@link #VARIABLE_PATTERN})</span>
-<span class="source-line-no">284</span><span id="line-284">     *  with the given name.</span>
-<span class="source-line-no">285</span><span id="line-285">     *</span>
-<span class="source-line-no">286</span><span id="line-286">     *  @param  name    The name of the variable to look for.</span>
-<span class="source-line-no">287</span><span id="line-287">     *  @return {@code true} if the template contains the variable,</span>
-<span class="source-line-no">288</span><span id="line-288">     *      {@code false} otherwise.</span>
-<span class="source-line-no">289</span><span id="line-289">     *  @throws IllegalArgumentException    The given argument is not valid as</span>
-<span class="source-line-no">290</span><span id="line-290">     *      a variable name.</span>
-<span class="source-line-no">291</span><span id="line-291">     *</span>
-<span class="source-line-no">292</span><span id="line-292">     *  @see #VARIABLE_PATTERN</span>
-<span class="source-line-no">293</span><span id="line-293">     */</span>
-<span class="source-line-no">294</span><span id="line-294">    public final boolean hasVariable( final String name )</span>
-<span class="source-line-no">295</span><span id="line-295">    {</span>
-<span class="source-line-no">296</span><span id="line-296">        if( !isValidVariableName( name ) ) throw new IllegalArgumentException( format( "%s is not a valid variable name", name ) );</span>
-<span class="source-line-no">297</span><span id="line-297"></span>
-<span class="source-line-no">298</span><span id="line-298">        final var retValue = findVariables().contains( name );</span>
+<span class="source-line-no">269</span><span id="line-269">     *  @return A {@code Collection} with the variable (names).</span>
+<span class="source-line-no">270</span><span id="line-270">     *</span>
+<span class="source-line-no">271</span><span id="line-271">     *  @see #VARIABLE_PATTERN</span>
+<span class="source-line-no">272</span><span id="line-272">     */</span>
+<span class="source-line-no">273</span><span id="line-273">    public final Set&lt;String&gt; findVariables()</span>
+<span class="source-line-no">274</span><span id="line-274">    {</span>
+<span class="source-line-no">275</span><span id="line-275">        final var retValue = findVariables( m_TemplateText );</span>
+<span class="source-line-no">276</span><span id="line-276"></span>
+<span class="source-line-no">277</span><span id="line-277">        //---* Done *----------------------------------------------------------</span>
+<span class="source-line-no">278</span><span id="line-278">        return retValue;</span>
+<span class="source-line-no">279</span><span id="line-279">    }   //  findVariables()</span>
+<span class="source-line-no">280</span><span id="line-280"></span>
+<span class="source-line-no">281</span><span id="line-281">    /**</span>
+<span class="source-line-no">282</span><span id="line-282">     *  Checks whether the adjusted template contains the variable of</span>
+<span class="source-line-no">283</span><span id="line-283">     *  the form &lt;code&gt;${&lt;i&gt;&amp;lt;name&amp;gt;&lt;/i&gt;}&lt;/code&gt; (matching the pattern</span>
+<span class="source-line-no">284</span><span id="line-284">     *  given in</span>
+<span class="source-line-no">285</span><span id="line-285">     *  {@link #VARIABLE_PATTERN})</span>
+<span class="source-line-no">286</span><span id="line-286">     *  with the given name.</span>
+<span class="source-line-no">287</span><span id="line-287">     *</span>
+<span class="source-line-no">288</span><span id="line-288">     *  @param  name    The name of the variable to look for.</span>
+<span class="source-line-no">289</span><span id="line-289">     *  @return {@code true} if the template contains the variable,</span>
+<span class="source-line-no">290</span><span id="line-290">     *      {@code false} otherwise.</span>
+<span class="source-line-no">291</span><span id="line-291">     *  @throws IllegalArgumentException    The given argument is not valid as</span>
+<span class="source-line-no">292</span><span id="line-292">     *      a variable name.</span>
+<span class="source-line-no">293</span><span id="line-293">     *</span>
+<span class="source-line-no">294</span><span id="line-294">     *  @see #VARIABLE_PATTERN</span>
+<span class="source-line-no">295</span><span id="line-295">     */</span>
+<span class="source-line-no">296</span><span id="line-296">    public final boolean hasVariable( final String name )</span>
+<span class="source-line-no">297</span><span id="line-297">    {</span>
+<span class="source-line-no">298</span><span id="line-298">        if( !isValidVariableName( name ) ) throw new IllegalArgumentException( format( "%s is not a valid variable name", name ) );</span>
 <span class="source-line-no">299</span><span id="line-299"></span>
-<span class="source-line-no">300</span><span id="line-300">        //---* Done *----------------------------------------------------------</span>
-<span class="source-line-no">301</span><span id="line-301">        return retValue;</span>
-<span class="source-line-no">302</span><span id="line-302">    }   //  hasVariable()</span>
-<span class="source-line-no">303</span><span id="line-303"></span>
-<span class="source-line-no">304</span><span id="line-304">    /**</span>
-<span class="source-line-no">305</span><span id="line-305">     *  Checks whether the given String contains at least one variable of the</span>
-<span class="source-line-no">306</span><span id="line-306">     *  form &lt;code&gt;${&lt;i&gt;&amp;lt;name&amp;gt;&lt;/i&gt;}&lt;/code&gt; (matching the pattern given in</span>
-<span class="source-line-no">307</span><span id="line-307">     *  {@link #VARIABLE_PATTERN}).</span>
-<span class="source-line-no">308</span><span id="line-308">     *</span>
-<span class="source-line-no">309</span><span id="line-309">     *  @param  s   The String to test; can be {@code null}.</span>
-<span class="source-line-no">310</span><span id="line-310">     *  @return {@code true} if the String contains at least one variable,</span>
-<span class="source-line-no">311</span><span id="line-311">     *      {@code false} otherwise.</span>
-<span class="source-line-no">312</span><span id="line-312">     *</span>
-<span class="source-line-no">313</span><span id="line-313">     *  @see #VARIABLE_PATTERN</span>
+<span class="source-line-no">300</span><span id="line-300">        final var retValue = findVariables().contains( name );</span>
+<span class="source-line-no">301</span><span id="line-301"></span>
+<span class="source-line-no">302</span><span id="line-302">        //---* Done *----------------------------------------------------------</span>
+<span class="source-line-no">303</span><span id="line-303">        return retValue;</span>
+<span class="source-line-no">304</span><span id="line-304">    }   //  hasVariable()</span>
+<span class="source-line-no">305</span><span id="line-305"></span>
+<span class="source-line-no">306</span><span id="line-306">    /**</span>
+<span class="source-line-no">307</span><span id="line-307">     *  Checks whether the given String contains at least one variable of the</span>
+<span class="source-line-no">308</span><span id="line-308">     *  form &lt;code&gt;${&lt;i&gt;&amp;lt;name&amp;gt;&lt;/i&gt;}&lt;/code&gt; (matching the pattern given in</span>
+<span class="source-line-no">309</span><span id="line-309">     *  {@link #VARIABLE_PATTERN}).</span>
+<span class="source-line-no">310</span><span id="line-310">     *</span>
+<span class="source-line-no">311</span><span id="line-311">     *  @param  s   The String to test; can be {@code null}.</span>
+<span class="source-line-no">312</span><span id="line-312">     *  @return {@code true} if the String contains at least one variable,</span>
+<span class="source-line-no">313</span><span id="line-313">     *      {@code false} otherwise.</span>
 <span class="source-line-no">314</span><span id="line-314">     *</span>
-<span class="source-line-no">315</span><span id="line-315">     *  @since 0.1.0</span>
-<span class="source-line-no">316</span><span id="line-316">     */</span>
-<span class="source-line-no">317</span><span id="line-317">    @API( status = STABLE, since = "0.1.0" )</span>
-<span class="source-line-no">318</span><span id="line-318">    public static final boolean hasVariables( final CharSequence s )</span>
-<span class="source-line-no">319</span><span id="line-319">    {</span>
-<span class="source-line-no">320</span><span id="line-320">        final var retValue = isNotEmptyOrBlank( s ) &amp;&amp; m_VariablePattern.matcher( s ).find();</span>
-<span class="source-line-no">321</span><span id="line-321"></span>
-<span class="source-line-no">322</span><span id="line-322">        //---* Done *----------------------------------------------------------</span>
-<span class="source-line-no">323</span><span id="line-323">        return retValue;</span>
-<span class="source-line-no">324</span><span id="line-324">    }   //  hasVariables()</span>
-<span class="source-line-no">325</span><span id="line-325"></span>
-<span class="source-line-no">326</span><span id="line-326">    /**</span>
-<span class="source-line-no">327</span><span id="line-327">     *  Checks whether the adjusted template contains at least one variable of</span>
-<span class="source-line-no">328</span><span id="line-328">     *  the form &lt;code&gt;${&lt;i&gt;&amp;lt;name&amp;gt;&lt;/i&gt;}&lt;/code&gt; (matching the pattern</span>
-<span class="source-line-no">329</span><span id="line-329">     *  given in</span>
-<span class="source-line-no">330</span><span id="line-330">     *  {@link #VARIABLE_PATTERN}).</span>
-<span class="source-line-no">331</span><span id="line-331">     *</span>
-<span class="source-line-no">332</span><span id="line-332">     *  @return {@code true} if the template contains at least one variable,</span>
-<span class="source-line-no">333</span><span id="line-333">     *      {@code false} otherwise.</span>
-<span class="source-line-no">334</span><span id="line-334">     *</span>
-<span class="source-line-no">335</span><span id="line-335">     *  @see #VARIABLE_PATTERN</span>
-<span class="source-line-no">336</span><span id="line-336">     */</span>
-<span class="source-line-no">337</span><span id="line-337">    public final boolean hasVariables() { return hasVariables( m_TemplateText ); }</span>
-<span class="source-line-no">338</span><span id="line-338"></span>
-<span class="source-line-no">339</span><span id="line-339">    /**</span>
-<span class="source-line-no">340</span><span id="line-340">     *  Test whether the given String is a valid variable name.</span>
-<span class="source-line-no">341</span><span id="line-341">     *</span>
-<span class="source-line-no">342</span><span id="line-342">     *  @param  name    The bare variable name, without the surrounding</span>
-<span class="source-line-no">343</span><span id="line-343">     *      &amp;quot;${&amp;hellip;}&amp;quot;.</span>
-<span class="source-line-no">344</span><span id="line-344">     *  @return {@code true} if the given name is valid for a variable name,</span>
-<span class="source-line-no">345</span><span id="line-345">     *      {@code false} otherwise.</span>
-<span class="source-line-no">346</span><span id="line-346">     *</span>
-<span class="source-line-no">347</span><span id="line-347">     *  @see #VARIABLE_PATTERN</span>
-<span class="source-line-no">348</span><span id="line-348">     *  @see #findVariables(CharSequence)</span>
-<span class="source-line-no">349</span><span id="line-349">     *  @see #replaceVariable(CharSequence, Map...)</span>
-<span class="source-line-no">350</span><span id="line-350">     *</span>
-<span class="source-line-no">351</span><span id="line-351">     *  @since 0.1.0</span>
-<span class="source-line-no">352</span><span id="line-352">     */</span>
-<span class="source-line-no">353</span><span id="line-353">    @API( status = STABLE, since = "0.1.0" )</span>
-<span class="source-line-no">354</span><span id="line-354">    public static final boolean isValidVariableName( final CharSequence name )</span>
-<span class="source-line-no">355</span><span id="line-355">    {</span>
-<span class="source-line-no">356</span><span id="line-356">        var retValue = isNotEmptyOrBlank( requireNonNullArgument( name, "name" ) );</span>
-<span class="source-line-no">357</span><span id="line-357">        if( retValue )</span>
-<span class="source-line-no">358</span><span id="line-358">        {</span>
-<span class="source-line-no">359</span><span id="line-359">            final var text = format( VARIABLE_TEMPLATE, name );</span>
-<span class="source-line-no">360</span><span id="line-360">            retValue = m_VariablePattern.matcher( text ).matches();</span>
-<span class="source-line-no">361</span><span id="line-361">        }</span>
-<span class="source-line-no">362</span><span id="line-362"></span>
-<span class="source-line-no">363</span><span id="line-363">        //---* Done *----------------------------------------------------------</span>
-<span class="source-line-no">364</span><span id="line-364">        return retValue;</span>
-<span class="source-line-no">365</span><span id="line-365">    }   //  isValidVariableName()</span>
-<span class="source-line-no">366</span><span id="line-366"></span>
-<span class="source-line-no">367</span><span id="line-367">    /**</span>
-<span class="source-line-no">368</span><span id="line-368">     *  Checks whether the given String is a variable in the form</span>
-<span class="source-line-no">369</span><span id="line-369">     *  &lt;code&gt;${&lt;i&gt;&amp;lt;name&amp;gt;&lt;/i&gt;}&lt;/code&gt;, according to the pattern provided</span>
-<span class="source-line-no">370</span><span id="line-370">     *  in</span>
-<span class="source-line-no">371</span><span id="line-371">     *  {@link #VARIABLE_PATTERN}.</span>
-<span class="source-line-no">372</span><span id="line-372">     *</span>
-<span class="source-line-no">373</span><span id="line-373">     *  @param  s   The String to test; can be {@code null}.</span>
-<span class="source-line-no">374</span><span id="line-374">     *  @return {@code true} if the given String is not {@code null}, not the</span>
-<span class="source-line-no">375</span><span id="line-375">     *      empty String, and it matches the given pattern, {@code false}</span>
-<span class="source-line-no">376</span><span id="line-376">     *      otherwise.</span>
-<span class="source-line-no">377</span><span id="line-377">     *</span>
-<span class="source-line-no">378</span><span id="line-378">     *  @since 0.1.0</span>
-<span class="source-line-no">379</span><span id="line-379">     */</span>
-<span class="source-line-no">380</span><span id="line-380">    @API( status = STABLE, since = "0.1.0" )</span>
-<span class="source-line-no">381</span><span id="line-381">    public static final boolean isVariable( final CharSequence s )</span>
-<span class="source-line-no">382</span><span id="line-382">    {</span>
-<span class="source-line-no">383</span><span id="line-383">        final var retValue = isNotEmptyOrBlank( s ) &amp;&amp; m_VariablePattern.matcher( s ).matches();</span>
-<span class="source-line-no">384</span><span id="line-384"></span>
-<span class="source-line-no">385</span><span id="line-385">        //---* Done *----------------------------------------------------------</span>
-<span class="source-line-no">386</span><span id="line-386">        return retValue;</span>
-<span class="source-line-no">387</span><span id="line-387">    }   //  isVariable()</span>
-<span class="source-line-no">388</span><span id="line-388"></span>
-<span class="source-line-no">389</span><span id="line-389">    /**</span>
-<span class="source-line-no">390</span><span id="line-390">     *  Replaces the variables of the form &lt;code&gt;${&amp;lt;&lt;i&gt;name&lt;/i&gt;&amp;gt;}&lt;/code&gt;</span>
-<span class="source-line-no">391</span><span id="line-391">     *  in the given String with values from the given maps. The method will</span>
-<span class="source-line-no">392</span><span id="line-392">     *  try the maps in the given sequence.&lt;br&gt;</span>
-<span class="source-line-no">393</span><span id="line-393">     *  &lt;br&gt;If no replacement value could be found, the variable will not be</span>
-<span class="source-line-no">394</span><span id="line-394">     *  replaced at all.&lt;br&gt;</span>
-<span class="source-line-no">395</span><span id="line-395">     *  &lt;br&gt;If a value from one of the maps contains a variable itself, this</span>
-<span class="source-line-no">396</span><span id="line-396">     *  will not be replaced.&lt;br&gt;</span>
-<span class="source-line-no">397</span><span id="line-397">     *  &lt;br&gt;The variables names are case-sensitive.&lt;br&gt;</span>
-<span class="source-line-no">398</span><span id="line-398">     *  &lt;br&gt;Valid variable names may not contain other characters than the</span>
-<span class="source-line-no">399</span><span id="line-399">     *  letters from 'a' to 'z' (upper case and lower case), the digits from</span>
-<span class="source-line-no">400</span><span id="line-400">     *  '0' to '9' and the special characters underscore ('_') and dot ('.'),</span>
-<span class="source-line-no">401</span><span id="line-401">     *  after an optional prefix character.&lt;br&gt;</span>
-<span class="source-line-no">402</span><span id="line-402">     *  &lt;br&gt;Allowed prefixes are the tilde ('~'), the slash ('/'), the equal</span>
-<span class="source-line-no">403</span><span id="line-403">     *  sign ('='), the colon (':'), the percent sign ('%'), and the ampersand</span>
-<span class="source-line-no">404</span><span id="line-404">     *  ('&amp;amp;').&lt;br&gt;</span>
-<span class="source-line-no">405</span><span id="line-405">     *  &lt;br&gt;The prefix character is part of the name.&lt;br&gt;</span>
-<span class="source-line-no">406</span><span id="line-406">     *  &lt;br&gt;Finally, there is the single underscore that is allowed as a</span>
-<span class="source-line-no">407</span><span id="line-407">     *  special variable.</span>
-<span class="source-line-no">408</span><span id="line-408">     *</span>
-<span class="source-line-no">409</span><span id="line-409">     *  @param  text    The text with the variables; may be {@code null}.</span>
-<span class="source-line-no">410</span><span id="line-410">     *  @param  sources The maps with the replacement values.</span>
-<span class="source-line-no">411</span><span id="line-411">     *  @return The new text, or {@code null} if the provided value for</span>
-<span class="source-line-no">412</span><span id="line-412">     *      {@code text} was already {@code null}.</span>
-<span class="source-line-no">413</span><span id="line-413">     *</span>
-<span class="source-line-no">414</span><span id="line-414">     *  @see #VARIABLE_PATTERN</span>
+<span class="source-line-no">315</span><span id="line-315">     *  @see #VARIABLE_PATTERN</span>
+<span class="source-line-no">316</span><span id="line-316">     *</span>
+<span class="source-line-no">317</span><span id="line-317">     *  @since 0.1.0</span>
+<span class="source-line-no">318</span><span id="line-318">     */</span>
+<span class="source-line-no">319</span><span id="line-319">    @API( status = STABLE, since = "0.1.0" )</span>
+<span class="source-line-no">320</span><span id="line-320">    public static final boolean hasVariables( final CharSequence s )</span>
+<span class="source-line-no">321</span><span id="line-321">    {</span>
+<span class="source-line-no">322</span><span id="line-322">        final var retValue = isNotEmptyOrBlank( s ) &amp;&amp; m_VariablePattern.matcher( s ).find();</span>
+<span class="source-line-no">323</span><span id="line-323"></span>
+<span class="source-line-no">324</span><span id="line-324">        //---* Done *----------------------------------------------------------</span>
+<span class="source-line-no">325</span><span id="line-325">        return retValue;</span>
+<span class="source-line-no">326</span><span id="line-326">    }   //  hasVariables()</span>
+<span class="source-line-no">327</span><span id="line-327"></span>
+<span class="source-line-no">328</span><span id="line-328">    /**</span>
+<span class="source-line-no">329</span><span id="line-329">     *  Checks whether the adjusted template contains at least one variable of</span>
+<span class="source-line-no">330</span><span id="line-330">     *  the form &lt;code&gt;${&lt;i&gt;&amp;lt;name&amp;gt;&lt;/i&gt;}&lt;/code&gt; (matching the pattern</span>
+<span class="source-line-no">331</span><span id="line-331">     *  given in</span>
+<span class="source-line-no">332</span><span id="line-332">     *  {@link #VARIABLE_PATTERN}).</span>
+<span class="source-line-no">333</span><span id="line-333">     *</span>
+<span class="source-line-no">334</span><span id="line-334">     *  @return {@code true} if the template contains at least one variable,</span>
+<span class="source-line-no">335</span><span id="line-335">     *      {@code false} otherwise.</span>
+<span class="source-line-no">336</span><span id="line-336">     *</span>
+<span class="source-line-no">337</span><span id="line-337">     *  @see #VARIABLE_PATTERN</span>
+<span class="source-line-no">338</span><span id="line-338">     */</span>
+<span class="source-line-no">339</span><span id="line-339">    public final boolean hasVariables() { return hasVariables( m_TemplateText ); }</span>
+<span class="source-line-no">340</span><span id="line-340"></span>
+<span class="source-line-no">341</span><span id="line-341">    /**</span>
+<span class="source-line-no">342</span><span id="line-342">     *  Test whether the given String is a valid variable name.</span>
+<span class="source-line-no">343</span><span id="line-343">     *</span>
+<span class="source-line-no">344</span><span id="line-344">     *  @param  name    The bare variable name, without the surrounding</span>
+<span class="source-line-no">345</span><span id="line-345">     *      &amp;quot;${&amp;hellip;}&amp;quot;.</span>
+<span class="source-line-no">346</span><span id="line-346">     *  @return {@code true} if the given name is valid for a variable name,</span>
+<span class="source-line-no">347</span><span id="line-347">     *      {@code false} otherwise.</span>
+<span class="source-line-no">348</span><span id="line-348">     *</span>
+<span class="source-line-no">349</span><span id="line-349">     *  @see #VARIABLE_PATTERN</span>
+<span class="source-line-no">350</span><span id="line-350">     *  @see #findVariables(CharSequence)</span>
+<span class="source-line-no">351</span><span id="line-351">     *  @see #replaceVariable(CharSequence, Map...)</span>
+<span class="source-line-no">352</span><span id="line-352">     *</span>
+<span class="source-line-no">353</span><span id="line-353">     *  @since 0.1.0</span>
+<span class="source-line-no">354</span><span id="line-354">     */</span>
+<span class="source-line-no">355</span><span id="line-355">    @API( status = STABLE, since = "0.1.0" )</span>
+<span class="source-line-no">356</span><span id="line-356">    public static final boolean isValidVariableName( final CharSequence name )</span>
+<span class="source-line-no">357</span><span id="line-357">    {</span>
+<span class="source-line-no">358</span><span id="line-358">        var retValue = isNotEmptyOrBlank( requireNonNullArgument( name, "name" ) );</span>
+<span class="source-line-no">359</span><span id="line-359">        if( retValue )</span>
+<span class="source-line-no">360</span><span id="line-360">        {</span>
+<span class="source-line-no">361</span><span id="line-361">            final var text = format( VARIABLE_TEMPLATE, name );</span>
+<span class="source-line-no">362</span><span id="line-362">            retValue = m_VariablePattern.matcher( text ).matches();</span>
+<span class="source-line-no">363</span><span id="line-363">        }</span>
+<span class="source-line-no">364</span><span id="line-364"></span>
+<span class="source-line-no">365</span><span id="line-365">        //---* Done *----------------------------------------------------------</span>
+<span class="source-line-no">366</span><span id="line-366">        return retValue;</span>
+<span class="source-line-no">367</span><span id="line-367">    }   //  isValidVariableName()</span>
+<span class="source-line-no">368</span><span id="line-368"></span>
+<span class="source-line-no">369</span><span id="line-369">    /**</span>
+<span class="source-line-no">370</span><span id="line-370">     *  Checks whether the given String is a variable in the form</span>
+<span class="source-line-no">371</span><span id="line-371">     *  &lt;code&gt;${&lt;i&gt;&amp;lt;name&amp;gt;&lt;/i&gt;}&lt;/code&gt;, according to the pattern provided</span>
+<span class="source-line-no">372</span><span id="line-372">     *  in</span>
+<span class="source-line-no">373</span><span id="line-373">     *  {@link #VARIABLE_PATTERN}.</span>
+<span class="source-line-no">374</span><span id="line-374">     *</span>
+<span class="source-line-no">375</span><span id="line-375">     *  @param  s   The String to test; can be {@code null}.</span>
+<span class="source-line-no">376</span><span id="line-376">     *  @return {@code true} if the given String is not {@code null}, not the</span>
+<span class="source-line-no">377</span><span id="line-377">     *      empty String, and it matches the given pattern, {@code false}</span>
+<span class="source-line-no">378</span><span id="line-378">     *      otherwise.</span>
+<span class="source-line-no">379</span><span id="line-379">     *</span>
+<span class="source-line-no">380</span><span id="line-380">     *  @since 0.1.0</span>
+<span class="source-line-no">381</span><span id="line-381">     */</span>
+<span class="source-line-no">382</span><span id="line-382">    @API( status = STABLE, since = "0.1.0" )</span>
+<span class="source-line-no">383</span><span id="line-383">    public static final boolean isVariable( final CharSequence s )</span>
+<span class="source-line-no">384</span><span id="line-384">    {</span>
+<span class="source-line-no">385</span><span id="line-385">        final var retValue = isNotEmptyOrBlank( s ) &amp;&amp; m_VariablePattern.matcher( s ).matches();</span>
+<span class="source-line-no">386</span><span id="line-386"></span>
+<span class="source-line-no">387</span><span id="line-387">        //---* Done *----------------------------------------------------------</span>
+<span class="source-line-no">388</span><span id="line-388">        return retValue;</span>
+<span class="source-line-no">389</span><span id="line-389">    }   //  isVariable()</span>
+<span class="source-line-no">390</span><span id="line-390"></span>
+<span class="source-line-no">391</span><span id="line-391">    /**</span>
+<span class="source-line-no">392</span><span id="line-392">     *  Replaces the variables of the form &lt;code&gt;${&amp;lt;&lt;i&gt;name&lt;/i&gt;&amp;gt;}&lt;/code&gt;</span>
+<span class="source-line-no">393</span><span id="line-393">     *  in the given String with values from the given maps. The method will</span>
+<span class="source-line-no">394</span><span id="line-394">     *  try the maps in the given sequence.&lt;br&gt;</span>
+<span class="source-line-no">395</span><span id="line-395">     *  &lt;br&gt;If no replacement value could be found, the variable will not be</span>
+<span class="source-line-no">396</span><span id="line-396">     *  replaced at all.&lt;br&gt;</span>
+<span class="source-line-no">397</span><span id="line-397">     *  &lt;br&gt;If a value from one of the maps contains a variable itself, this</span>
+<span class="source-line-no">398</span><span id="line-398">     *  will not be replaced.&lt;br&gt;</span>
+<span class="source-line-no">399</span><span id="line-399">     *  &lt;br&gt;The variables names are case-sensitive.&lt;br&gt;</span>
+<span class="source-line-no">400</span><span id="line-400">     *  &lt;br&gt;Valid variable names may not contain other characters than the</span>
+<span class="source-line-no">401</span><span id="line-401">     *  letters from 'a' to 'z' (upper case and lower case), the digits from</span>
+<span class="source-line-no">402</span><span id="line-402">     *  '0' to '9' and the special characters underscore ('_') and dot ('.'),</span>
+<span class="source-line-no">403</span><span id="line-403">     *  after an optional prefix character.&lt;br&gt;</span>
+<span class="source-line-no">404</span><span id="line-404">     *  &lt;br&gt;Allowed prefixes are the tilde ('~'), the slash ('/'), the equal</span>
+<span class="source-line-no">405</span><span id="line-405">     *  sign ('='), the colon (':'), the percent sign ('%'), and the ampersand</span>
+<span class="source-line-no">406</span><span id="line-406">     *  ('&amp;amp;').&lt;br&gt;</span>
+<span class="source-line-no">407</span><span id="line-407">     *  &lt;br&gt;The prefix character is part of the name.&lt;br&gt;</span>
+<span class="source-line-no">408</span><span id="line-408">     *  &lt;br&gt;Finally, there is the single underscore that is allowed as a</span>
+<span class="source-line-no">409</span><span id="line-409">     *  special variable.</span>
+<span class="source-line-no">410</span><span id="line-410">     *</span>
+<span class="source-line-no">411</span><span id="line-411">     *  @param  text    The text with the variables; may be {@code null}.</span>
+<span class="source-line-no">412</span><span id="line-412">     *  @param  sources The maps with the replacement values.</span>
+<span class="source-line-no">413</span><span id="line-413">     *  @return The new text, or {@code null} if the provided value for</span>
+<span class="source-line-no">414</span><span id="line-414">     *      {@code text} was already {@code null}.</span>
 <span class="source-line-no">415</span><span id="line-415">     *</span>
-<span class="source-line-no">416</span><span id="line-416">     *  @since 0.1.0</span>
-<span class="source-line-no">417</span><span id="line-417">     */</span>
-<span class="source-line-no">418</span><span id="line-418">    @SafeVarargs</span>
-<span class="source-line-no">419</span><span id="line-419">    @API( status = STABLE, since = "0.1.0" )</span>
-<span class="source-line-no">420</span><span id="line-420">    public static final String replaceVariable( final CharSequence text, final Map&lt;String,?&gt;... sources )</span>
-<span class="source-line-no">421</span><span id="line-421">    {</span>
-<span class="source-line-no">422</span><span id="line-422">        requireNonNullArgument( sources, "sources" );</span>
-<span class="source-line-no">423</span><span id="line-423"></span>
-<span class="source-line-no">424</span><span id="line-424">        final var retValue = replaceVariable( text, variable -&gt; retrieveVariableValue( variable, sources ) );</span>
+<span class="source-line-no">416</span><span id="line-416">     *  @see #VARIABLE_PATTERN</span>
+<span class="source-line-no">417</span><span id="line-417">     *</span>
+<span class="source-line-no">418</span><span id="line-418">     *  @since 0.1.0</span>
+<span class="source-line-no">419</span><span id="line-419">     */</span>
+<span class="source-line-no">420</span><span id="line-420">    @SafeVarargs</span>
+<span class="source-line-no">421</span><span id="line-421">    @API( status = STABLE, since = "0.1.0" )</span>
+<span class="source-line-no">422</span><span id="line-422">    public static final String replaceVariable( final CharSequence text, final Map&lt;String,?&gt;... sources )</span>
+<span class="source-line-no">423</span><span id="line-423">    {</span>
+<span class="source-line-no">424</span><span id="line-424">        requireNonNullArgument( sources, "sources" );</span>
 <span class="source-line-no">425</span><span id="line-425"></span>
-<span class="source-line-no">426</span><span id="line-426">        //---* Done *----------------------------------------------------------</span>
-<span class="source-line-no">427</span><span id="line-427">        return retValue;</span>
-<span class="source-line-no">428</span><span id="line-428">    }   //  replaceVariable()</span>
-<span class="source-line-no">429</span><span id="line-429"></span>
-<span class="source-line-no">430</span><span id="line-430">    /**</span>
-<span class="source-line-no">431</span><span id="line-431">     *  Replaces the variables of the form &lt;code&gt;${&amp;lt;&lt;i&gt;name&lt;/i&gt;&amp;gt;}&lt;/code&gt;</span>
-<span class="source-line-no">432</span><span id="line-432">     *  in the adjusted template with values from the given maps and returns it</span>
-<span class="source-line-no">433</span><span id="line-433">     *  after formatting the result. The method will try the maps in the given</span>
-<span class="source-line-no">434</span><span id="line-434">     *  sequence.&lt;br&gt;</span>
-<span class="source-line-no">435</span><span id="line-435">     *  &lt;br&gt;If no replacement value could be found, the variable will not be</span>
-<span class="source-line-no">436</span><span id="line-436">     *  replaced at all.&lt;br&gt;</span>
-<span class="source-line-no">437</span><span id="line-437">     *  &lt;br&gt;If a value from one of the maps contains a variable itself, this</span>
-<span class="source-line-no">438</span><span id="line-438">     *  will not be replaced.&lt;br&gt;</span>
-<span class="source-line-no">439</span><span id="line-439">     *  &lt;br&gt;The variables names are case-sensitive.&lt;br&gt;</span>
-<span class="source-line-no">440</span><span id="line-440">     *  &lt;br&gt;Valid variable names may not contain other characters than the</span>
-<span class="source-line-no">441</span><span id="line-441">     *  letters from 'a' to 'z' (upper case and lower case), the digits from</span>
-<span class="source-line-no">442</span><span id="line-442">     *  '0' to '9' and the special characters underscore ('_') and dot ('.'),</span>
-<span class="source-line-no">443</span><span id="line-443">     *  after an optional prefix character.&lt;br&gt;</span>
-<span class="source-line-no">444</span><span id="line-444">     *  &lt;br&gt;Allowed prefixes are the tilde ('~'), the slash ('/'), the equal</span>
-<span class="source-line-no">445</span><span id="line-445">     *  sign ('='), the colon (':'), the percent sign ('%'), and the ampersand</span>
-<span class="source-line-no">446</span><span id="line-446">     *  ('&amp;amp;').&lt;br&gt;</span>
-<span class="source-line-no">447</span><span id="line-447">     *  &lt;br&gt;The prefix character is part of the name.&lt;br&gt;</span>
-<span class="source-line-no">448</span><span id="line-448">     *  &lt;br&gt;Finally, there is the single underscore that is allowed as a</span>
-<span class="source-line-no">449</span><span id="line-449">     *  special variable.</span>
-<span class="source-line-no">450</span><span id="line-450">     *</span>
-<span class="source-line-no">451</span><span id="line-451">     *  @param  sources The maps with the replacement values.</span>
-<span class="source-line-no">452</span><span id="line-452">     *  @return The new text, or {@code null} if the provided value for</span>
-<span class="source-line-no">453</span><span id="line-453">     *      {@code text} was already {@code null}.</span>
-<span class="source-line-no">454</span><span id="line-454">     *</span>
-<span class="source-line-no">455</span><span id="line-455">     *  @see #VARIABLE_PATTERN</span>
-<span class="source-line-no">456</span><span id="line-456">     */</span>
-<span class="source-line-no">457</span><span id="line-457">    @SafeVarargs</span>
-<span class="source-line-no">458</span><span id="line-458">    public final String replaceVariable( final Map&lt;String,?&gt;... sources )</span>
-<span class="source-line-no">459</span><span id="line-459">    {</span>
-<span class="source-line-no">460</span><span id="line-460">        final var retValue = replaceVariable( m_TemplateText, sources );</span>
-<span class="source-line-no">461</span><span id="line-461"></span>
-<span class="source-line-no">462</span><span id="line-462">        //---* Done *----------------------------------------------------------</span>
-<span class="source-line-no">463</span><span id="line-463">        return retValue;</span>
-<span class="source-line-no">464</span><span id="line-464">    }   //  replaceVariable()</span>
-<span class="source-line-no">465</span><span id="line-465"></span>
-<span class="source-line-no">466</span><span id="line-466">    /**</span>
-<span class="source-line-no">467</span><span id="line-467">     *  Replaces the variables of the form &lt;code&gt;${&amp;lt;&lt;i&gt;name&lt;/i&gt;&amp;gt;}&lt;/code&gt;</span>
-<span class="source-line-no">468</span><span id="line-468">     *  in the adjusted template with values returned by the given retriever</span>
-<span class="source-line-no">469</span><span id="line-469">     *  function for the variable name, and returns it after formatting the</span>
-<span class="source-line-no">470</span><span id="line-470">     *  result.&lt;br&gt;</span>
-<span class="source-line-no">471</span><span id="line-471">     *  &lt;br&gt;If no replacement value could be found, the variable will not be</span>
-<span class="source-line-no">472</span><span id="line-472">     *  replaced at all.&lt;br&gt;</span>
-<span class="source-line-no">473</span><span id="line-473">     *  &lt;br&gt;If the retriever function returns a value that contains a variable</span>
-<span class="source-line-no">474</span><span id="line-474">     *  itself, this will not be replaced.&lt;br&gt;</span>
-<span class="source-line-no">475</span><span id="line-475">     *  &lt;br&gt;The retriever function will be called only once for each variable</span>
-<span class="source-line-no">476</span><span id="line-476">     *  name; if the text contains the same variable multiple times, it will</span>
-<span class="source-line-no">477</span><span id="line-477">     *  always be replaced with the same value.&lt;br&gt;</span>
-<span class="source-line-no">478</span><span id="line-478">     *  &lt;br&gt;The variables names are case-sensitive.&lt;br&gt;</span>
-<span class="source-line-no">479</span><span id="line-479">     *  &lt;br&gt;Valid variable name may not contain other characters than the</span>
-<span class="source-line-no">480</span><span id="line-480">     *  letters from 'a' to 'z' (upper case and lower case), the digits from</span>
-<span class="source-line-no">481</span><span id="line-481">     *  '0' to '9' and the special characters underscore ('_') and dot ('.'),</span>
-<span class="source-line-no">482</span><span id="line-482">     *  after an optional prefix character.&lt;br&gt;</span>
-<span class="source-line-no">483</span><span id="line-483">     *  &lt;br&gt;Allowed prefixes are the tilde ('~'), the slash ('/'), the equal</span>
-<span class="source-line-no">484</span><span id="line-484">     *  sign ('='), the colon (':'), the percent sign ('%'), and the ampersand</span>
-<span class="source-line-no">485</span><span id="line-485">     *  ('&amp;amp;').&lt;br&gt;</span>
-<span class="source-line-no">486</span><span id="line-486">     *  &lt;br&gt;The prefix character is part of the name.&lt;br&gt;</span>
-<span class="source-line-no">487</span><span id="line-487">     *  &lt;br&gt;Finally, there is the single underscore that is allowed as a</span>
-<span class="source-line-no">488</span><span id="line-488">     *  special variable.</span>
-<span class="source-line-no">489</span><span id="line-489">     *</span>
-<span class="source-line-no">490</span><span id="line-490">     *  @param  retriever   The function that will retrieve the replacement</span>
-<span class="source-line-no">491</span><span id="line-491">     *      values for the given variable names.</span>
-<span class="source-line-no">492</span><span id="line-492">     *  @return The new text, or {@code null} if the provided value for</span>
-<span class="source-line-no">493</span><span id="line-493">     *      {@code text} was already {@code null}.</span>
-<span class="source-line-no">494</span><span id="line-494">     *</span>
-<span class="source-line-no">495</span><span id="line-495">     *  @see #VARIABLE_PATTERN</span>
-<span class="source-line-no">496</span><span id="line-496">     */</span>
-<span class="source-line-no">497</span><span id="line-497">    public final String replaceVariable( final Function&lt;? super String, Optional&lt;String&gt;&gt; retriever )</span>
-<span class="source-line-no">498</span><span id="line-498">    {</span>
-<span class="source-line-no">499</span><span id="line-499"></span>
-<span class="source-line-no">500</span><span id="line-500">        final var retValue = replaceVariable( m_TemplateText, retriever );</span>
+<span class="source-line-no">426</span><span id="line-426">        final var retValue = replaceVariable( text, variable -&gt; retrieveVariableValue( variable, sources ) );</span>
+<span class="source-line-no">427</span><span id="line-427"></span>
+<span class="source-line-no">428</span><span id="line-428">        //---* Done *----------------------------------------------------------</span>
+<span class="source-line-no">429</span><span id="line-429">        return retValue;</span>
+<span class="source-line-no">430</span><span id="line-430">    }   //  replaceVariable()</span>
+<span class="source-line-no">431</span><span id="line-431"></span>
+<span class="source-line-no">432</span><span id="line-432">    /**</span>
+<span class="source-line-no">433</span><span id="line-433">     *  Replaces the variables of the form &lt;code&gt;${&amp;lt;&lt;i&gt;name&lt;/i&gt;&amp;gt;}&lt;/code&gt;</span>
+<span class="source-line-no">434</span><span id="line-434">     *  in the adjusted template with values from the given maps and returns it</span>
+<span class="source-line-no">435</span><span id="line-435">     *  after formatting the result. The method will try the maps in the given</span>
+<span class="source-line-no">436</span><span id="line-436">     *  sequence.&lt;br&gt;</span>
+<span class="source-line-no">437</span><span id="line-437">     *  &lt;br&gt;If no replacement value could be found, the variable will not be</span>
+<span class="source-line-no">438</span><span id="line-438">     *  replaced at all.&lt;br&gt;</span>
+<span class="source-line-no">439</span><span id="line-439">     *  &lt;br&gt;If a value from one of the maps contains a variable itself, this</span>
+<span class="source-line-no">440</span><span id="line-440">     *  will not be replaced.&lt;br&gt;</span>
+<span class="source-line-no">441</span><span id="line-441">     *  &lt;br&gt;The variables names are case-sensitive.&lt;br&gt;</span>
+<span class="source-line-no">442</span><span id="line-442">     *  &lt;br&gt;Valid variable names may not contain other characters than the</span>
+<span class="source-line-no">443</span><span id="line-443">     *  letters from 'a' to 'z' (upper case and lower case), the digits from</span>
+<span class="source-line-no">444</span><span id="line-444">     *  '0' to '9' and the special characters underscore ('_') and dot ('.'),</span>
+<span class="source-line-no">445</span><span id="line-445">     *  after an optional prefix character.&lt;br&gt;</span>
+<span class="source-line-no">446</span><span id="line-446">     *  &lt;br&gt;Allowed prefixes are the tilde ('~'), the slash ('/'), the equal</span>
+<span class="source-line-no">447</span><span id="line-447">     *  sign ('='), the colon (':'), the percent sign ('%'), and the ampersand</span>
+<span class="source-line-no">448</span><span id="line-448">     *  ('&amp;amp;').&lt;br&gt;</span>
+<span class="source-line-no">449</span><span id="line-449">     *  &lt;br&gt;The prefix character is part of the name.&lt;br&gt;</span>
+<span class="source-line-no">450</span><span id="line-450">     *  &lt;br&gt;Finally, there is the single underscore that is allowed as a</span>
+<span class="source-line-no">451</span><span id="line-451">     *  special variable.</span>
+<span class="source-line-no">452</span><span id="line-452">     *</span>
+<span class="source-line-no">453</span><span id="line-453">     *  @param  sources The maps with the replacement values.</span>
+<span class="source-line-no">454</span><span id="line-454">     *  @return The new text, or {@code null} if the provided value for</span>
+<span class="source-line-no">455</span><span id="line-455">     *      {@code text} was already {@code null}.</span>
+<span class="source-line-no">456</span><span id="line-456">     *</span>
+<span class="source-line-no">457</span><span id="line-457">     *  @see #VARIABLE_PATTERN</span>
+<span class="source-line-no">458</span><span id="line-458">     */</span>
+<span class="source-line-no">459</span><span id="line-459">    @SafeVarargs</span>
+<span class="source-line-no">460</span><span id="line-460">    public final String replaceVariable( final Map&lt;String,?&gt;... sources )</span>
+<span class="source-line-no">461</span><span id="line-461">    {</span>
+<span class="source-line-no">462</span><span id="line-462">        final var retValue = replaceVariable( m_TemplateText, sources );</span>
+<span class="source-line-no">463</span><span id="line-463"></span>
+<span class="source-line-no">464</span><span id="line-464">        //---* Done *----------------------------------------------------------</span>
+<span class="source-line-no">465</span><span id="line-465">        return retValue;</span>
+<span class="source-line-no">466</span><span id="line-466">    }   //  replaceVariable()</span>
+<span class="source-line-no">467</span><span id="line-467"></span>
+<span class="source-line-no">468</span><span id="line-468">    /**</span>
+<span class="source-line-no">469</span><span id="line-469">     *  Replaces the variables of the form &lt;code&gt;${&amp;lt;&lt;i&gt;name&lt;/i&gt;&amp;gt;}&lt;/code&gt;</span>
+<span class="source-line-no">470</span><span id="line-470">     *  in the adjusted template with values returned by the given retriever</span>
+<span class="source-line-no">471</span><span id="line-471">     *  function for the variable name, and returns it after formatting the</span>
+<span class="source-line-no">472</span><span id="line-472">     *  result.&lt;br&gt;</span>
+<span class="source-line-no">473</span><span id="line-473">     *  &lt;br&gt;If no replacement value could be found, the variable will not be</span>
+<span class="source-line-no">474</span><span id="line-474">     *  replaced at all.&lt;br&gt;</span>
+<span class="source-line-no">475</span><span id="line-475">     *  &lt;br&gt;If the retriever function returns a value that contains a variable</span>
+<span class="source-line-no">476</span><span id="line-476">     *  itself, this will not be replaced.&lt;br&gt;</span>
+<span class="source-line-no">477</span><span id="line-477">     *  &lt;br&gt;The retriever function will be called only once for each variable</span>
+<span class="source-line-no">478</span><span id="line-478">     *  name; if the text contains the same variable multiple times, it will</span>
+<span class="source-line-no">479</span><span id="line-479">     *  always be replaced with the same value.&lt;br&gt;</span>
+<span class="source-line-no">480</span><span id="line-480">     *  &lt;br&gt;The variables names are case-sensitive.&lt;br&gt;</span>
+<span class="source-line-no">481</span><span id="line-481">     *  &lt;br&gt;Valid variable name may not contain other characters than the</span>
+<span class="source-line-no">482</span><span id="line-482">     *  letters from 'a' to 'z' (upper case and lower case), the digits from</span>
+<span class="source-line-no">483</span><span id="line-483">     *  '0' to '9' and the special characters underscore ('_') and dot ('.'),</span>
+<span class="source-line-no">484</span><span id="line-484">     *  after an optional prefix character.&lt;br&gt;</span>
+<span class="source-line-no">485</span><span id="line-485">     *  &lt;br&gt;Allowed prefixes are the tilde ('~'), the slash ('/'), the equal</span>
+<span class="source-line-no">486</span><span id="line-486">     *  sign ('='), the colon (':'), the percent sign ('%'), and the ampersand</span>
+<span class="source-line-no">487</span><span id="line-487">     *  ('&amp;amp;').&lt;br&gt;</span>
+<span class="source-line-no">488</span><span id="line-488">     *  &lt;br&gt;The prefix character is part of the name.&lt;br&gt;</span>
+<span class="source-line-no">489</span><span id="line-489">     *  &lt;br&gt;Finally, there is the single underscore that is allowed as a</span>
+<span class="source-line-no">490</span><span id="line-490">     *  special variable.</span>
+<span class="source-line-no">491</span><span id="line-491">     *</span>
+<span class="source-line-no">492</span><span id="line-492">     *  @param  retriever   The function that will retrieve the replacement</span>
+<span class="source-line-no">493</span><span id="line-493">     *      values for the given variable names.</span>
+<span class="source-line-no">494</span><span id="line-494">     *  @return The new text, or {@code null} if the provided value for</span>
+<span class="source-line-no">495</span><span id="line-495">     *      {@code text} was already {@code null}.</span>
+<span class="source-line-no">496</span><span id="line-496">     *</span>
+<span class="source-line-no">497</span><span id="line-497">     *  @see #VARIABLE_PATTERN</span>
+<span class="source-line-no">498</span><span id="line-498">     */</span>
+<span class="source-line-no">499</span><span id="line-499">    public final String replaceVariable( final Function&lt;? super String, Optional&lt;String&gt;&gt; retriever )</span>
+<span class="source-line-no">500</span><span id="line-500">    {</span>
 <span class="source-line-no">501</span><span id="line-501"></span>
-<span class="source-line-no">502</span><span id="line-502">        //---* Done *----------------------------------------------------------</span>
-<span class="source-line-no">503</span><span id="line-503">        return retValue;</span>
-<span class="source-line-no">504</span><span id="line-504">    }   //  replaceVariable()</span>
-<span class="source-line-no">505</span><span id="line-505"></span>
-<span class="source-line-no">506</span><span id="line-506">    /**</span>
-<span class="source-line-no">507</span><span id="line-507">     *  Replaces the variables of the form &lt;code&gt;${&amp;lt;&lt;i&gt;name&lt;/i&gt;&amp;gt;}&lt;/code&gt;</span>
-<span class="source-line-no">508</span><span id="line-508">     *  in the given String with values returned by the given retriever</span>
-<span class="source-line-no">509</span><span id="line-509">     *  function for the variable name.&lt;br&gt;</span>
-<span class="source-line-no">510</span><span id="line-510">     *  &lt;br&gt;If no replacement value could be found, the variable will not be</span>
-<span class="source-line-no">511</span><span id="line-511">     *  replaced at all.&lt;br&gt;</span>
-<span class="source-line-no">512</span><span id="line-512">     *  &lt;br&gt;If the retriever function returns a value that contains a variable</span>
-<span class="source-line-no">513</span><span id="line-513">     *  itself, this will not be replaced.&lt;br&gt;</span>
-<span class="source-line-no">514</span><span id="line-514">     *  &lt;br&gt;The retriever function will be called only once for each variable</span>
-<span class="source-line-no">515</span><span id="line-515">     *  name; if the text contains the same variable multiple times, it will</span>
-<span class="source-line-no">516</span><span id="line-516">     *  always be replaced with the same value.&lt;br&gt;</span>
-<span class="source-line-no">517</span><span id="line-517">     *  &lt;br&gt;The variables names are case-sensitive.&lt;br&gt;</span>
-<span class="source-line-no">518</span><span id="line-518">     *  &lt;br&gt;Valid variable name may not contain other characters than the</span>
-<span class="source-line-no">519</span><span id="line-519">     *  letters from 'a' to 'z' (upper case and lower case), the digits from</span>
-<span class="source-line-no">520</span><span id="line-520">     *  '0' to '9' and the special characters underscore ('_') and dot ('.'),</span>
-<span class="source-line-no">521</span><span id="line-521">     *  after an optional prefix character.&lt;br&gt;</span>
-<span class="source-line-no">522</span><span id="line-522">     *  &lt;br&gt;Allowed prefixes are the tilde ('~'), the slash ('/'), the equal</span>
-<span class="source-line-no">523</span><span id="line-523">     *  sign ('='), the colon (':'), the percent sign ('%'), and the ampersand</span>
-<span class="source-line-no">524</span><span id="line-524">     *  ('&amp;amp;').&lt;br&gt;</span>
-<span class="source-line-no">525</span><span id="line-525">     *  &lt;br&gt;The prefix character is part of the name.&lt;br&gt;</span>
-<span class="source-line-no">526</span><span id="line-526">     *  &lt;br&gt;Finally, there is the single underscore that is allowed as a</span>
-<span class="source-line-no">527</span><span id="line-527">     *  special variable.</span>
-<span class="source-line-no">528</span><span id="line-528">     *</span>
-<span class="source-line-no">529</span><span id="line-529">     *  @param  text    The text with the variables; may be {@code null}.</span>
-<span class="source-line-no">530</span><span id="line-530">     *  @param  retriever   The function that will retrieve the replacement</span>
-<span class="source-line-no">531</span><span id="line-531">     *      values for the given variable names.</span>
-<span class="source-line-no">532</span><span id="line-532">     *  @return The new text, or {@code null} if the provided value for</span>
-<span class="source-line-no">533</span><span id="line-533">     *      {@code text} was already {@code null}.</span>
-<span class="source-line-no">534</span><span id="line-534">     *</span>
-<span class="source-line-no">535</span><span id="line-535">     *  @see #VARIABLE_PATTERN</span>
+<span class="source-line-no">502</span><span id="line-502">        final var retValue = replaceVariable( m_TemplateText, retriever );</span>
+<span class="source-line-no">503</span><span id="line-503"></span>
+<span class="source-line-no">504</span><span id="line-504">        //---* Done *----------------------------------------------------------</span>
+<span class="source-line-no">505</span><span id="line-505">        return retValue;</span>
+<span class="source-line-no">506</span><span id="line-506">    }   //  replaceVariable()</span>
+<span class="source-line-no">507</span><span id="line-507"></span>
+<span class="source-line-no">508</span><span id="line-508">    /**</span>
+<span class="source-line-no">509</span><span id="line-509">     *  Replaces the variables of the form &lt;code&gt;${&amp;lt;&lt;i&gt;name&lt;/i&gt;&amp;gt;}&lt;/code&gt;</span>
+<span class="source-line-no">510</span><span id="line-510">     *  in the given String with values returned by the given retriever</span>
+<span class="source-line-no">511</span><span id="line-511">     *  function for the variable name.&lt;br&gt;</span>
+<span class="source-line-no">512</span><span id="line-512">     *  &lt;br&gt;If no replacement value could be found, the variable will not be</span>
+<span class="source-line-no">513</span><span id="line-513">     *  replaced at all.&lt;br&gt;</span>
+<span class="source-line-no">514</span><span id="line-514">     *  &lt;br&gt;If the retriever function returns a value that contains a variable</span>
+<span class="source-line-no">515</span><span id="line-515">     *  itself, this will not be replaced.&lt;br&gt;</span>
+<span class="source-line-no">516</span><span id="line-516">     *  &lt;br&gt;The retriever function will be called only once for each variable</span>
+<span class="source-line-no">517</span><span id="line-517">     *  name; if the text contains the same variable multiple times, it will</span>
+<span class="source-line-no">518</span><span id="line-518">     *  always be replaced with the same value.&lt;br&gt;</span>
+<span class="source-line-no">519</span><span id="line-519">     *  &lt;br&gt;The variables names are case-sensitive.&lt;br&gt;</span>
+<span class="source-line-no">520</span><span id="line-520">     *  &lt;br&gt;Valid variable name may not contain other characters than the</span>
+<span class="source-line-no">521</span><span id="line-521">     *  letters from 'a' to 'z' (upper case and lower case), the digits from</span>
+<span class="source-line-no">522</span><span id="line-522">     *  '0' to '9' and the special characters underscore ('_') and dot ('.'),</span>
+<span class="source-line-no">523</span><span id="line-523">     *  after an optional prefix character.&lt;br&gt;</span>
+<span class="source-line-no">524</span><span id="line-524">     *  &lt;br&gt;Allowed prefixes are the tilde ('~'), the slash ('/'), the equal</span>
+<span class="source-line-no">525</span><span id="line-525">     *  sign ('='), the colon (':'), the percent sign ('%'), and the ampersand</span>
+<span class="source-line-no">526</span><span id="line-526">     *  ('&amp;amp;').&lt;br&gt;</span>
+<span class="source-line-no">527</span><span id="line-527">     *  &lt;br&gt;The prefix character is part of the name.&lt;br&gt;</span>
+<span class="source-line-no">528</span><span id="line-528">     *  &lt;br&gt;Finally, there is the single underscore that is allowed as a</span>
+<span class="source-line-no">529</span><span id="line-529">     *  special variable.</span>
+<span class="source-line-no">530</span><span id="line-530">     *</span>
+<span class="source-line-no">531</span><span id="line-531">     *  @param  text    The text with the variables; may be {@code null}.</span>
+<span class="source-line-no">532</span><span id="line-532">     *  @param  retriever   The function that will retrieve the replacement</span>
+<span class="source-line-no">533</span><span id="line-533">     *      values for the given variable names.</span>
+<span class="source-line-no">534</span><span id="line-534">     *  @return The new text, or {@code null} if the provided value for</span>
+<span class="source-line-no">535</span><span id="line-535">     *      {@code text} was already {@code null}.</span>
 <span class="source-line-no">536</span><span id="line-536">     *</span>
-<span class="source-line-no">537</span><span id="line-537">     *  @since 0.1.0</span>
-<span class="source-line-no">538</span><span id="line-538">     */</span>
-<span class="source-line-no">539</span><span id="line-539">    @API( status = STABLE, since = "0.1.0" )</span>
-<span class="source-line-no">540</span><span id="line-540">    public static final String replaceVariable( final CharSequence text, final Function&lt;? super String, Optional&lt;String&gt;&gt; retriever )</span>
-<span class="source-line-no">541</span><span id="line-541">    {</span>
-<span class="source-line-no">542</span><span id="line-542">        requireNonNullArgument( retriever, "retriever" );</span>
-<span class="source-line-no">543</span><span id="line-543"></span>
-<span class="source-line-no">544</span><span id="line-544">        final Map&lt;String,String&gt; cache = new HashMap&lt;&gt;();</span>
+<span class="source-line-no">537</span><span id="line-537">     *  @see #VARIABLE_PATTERN</span>
+<span class="source-line-no">538</span><span id="line-538">     *</span>
+<span class="source-line-no">539</span><span id="line-539">     *  @since 0.1.0</span>
+<span class="source-line-no">540</span><span id="line-540">     */</span>
+<span class="source-line-no">541</span><span id="line-541">    @API( status = STABLE, since = "0.1.0" )</span>
+<span class="source-line-no">542</span><span id="line-542">    public static final String replaceVariable( final CharSequence text, final Function&lt;? super String, Optional&lt;String&gt;&gt; retriever )</span>
+<span class="source-line-no">543</span><span id="line-543">    {</span>
+<span class="source-line-no">544</span><span id="line-544">        requireNonNullArgument( retriever, "retriever" );</span>
 <span class="source-line-no">545</span><span id="line-545"></span>
-<span class="source-line-no">546</span><span id="line-546">        String retValue = null;</span>
-<span class="source-line-no">547</span><span id="line-547">        if( nonNull( text ) )</span>
-<span class="source-line-no">548</span><span id="line-548">        {</span>
-<span class="source-line-no">549</span><span id="line-549">            final var matcher = m_VariablePattern.matcher( text );</span>
-<span class="source-line-no">550</span><span id="line-550">            final var buffer = new StringBuilder();</span>
-<span class="source-line-no">551</span><span id="line-551">            while( matcher.find() )</span>
-<span class="source-line-no">552</span><span id="line-552">            {</span>
-<span class="source-line-no">553</span><span id="line-553">                final var variable = matcher.group( 0 );</span>
-<span class="source-line-no">554</span><span id="line-554">                final var replacement = cache.computeIfAbsent( variable, v -&gt; escapeRegexReplacement( retriever.apply( matcher.group( 1 ) ).orElse( v ) ) );</span>
-<span class="source-line-no">555</span><span id="line-555">                matcher.appendReplacement( buffer, replacement );</span>
-<span class="source-line-no">556</span><span id="line-556">            }</span>
-<span class="source-line-no">557</span><span id="line-557">            matcher.appendTail( buffer );</span>
-<span class="source-line-no">558</span><span id="line-558">            retValue = buffer.toString();</span>
-<span class="source-line-no">559</span><span id="line-559">        }</span>
-<span class="source-line-no">560</span><span id="line-560"></span>
-<span class="source-line-no">561</span><span id="line-561">        //---* Done *----------------------------------------------------------</span>
-<span class="source-line-no">562</span><span id="line-562">        return retValue;</span>
-<span class="source-line-no">563</span><span id="line-563">    }   //  replaceVariable()</span>
-<span class="source-line-no">564</span><span id="line-564"></span>
-<span class="source-line-no">565</span><span id="line-565">    /**</span>
-<span class="source-line-no">566</span><span id="line-566">     *  Tries to obtain a value for the given key from one of the given</span>
-<span class="source-line-no">567</span><span id="line-567">     *  sources that will be searched in the given sequence order.</span>
-<span class="source-line-no">568</span><span id="line-568">     *</span>
-<span class="source-line-no">569</span><span id="line-569">     *  @param  name    The name of the value.</span>
-<span class="source-line-no">570</span><span id="line-570">     *  @param  sources The maps with the values.</span>
-<span class="source-line-no">571</span><span id="line-571">     *  @return An instance of</span>
-<span class="source-line-no">572</span><span id="line-572">     *      {@link Optional}</span>
-<span class="source-line-no">573</span><span id="line-573">     *      that holds the value from one of the sources.</span>
-<span class="source-line-no">574</span><span id="line-574">     */</span>
-<span class="source-line-no">575</span><span id="line-575">    @SafeVarargs</span>
-<span class="source-line-no">576</span><span id="line-576">    private static final Optional&lt;String&gt; retrieveVariableValue( final String name, final Map&lt;String,?&gt;... sources )</span>
-<span class="source-line-no">577</span><span id="line-577">    {</span>
-<span class="source-line-no">578</span><span id="line-578">        assert nonNull( name ) : "name is null";</span>
-<span class="source-line-no">579</span><span id="line-579">        assert nonNull( sources ) : "sources is null";</span>
-<span class="source-line-no">580</span><span id="line-580"></span>
-<span class="source-line-no">581</span><span id="line-581">        Optional&lt;String&gt; retValue = Optional.empty();</span>
+<span class="source-line-no">546</span><span id="line-546">        final Map&lt;String,String&gt; cache = new HashMap&lt;&gt;();</span>
+<span class="source-line-no">547</span><span id="line-547"></span>
+<span class="source-line-no">548</span><span id="line-548">        String retValue = null;</span>
+<span class="source-line-no">549</span><span id="line-549">        if( nonNull( text ) )</span>
+<span class="source-line-no">550</span><span id="line-550">        {</span>
+<span class="source-line-no">551</span><span id="line-551">            final var matcher = m_VariablePattern.matcher( text );</span>
+<span class="source-line-no">552</span><span id="line-552">            final var buffer = new StringBuilder();</span>
+<span class="source-line-no">553</span><span id="line-553">            while( matcher.find() )</span>
+<span class="source-line-no">554</span><span id="line-554">            {</span>
+<span class="source-line-no">555</span><span id="line-555">                final var variable = matcher.group( 0 );</span>
+<span class="source-line-no">556</span><span id="line-556">                final var replacement = cache.computeIfAbsent( variable, v -&gt; escapeRegexReplacement( retriever.apply( matcher.group( 1 ) ).orElse( v ) ) );</span>
+<span class="source-line-no">557</span><span id="line-557">                matcher.appendReplacement( buffer, replacement );</span>
+<span class="source-line-no">558</span><span id="line-558">            }</span>
+<span class="source-line-no">559</span><span id="line-559">            matcher.appendTail( buffer );</span>
+<span class="source-line-no">560</span><span id="line-560">            retValue = buffer.toString();</span>
+<span class="source-line-no">561</span><span id="line-561">        }</span>
+<span class="source-line-no">562</span><span id="line-562"></span>
+<span class="source-line-no">563</span><span id="line-563">        //---* Done *----------------------------------------------------------</span>
+<span class="source-line-no">564</span><span id="line-564">        return retValue;</span>
+<span class="source-line-no">565</span><span id="line-565">    }   //  replaceVariable()</span>
+<span class="source-line-no">566</span><span id="line-566"></span>
+<span class="source-line-no">567</span><span id="line-567">    /**</span>
+<span class="source-line-no">568</span><span id="line-568">     *  Tries to obtain a value for the given key from one of the given</span>
+<span class="source-line-no">569</span><span id="line-569">     *  sources that will be searched in the given sequence order.</span>
+<span class="source-line-no">570</span><span id="line-570">     *</span>
+<span class="source-line-no">571</span><span id="line-571">     *  @param  name    The name of the value.</span>
+<span class="source-line-no">572</span><span id="line-572">     *  @param  sources The maps with the values.</span>
+<span class="source-line-no">573</span><span id="line-573">     *  @return An instance of</span>
+<span class="source-line-no">574</span><span id="line-574">     *      {@link Optional}</span>
+<span class="source-line-no">575</span><span id="line-575">     *      that holds the value from one of the sources.</span>
+<span class="source-line-no">576</span><span id="line-576">     */</span>
+<span class="source-line-no">577</span><span id="line-577">    @SafeVarargs</span>
+<span class="source-line-no">578</span><span id="line-578">    private static final Optional&lt;String&gt; retrieveVariableValue( final String name, final Map&lt;String,?&gt;... sources )</span>
+<span class="source-line-no">579</span><span id="line-579">    {</span>
+<span class="source-line-no">580</span><span id="line-580">        assert nonNull( name ) : "name is null";</span>
+<span class="source-line-no">581</span><span id="line-581">        assert nonNull( sources ) : "sources is null";</span>
 <span class="source-line-no">582</span><span id="line-582"></span>
-<span class="source-line-no">583</span><span id="line-583">        //---* Search the sources *--------------------------------------------</span>
-<span class="source-line-no">584</span><span id="line-584">        Object value = null;</span>
-<span class="source-line-no">585</span><span id="line-585">        SearchLoop: for( final var map : sources )</span>
-<span class="source-line-no">586</span><span id="line-586">        {</span>
-<span class="source-line-no">587</span><span id="line-587">            value = map.get( name );</span>
-<span class="source-line-no">588</span><span id="line-588">            if( nonNull( value ) ) break SearchLoop;</span>
-<span class="source-line-no">589</span><span id="line-589">        }   //  SearchLoop:</span>
-<span class="source-line-no">590</span><span id="line-590"></span>
-<span class="source-line-no">591</span><span id="line-591">        if( nonNull( value ) )</span>
-<span class="source-line-no">592</span><span id="line-592">        {</span>
-<span class="source-line-no">593</span><span id="line-593">            //---* Escape the backslashes and dollar signs *-------------------</span>
-<span class="source-line-no">594</span><span id="line-594">            retValue = Optional.of( value.toString() );</span>
-<span class="source-line-no">595</span><span id="line-595">        }</span>
-<span class="source-line-no">596</span><span id="line-596"></span>
-<span class="source-line-no">597</span><span id="line-597">        //---* Done *----------------------------------------------------------</span>
-<span class="source-line-no">598</span><span id="line-598">        return retValue;</span>
-<span class="source-line-no">599</span><span id="line-599">    }   //  retrieveVariableValue()</span>
-<span class="source-line-no">600</span><span id="line-600">}</span>
-<span class="source-line-no">601</span><span id="line-601">//  class Template</span>
-<span class="source-line-no">602</span><span id="line-602"></span>
-<span class="source-line-no">603</span><span id="line-603">/*</span>
-<span class="source-line-no">604</span><span id="line-604"> *  End of File</span>
-<span class="source-line-no">605</span><span id="line-605"> */</span>
+<span class="source-line-no">583</span><span id="line-583">        Optional&lt;String&gt; retValue = Optional.empty();</span>
+<span class="source-line-no">584</span><span id="line-584"></span>
+<span class="source-line-no">585</span><span id="line-585">        //---* Search the sources *--------------------------------------------</span>
+<span class="source-line-no">586</span><span id="line-586">        Object value = null;</span>
+<span class="source-line-no">587</span><span id="line-587">        SearchLoop: for( final var map : sources )</span>
+<span class="source-line-no">588</span><span id="line-588">        {</span>
+<span class="source-line-no">589</span><span id="line-589">            value = map.get( name );</span>
+<span class="source-line-no">590</span><span id="line-590">            if( nonNull( value ) ) break SearchLoop;</span>
+<span class="source-line-no">591</span><span id="line-591">        }   //  SearchLoop:</span>
+<span class="source-line-no">592</span><span id="line-592"></span>
+<span class="source-line-no">593</span><span id="line-593">        if( nonNull( value ) )</span>
+<span class="source-line-no">594</span><span id="line-594">        {</span>
+<span class="source-line-no">595</span><span id="line-595">            //---* Escape the backslashes and dollar signs *-------------------</span>
+<span class="source-line-no">596</span><span id="line-596">            retValue = Optional.of( value.toString() );</span>
+<span class="source-line-no">597</span><span id="line-597">        }</span>
+<span class="source-line-no">598</span><span id="line-598"></span>
+<span class="source-line-no">599</span><span id="line-599">        //---* Done *----------------------------------------------------------</span>
+<span class="source-line-no">600</span><span id="line-600">        return retValue;</span>
+<span class="source-line-no">601</span><span id="line-601">    }   //  retrieveVariableValue()</span>
+<span class="source-line-no">602</span><span id="line-602">}</span>
+<span class="source-line-no">603</span><span id="line-603">//  class Template</span>
+<span class="source-line-no">604</span><span id="line-604"></span>
+<span class="source-line-no">605</span><span id="line-605">/*</span>
+<span class="source-line-no">606</span><span id="line-606"> *  End of File</span>
+<span class="source-line-no">607</span><span id="line-607"> */</span>
 
 
 

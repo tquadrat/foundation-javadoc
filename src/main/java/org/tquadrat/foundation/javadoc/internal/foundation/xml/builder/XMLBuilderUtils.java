@@ -188,16 +188,22 @@ public final class XMLBuilderUtils
             \*------------*/
         /**
          *  The new validator.
+         *
+         *  @serial
          */
         private final Predicate<CharSequence> m_NewValidator;
 
         /**
          *  The previous validator.
+         *
+         *  @serial
          */
         private final Predicate<CharSequence> m_OldValidator;
 
         /**
          *  The validator that changed.
+         *
+         *  @serial
          */
         private final Validator m_Validator;
 

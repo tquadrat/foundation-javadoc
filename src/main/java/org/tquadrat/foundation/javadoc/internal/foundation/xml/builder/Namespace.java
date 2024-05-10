@@ -58,11 +58,15 @@ public final class Namespace implements Serializable, Comparable<Namespace>
         \*------------*/
     /**
      *  The namespace identifier.
+     *
+     *  @serial
      */
     private final URI m_Identifier;
 
     /**
      *  The namespace prefix.
+     *
+     *  @serial
      */
     @SuppressWarnings( "OptionalUsedAsFieldOrParameterType" )
     private final Optional<String> m_Prefix;
