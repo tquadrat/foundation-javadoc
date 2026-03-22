@@ -61,11 +61,11 @@ import org.tquadrat.foundation.javadoc.internal.foundation.xml.builder.spi.Eleme
  *  feature.</p>
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: XMLElement.java 976 2022-01-06 11:39:58Z tquadrat $
+ *  @version $Id: XMLElement.java 1133 2024-05-10 21:43:08Z tquadrat $
  *  @since 0.0.5
  */
 @SuppressWarnings( {"ClassWithTooManyMethods", "unused"} )
-@ClassVersion( sourceVersion = "$Id: XMLElement.java 976 2022-01-06 11:39:58Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: XMLElement.java 1133 2024-05-10 21:43:08Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
 public interface XMLElement extends Element
 {
@@ -78,10 +78,10 @@ public interface XMLElement extends Element
      *  this interface.
      *
      *  @author Thomas Thrien - thomas.thrien@tquadrat.org
-     *  @version $Id: XMLElement.java 976 2022-01-06 11:39:58Z tquadrat $
+     *  @version $Id: XMLElement.java 1133 2024-05-10 21:43:08Z tquadrat $
      *  @since 0.0.5
      */
-    @ClassVersion( sourceVersion = "$Id: XMLElement.java 976 2022-01-06 11:39:58Z tquadrat $" )
+    @ClassVersion( sourceVersion = "$Id: XMLElement.java 1133 2024-05-10 21:43:08Z tquadrat $" )
     @API( status = STABLE, since = "0.1.0" )
     public static enum Flags
     {

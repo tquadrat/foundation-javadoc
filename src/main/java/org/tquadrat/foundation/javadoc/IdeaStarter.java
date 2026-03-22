@@ -40,13 +40,13 @@ import org.tquadrat.foundation.javadoc.internal.foundation.exception.PrivateCons
  *  {@link #main(String...)}
  *  has always values.
  *
- *  @version $Id: IdeaStarter.java 977 2022-01-06 11:41:03Z tquadrat $
+ *  @version $Id: IdeaStarter.java 1133 2024-05-10 21:43:08Z tquadrat $
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
  *  @since 0.1.0
  */
 @ProgramClass
-@ClassVersion( sourceVersion = "$Id: IdeaStarter.java 977 2022-01-06 11:41:03Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: IdeaStarter.java 1133 2024-05-10 21:43:08Z tquadrat $" )
 @API( status = STABLE, since = "0.1.0" )
 public final class IdeaStarter
 {

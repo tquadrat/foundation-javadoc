@@ -26,10 +26,10 @@ import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersi
  *  The definition of the SVG {@code <clipPath>} element.
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: SVGClipPath.java 977 2022-01-06 11:41:03Z tquadrat $
+ *  @version $Id: SVGClipPath.java 1133 2024-05-10 21:43:08Z tquadrat $
  *  @since 0.0.5
  */
-@ClassVersion( sourceVersion = "$Id: SVGClipPath.java 977 2022-01-06 11:41:03Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: SVGClipPath.java 1133 2024-05-10 21:43:08Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
 public interface SVGClipPath extends AllowsConditionalProcessingAttributes, AllowsPresentationAttributes, SVGElementWithChildren
 {

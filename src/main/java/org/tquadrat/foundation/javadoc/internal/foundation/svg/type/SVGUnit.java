@@ -31,10 +31,10 @@ import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersi
  *  units and the transformations into Strings for those units.
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: SVGUnit.java 976 2022-01-06 11:39:58Z tquadrat $
+ *  @version $Id: SVGUnit.java 1133 2024-05-10 21:43:08Z tquadrat $
  *  @since 0.0.5
  */
-@ClassVersion( sourceVersion = "$Id: SVGUnit.java 976 2022-01-06 11:39:58Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: SVGUnit.java 1133 2024-05-10 21:43:08Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
 public enum SVGUnit
 {

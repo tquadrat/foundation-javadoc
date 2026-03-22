@@ -48,10 +48,10 @@ import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersi
  *  This class is used to lay out the UML graph.
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: UMLGraphLayout.java 976 2022-01-06 11:39:58Z tquadrat $
+ *  @version $Id: UMLGraphLayout.java 1133 2024-05-10 21:43:08Z tquadrat $
  *  @since 0.0.5
  */
-@ClassVersion( sourceVersion = "$Id: UMLGraphLayout.java 976 2022-01-06 11:39:58Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: UMLGraphLayout.java 1133 2024-05-10 21:43:08Z tquadrat $" )
 @API( status = INTERNAL, since = "0.0.5")
 public final class UMLGraphLayout
 {
@@ -62,10 +62,10 @@ public final class UMLGraphLayout
      *  This class is used to lay out the UML graph.
      *
      *  @author Thomas Thrien - thomas.thrien@tquadrat.org
-     *  @version $Id: UMLGraphLayout.java 976 2022-01-06 11:39:58Z tquadrat $
+     *  @version $Id: UMLGraphLayout.java 1133 2024-05-10 21:43:08Z tquadrat $
      *  @since 0.0.5
      */
-    @ClassVersion( sourceVersion = "$Id: UMLGraphLayout.java 976 2022-01-06 11:39:58Z tquadrat $" )
+    @ClassVersion( sourceVersion = "$Id: UMLGraphLayout.java 1133 2024-05-10 21:43:08Z tquadrat $" )
     @API( status = INTERNAL, since = "0.0.5")
     public static final class UMLGraphLayoutRow
     {

@@ -110,10 +110,10 @@ import jdk.javadoc.doclet.Taglet;
  *  <p>The file is interpreted as Markdown since version 0.2.0, before it was a
  *  plain text file.</p>
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: ToDoTaglet.java 978 2022-01-06 12:47:52Z tquadrat $
+ *  @version $Id: ToDoTaglet.java 1133 2024-05-10 21:43:08Z tquadrat $
  *  @since 0.0.5
  */
-@ClassVersion( sourceVersion = "$Id: ToDoTaglet.java 978 2022-01-06 12:47:52Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: ToDoTaglet.java 1133 2024-05-10 21:43:08Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
 public final class ToDoTaglet implements Taglet
 {

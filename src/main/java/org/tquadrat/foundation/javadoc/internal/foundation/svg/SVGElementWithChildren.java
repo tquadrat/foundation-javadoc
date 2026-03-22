@@ -26,10 +26,10 @@ import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersi
  *  The definition of an SVG element that allows child elements.
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: SVGElementWithChildren.java 976 2022-01-06 11:39:58Z tquadrat $
+ *  @version $Id: SVGElementWithChildren.java 1133 2024-05-10 21:43:08Z tquadrat $
  *  @since 0.0.5
  */
-@ClassVersion( sourceVersion = "$Id: SVGElementWithChildren.java 976 2022-01-06 11:39:58Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: SVGElementWithChildren.java 1133 2024-05-10 21:43:08Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
 public interface SVGElementWithChildren extends SVGElement
 {

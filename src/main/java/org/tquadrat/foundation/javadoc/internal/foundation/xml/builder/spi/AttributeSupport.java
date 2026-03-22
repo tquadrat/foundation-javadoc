@@ -57,10 +57,10 @@ import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersi
  *  can be configured by the user.</p>
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: AttributeSupport.java 976 2022-01-06 11:39:58Z tquadrat $
+ *  @version $Id: AttributeSupport.java 1133 2024-05-10 21:43:08Z tquadrat $
  *  @since 0.0.5
  */
-@ClassVersion( sourceVersion = "$Id: AttributeSupport.java 976 2022-01-06 11:39:58Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: AttributeSupport.java 1133 2024-05-10 21:43:08Z tquadrat $" )
 @API( status = MAINTAINED, since = "0.0.5" )
 public final class AttributeSupport extends NamespaceSupport
 {

@@ -45,11 +45,11 @@ import org.tquadrat.foundation.javadoc.internal.foundation.xml.builder.spi.Inval
  *  <p>It allows document comments and processing instructions to be added.</p>
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: XMLDocumentImpl.java 976 2022-01-06 11:39:58Z tquadrat $
+ *  @version $Id: XMLDocumentImpl.java 1133 2024-05-10 21:43:08Z tquadrat $
  *  @since 0.0.5
  */
 @SuppressWarnings( {"ClassWithTooManyConstructors", "unused"} )
-@ClassVersion( sourceVersion = "$Id: XMLDocumentImpl.java 976 2022-01-06 11:39:58Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: XMLDocumentImpl.java 1133 2024-05-10 21:43:08Z tquadrat $" )
 @API( status = INTERNAL, since = "0.0.5" )
 public final class XMLDocumentImpl implements XMLDocument
 {

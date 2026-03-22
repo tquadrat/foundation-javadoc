@@ -30,11 +30,11 @@ import org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGNumber.SV
  *  The definition of an SVG {@code <line>} element.
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: SVGLine.java 977 2022-01-06 11:41:03Z tquadrat $
+ *  @version $Id: SVGLine.java 1133 2024-05-10 21:43:08Z tquadrat $
  *  @since 0.0.5
  */
 @SuppressWarnings( "unused" )
-@ClassVersion( sourceVersion = "$Id: SVGLine.java 977 2022-01-06 11:41:03Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: SVGLine.java 1133 2024-05-10 21:43:08Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
 public interface SVGLine extends SVGElementWithChildren, AllowsConditionalProcessingAttributes, AllowsGlobalEventAttributes, AllowsGraphicalEventAttributes, AllowsPresentationAttributes, AllowsStyleAttributes
 {

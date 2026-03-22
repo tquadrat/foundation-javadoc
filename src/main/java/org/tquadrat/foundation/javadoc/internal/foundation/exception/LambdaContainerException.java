@@ -34,10 +34,10 @@ import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersi
  *  lambda expressions.}</p>
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: LambdaContainerException.java 976 2022-01-06 11:39:58Z tquadrat $
+ *  @version $Id: LambdaContainerException.java 1133 2024-05-10 21:43:08Z tquadrat $
  *  @since 0.1.0
  */
-@ClassVersion( sourceVersion = "$Id: LambdaContainerException.java 976 2022-01-06 11:39:58Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: LambdaContainerException.java 1133 2024-05-10 21:43:08Z tquadrat $" )
 @API( status = STABLE, since = "0.1.0" )
 public final class LambdaContainerException extends RuntimeException
 {

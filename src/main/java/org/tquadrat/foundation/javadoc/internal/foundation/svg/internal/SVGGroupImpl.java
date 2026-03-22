@@ -67,10 +67,10 @@ import org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGGroup;
  *  for the SVG {@code <g>} element.
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: SVGGroupImpl.java 977 2022-01-06 11:41:03Z tquadrat $
+ *  @version $Id: SVGGroupImpl.java 1133 2024-05-10 21:43:08Z tquadrat $
  *  @since 0.0.5
  */
-@ClassVersion( sourceVersion = "$Id: SVGGroupImpl.java 977 2022-01-06 11:41:03Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: SVGGroupImpl.java 1133 2024-05-10 21:43:08Z tquadrat $" )
 @API( status = INTERNAL, since = "0.0.5" )
 public final class SVGGroupImpl extends SVGElementImpl implements SVGGroup
 {

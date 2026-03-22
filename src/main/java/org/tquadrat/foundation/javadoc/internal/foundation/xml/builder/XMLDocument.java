@@ -39,11 +39,11 @@ import org.tquadrat.foundation.javadoc.internal.foundation.xml.builder.spi.Docum
  *  The definition for an XML document.
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: XMLDocument.java 976 2022-01-06 11:39:58Z tquadrat $
+ *  @version $Id: XMLDocument.java 1133 2024-05-10 21:43:08Z tquadrat $
  *  @since 0.0.5
  */
 @SuppressWarnings( {"ClassWithTooManyMethods", "unused"} )
-@ClassVersion( sourceVersion = "$Id: XMLDocument.java 976 2022-01-06 11:39:58Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: XMLDocument.java 1133 2024-05-10 21:43:08Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
 public interface XMLDocument extends Document<XMLElement>
 {

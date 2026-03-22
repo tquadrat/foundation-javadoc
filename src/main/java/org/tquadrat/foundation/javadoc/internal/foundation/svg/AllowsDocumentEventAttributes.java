@@ -40,11 +40,11 @@ import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersi
  *  will implement this interface.
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: AllowsDocumentEventAttributes.java 976 2022-01-06 11:39:58Z tquadrat $
+ *  @version $Id: AllowsDocumentEventAttributes.java 1133 2024-05-10 21:43:08Z tquadrat $
  *  @since 0.0.5
  */
 @SuppressWarnings( "unused" )
-@ClassVersion( sourceVersion = "$Id: AllowsDocumentEventAttributes.java 976 2022-01-06 11:39:58Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: AllowsDocumentEventAttributes.java 1133 2024-05-10 21:43:08Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
 public interface AllowsDocumentEventAttributes
 {

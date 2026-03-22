@@ -42,10 +42,10 @@ import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersi
  *      the same as the type itself.
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: ListBasedComparator.java 976 2022-01-06 11:39:58Z tquadrat $
+ *  @version $Id: ListBasedComparator.java 1133 2024-05-10 21:43:08Z tquadrat $
  *  @since 0.0.5
  */
-@ClassVersion( sourceVersion = "$Id: ListBasedComparator.java 976 2022-01-06 11:39:58Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: ListBasedComparator.java 1133 2024-05-10 21:43:08Z tquadrat $" )
 @API( status = INTERNAL, since = "0.0.5" )
 public class ListBasedComparator<T,K> implements Comparator<T>
 {
@@ -58,14 +58,14 @@ public class ListBasedComparator<T,K> implements Comparator<T>
      *  that returns the instance itself as the sort order key.
      *
      *  @author Thomas Thrien - thomas.thrien@tquadrat.org
-     *  @version $Id: ListBasedComparator.java 976 2022-01-06 11:39:58Z tquadrat $
+     *  @version $Id: ListBasedComparator.java 1133 2024-05-10 21:43:08Z tquadrat $
      *
      *  @param  <T> The type to order.
      *  @param  <K> The key type that is used to determine the order; this may
      *      be the same as the type itself. At least, an instance of type
      *      {@code T} must be assignable to {@code K}.
      */
-    @ClassVersion( sourceVersion = "$Id: ListBasedComparator.java 976 2022-01-06 11:39:58Z tquadrat $" )
+    @ClassVersion( sourceVersion = "$Id: ListBasedComparator.java 1133 2024-05-10 21:43:08Z tquadrat $" )
     private static class SimpleKeyProvider<T,K> implements KeyProvider<T,K>
     {
             /*--------------*\

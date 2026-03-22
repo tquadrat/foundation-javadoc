@@ -16,15 +16,14 @@
  */
 
 package org.tquadrat.foundation.markdown;
-import org.commonmark.node.Node;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.tquadrat.foundation.testutil.TestBaseClass;
-
-import static org.apiguardian.api.API.Status.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  *  Playground for Markdown

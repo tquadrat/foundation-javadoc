@@ -49,12 +49,12 @@ import org.tquadrat.foundation.javadoc.internal.foundation.util.ListBasedCompara
  *  {@code foundation-base} and {@code foundation-util} was placed into this
  *  class.</p>
  *
- *  @version $Id: ToolKit.java 991 2022-01-16 16:58:29Z tquadrat $
+ *  @version $Id: ToolKit.java 1133 2024-05-10 21:43:08Z tquadrat $
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
  *  @since 0.1.0
  */
 @API( status = INTERNAL, since = "0.1.0" )
-@ClassVersion( sourceVersion = "$Id: ToolKit.java 991 2022-01-16 16:58:29Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: ToolKit.java 1133 2024-05-10 21:43:08Z tquadrat $" )
 @UtilityClass
 public class ToolKit
 {
@@ -66,7 +66,7 @@ public class ToolKit
      *  given instance of the type.
      *
      *  @author Thomas Thrien - thomas.thrien@tquadrat.org
-     *  @version $Id: ToolKit.java 991 2022-01-16 16:58:29Z tquadrat $
+     *  @version $Id: ToolKit.java 1133 2024-05-10 21:43:08Z tquadrat $
      *  @since 0.0.5
      *
      *  @param  <T> The type to order.
@@ -74,7 +74,7 @@ public class ToolKit
      *      be the same as the type itself.
      */
     @API( status = STABLE, since = "0.0.5" )
-    @ClassVersion( sourceVersion = "$Id: ToolKit.java 991 2022-01-16 16:58:29Z tquadrat $" )
+    @ClassVersion( sourceVersion = "$Id: ToolKit.java 1133 2024-05-10 21:43:08Z tquadrat $" )
     @FunctionalInterface
     public interface KeyProvider<T,K>
     {

@@ -29,11 +29,11 @@ import org.tquadrat.foundation.javadoc.internal.foundation.xml.builder.XMLElemen
  *  The definition of the SVG {@code <text>} element.
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: SVGText.java 977 2022-01-06 11:41:03Z tquadrat $
+ *  @version $Id: SVGText.java 1133 2024-05-10 21:43:08Z tquadrat $
  *  @since 0.0.5
  */
 @SuppressWarnings( "unused" )
-@ClassVersion( sourceVersion = "$Id: SVGText.java 977 2022-01-06 11:41:03Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: SVGText.java 1133 2024-05-10 21:43:08Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
 public interface SVGText extends SVGElementWithChildren, AllowsConditionalProcessingAttributes, AllowsGraphicalEventAttributes, AllowsPresentationAttributes, AllowsStyleAttributes
 {

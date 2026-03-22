@@ -34,13 +34,13 @@ import org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGPreserveA
  *  @see SVGUtils#createSymbol(String,SVG)
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: SVGSymbol.java 977 2022-01-06 11:41:03Z tquadrat $
+ *  @version $Id: SVGSymbol.java 1133 2024-05-10 21:43:08Z tquadrat $
  *  @since 0.0.5
  *
  *  @see "https://www.w3.org/TR/SVG/single-page.html#struct-SVGElement"
  */
 @SuppressWarnings( "unused" )
-@ClassVersion( sourceVersion = "$Id: SVGSymbol.java 977 2022-01-06 11:41:03Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: SVGSymbol.java 1133 2024-05-10 21:43:08Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
 public interface SVGSymbol extends SVGElementWithChildren, AllowsGraphicalEventAttributes, AllowsPresentationAttributes, AllowsStyleAttributes
 {

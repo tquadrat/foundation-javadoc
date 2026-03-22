@@ -62,11 +62,11 @@ import org.tquadrat.foundation.javadoc.internal.foundation.exception.PrivateCons
  *  {@code -overview} option on the JavaDoc command line.</p>
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: CreateSourceHTML.java 977 2022-01-06 11:41:03Z tquadrat $
+ *  @version $Id: CreateSourceHTML.java 1133 2024-05-10 21:43:08Z tquadrat $
  *  @since 0.0.5
  */
 @ProgramClass
-@ClassVersion( sourceVersion = "$Id: CreateSourceHTML.java 977 2022-01-06 11:41:03Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: CreateSourceHTML.java 1133 2024-05-10 21:43:08Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5")
 public final class CreateSourceHTML
 {

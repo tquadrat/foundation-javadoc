@@ -33,12 +33,12 @@ import org.tquadrat.foundation.javadoc.internal.foundation.lang.internal.LazyImp
  *  <p>{@summary A holder for a lazy initialised object instance.}</p>
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: Lazy.java 991 2022-01-16 16:58:29Z tquadrat $
+ *  @version $Id: Lazy.java 1133 2024-05-10 21:43:08Z tquadrat $
  *  @since 0.1.0
  *
  *  @param  <T> The type of the value for this instance of {@code Lazy}.
  */
-@ClassVersion( sourceVersion = "$Id: Lazy.java 991 2022-01-16 16:58:29Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: Lazy.java 1133 2024-05-10 21:43:08Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
 public interface Lazy<T>
 {

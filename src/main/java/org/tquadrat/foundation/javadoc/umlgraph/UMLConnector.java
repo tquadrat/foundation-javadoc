@@ -45,10 +45,10 @@ import org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGPathEleme
  *  {@link org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGPath SVGPath}.
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: UMLConnector.java 991 2022-01-16 16:58:29Z tquadrat $
+ *  @version $Id: UMLConnector.java 1133 2024-05-10 21:43:08Z tquadrat $
  *  @since 0.0.5
  */
-@ClassVersion( sourceVersion = "$Id: UMLConnector.java 991 2022-01-16 16:58:29Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: UMLConnector.java 1133 2024-05-10 21:43:08Z tquadrat $" )
 @API( status = INTERNAL, since = "0.0.5")
 public final class UMLConnector extends SVGElementAdapter
 {

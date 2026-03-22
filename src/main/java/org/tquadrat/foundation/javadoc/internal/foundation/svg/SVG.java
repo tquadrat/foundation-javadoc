@@ -37,12 +37,12 @@ import jakarta.activation.MimeType;
  *  {@link Usage}.</p>
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: SVG.java 977 2022-01-06 11:41:03Z tquadrat $
+ *  @version $Id: SVG.java 1133 2024-05-10 21:43:08Z tquadrat $
  *  @since 0.0.5
  *
  *  @see "https://www.w3.org/TR/SVG/single-page.html#struct-SVGElement"
  */
-@ClassVersion( sourceVersion = "$Id: SVG.java 977 2022-01-06 11:41:03Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: SVG.java 1133 2024-05-10 21:43:08Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
 public interface SVG extends SVGElementWithChildren, AllowsConditionalProcessingAttributes, AllowsDocumentEventAttributes, AllowsDocumentElementEventAttributes, AllowsGraphicalEventAttributes, AllowsPresentationAttributes, AllowsStyleAttributes
 {
@@ -53,10 +53,10 @@ public interface SVG extends SVGElementWithChildren, AllowsConditionalProcessing
      *  The different usages for an {@code <svg>} element.
      *
      *  @author Thomas Thrien - thomas.thrien@tquadrat.org
-     *  @version $Id: SVG.java 977 2022-01-06 11:41:03Z tquadrat $
+     *  @version $Id: SVG.java 1133 2024-05-10 21:43:08Z tquadrat $
      *  @since 0.0.5
      */
-    @ClassVersion( sourceVersion = "$Id: SVG.java 977 2022-01-06 11:41:03Z tquadrat $" )
+    @ClassVersion( sourceVersion = "$Id: SVG.java 1133 2024-05-10 21:43:08Z tquadrat $" )
     @API( status = STABLE, since = "0.0.5" )
     public static enum Usage
     {

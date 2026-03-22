@@ -43,6 +43,10 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.apiguardian.api.API;
+import org.commonmark.Extension;
+import org.commonmark.ext.gfm.tables.TablesExtension;
+import org.commonmark.parser.Parser;
+import org.commonmark.renderer.html.HtmlRenderer;
 import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
 import com.sun.source.doctree.DocTree;
 import jdk.javadoc.doclet.Doclet;
@@ -52,7 +56,7 @@ import jdk.javadoc.doclet.Taglet;
 /**
  *  <p>{@summary This class is the base class for taglet that allow to include
  *  the contents of an external file into the JavaDoc documentation.} This is
- *  particularly useful when the contents of resource files (like a DTD or an
+ *  particularly useful when the contents of a resource file (like a DTD or an
  *  XML Schema) should be shown in the documentation.</p>
  *  <p>Usually, that file is stored somewhere on the
  *  {@link Common#SOURCE_PATH SOURCE_PATH}; this means that a file is addressed
@@ -71,7 +75,7 @@ import jdk.javadoc.doclet.Taglet;
  *  <p><b>Notes:</b></p>
  *  <ul>
  *      <li>If Maven is used, and the include file is not placed at the
- *      {@code java} path (but on the {@code resources} path, for example}, it
+ *      {@code java} path (but on the {@code resources} path, for example), it
  *      is required to add the parameter <code>&lt;sourcepath&gt;</code> to the
  *      configuration of the {@code maven-javadoc-plugin}, where the path of
  *      the include file is added; otherwise, it will not be found.
@@ -91,10 +95,10 @@ import jdk.javadoc.doclet.Taglet;
  *  </ul>
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: OtherFileTagletBase.java 1013 2022-02-08 21:30:29Z tquadrat $
+ *  @version $Id: OtherFileTagletBase.java 1133 2024-05-10 21:43:08Z tquadrat $
  *  @since 0.1.0
  */
-@ClassVersion( sourceVersion = "$Id: OtherFileTagletBase.java 1013 2022-02-08 21:30:29Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: OtherFileTagletBase.java 1133 2024-05-10 21:43:08Z tquadrat $" )
 @API( status = STABLE, since = "0.1.0" )
 public abstract class OtherFileTagletBase implements Taglet
 {
@@ -105,11 +109,11 @@ public abstract class OtherFileTagletBase implements Taglet
      *  The process modes for the included file.
      *
      *  @author Thomas Thrien - thomas.thrien@tquadrat.org
-     *  @version $Id: OtherFileTagletBase.java 1013 2022-02-08 21:30:29Z tquadrat $
+     *  @version $Id: OtherFileTagletBase.java 1133 2024-05-10 21:43:08Z tquadrat $
      *  @since 0.0.5
      */
     @SuppressWarnings( "InnerClassTooDeeplyNested" )
-    @ClassVersion( sourceVersion = "$Id: OtherFileTagletBase.java 1013 2022-02-08 21:30:29Z tquadrat $" )
+    @ClassVersion( sourceVersion = "$Id: OtherFileTagletBase.java 1133 2024-05-10 21:43:08Z tquadrat $" )
     @API( status = INTERNAL, since = "0.0.5", consumers = "org.tquadrat.foundation.javadoc" )
     public enum ProcessMode
     {
@@ -153,6 +157,50 @@ public abstract class OtherFileTagletBase implements Taglet
                     retValue = bufferedReader.lines()
                         .map( ToolKit::escapeHTML )
                         .collect( joining( "<br>" ) );
+                }
+                catch( final IOException e )
+                {
+                    throw new JavadocError( format( MSG_ProcessingProblem, fileName ), e );
+                }
+
+                //---* Done *--------------------------------------------------
+                return retValue;
+            }   //  processFile()
+        },
+
+        /**
+         *  <p>{@summary The file contents will be treated as Markdown.} This
+         *  works means, it will be first parsed and then rendered to HTML that
+         *  in turn is inserted as for
+         *  {@link #PLAIN}.</p>
+         */
+        @API( status = INTERNAL, since = "0.25.0" )
+        MARKDOWN
+        {
+            /**
+             *  {@inheritDoc}
+             */
+            @Override
+            public final String processFile( final String fileName, final Reader reader, final String... params )
+            {
+                final String retValue;
+                try
+                {
+                    //---* Set up the Markdown conversion *--------------------
+                    final List<Extension> extensions = List.of( TablesExtension.create() );
+                    final var markdownParser = Parser.builder()
+                            .extensions( extensions )
+                            .build();
+                    final var htmlRenderer = HtmlRenderer.builder()
+                            .extensions( extensions )
+                            .build();
+
+                    //---* Parse the Markdown *--------------------------------
+                    final var markdown = loadToString( reader );
+                    final var document = markdownParser.parse( markdown );
+
+                    //---* Convert the Markdown to HTML *----------------------
+                    retValue = htmlRenderer.render( document );
                 }
                 catch( final IOException e )
                 {
@@ -527,7 +575,7 @@ public abstract class OtherFileTagletBase implements Taglet
      *  {@link Doclet}
      *  instance that uses this taglet.
      *
-     *  @return The reference to the doclet.
+     *  @return The reference to the Doclet.
      */
     @SuppressWarnings( "unused" )
     protected final Doclet getDoclet() { return m_Doclet; }
@@ -539,7 +587,7 @@ public abstract class OtherFileTagletBase implements Taglet
      *  {@link Doclet}
      *  running this taglet.
      *
-     *  @return The reference to the doclet processing environment.
+     *  @return The reference to the Doclet processing environment.
      */
     protected final DocletEnvironment getEnvironment() { return m_DocletEnvironment; }
 
@@ -571,7 +619,7 @@ public abstract class OtherFileTagletBase implements Taglet
      *  Looks up the system properties for a root path for include files with
      *  the given name (the full name would be the prefix
      *  {@value #PROPERTY_INCLUDE_ROOT_PREFIX}
-     *  appended by the argument, separated by a '.'.
+     *  appended by the argument, separated by a '.').
      *
      *  @param  variable    The name of the root path.
      *  @return An instance of

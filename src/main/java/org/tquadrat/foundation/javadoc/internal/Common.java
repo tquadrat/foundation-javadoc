@@ -58,11 +58,11 @@ import jdk.javadoc.doclet.Taglet;
  *  Helper methods for the new taglet implementations.
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: Common.java 976 2022-01-06 11:39:58Z tquadrat $
+ *  @version $Id: Common.java 1133 2024-05-10 21:43:08Z tquadrat $
  *  @since 0.0.5
  */
 @SuppressWarnings( "ClassWithTooManyFields" )
-@ClassVersion( sourceVersion = "$Id: Common.java 976 2022-01-06 11:39:58Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: Common.java 1133 2024-05-10 21:43:08Z tquadrat $" )
 @API( status = MAINTAINED, since = "0.0.5")
 @UtilityClass
 public final class Common
