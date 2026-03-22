@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2024 by Thomas Thrien.
+ * Copyright © 2002-2026 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -344,7 +344,7 @@ public final class ChildSupport
      *  {@linkplain #m_Owner owner's}
      *  {@linkplain Element#getElementName() element name},
      *  or the child's element name is explicitly configured. Obviously, it is
-     *  not valid, when no children (other then text or comments) are allowed
+     *  not valid, when no children (other than text or comments) are allowed
      *  at all.</p>
      *
      *  @param  child   The child to check for.

@@ -13,7 +13,7 @@
 <div class="source-container">
 <pre><span class="source-line-no">001</span><span id="line-1">/*</span>
 <span class="source-line-no">002</span><span id="line-2"> * ============================================================================</span>
-<span class="source-line-no">003</span><span id="line-3"> * Copyright © 2002-2020 by Thomas Thrien.</span>
+<span class="source-line-no">003</span><span id="line-3"> * Copyright © 2002-2026 by Thomas Thrien.</span>
 <span class="source-line-no">004</span><span id="line-4"> * All Rights Reserved.</span>
 <span class="source-line-no">005</span><span id="line-5"> * ============================================================================</span>
 <span class="source-line-no">006</span><span id="line-6"> * Licensed to the public under the agreements of the GNU Lesser General Public</span>
@@ -127,19 +127,19 @@
 <span class="source-line-no">114</span><span id="line-114">    public default boolean hasChildren() { return !getChildren().isEmpty(); }</span>
 <span class="source-line-no">115</span><span id="line-115"></span>
 <span class="source-line-no">116</span><span id="line-116">    /**</span>
-<span class="source-line-no">117</span><span id="line-117">     *  Returns the block flag.&lt;br&gt;</span>
-<span class="source-line-no">118</span><span id="line-118">     *  &lt;br&gt;This flag is used in the conversion of the element into a String;</span>
-<span class="source-line-no">119</span><span id="line-119">     *  it indicates whether the element is 'inline' (like an HTML</span>
-<span class="source-line-no">120</span><span id="line-120">     *  &lt;i&gt;&amp;lt;span&amp;gt;&lt;/i&gt;) or 'block' (as an HTML &lt;i&gt;&amp;lt;div&amp;gt;&lt;/i&gt;). This is</span>
-<span class="source-line-no">121</span><span id="line-121">     *  important only for elements where whitespace is relevant, like for HTML</span>
-<span class="source-line-no">122</span><span id="line-122">     *  elements, as &lt;i&gt;pretty printing&lt;/i&gt; will add additional whitespace</span>
-<span class="source-line-no">123</span><span id="line-123">     *  around inline elements that can become visible on parsing (for HTML: on</span>
-<span class="source-line-no">124</span><span id="line-124">     *  the rendered page).&lt;br&gt;</span>
-<span class="source-line-no">125</span><span id="line-125">     *  &lt;br&gt;XML elements for example will be always &lt;i&gt;block&lt;/i&gt; as there</span>
-<span class="source-line-no">126</span><span id="line-126">     *  whitespace is not that important.&lt;br&gt;</span>
-<span class="source-line-no">127</span><span id="line-127">     *  &lt;br&gt;Obviously, {@code true} indicates a block element, while</span>
-<span class="source-line-no">128</span><span id="line-128">     *  {@code false} stands for an inline element.&lt;br&gt;</span>
-<span class="source-line-no">129</span><span id="line-129">     *  &lt;br&gt;The default is {@code true}.</span>
+<span class="source-line-no">117</span><span id="line-117">     *  &lt;p&gt;{@summary Returns the block flag.}&lt;/p&gt;</span>
+<span class="source-line-no">118</span><span id="line-118">     *  &lt;p&gt;This flag is used in the conversion of the element into a String;</span>
+<span class="source-line-no">119</span><span id="line-119">     *  it indicates whether the element is 'inline'</span>
+<span class="source-line-no">120</span><span id="line-120">     *  (like an HTML &lt;i&gt;&amp;lt;span&amp;gt;&lt;/i&gt;) or 'block'</span>
+<span class="source-line-no">121</span><span id="line-121">     *  (as an HTML &lt;i&gt;&amp;lt;div&amp;gt;&lt;/i&gt;). This is important only for elements</span>
+<span class="source-line-no">122</span><span id="line-122">     *  where whitespace is relevant, like for HTML elements, as &lt;i&gt;pretty</span>
+<span class="source-line-no">123</span><span id="line-123">     *  printing&lt;/i&gt; will add additional whitespace around inline elements that</span>
+<span class="source-line-no">124</span><span id="line-124">     *  can become visible on parsing (for HTML: on the rendered page).&lt;/p&gt;</span>
+<span class="source-line-no">125</span><span id="line-125">     *  &lt;p&gt;XML elements for example will be always &lt;i&gt;block&lt;/i&gt; as there</span>
+<span class="source-line-no">126</span><span id="line-126">     *  whitespace is not that important.&lt;/p&gt;</span>
+<span class="source-line-no">127</span><span id="line-127">     *  &lt;p&gt;Obviously, {@code true} indicates a block element, while</span>
+<span class="source-line-no">128</span><span id="line-128">     *  {@code false} stands for an inline element.&lt;/p&gt;</span>
+<span class="source-line-no">129</span><span id="line-129">     *  &lt;p&gt;The default is {@code true}.&lt;/p&gt;</span>
 <span class="source-line-no">130</span><span id="line-130">     *</span>
 <span class="source-line-no">131</span><span id="line-131">     *  @return  The flag.</span>
 <span class="source-line-no">132</span><span id="line-132">     */</span>

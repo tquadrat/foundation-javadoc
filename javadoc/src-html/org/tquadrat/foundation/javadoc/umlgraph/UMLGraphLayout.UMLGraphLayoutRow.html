@@ -13,7 +13,7 @@
 <div class="source-container">
 <pre><span class="source-line-no">001</span><span id="line-1">/*</span>
 <span class="source-line-no">002</span><span id="line-2"> * ============================================================================</span>
-<span class="source-line-no">003</span><span id="line-3"> * Copyright © 2002-2024 by Thomas Thrien.</span>
+<span class="source-line-no">003</span><span id="line-3"> * Copyright © 2002-2026 by Thomas Thrien.</span>
 <span class="source-line-no">004</span><span id="line-4"> * All Rights Reserved.</span>
 <span class="source-line-no">005</span><span id="line-5"> * ============================================================================</span>
 <span class="source-line-no">006</span><span id="line-6"> * Licensed to the public under the agreements of the GNU Lesser General Public</span>
@@ -316,7 +316,7 @@
 <span class="source-line-no">303</span><span id="line-303">    {</span>
 <span class="source-line-no">304</span><span id="line-304">        final var key = requireNonNullArgument( typeSymbol, "typeSymbol").getQualifiedName();</span>
 <span class="source-line-no">305</span><span id="line-305"></span>
-<span class="source-line-no">306</span><span id="line-306">        final var connectors = m_EndingConnectors.computeIfAbsent( key, k -&gt; new ArrayList&lt;&gt;() );</span>
+<span class="source-line-no">306</span><span id="line-306">        final var connectors = m_EndingConnectors.computeIfAbsent( key, _ -&gt; new ArrayList&lt;&gt;() );</span>
 <span class="source-line-no">307</span><span id="line-307">        connectors.add( requireNonNullArgument( connector, "connector") );</span>
 <span class="source-line-no">308</span><span id="line-308">    }   //  addEndingConnector()</span>
 <span class="source-line-no">309</span><span id="line-309"></span>
@@ -351,7 +351,7 @@
 <span class="source-line-no">338</span><span id="line-338">    {</span>
 <span class="source-line-no">339</span><span id="line-339">        final var key = requireNonNullArgument( typeSymbol, "typeSymbol").getQualifiedName();</span>
 <span class="source-line-no">340</span><span id="line-340"></span>
-<span class="source-line-no">341</span><span id="line-341">        final var connectors = m_StartingConnectors.computeIfAbsent( key, k -&gt; new ArrayList&lt;&gt;() );</span>
+<span class="source-line-no">341</span><span id="line-341">        final var connectors = m_StartingConnectors.computeIfAbsent( key, _ -&gt; new ArrayList&lt;&gt;() );</span>
 <span class="source-line-no">342</span><span id="line-342">        connectors.add( requireNonNullArgument( connector, "connector") );</span>
 <span class="source-line-no">343</span><span id="line-343">    }   //  addStartingConnector()</span>
 <span class="source-line-no">344</span><span id="line-344"></span>

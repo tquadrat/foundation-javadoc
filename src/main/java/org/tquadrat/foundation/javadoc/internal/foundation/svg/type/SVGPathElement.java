@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2020 by Thomas Thrien.
+ * Copyright © 2002-2026 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -292,13 +292,13 @@ public abstract sealed class SVGPathElement extends ValueBase
     //  class SVGClosePath
 
     /**
-     *  The implementation of the SVG cubic B&eacute;zier {@code CurveTo} curve
-     *  path element. In its shorthand or smooth variant, the first control
-     *  point is assumed to be the reflection of the second control point on
-     *  the previous path element relative to the current point (if there is no
-     *  previous path element or if the previous path element was not a cubic
-     *  B&eacute;zier curve, it is assumed that the first control point is
-     *  coincident with the current point.
+     *  <p>{@summary The implementation of the SVG cubic B&eacute;zier
+     *  {@code CurveTo} curve path element.} In its shorthand or smooth
+     *  variant, the first control point is assumed to be the reflection of the
+     *  second control point on the previous path element relative to the
+     *  current point (if there is no previous path element or if the previous
+     *  path element was not a cubic B&eacute;zier curve, it is assumed that
+     *  the first control point is coincident with the current point).</p>
      *
      *  @author Thomas Thrien - thomas.thrien@tquadrat.org
      *  @version $Id: SVGPathElement.java 977 2022-01-06 11:41:03Z tquadrat $
@@ -515,13 +515,13 @@ public abstract sealed class SVGPathElement extends ValueBase
     //  class SVGMoveTo
 
     /**
-     *  The implementation of the SVG quadratic B&eacute;zier {@code CurveTo}
-     *  curve path element. In its shorthand or smooth variant,  the control
-     *  point is assumed to be the reflection of the control point on the
-     *  previous path element relative to the current point (if there is no
-     *  previous path element or if the previous path element was not a
-     *  quadratic B&eacute;zier curve, it is assumed that the control point is
-     *  coincident with the current point.
+     *  <p>{@summary The implementation of the SVG quadratic B&eacute;zier
+     *  {@code CurveTo} curve path element.} In its shorthand or smooth
+     *  variant,  the control point is assumed to be the reflection of the
+     *  control point on the previous path element relative to the current
+     *  point (if there is no previous path element or if the previous path
+     *  element was not a quadratic B&eacute;zier curve, it is assumed that the
+     *  control point is coincident with the current point).</p>
      *
      *  @author Thomas Thrien - thomas.thrien@tquadrat.org
      *  @version $Id: SVGPathElement.java 977 2022-01-06 11:41:03Z tquadrat $

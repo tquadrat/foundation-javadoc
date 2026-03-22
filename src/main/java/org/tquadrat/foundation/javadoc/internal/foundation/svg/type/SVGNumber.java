@@ -108,7 +108,7 @@ public sealed class SVGNumber
     //  class SVGMillimeter
 
     /**
-     *  An SVG percent type.
+     *  An SVG per cent type.
      *
      *  @author Thomas Thrien - thomas.thrien@tquadrat.org
      *  @version $Id: SVGNumber.java 1133 2024-05-10 21:43:08Z tquadrat $

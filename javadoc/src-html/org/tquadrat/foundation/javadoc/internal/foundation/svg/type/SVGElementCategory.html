@@ -13,7 +13,7 @@
 <div class="source-container">
 <pre><span class="source-line-no">001</span><span id="line-1">/*</span>
 <span class="source-line-no">002</span><span id="line-2"> * ============================================================================</span>
-<span class="source-line-no">003</span><span id="line-3"> * Copyright © 2002-2020 by Thomas Thrien.</span>
+<span class="source-line-no">003</span><span id="line-3"> * Copyright © 2002-2026 by Thomas Thrien.</span>
 <span class="source-line-no">004</span><span id="line-4"> * All Rights Reserved.</span>
 <span class="source-line-no">005</span><span id="line-5"> * ============================================================================</span>
 <span class="source-line-no">006</span><span id="line-6"> * Licensed to the public under the agreements of the GNU Lesser General Public</span>
@@ -183,7 +183,7 @@
 <span class="source-line-no">170</span><span id="line-170">    /**</span>
 <span class="source-line-no">171</span><span id="line-171">     *  Filter primitive element.</span>
 <span class="source-line-no">172</span><span id="line-172">     */</span>
-<span class="source-line-no">173</span><span id="line-173">    FILTER_PRIMITIVE( "Filter Primitive Element", SVGELEMENT_Ellipse,</span>
+<span class="source-line-no">173</span><span id="line-173">    FILTER_PRIMITIVE( "Filter primitive Element", SVGELEMENT_Ellipse,</span>
 <span class="source-line-no">174</span><span id="line-174">            SVGELEMENT_Filter_feBlend, SVGELEMENT_Filter_feColorMatrix,</span>
 <span class="source-line-no">175</span><span id="line-175">            SVGELEMENT_Filter_feComponentTransfer,</span>
 <span class="source-line-no">176</span><span id="line-176">            SVGELEMENT_Filter_feComposite, SVGELEMENT_Filter_feConvolveMatrix,</span>
@@ -297,108 +297,100 @@
 <span class="source-line-no">284</span><span id="line-284">            SVGELEMENT_MeshPatch, SVGELEMENT_MeshRow, SVGELEMENT_Script,</span>
 <span class="source-line-no">285</span><span id="line-285">            SVGELEMENT_Style, SVGELEMENT_View );</span>
 <span class="source-line-no">286</span><span id="line-286"></span>
-<span class="source-line-no">287</span><span id="line-287">        /*-----------*\</span>
-<span class="source-line-no">288</span><span id="line-288">    ====** Constants **========================================================</span>
-<span class="source-line-no">289</span><span id="line-289">        \*-----------*/</span>
+<span class="source-line-no">287</span><span id="line-287">        /*------------*\</span>
+<span class="source-line-no">288</span><span id="line-288">    ====** Attributes **=======================================================</span>
+<span class="source-line-no">289</span><span id="line-289">        \*------------*/</span>
 <span class="source-line-no">290</span><span id="line-290">    /**</span>
-<span class="source-line-no">291</span><span id="line-291">     *  An empty array of {@code SVGElementCategory} objects.</span>
+<span class="source-line-no">291</span><span id="line-291">     *  The category description.</span>
 <span class="source-line-no">292</span><span id="line-292">     */</span>
-<span class="source-line-no">293</span><span id="line-293">    public static final SVGElementCategory [] EMPTY_SVGElementCategory_ARRAY = new SVGElementCategory [0];</span>
+<span class="source-line-no">293</span><span id="line-293">    private final String m_Description;</span>
 <span class="source-line-no">294</span><span id="line-294"></span>
-<span class="source-line-no">295</span><span id="line-295">        /*------------*\</span>
-<span class="source-line-no">296</span><span id="line-296">    ====** Attributes **=======================================================</span>
-<span class="source-line-no">297</span><span id="line-297">        \*------------*/</span>
-<span class="source-line-no">298</span><span id="line-298">    /**</span>
-<span class="source-line-no">299</span><span id="line-299">     *  The category description.</span>
-<span class="source-line-no">300</span><span id="line-300">     */</span>
-<span class="source-line-no">301</span><span id="line-301">    private final String m_Description;</span>
-<span class="source-line-no">302</span><span id="line-302"></span>
+<span class="source-line-no">295</span><span id="line-295">    /**</span>
+<span class="source-line-no">296</span><span id="line-296">     *  The elements that belong to this category.</span>
+<span class="source-line-no">297</span><span id="line-297">     */</span>
+<span class="source-line-no">298</span><span id="line-298">    private final Set&lt;String&gt; m_ElementNames;</span>
+<span class="source-line-no">299</span><span id="line-299"></span>
+<span class="source-line-no">300</span><span id="line-300">        /*------------------------*\</span>
+<span class="source-line-no">301</span><span id="line-301">    ====** Static Initialisations **===========================================</span>
+<span class="source-line-no">302</span><span id="line-302">        \*------------------------*/</span>
 <span class="source-line-no">303</span><span id="line-303">    /**</span>
-<span class="source-line-no">304</span><span id="line-304">     *  The elements that belong to this category.</span>
+<span class="source-line-no">304</span><span id="line-304">     *  The element categories by element names.</span>
 <span class="source-line-no">305</span><span id="line-305">     */</span>
-<span class="source-line-no">306</span><span id="line-306">    private final Set&lt;String&gt; m_ElementNames;</span>
+<span class="source-line-no">306</span><span id="line-306">    private static final Map&lt;String,Set&lt;SVGElementCategory&gt;&gt; m_CategoriesByElement;</span>
 <span class="source-line-no">307</span><span id="line-307"></span>
-<span class="source-line-no">308</span><span id="line-308">        /*------------------------*\</span>
-<span class="source-line-no">309</span><span id="line-309">    ====** Static Initialisations **===========================================</span>
-<span class="source-line-no">310</span><span id="line-310">        \*------------------------*/</span>
-<span class="source-line-no">311</span><span id="line-311">    /**</span>
-<span class="source-line-no">312</span><span id="line-312">     *  The element categories by element names.</span>
-<span class="source-line-no">313</span><span id="line-313">     */</span>
-<span class="source-line-no">314</span><span id="line-314">    private static final Map&lt;String,Set&lt;SVGElementCategory&gt;&gt; m_CategoriesByElement;</span>
-<span class="source-line-no">315</span><span id="line-315"></span>
-<span class="source-line-no">316</span><span id="line-316">    static</span>
-<span class="source-line-no">317</span><span id="line-317">    {</span>
-<span class="source-line-no">318</span><span id="line-318">        final var map = stream( values() )</span>
-<span class="source-line-no">319</span><span id="line-319">            .flatMap( v -&gt; v.getElements()</span>
-<span class="source-line-no">320</span><span id="line-320">                    .stream()</span>
-<span class="source-line-no">321</span><span id="line-321">                    .collect( toMap( identity(), e -&gt; v, ( a, b ) -&gt; b, HashMap::new ) )</span>
-<span class="source-line-no">322</span><span id="line-322">                .entrySet()</span>
-<span class="source-line-no">323</span><span id="line-323">                .stream()</span>
-<span class="source-line-no">324</span><span id="line-324">            )</span>
-<span class="source-line-no">325</span><span id="line-325">            .collect(</span>
-<span class="source-line-no">326</span><span id="line-326">                toUnmodifiableMap( Map.Entry::getKey,</span>
-<span class="source-line-no">327</span><span id="line-327">                    e -&gt; EnumSet.of( e.getValue() ),</span>
-<span class="source-line-no">328</span><span id="line-328">                    (final Set&lt;SVGElementCategory&gt; s1, final Set&lt;SVGElementCategory&gt; s2) -&gt;</span>
-<span class="source-line-no">329</span><span id="line-329">                    {</span>
-<span class="source-line-no">330</span><span id="line-330">                        s1.addAll( s2 );</span>
-<span class="source-line-no">331</span><span id="line-331">                        return s1;</span>
-<span class="source-line-no">332</span><span id="line-332">                    }</span>
-<span class="source-line-no">333</span><span id="line-333">                )</span>
-<span class="source-line-no">334</span><span id="line-334">            );</span>
-<span class="source-line-no">335</span><span id="line-335">        m_CategoriesByElement = Map.copyOf( map );</span>
-<span class="source-line-no">336</span><span id="line-336">    }</span>
-<span class="source-line-no">337</span><span id="line-337"></span>
-<span class="source-line-no">338</span><span id="line-338">        /*--------------*\</span>
-<span class="source-line-no">339</span><span id="line-339">    ====** Constructors **=====================================================</span>
-<span class="source-line-no">340</span><span id="line-340">        \*--------------*/</span>
-<span class="source-line-no">341</span><span id="line-341">    /**</span>
-<span class="source-line-no">342</span><span id="line-342">     *  Creates a new {@code SVGElementCategory} instance.</span>
-<span class="source-line-no">343</span><span id="line-343">     *</span>
-<span class="source-line-no">344</span><span id="line-344">     *  @param  description The description.</span>
-<span class="source-line-no">345</span><span id="line-345">     *  @param  elementNames    The names of the elements that belongs to this</span>
-<span class="source-line-no">346</span><span id="line-346">     *      category.</span>
-<span class="source-line-no">347</span><span id="line-347">     */</span>
-<span class="source-line-no">348</span><span id="line-348">    private SVGElementCategory( final String description, final String... elementNames )</span>
-<span class="source-line-no">349</span><span id="line-349">    {</span>
-<span class="source-line-no">350</span><span id="line-350">        m_Description = description;</span>
-<span class="source-line-no">351</span><span id="line-351">        m_ElementNames = Set.of( elementNames );</span>
-<span class="source-line-no">352</span><span id="line-352">    }   //  SVGElementCategory()</span>
-<span class="source-line-no">353</span><span id="line-353"></span>
-<span class="source-line-no">354</span><span id="line-354">        /*---------*\</span>
-<span class="source-line-no">355</span><span id="line-355">    ====** Methods **==========================================================</span>
-<span class="source-line-no">356</span><span id="line-356">        \*---------*/</span>
-<span class="source-line-no">357</span><span id="line-357">    /**</span>
-<span class="source-line-no">358</span><span id="line-358">     *  Returns the names of the elements that belong to this category.</span>
-<span class="source-line-no">359</span><span id="line-359">     *</span>
-<span class="source-line-no">360</span><span id="line-360">     *  @return The element names.</span>
+<span class="source-line-no">308</span><span id="line-308">    static</span>
+<span class="source-line-no">309</span><span id="line-309">    {</span>
+<span class="source-line-no">310</span><span id="line-310">        final var map = stream( values() )</span>
+<span class="source-line-no">311</span><span id="line-311">            .flatMap( v -&gt; v.getElements()</span>
+<span class="source-line-no">312</span><span id="line-312">                    .stream()</span>
+<span class="source-line-no">313</span><span id="line-313">                    .collect( toMap( identity(), _ -&gt; v, ( _, b ) -&gt; b, HashMap::new ) )</span>
+<span class="source-line-no">314</span><span id="line-314">                .entrySet()</span>
+<span class="source-line-no">315</span><span id="line-315">                .stream()</span>
+<span class="source-line-no">316</span><span id="line-316">            )</span>
+<span class="source-line-no">317</span><span id="line-317">            .collect(</span>
+<span class="source-line-no">318</span><span id="line-318">                toUnmodifiableMap( Map.Entry::getKey,</span>
+<span class="source-line-no">319</span><span id="line-319">                    e -&gt; EnumSet.of( e.getValue() ),</span>
+<span class="source-line-no">320</span><span id="line-320">                    (final Set&lt;SVGElementCategory&gt; s1, final Set&lt;SVGElementCategory&gt; s2) -&gt;</span>
+<span class="source-line-no">321</span><span id="line-321">                    {</span>
+<span class="source-line-no">322</span><span id="line-322">                        s1.addAll( s2 );</span>
+<span class="source-line-no">323</span><span id="line-323">                        return s1;</span>
+<span class="source-line-no">324</span><span id="line-324">                    }</span>
+<span class="source-line-no">325</span><span id="line-325">                )</span>
+<span class="source-line-no">326</span><span id="line-326">            );</span>
+<span class="source-line-no">327</span><span id="line-327">        m_CategoriesByElement = Map.copyOf( map );</span>
+<span class="source-line-no">328</span><span id="line-328">    }</span>
+<span class="source-line-no">329</span><span id="line-329"></span>
+<span class="source-line-no">330</span><span id="line-330">        /*--------------*\</span>
+<span class="source-line-no">331</span><span id="line-331">    ====** Constructors **=====================================================</span>
+<span class="source-line-no">332</span><span id="line-332">        \*--------------*/</span>
+<span class="source-line-no">333</span><span id="line-333">    /**</span>
+<span class="source-line-no">334</span><span id="line-334">     *  Creates a new {@code SVGElementCategory} instance.</span>
+<span class="source-line-no">335</span><span id="line-335">     *</span>
+<span class="source-line-no">336</span><span id="line-336">     *  @param  description The description.</span>
+<span class="source-line-no">337</span><span id="line-337">     *  @param  elementNames    The names of the elements that belongs to this</span>
+<span class="source-line-no">338</span><span id="line-338">     *      category.</span>
+<span class="source-line-no">339</span><span id="line-339">     */</span>
+<span class="source-line-no">340</span><span id="line-340">    private SVGElementCategory( final String description, final String... elementNames )</span>
+<span class="source-line-no">341</span><span id="line-341">    {</span>
+<span class="source-line-no">342</span><span id="line-342">        m_Description = description;</span>
+<span class="source-line-no">343</span><span id="line-343">        m_ElementNames = Set.of( elementNames );</span>
+<span class="source-line-no">344</span><span id="line-344">    }   //  SVGElementCategory()</span>
+<span class="source-line-no">345</span><span id="line-345"></span>
+<span class="source-line-no">346</span><span id="line-346">        /*---------*\</span>
+<span class="source-line-no">347</span><span id="line-347">    ====** Methods **==========================================================</span>
+<span class="source-line-no">348</span><span id="line-348">        \*---------*/</span>
+<span class="source-line-no">349</span><span id="line-349">    /**</span>
+<span class="source-line-no">350</span><span id="line-350">     *  Returns the names of the elements that belong to this category.</span>
+<span class="source-line-no">351</span><span id="line-351">     *</span>
+<span class="source-line-no">352</span><span id="line-352">     *  @return The element names.</span>
+<span class="source-line-no">353</span><span id="line-353">     */</span>
+<span class="source-line-no">354</span><span id="line-354">    public final Collection&lt;String&gt; getElements() { return m_ElementNames; }</span>
+<span class="source-line-no">355</span><span id="line-355"></span>
+<span class="source-line-no">356</span><span id="line-356">    /**</span>
+<span class="source-line-no">357</span><span id="line-357">     *  Retrieves the element category for the given element name.</span>
+<span class="source-line-no">358</span><span id="line-358">     *</span>
+<span class="source-line-no">359</span><span id="line-359">     *  @param  elementName The name of the element.</span>
+<span class="source-line-no">360</span><span id="line-360">     *  @return The categories for this element; will never be {@code null}.</span>
 <span class="source-line-no">361</span><span id="line-361">     */</span>
-<span class="source-line-no">362</span><span id="line-362">    public final Collection&lt;String&gt; getElements() { return m_ElementNames; }</span>
-<span class="source-line-no">363</span><span id="line-363"></span>
-<span class="source-line-no">364</span><span id="line-364">    /**</span>
-<span class="source-line-no">365</span><span id="line-365">     *  Retrieves the element category for the given element name.</span>
-<span class="source-line-no">366</span><span id="line-366">     *</span>
-<span class="source-line-no">367</span><span id="line-367">     *  @param  elementName The name of the element.</span>
-<span class="source-line-no">368</span><span id="line-368">     *  @return The categories for this element; will never be {@code null}.</span>
-<span class="source-line-no">369</span><span id="line-369">     */</span>
-<span class="source-line-no">370</span><span id="line-370">    public static final Collection&lt;SVGElementCategory&gt; retrieveElementCategory( final String elementName )</span>
-<span class="source-line-no">371</span><span id="line-371">    {</span>
-<span class="source-line-no">372</span><span id="line-372">        final var retValue = m_CategoriesByElement.getOrDefault( requireNotEmptyArgument( elementName, "elementName" ), emptySet() );</span>
-<span class="source-line-no">373</span><span id="line-373"></span>
-<span class="source-line-no">374</span><span id="line-374">        //---* Done *----------------------------------------------------------</span>
-<span class="source-line-no">375</span><span id="line-375">        return retValue;</span>
-<span class="source-line-no">376</span><span id="line-376">    }   //  retrieveElementCategory()</span>
+<span class="source-line-no">362</span><span id="line-362">    public static final Collection&lt;SVGElementCategory&gt; retrieveElementCategory( final String elementName )</span>
+<span class="source-line-no">363</span><span id="line-363">    {</span>
+<span class="source-line-no">364</span><span id="line-364">        final var retValue = m_CategoriesByElement.getOrDefault( requireNotEmptyArgument( elementName, "elementName" ), emptySet() );</span>
+<span class="source-line-no">365</span><span id="line-365"></span>
+<span class="source-line-no">366</span><span id="line-366">        //---* Done *----------------------------------------------------------</span>
+<span class="source-line-no">367</span><span id="line-367">        return retValue;</span>
+<span class="source-line-no">368</span><span id="line-368">    }   //  retrieveElementCategory()</span>
+<span class="source-line-no">369</span><span id="line-369"></span>
+<span class="source-line-no">370</span><span id="line-370">    /**</span>
+<span class="source-line-no">371</span><span id="line-371">     *  {@inheritDoc}</span>
+<span class="source-line-no">372</span><span id="line-372">     */</span>
+<span class="source-line-no">373</span><span id="line-373">    @Override</span>
+<span class="source-line-no">374</span><span id="line-374">    public final String toString() { return m_Description; }</span>
+<span class="source-line-no">375</span><span id="line-375">}</span>
+<span class="source-line-no">376</span><span id="line-376">//  class SVGElementCategory</span>
 <span class="source-line-no">377</span><span id="line-377"></span>
-<span class="source-line-no">378</span><span id="line-378">    /**</span>
-<span class="source-line-no">379</span><span id="line-379">     *  {@inheritDoc}</span>
-<span class="source-line-no">380</span><span id="line-380">     */</span>
-<span class="source-line-no">381</span><span id="line-381">    @Override</span>
-<span class="source-line-no">382</span><span id="line-382">    public final String toString() { return m_Description; }</span>
-<span class="source-line-no">383</span><span id="line-383">}</span>
-<span class="source-line-no">384</span><span id="line-384">//  class SVGElementCategory</span>
-<span class="source-line-no">385</span><span id="line-385"></span>
-<span class="source-line-no">386</span><span id="line-386">/*</span>
-<span class="source-line-no">387</span><span id="line-387"> *  End of File</span>
-<span class="source-line-no">388</span><span id="line-388"> */</span>
+<span class="source-line-no">378</span><span id="line-378">/*</span>
+<span class="source-line-no">379</span><span id="line-379"> *  End of File</span>
+<span class="source-line-no">380</span><span id="line-380"> */</span>
 
 
 

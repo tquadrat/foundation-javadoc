@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2020 by Thomas Thrien.
+ * Copyright © 2002-2026 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -28,7 +28,7 @@ import org.apiguardian.api.API;
 import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
 
 /**
- *  The implementation for SVG values representing colors.
+ *  The implementation for SVG values representing colours.
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
  *  @version $Id: SVGColor.java 977 2022-01-06 11:41:03Z tquadrat $
@@ -70,10 +70,10 @@ public final class SVGColor extends SVGPaint
     private SVGColor() { super( "inherit" ); }
 
     /**
-     *  Creates a new {@code SVGColor} instance from the given colour
-     *  values.<br>
-     *  <br>Allowed are the values from 0 to 255, other values will be
-     *  normalised accordingly.
+     *  <p>{@summary Creates a new {@code SVGColor} instance from the given colour
+      *  values.}</p>
+     *  <p>The method allows the values from 0 to 255 as arguments, other
+     *  values will be normalised accordingly.</p>
      *
      *  @param  red The red component for the colour.
      *  @param  green   The green component for the colour.
@@ -85,10 +85,10 @@ public final class SVGColor extends SVGPaint
     }   //  SVGColor()
 
     /**
-     *  Creates a new {@code SVGColor} instance from the given colour
-     *  values.<br>
-     *  <br>Allowed are the values from 0 to 255, or 0% to 100% respectively,
-     *  other values will be normalised accordingly.
+     *  <p>{@summary Creates a new {@code SVGColor} instance from the given colour
+      *  values.}</p>
+     *  <p>The method allows the values from 0 to 255 as arguments, other
+     *  values will be normalised accordingly.</p>
      *
      *  @param  flag    {@code true} if the given values are percentages,
      *      {@code false} if they are absolute values.
@@ -115,9 +115,10 @@ public final class SVGColor extends SVGPaint
     ====** Methods **==========================================================
         \*---------*/
     /**
-     *  Composes the colour type String from the given colour values.<br>
-     *  <br>Allowed are the values from 0 to 255, or 0% to 100% respectively,
-     *  other values will be normalised accordingly.
+     *  <p>{@summary Composes the colour type String from the given colour
+     *  values.}</p>
+     *  <p>The method allows the values from 0 to 255 as arguments, other
+     *  values will be normalised accordingly.</p>
      *
      *  @param  flag    {@code true} if the given values are percentages,
      *      {@code false} if they are absolute values.

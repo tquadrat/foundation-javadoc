@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2020 by Thomas Thrien.
+ * Copyright © 2002-2026 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -170,7 +170,7 @@ public enum SVGElementCategory
     /**
      *  Filter primitive element.
      */
-    FILTER_PRIMITIVE( "Filter Primitive Element", SVGELEMENT_Ellipse,
+    FILTER_PRIMITIVE( "Filter primitive Element", SVGELEMENT_Ellipse,
             SVGELEMENT_Filter_feBlend, SVGELEMENT_Filter_feColorMatrix,
             SVGELEMENT_Filter_feComponentTransfer,
             SVGELEMENT_Filter_feComposite, SVGELEMENT_Filter_feConvolveMatrix,
@@ -284,14 +284,6 @@ public enum SVGElementCategory
             SVGELEMENT_MeshPatch, SVGELEMENT_MeshRow, SVGELEMENT_Script,
             SVGELEMENT_Style, SVGELEMENT_View );
 
-        /*-----------*\
-    ====** Constants **========================================================
-        \*-----------*/
-    /**
-     *  An empty array of {@code SVGElementCategory} objects.
-     */
-    public static final SVGElementCategory [] EMPTY_SVGElementCategory_ARRAY = new SVGElementCategory [0];
-
         /*------------*\
     ====** Attributes **=======================================================
         \*------------*/
@@ -318,7 +310,7 @@ public enum SVGElementCategory
         final var map = stream( values() )
             .flatMap( v -> v.getElements()
                     .stream()
-                    .collect( toMap( identity(), e -> v, ( a, b ) -> b, HashMap::new ) )
+                    .collect( toMap( identity(), _ -> v, ( _, b ) -> b, HashMap::new ) )
                 .entrySet()
                 .stream()
             )

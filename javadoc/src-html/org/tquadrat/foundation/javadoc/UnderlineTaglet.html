@@ -13,7 +13,7 @@
 <div class="source-container">
 <pre><span class="source-line-no">001</span><span id="line-1">/*</span>
 <span class="source-line-no">002</span><span id="line-2"> * ============================================================================</span>
-<span class="source-line-no">003</span><span id="line-3"> * Copyright © 2002-2020 by Thomas Thrien.</span>
+<span class="source-line-no">003</span><span id="line-3"> * Copyright © 2002-2026 by Thomas Thrien.</span>
 <span class="source-line-no">004</span><span id="line-4"> * All Rights Reserved.</span>
 <span class="source-line-no">005</span><span id="line-5"> * ============================================================================</span>
 <span class="source-line-no">006</span><span id="line-6"> * Licensed to the public under the agreements of the GNU Lesser General Public</span>
@@ -160,7 +160,7 @@
 <span class="source-line-no">147</span><span id="line-147">        final var docTreeFactory = m_DocletEnvironment.getDocTrees().getDocTreeFactory();</span>
 <span class="source-line-no">148</span><span id="line-148">        final Function&lt;CharSequence,Name&gt; nameGenerator = m_DocletEnvironment.getElementUtils()::getName;</span>
 <span class="source-line-no">149</span><span id="line-149"></span>
-<span class="source-line-no">150</span><span id="line-150">        final var tag = tags.get( 0 ).toString();</span>
+<span class="source-line-no">150</span><span id="line-150">        final var tag = tags.getFirst().toString();</span>
 <span class="source-line-no">151</span><span id="line-151">        final var matcher = PATTERN.matcher( tag );</span>
 <span class="source-line-no">152</span><span id="line-152">        final var contents = matcher.matches() ? matcher.group( "contents" ) : EMPTY_STRING;</span>
 <span class="source-line-no">153</span><span id="line-153">        final var retValue = isNotEmptyOrBlank( contents ) ? format( "&lt;span style=\"text-decoration: underline;\"&gt;%1$s&lt;/span&gt;", processInlineTags( contents, docTreeFactory, element, nameGenerator ) ) : EMPTY_STRING;</span>

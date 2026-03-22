@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2024 by Thomas Thrien.
+ * Copyright © 2002-2026 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  *
@@ -56,10 +56,10 @@ import org.tquadrat.foundation.javadoc.internal.foundation.exception.PrivateCons
  *  &quot;{@code MyClass.java.html}&quot;.</p>
  *  <p>An already existing file will be overwritten without warning.</p>
  *  <p><b>Note:</b> The output file should be stored into a {@code doc-files}
- *  folder in the source tree of the project from where JavaDoc will pick it up
+ *  folder in the source tree of the project from where Javadoc will pick it up
  *  and amends it appropriately. This is similar to the handling of the HTML
  *  file containing the project overview that is addressed with the
- *  {@code -overview} option on the JavaDoc command line.</p>
+ *  {@code -overview} option on the Javadoc command line.</p>
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
  *  @version $Id: CreateSourceHTML.java 1133 2024-05-10 21:43:08Z tquadrat $
@@ -99,7 +99,7 @@ public final class CreateSourceHTML
 
         if( requireNonNullArgument( outputPath, "outputPath" ).exists() && !outputPath.isDirectory() )
         {
-            throw new IOException( format( "%s is not a directory", outputPath.getAbsolutePath() ) );
+            throw new IOException( format( "'%s' is not a directory", outputPath.getAbsolutePath() ) );
         }
         if( !outputPath.exists() )
         {

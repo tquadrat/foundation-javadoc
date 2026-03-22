@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2020 by Thomas Thrien.
+ * Copyright © 2002-2026 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -95,7 +95,7 @@ import org.tquadrat.foundation.javadoc.internal.foundation.xml.builder.spi.XMLEl
  *  @version $Id: SVGUtils.java 977 2022-01-06 11:41:03Z tquadrat $
  *  @since 0.0.5
  */
-@SuppressWarnings( {"ClassWithTooManyMethods", "OverlyComplexClass", "OverlyCoupledClass"} )
+@SuppressWarnings( {"ClassWithTooManyMethods", "OverlyComplexClass", "OverlyCoupledClass", "unused"} )
 @UtilityClass
 @ClassVersion( sourceVersion = "$Id: SVGUtils.java 977 2022-01-06 11:41:03Z tquadrat $" )
 public final class SVGUtils
@@ -1720,7 +1720,6 @@ public final class SVGUtils
     /**
      *  The name for the SVG element representing a poly line: {@value}.
      */
-    @SuppressWarnings( "SpellCheckingInspection" )
     @API( status = STABLE, since = "0.0.5" )
     public static final String SVGELEMENT_PolyLine = "polyline";
 
@@ -2072,11 +2071,11 @@ public final class SVGUtils
     public static final SVGColor color() { return COLOR_INHERIT; }
 
     /**
-     *  Creates a new
+     *  <p>{@summary Creates a new
      *  {@link SVGColor}
-     *  instance from the given colour values.<br>
-     *  <br>Allowed are the values from 0 to 255, other values will be
-     *  normalised accordingly.
+     *  instance from the given colour values.}</p>
+     *  <p>The method allows the values from 0 to 255 as arguments, other
+     *  values will be normalised accordingly.</p>
      *
      *  @param  red The red component for the colour.
      *  @param  green   The green component for the colour.
@@ -2094,11 +2093,11 @@ public final class SVGUtils
     }   //  color()
 
     /**
-     *  Creates a new
+     *  <p>{@summary Creates a new
      *  {@link SVGColor}
-     *  instance from the given colour values.<br>
-     *  <br>Allowed are the values from 0 to 255, or 0% to 100% respectively,
-     *  other values will be normalised accordingly.
+     *  instance from the given colour values.}</p>
+     *  <p>The method allows the values from 0 to 255 as arguments, other
+     *  values will be normalised accordingly.</p>
      *
      *  @param  flag    {@code true} if the given values are percentages,
      *      {@code false} if they are absolute values.

@@ -111,14 +111,14 @@ should be thrown in all cases where an unexpected exception was caught.
 Unlike an
 <a href="ImpossibleExceptionError.html" title="class in org.tquadrat.foundation.javadoc.internal.foundation.exception"><code>ImpossibleExceptionError</code></a>,
 the exception is <i>possible</i>, but not expected – probably because the
-programmer has taken (at least thought to have &hellip;) appropriate
+programmer has taken (at least thought to have &hellip; ) appropriate
 precautions against its occurrence. An example for this could be an
 implementation of
 <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#clone()" title="class or interface in java.lang" class="external-link"><code>clone()</code></a>
 for a particular class: with implementing that method (and declaring the
 interface
 <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Cloneable.html" title="class or interface in java.lang" class="external-link"><code>Cloneable</code></a>
-&hellip;), instances of that class do support cloning and therefore that
+&hellip; ), instances of that class do support cloning and therefore that
 exception should not be thrown. Unfortunately, changes somewhere else in
 the source might prevent one of the attributes of the respective class from
 being cloned, so that exception could be thrown again &hellip;<br>

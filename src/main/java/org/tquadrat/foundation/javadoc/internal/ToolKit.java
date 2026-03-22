@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2024 by Thomas Thrien.
+ * Copyright © 2002-2026 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -115,7 +115,7 @@ public class ToolKit
      *  meaning.</p>
      */
     /*
-     * For some reason, JavaDoc refuses to accept both &#8208; and &#x2010;
+     * For some reason, Javadoc refuses to accept both &#8208; and &#x2010;
      * as valid entities.
      */
     @SuppressWarnings( "UnnecessaryUnicodeEscape" )
@@ -254,7 +254,7 @@ public class ToolKit
      *  @since 0.0.5
      */
     /*
-     *  For some unknown reasons, JavaDoc will not accept the entities &#x7403;
+     *  For some unknown reasons, Javadoc will not accept the entities &#x7403;
      *  and &#x4F53; (for '球' and '体'), therefore it was required to add the
      *  Chinese character directly into the comment above.
      */
@@ -577,7 +577,7 @@ public class ToolKit
      *  <br>For instances of
      *  {@link java.util.stream.Stream},
      *  this method will only check for {@code null} (like
-     *  {@link #requireNonNullArgument(Object,String)}.
+     *  {@link #requireNonNullArgument(Object,String)}).
      *  This is because any operation on the stream would render it unusable
      *  for later processing.<br>
      *  <br>In case the argument is of type
@@ -696,15 +696,15 @@ public class ToolKit
     }   //  requireNotEmptyArgument()
 
     /**
-     *  Splits a String by the given separator character and returns an array
-     *  of all parts. In case a separator character is immediately followed by
-     *  another separator char, an empty String will be place to the array.
-     *  Beginning and end of the String are treated as separators, so if the
-     *  first character of the String is a separator, the returned array will
-     *  start with an empty string, as it will end with an empty String if the
-     *  last character is a separator.<br>
-     *  <br>In case the String is empty, the return value will be an array
-     *  containing just the empty String.
+     *  <p>{@summary Splits a String by the given separator character and
+     *  returns an array of all parts.} In case a separator character is
+     *  immediately followed by another separator char, an empty String will be
+     *  placed to the array. Beginning and end of the String are treated as
+     *  separators, so if the first character of the String is a separator, the
+     *  returned array will start with an empty string. It will end with an
+     *  empty String if the last character is a separator.</p>
+     *  <p>In case the String is empty, the return value will be an array
+     *  containing just the empty String.</p>
      *
      *  @param  string  The String to split.
      *  @param  separator   The separator character.
@@ -719,16 +719,16 @@ public class ToolKit
     }   //  splitString()
 
     /**
-     *  Splits a String by the given separator character, identified by its
-     *  Unicode code point, and returns an array of all parts. In case a
-     *  separator character is immediately followed by another separator char,
-     *  an empty String will be placed to the array. Beginning and end of the
-     *  String are treated as separators, so if the first character of the
-     *  String is a separator, the returned array will start with an empty
-     *  String, as it will end with an empty String if the last character is a
-     *  separator.<br>
-     *  <br>In case the String is empty, the return value will be an array
-     *  containing just the empty String.
+     *  <p>{@summary Splits a String by the given separator character,
+     *  identified by its Unicode code point, and returns an array of all
+     *  parts.} In case a separator character is immediately followed by
+     *  another separator char, an empty String will be placed to the array.
+     *  Beginning and end of the String are treated as separators, so if the
+     *  first character of the String is a separator, the returned array will
+     *  start with an empty String. It will end with an empty String if the
+     *  last character is a separator.</p>
+     *  <p>In case the String is empty, the return value will be an array
+     *  containing just the empty String.</p>
      *
      *  @param  string  The String to split.
      *  @param  separator   The code point for the separator character.
@@ -753,7 +753,7 @@ public class ToolKit
      *  another separator char, an empty String will be put to the
      *  {@code Stream}. Beginning and end of the String are treated as
      *  separators, so if the first character of the String is a separator, the
-     *  returned {@code Stream} will start with an empty String, as it will end
+     *  returned {@code Stream} will start with an empty String. It will end
      *  with an empty String if the last character is a separator.</p>
      *  <p>In case the String is empty, the return value will be a
      *  {@code Stream} containing just the empty String.</p>

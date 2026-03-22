@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2024 by Thomas Thrien.
+ * Copyright © 2002-2026 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -25,7 +25,7 @@ import org.apiguardian.api.API;
 import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
 
 /**
- *  This is a specialized implementation for the
+ *  This is a specialised implementation for the
  *  {@link IllegalArgumentException}
  *  that should be used instead of the latter in cases where an empty String,
  *  array or

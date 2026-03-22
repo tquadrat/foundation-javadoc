@@ -13,7 +13,7 @@
 <div class="source-container">
 <pre><span class="source-line-no">001</span><span id="line-1">/*</span>
 <span class="source-line-no">002</span><span id="line-2"> * ============================================================================</span>
-<span class="source-line-no">003</span><span id="line-3"> * Copyright © 2002-2024 by Thomas Thrien.</span>
+<span class="source-line-no">003</span><span id="line-3"> * Copyright © 2002-2026 by Thomas Thrien.</span>
 <span class="source-line-no">004</span><span id="line-4"> * All Rights Reserved.</span>
 <span class="source-line-no">005</span><span id="line-5"> * ============================================================================</span>
 <span class="source-line-no">006</span><span id="line-6"> *</span>
@@ -69,10 +69,10 @@
 <span class="source-line-no">056</span><span id="line-56"> *  &amp;quot;{@code MyClass.java.html}&amp;quot;.&lt;/p&gt;</span>
 <span class="source-line-no">057</span><span id="line-57"> *  &lt;p&gt;An already existing file will be overwritten without warning.&lt;/p&gt;</span>
 <span class="source-line-no">058</span><span id="line-58"> *  &lt;p&gt;&lt;b&gt;Note:&lt;/b&gt; The output file should be stored into a {@code doc-files}</span>
-<span class="source-line-no">059</span><span id="line-59"> *  folder in the source tree of the project from where JavaDoc will pick it up</span>
+<span class="source-line-no">059</span><span id="line-59"> *  folder in the source tree of the project from where Javadoc will pick it up</span>
 <span class="source-line-no">060</span><span id="line-60"> *  and amends it appropriately. This is similar to the handling of the HTML</span>
 <span class="source-line-no">061</span><span id="line-61"> *  file containing the project overview that is addressed with the</span>
-<span class="source-line-no">062</span><span id="line-62"> *  {@code -overview} option on the JavaDoc command line.&lt;/p&gt;</span>
+<span class="source-line-no">062</span><span id="line-62"> *  {@code -overview} option on the Javadoc command line.&lt;/p&gt;</span>
 <span class="source-line-no">063</span><span id="line-63"> *</span>
 <span class="source-line-no">064</span><span id="line-64"> *  @author Thomas Thrien - thomas.thrien@tquadrat.org</span>
 <span class="source-line-no">065</span><span id="line-65"> *  @version $Id: CreateSourceHTML.java 1133 2024-05-10 21:43:08Z tquadrat $</span>
@@ -112,7 +112,7 @@
 <span class="source-line-no">099</span><span id="line-99"></span>
 <span class="source-line-no">100</span><span id="line-100">        if( requireNonNullArgument( outputPath, "outputPath" ).exists() &amp;&amp; !outputPath.isDirectory() )</span>
 <span class="source-line-no">101</span><span id="line-101">        {</span>
-<span class="source-line-no">102</span><span id="line-102">            throw new IOException( format( "%s is not a directory", outputPath.getAbsolutePath() ) );</span>
+<span class="source-line-no">102</span><span id="line-102">            throw new IOException( format( "'%s' is not a directory", outputPath.getAbsolutePath() ) );</span>
 <span class="source-line-no">103</span><span id="line-103">        }</span>
 <span class="source-line-no">104</span><span id="line-104">        if( !outputPath.exists() )</span>
 <span class="source-line-no">105</span><span id="line-105">        {</span>

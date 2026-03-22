@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2021 by Thomas Thrien.
+ * Copyright © 2002-2026 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -66,7 +66,7 @@ import jdk.javadoc.doclet.Taglet;
 /**
  *  <p>{@summary When this tag is added to the documentation of a class, a UML
  *  graph will be created for this class and added to the documentation.}</p>
- *  <p>The JavaDoc generation will be serialised on this taglet.</p>
+ *  <p>The Javadoc generation will be serialised on this taglet.</p>
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
  *  @version $Id: UmlGraphLinkTaglet.java 1013 2022-02-08 21:30:29Z tquadrat $
@@ -151,7 +151,7 @@ public class UmlGraphLinkTaglet implements Taglet
         var element = typeElement;
         while( nonNull( element ) )
         {
-            names.add( 0, element.getSimpleName() );
+            names.addFirst( element.getSimpleName() );
             final var nestingKind = element.getNestingKind();
             if( nestingKind.isNested() )
             {
@@ -223,7 +223,7 @@ public class UmlGraphLinkTaglet implements Taglet
                  * If the only supertype of the interface is java.lang.Object,
                  * the interface does not have a parent, per definition.
                  */
-                final var typeMirror = extendedInterfaces.get( 0 );
+                final var typeMirror = extendedInterfaces.getFirst();
                 final var element = typeUtils.asElement( typeMirror );
                 //noinspection TypeMayBeWeakened
                 if( element instanceof TypeElement parentTypeElement )

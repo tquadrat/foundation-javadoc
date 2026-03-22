@@ -13,7 +13,7 @@
 <div class="source-container">
 <pre><span class="source-line-no">001</span><span id="line-1">/*</span>
 <span class="source-line-no">002</span><span id="line-2"> * ============================================================================</span>
-<span class="source-line-no">003</span><span id="line-3"> * Copyright © 2002-2024 by Thomas Thrien.</span>
+<span class="source-line-no">003</span><span id="line-3"> * Copyright © 2002-2026 by Thomas Thrien.</span>
 <span class="source-line-no">004</span><span id="line-4"> * All Rights Reserved.</span>
 <span class="source-line-no">005</span><span id="line-5"> * ============================================================================</span>
 <span class="source-line-no">006</span><span id="line-6"> *</span>
@@ -63,8 +63,8 @@
 <span class="source-line-no">050</span><span id="line-50">/**</span>
 <span class="source-line-no">051</span><span id="line-51"> *  &lt;p&gt;{@summary This taglet allows to include the contents of an external file</span>
 <span class="source-line-no">052</span><span id="line-52"> *  into the JavaDoc documentation.} This is particularly useful when the</span>
-<span class="source-line-no">053</span><span id="line-53"> *  contents of resource files (like a DTD or an XML Schema) should be shown in</span>
-<span class="source-line-no">054</span><span id="line-54"> *  the documentation.&lt;/p&gt;</span>
+<span class="source-line-no">053</span><span id="line-53"> *  contents of a resource file (like a DTD or an XML Schema) should be shown</span>
+<span class="source-line-no">054</span><span id="line-54"> *  in the documentation.&lt;/p&gt;</span>
 <span class="source-line-no">055</span><span id="line-55"> *  &lt;p&gt;Usually, that file is stored somewhere on the</span>
 <span class="source-line-no">056</span><span id="line-56"> *  {@link Common#SOURCE_PATH SOURCE_PATH}; this means that a file is addressed</span>
 <span class="source-line-no">057</span><span id="line-57"> *  by its path name on the source tree. For example to include this file, the</span>
@@ -87,7 +87,7 @@
 <span class="source-line-no">074</span><span id="line-74"> *  &lt;p&gt;&lt;b&gt;Notes:&lt;/b&gt;&lt;/p&gt;</span>
 <span class="source-line-no">075</span><span id="line-75"> *  &lt;ul&gt;</span>
 <span class="source-line-no">076</span><span id="line-76"> *      &lt;li&gt;If Maven is used, and the include file is not placed at the</span>
-<span class="source-line-no">077</span><span id="line-77"> *      {@code java} path (but on the {@code resources} path, for example}, it</span>
+<span class="source-line-no">077</span><span id="line-77"> *      {@code java} path (but on the {@code resources} path, for example), it</span>
 <span class="source-line-no">078</span><span id="line-78"> *      is required to add the parameter &lt;code&gt;&amp;lt;sourcepath&amp;gt;&lt;/code&gt; to the</span>
 <span class="source-line-no">079</span><span id="line-79"> *      configuration of the {@code maven-javadoc-plugin}, where the path of</span>
 <span class="source-line-no">080</span><span id="line-80"> *      the include file is added; otherwise, it will not be found.</span>
@@ -145,7 +145,7 @@
 <span class="source-line-no">132</span><span id="line-132">    {</span>
 <span class="source-line-no">133</span><span id="line-133">        var retValue = EMPTY_STRING;</span>
 <span class="source-line-no">134</span><span id="line-134"></span>
-<span class="source-line-no">135</span><span id="line-135">        final var tag = tags.get( 0 ).toString().trim();</span>
+<span class="source-line-no">135</span><span id="line-135">        final var tag = tags.getFirst().toString().trim();</span>
 <span class="source-line-no">136</span><span id="line-136">        final var len = tag.length() - 1;</span>
 <span class="source-line-no">137</span><span id="line-137">        final var prefixLen = getName().length() + 3;</span>
 <span class="source-line-no">138</span><span id="line-138">        final var contents = tag.substring( prefixLen, len ).trim();</span>

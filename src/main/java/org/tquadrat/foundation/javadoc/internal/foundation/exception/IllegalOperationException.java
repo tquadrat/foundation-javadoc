@@ -74,7 +74,7 @@ public class IllegalOperationException extends RuntimeException
     /**
      *  Constructs a new {@code IllegalOperationException} with a detail
      *  message composed of the given operation name. The cause is not
-     *  initialized, and may subsequently be initialized by a call to
+     *  initialised, and may subsequently be initialised by a call to
      *  {@link #initCause}.
      *
      *  @param  operationName   The name of the illegally attempted operation;
@@ -91,7 +91,7 @@ public class IllegalOperationException extends RuntimeException
     /**
      *  Constructs a new {@code IllegalOperationException} with a detail
      *  message composed of the name of the given operation. The cause is not
-     *  initialized, and may subsequently be initialized by a call to
+     *  initialised, and may subsequently be initialised by a call to
      *  {@link #initCause}.
      *
      *  @param  operation   The illegally attempted operation. The detail
@@ -106,15 +106,15 @@ public class IllegalOperationException extends RuntimeException
     }   //  IllegalOperationException()
 
     /**
-     *  Constructs a new {@code IllegalOperationException} with a detail
-     *  message composed of the given operation name and the given
-     *  explanation. The cause is not initialized, and may subsequently be
-     *  initialized by a call to
-     *  {@link #initCause}.<br>
-     *  <br>The detail message constructed from the operation name and the
+     *  <p>{@summary Constructs a new {@code IllegalOperationException} with a
+     *  detail message composed of the given operation name and the given
+     *  explanation.} The cause is not initialised, and may subsequently be
+     *  initialised by a call to
+     *  {@link #initCause}.</p>
+     *  <p>The detail message constructed from the operation name and the
      *  explanation is saved for later retrieval by the
      *  {@link #getMessage()}
-     *  method.
+     *  method.</p>
      *
      *  @param  operationName   The name of the illegally attempted operation;
      *      usually, this is the method name.
@@ -126,15 +126,15 @@ public class IllegalOperationException extends RuntimeException
     }   //  IllegalOperationException()
 
     /**
-     *  Constructs a new {@code IllegalOperationException} with a detail
-     *  message composed of the name of the given operation name and the
-     *  given explanation. The cause is not initialized, and may subsequently
-     *  be initialized by a call to
-     *  {@link #initCause}.<br>
-     *  <br>The detail message constructed from the operation name and the
+     *  <p>{@summary Constructs a new {@code IllegalOperationException} with a
+     *  detail message composed of the name of the given operation name and the
+     *  given explanation.} The cause is not initialised, and may subsequently
+     *  be initialised by a call to
+     *  {@link #initCause}.</p>
+     *  <p>The detail message constructed from the operation name and the
      *  explanation is saved for later retrieval by the
      *  {@link #getMessage()}
-     *  method.
+     *  method.</p>
      *
      *  @param  operation   The illegally attempted operation.
      *  @param  explanation The additional explanation.
@@ -181,13 +181,13 @@ public class IllegalOperationException extends RuntimeException
     }   //  IllegalOperationException()
 
     /**
-     *  Constructs a new {@code IllegalOperationException} with the cause and a
-     *  detail message composed of the given operation name and the given
-     *  explanation.<br>
-     *  <br>The detail message constructed from the operation name and the
+     *  <p>{@summary Constructs a new {@code IllegalOperationException} with
+     *  the cause and a detail message composed of the given operation name and
+     *  the given explanation.}</p>
+     *  <p>The detail message constructed from the operation name and the
      *  explanation is saved for later retrieval by the
      *  {@link #getMessage()}
-     *  method.
+     *  method.</p>
      *
      *  @param  operationName   The name of the illegally attempted operation;
      *      usually, this is the method name.
@@ -206,10 +206,10 @@ public class IllegalOperationException extends RuntimeException
     }   //  IllegalOperationException()
 
     /**
-     *  Constructs a new {@code IllegalOperationException} with the cause and a
-     *  detail message composed of the name of the given operation and the
-     *  given explanation.<br>
-     *  <br>The detail message constructed from the operation name and the
+     *  <p>{@summary Constructs a new {@code IllegalOperationException} with
+     *  the cause and a detail message composed of the name of the given
+     *  operation and the given explanation.}</p>
+     *  <p>The detail message constructed from the operation name and the
      *  explanation is saved for later retrieval by the
      *  {@link #getMessage()}
      *  method.

@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2024 by Thomas Thrien.
+ * Copyright © 2002-2026 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -28,7 +28,7 @@ import org.apiguardian.api.API;
 import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
 
 /**
- *  This is a specialized implementation for
+ *  This is a specialised implementation for
  *  {@link Error}
  *  that is to be thrown especially from the {@code default} branch of a
  *  {@code switch} statement that uses an {@code enum} type as selector.

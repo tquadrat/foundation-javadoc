@@ -13,7 +13,7 @@
 <div class="source-container">
 <pre><span class="source-line-no">001</span><span id="line-1">/*</span>
 <span class="source-line-no">002</span><span id="line-2"> * ============================================================================</span>
-<span class="source-line-no">003</span><span id="line-3"> * Copyright © 2002-2020 by Thomas Thrien.</span>
+<span class="source-line-no">003</span><span id="line-3"> * Copyright © 2002-2026 by Thomas Thrien.</span>
 <span class="source-line-no">004</span><span id="line-4"> * All Rights Reserved.</span>
 <span class="source-line-no">005</span><span id="line-5"> * ============================================================================</span>
 <span class="source-line-no">006</span><span id="line-6"> * Licensed to the public under the agreements of the GNU Lesser General Public</span>
@@ -202,42 +202,43 @@
 <span class="source-line-no">189</span><span id="line-189">     *</span>
 <span class="source-line-no">190</span><span id="line-190">     *  @return The namespace identifier.</span>
 <span class="source-line-no">191</span><span id="line-191">     */</span>
-<span class="source-line-no">192</span><span id="line-192">    public final URI getIdentifier() { return m_Identifier; }</span>
-<span class="source-line-no">193</span><span id="line-193"></span>
-<span class="source-line-no">194</span><span id="line-194">    /**</span>
-<span class="source-line-no">195</span><span id="line-195">     *  Returns the namespace prefix.</span>
-<span class="source-line-no">196</span><span id="line-196">     *</span>
-<span class="source-line-no">197</span><span id="line-197">     *  @return An instance of</span>
-<span class="source-line-no">198</span><span id="line-198">     *      {@link Optional}</span>
-<span class="source-line-no">199</span><span id="line-199">     *      that holds the namespace prefix.</span>
-<span class="source-line-no">200</span><span id="line-200">     */</span>
-<span class="source-line-no">201</span><span id="line-201">    public final Optional&lt;String&gt; getPrefix() { return m_Prefix; }</span>
-<span class="source-line-no">202</span><span id="line-202"></span>
-<span class="source-line-no">203</span><span id="line-203">    /**</span>
-<span class="source-line-no">204</span><span id="line-204">     *  {@inheritDoc}</span>
-<span class="source-line-no">205</span><span id="line-205">     */</span>
-<span class="source-line-no">206</span><span id="line-206">    @Override</span>
-<span class="source-line-no">207</span><span id="line-207">    public final int hashCode() { return hash( m_Prefix, m_Identifier ); }</span>
-<span class="source-line-no">208</span><span id="line-208"></span>
-<span class="source-line-no">209</span><span id="line-209">    /**</span>
-<span class="source-line-no">210</span><span id="line-210">     *  {@inheritDoc}</span>
-<span class="source-line-no">211</span><span id="line-211">     */</span>
-<span class="source-line-no">212</span><span id="line-212">    @Override</span>
-<span class="source-line-no">213</span><span id="line-213">    public final String toString()</span>
-<span class="source-line-no">214</span><span id="line-214">    {</span>
-<span class="source-line-no">215</span><span id="line-215">        final var retValue = m_Prefix</span>
-<span class="source-line-no">216</span><span id="line-216">            .map( p -&gt; format( "%s:%s=\"%s\"", KEYWORD, p, m_Identifier.toString() ) )</span>
-<span class="source-line-no">217</span><span id="line-217">            .orElseGet( () -&gt; format( "%s=\"%s\"", KEYWORD, m_Identifier.toString() ) );</span>
-<span class="source-line-no">218</span><span id="line-218"></span>
-<span class="source-line-no">219</span><span id="line-219">        //---* Done *----------------------------------------------------------</span>
-<span class="source-line-no">220</span><span id="line-220">        return retValue;</span>
-<span class="source-line-no">221</span><span id="line-221">    }   //  toString()</span>
-<span class="source-line-no">222</span><span id="line-222">}</span>
-<span class="source-line-no">223</span><span id="line-223">//  class Namespace</span>
-<span class="source-line-no">224</span><span id="line-224"></span>
-<span class="source-line-no">225</span><span id="line-225">/*</span>
-<span class="source-line-no">226</span><span id="line-226"> *  End of File</span>
-<span class="source-line-no">227</span><span id="line-227"> */</span>
+<span class="source-line-no">192</span><span id="line-192">    @SuppressWarnings( "unused" )</span>
+<span class="source-line-no">193</span><span id="line-193">    public final URI getIdentifier() { return m_Identifier; }</span>
+<span class="source-line-no">194</span><span id="line-194"></span>
+<span class="source-line-no">195</span><span id="line-195">    /**</span>
+<span class="source-line-no">196</span><span id="line-196">     *  Returns the namespace prefix.</span>
+<span class="source-line-no">197</span><span id="line-197">     *</span>
+<span class="source-line-no">198</span><span id="line-198">     *  @return An instance of</span>
+<span class="source-line-no">199</span><span id="line-199">     *      {@link Optional}</span>
+<span class="source-line-no">200</span><span id="line-200">     *      that holds the namespace prefix.</span>
+<span class="source-line-no">201</span><span id="line-201">     */</span>
+<span class="source-line-no">202</span><span id="line-202">    public final Optional&lt;String&gt; getPrefix() { return m_Prefix; }</span>
+<span class="source-line-no">203</span><span id="line-203"></span>
+<span class="source-line-no">204</span><span id="line-204">    /**</span>
+<span class="source-line-no">205</span><span id="line-205">     *  {@inheritDoc}</span>
+<span class="source-line-no">206</span><span id="line-206">     */</span>
+<span class="source-line-no">207</span><span id="line-207">    @Override</span>
+<span class="source-line-no">208</span><span id="line-208">    public final int hashCode() { return hash( m_Prefix, m_Identifier ); }</span>
+<span class="source-line-no">209</span><span id="line-209"></span>
+<span class="source-line-no">210</span><span id="line-210">    /**</span>
+<span class="source-line-no">211</span><span id="line-211">     *  {@inheritDoc}</span>
+<span class="source-line-no">212</span><span id="line-212">     */</span>
+<span class="source-line-no">213</span><span id="line-213">    @Override</span>
+<span class="source-line-no">214</span><span id="line-214">    public final String toString()</span>
+<span class="source-line-no">215</span><span id="line-215">    {</span>
+<span class="source-line-no">216</span><span id="line-216">        final var retValue = m_Prefix</span>
+<span class="source-line-no">217</span><span id="line-217">            .map( p -&gt; format( "%s:%s=\"%s\"", KEYWORD, p, m_Identifier.toString() ) )</span>
+<span class="source-line-no">218</span><span id="line-218">            .orElseGet( () -&gt; format( "%s=\"%s\"", KEYWORD, m_Identifier.toString() ) );</span>
+<span class="source-line-no">219</span><span id="line-219"></span>
+<span class="source-line-no">220</span><span id="line-220">        //---* Done *----------------------------------------------------------</span>
+<span class="source-line-no">221</span><span id="line-221">        return retValue;</span>
+<span class="source-line-no">222</span><span id="line-222">    }   //  toString()</span>
+<span class="source-line-no">223</span><span id="line-223">}</span>
+<span class="source-line-no">224</span><span id="line-224">//  class Namespace</span>
+<span class="source-line-no">225</span><span id="line-225"></span>
+<span class="source-line-no">226</span><span id="line-226">/*</span>
+<span class="source-line-no">227</span><span id="line-227"> *  End of File</span>
+<span class="source-line-no">228</span><span id="line-228"> */</span>
 
 
 

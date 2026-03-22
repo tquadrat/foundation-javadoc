@@ -52,7 +52,7 @@ import org.tquadrat.foundation.javadoc.internal.foundation.exception.ImpossibleE
  *  the special characters underscore ('_') and dot ('.'), after an optional
  *  prefix character.</p>
  *  <p>Allowed prefixes are the tilde ('~'), the slash ('/'), the equal sign
- *  ('='), the colon (':'), the percent sign ('%'), and the ampersand
+ *  ('='), the colon (':'), the per cent sign ('%'), and the ampersand
  *  ('&amp;').</p>
  *  <p>The prefix character is part of the name.</p>
  *  <p>Finally, there is the single underscore that is allowed as a special
@@ -95,7 +95,7 @@ public class Template implements Serializable
      *  case), the digits from '0' to '9' and the special characters underscore
      *  ('_') and dot ('.').<br>
      *  <br>Allowed prefixes are the tilde ('~'), the slash ('/'), the equal
-     *  sign ('='), the colon (':'), the percent sign ('%'), and the ampersand
+     *  sign ('='), the colon (':'), the per cent sign ('%'), and the ampersand
      *  ('&amp;').<br>
      *  <br>The prefix character is part of the name.<br>
      *  <br>Finally, there is the single underscore that is allowed as a
@@ -218,7 +218,7 @@ public class Template implements Serializable
      *  '0' to '9' and the special characters underscore ('_') and dot ('.'),
      *  after an optional prefix character.<br>
      *  <br>Allowed prefixes are the tilde ('~'), the slash ('/'), the equal
-     *  sign ('='), the colon (':'), the percent sign ('%'), and the ampersand
+     *  sign ('='), the colon (':'), the per cent sign ('%'), and the ampersand
      *  ('&amp;').<br>
      *  <br>Finally, there is the single underscore that is allowed as a
      *  special variable.
@@ -261,7 +261,7 @@ public class Template implements Serializable
      *  '0' to '9' and the special characters underscore ('_') and dot ('.'),
      *  after an optional prefix character.<br>
      *  <br>Allowed prefixes are the tilde ('~'), the slash ('/'), the equal
-     *  sign ('='), the colon (':'), the percent sign ('%'), and the ampersand
+     *  sign ('='), the colon (':'), the per cent sign ('%'), and the ampersand
      *  ('&amp;').<br>
      *  <br>Finally, there is the single underscore that is allowed as a
      *  special variable.
@@ -295,7 +295,7 @@ public class Template implements Serializable
      */
     public final boolean hasVariable( final String name )
     {
-        if( !isValidVariableName( name ) ) throw new IllegalArgumentException( format( "%s is not a valid variable name", name ) );
+        if( !isValidVariableName( name ) ) throw new IllegalArgumentException( format( "'%s' is not a valid variable name", name ) );
 
         final var retValue = findVariables().contains( name );
 
@@ -402,7 +402,7 @@ public class Template implements Serializable
      *  '0' to '9' and the special characters underscore ('_') and dot ('.'),
      *  after an optional prefix character.<br>
      *  <br>Allowed prefixes are the tilde ('~'), the slash ('/'), the equal
-     *  sign ('='), the colon (':'), the percent sign ('%'), and the ampersand
+     *  sign ('='), the colon (':'), the per cent sign ('%'), and the ampersand
      *  ('&amp;').<br>
      *  <br>The prefix character is part of the name.<br>
      *  <br>Finally, there is the single underscore that is allowed as a
@@ -444,7 +444,7 @@ public class Template implements Serializable
      *  '0' to '9' and the special characters underscore ('_') and dot ('.'),
      *  after an optional prefix character.<br>
      *  <br>Allowed prefixes are the tilde ('~'), the slash ('/'), the equal
-     *  sign ('='), the colon (':'), the percent sign ('%'), and the ampersand
+     *  sign ('='), the colon (':'), the per cent sign ('%'), and the ampersand
      *  ('&amp;').<br>
      *  <br>The prefix character is part of the name.<br>
      *  <br>Finally, there is the single underscore that is allowed as a
@@ -483,7 +483,7 @@ public class Template implements Serializable
      *  '0' to '9' and the special characters underscore ('_') and dot ('.'),
      *  after an optional prefix character.<br>
      *  <br>Allowed prefixes are the tilde ('~'), the slash ('/'), the equal
-     *  sign ('='), the colon (':'), the percent sign ('%'), and the ampersand
+     *  sign ('='), the colon (':'), the per cent sign ('%'), and the ampersand
      *  ('&amp;').<br>
      *  <br>The prefix character is part of the name.<br>
      *  <br>Finally, there is the single underscore that is allowed as a
@@ -522,7 +522,7 @@ public class Template implements Serializable
      *  '0' to '9' and the special characters underscore ('_') and dot ('.'),
      *  after an optional prefix character.<br>
      *  <br>Allowed prefixes are the tilde ('~'), the slash ('/'), the equal
-     *  sign ('='), the colon (':'), the percent sign ('%'), and the ampersand
+     *  sign ('='), the colon (':'), the per cent sign ('%'), and the ampersand
      *  ('&amp;').<br>
      *  <br>The prefix character is part of the name.<br>
      *  <br>Finally, there is the single underscore that is allowed as a

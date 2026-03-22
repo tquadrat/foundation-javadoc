@@ -103,8 +103,8 @@ loadScripts(document, 'script');</script>
 <span class="extends-implements">extends <a href="internal/OtherFileTagletBase.html" title="class in org.tquadrat.foundation.javadoc.internal">OtherFileTagletBase</a></span></div>
 <div class="block"><p>This taglet allows to include the contents of an external file
 into the JavaDoc documentation. This is particularly useful when the
-contents of resource files (like a DTD or an XML Schema) should be shown in
-the documentation.</p>
+contents of a resource file (like a DTD or an XML Schema) should be shown
+in the documentation.</p>
 <p>Usually, that file is stored somewhere on the
 <a href="internal/Common.html#SOURCE_PATH"><code>SOURCE_PATH</code></a>; this means that a file is addressed
 by its path name on the source tree. For example to include this file, the
@@ -127,7 +127,7 @@ issued.</p>
 <p><b>Notes:</b></p>
 <ul>
     <li>If Maven is used, and the include file is not placed at the
-    <code>java</code> path (but on the <code>resources</code> path, for example}, it
+    <code>java</code> path (but on the <code>resources</code> path, for example), it
     is required to add the parameter <code>&lt;sourcepath&gt;</code> to the
     configuration of the <code>maven-javadoc-plugin</code>, where the path of
     the include file is added; otherwise, it will not be found.

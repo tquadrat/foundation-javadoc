@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2020 by Thomas Thrien.
+ * Copyright © 2002-2026 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -34,14 +34,14 @@ import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersi
  *  Unlike an
  *  {@link ImpossibleExceptionError},
  *  the exception is <i>possible</i>, but not expected – probably because the
- *  programmer has taken (at least thought to have &hellip;) appropriate
+ *  programmer has taken (at least thought to have &hellip; ) appropriate
  *  precautions against its occurrence. An example for this could be an
  *  implementation of
  *  {@link Object#clone() clone()}
  *  for a particular class: with implementing that method (and declaring the
  *  interface
  *  {@link Cloneable}
- *  &hellip;), instances of that class do support cloning and therefore that
+ *  &hellip; ), instances of that class do support cloning and therefore that
  *  exception should not be thrown. Unfortunately, changes somewhere else in
  *  the source might prevent one of the attributes of the respective class from
  *  being cloned, so that exception could be thrown again &hellip;<br>

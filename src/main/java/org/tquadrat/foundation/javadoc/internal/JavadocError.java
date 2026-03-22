@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- *  Copyright © 2002-2020 by Thomas Thrien.
+ *  Copyright © 2002-2026 by Thomas Thrien.
  *  All Rights Reserved.
  * ============================================================================
  *  Licensed to the public under the agreements of the GNU Lesser General Public
@@ -52,8 +52,8 @@ public final class JavadocError extends Error
         \*--------------*/
     /**
      *  Constructs a new instance of {@code JavadocError} with the specified
-     *  detail message. The cause is not initialized, and may subsequently be
-     *  initialized by a call to
+     *  detail message. The cause is not initialised, and may subsequently be
+     *  initialised by a call to
      *  {@link #initCause(Throwable)}.
      *
      *  @param  message The detail message. The detail message is saved for

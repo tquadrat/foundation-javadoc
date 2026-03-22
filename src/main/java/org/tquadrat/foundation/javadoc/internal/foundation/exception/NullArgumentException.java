@@ -28,7 +28,7 @@ import org.apiguardian.api.API;
 import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
 
 /**
- *  This is a specialized implementation for the
+ *  This is a specialised implementation for the
  *  {@link IllegalArgumentException}
  *  that should be used instead of the latter in cases where {@code null} is
  *  provided as an illegal argument value.

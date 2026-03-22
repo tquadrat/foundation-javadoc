@@ -452,21 +452,22 @@ type has to be taken with caution.<br>
 <br>For instances of
 <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/stream/Stream.html" title="class or interface in java.util.stream" class="external-link"><code>Stream</code></a>,
 this method will only check for <code>null</code> (like
-<a href="#requireNonNullArgument(T,java.lang.String)"><code>requireNonNullArgument(Object,String)</code></a>.</div>
+<a href="#requireNonNullArgument(T,java.lang.String)"><code>requireNonNullArgument(Object,String)</code></a>).</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static final <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#splitString(java.lang.CharSequence,char)" class="member-name-link">splitString</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/CharSequence.html" title="class or interface in java.lang" class="external-link">CharSequence</a>&nbsp;string,
  char&nbsp;separator)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block">Splits a String by the given separator character and returns an array
-of all parts.</div>
+<div class="block">Splits a String by the given separator character and
+returns an array of all parts.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static final <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#splitString(java.lang.CharSequence,int)" class="member-name-link">splitString</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/CharSequence.html" title="class or interface in java.lang" class="external-link">CharSequence</a>&nbsp;string,
  int&nbsp;separator)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block">Splits a String by the given separator character, identified by its
-Unicode code point, and returns an array of all parts.</div>
+<div class="block">Splits a String by the given separator character,
+identified by its Unicode code point, and returns an array of all
+parts.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static final <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/stream/Stream.html" title="class or interface in java.util.stream" class="external-link">Stream</a><wbr>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#stream(java.lang.CharSequence,int)" class="member-name-link">stream</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/CharSequence.html" title="class or interface in java.lang" class="external-link">CharSequence</a>&nbsp;string,
@@ -1206,7 +1207,7 @@ type has to be taken with caution.<br>
 <br>For instances of
 <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/stream/Stream.html" title="class or interface in java.util.stream" class="external-link"><code>Stream</code></a>,
 this method will only check for <code>null</code> (like
-<a href="#requireNonNullArgument(T,java.lang.String)"><code>requireNonNullArgument(Object,String)</code></a>.
+<a href="#requireNonNullArgument(T,java.lang.String)"><code>requireNonNullArgument(Object,String)</code></a>).
 This is because any operation on the stream would render it unusable
 for later processing.<br>
 <br>In case the argument is of type
@@ -1276,15 +1277,15 @@ with an instance of <code>Optional</code> as the argument to test.</div>
      <a href="https://apiguardian-team.github.io/apiguardian/docs/current/api/org/apiguardian/api/API.html#since()" title="class or interface in org.apiguardian.api" class="external-link">since</a>="0.0.5")
 </span><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]</span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org/tquadrat/foundation/javadoc/internal/ToolKit.html#line-715">splitString</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/CharSequence.html" title="class or interface in java.lang" class="external-link">CharSequence</a>&nbsp;string,
  char&nbsp;separator)</span></div>
-<div class="block">Splits a String by the given separator character and returns an array
-of all parts. In case a separator character is immediately followed by
-another separator char, an empty String will be place to the array.
-Beginning and end of the String are treated as separators, so if the
-first character of the String is a separator, the returned array will
-start with an empty string, as it will end with an empty String if the
-last character is a separator.<br>
-<br>In case the String is empty, the return value will be an array
-containing just the empty String.</div>
+<div class="block"><p>Splits a String by the given separator character and
+returns an array of all parts. In case a separator character is
+immediately followed by another separator char, an empty String will be
+placed to the array. Beginning and end of the String are treated as
+separators, so if the first character of the String is a separator, the
+returned array will start with an empty string. It will end with an
+empty String if the last character is a separator.</p>
+<p>In case the String is empty, the return value will be an array
+containing just the empty String.</p></div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>string</code> - The String to split.</dd>
@@ -1305,16 +1306,16 @@ containing just the empty String.</div>
      <a href="https://apiguardian-team.github.io/apiguardian/docs/current/api/org/apiguardian/api/API.html#since()" title="class or interface in org.apiguardian.api" class="external-link">since</a>="0.0.5")
 </span><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]</span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org/tquadrat/foundation/javadoc/internal/ToolKit.html#line-739">splitString</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/CharSequence.html" title="class or interface in java.lang" class="external-link">CharSequence</a>&nbsp;string,
  int&nbsp;separator)</span></div>
-<div class="block">Splits a String by the given separator character, identified by its
-Unicode code point, and returns an array of all parts. In case a
-separator character is immediately followed by another separator char,
-an empty String will be placed to the array. Beginning and end of the
-String are treated as separators, so if the first character of the
-String is a separator, the returned array will start with an empty
-String, as it will end with an empty String if the last character is a
-separator.<br>
-<br>In case the String is empty, the return value will be an array
-containing just the empty String.</div>
+<div class="block"><p>Splits a String by the given separator character,
+identified by its Unicode code point, and returns an array of all
+parts. In case a separator character is immediately followed by
+another separator char, an empty String will be placed to the array.
+Beginning and end of the String are treated as separators, so if the
+first character of the String is a separator, the returned array will
+start with an empty String. It will end with an empty String if the
+last character is a separator.</p>
+<p>In case the String is empty, the return value will be an array
+containing just the empty String.</p></div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>string</code> - The String to split.</dd>
@@ -1342,7 +1343,7 @@ of all parts. In case a separator character is immediately followed by
 another separator char, an empty String will be put to the
 <code>Stream</code>. Beginning and end of the String are treated as
 separators, so if the first character of the String is a separator, the
-returned <code>Stream</code> will start with an empty String, as it will end
+returned <code>Stream</code> will start with an empty String. It will end
 with an empty String if the last character is a separator.</p>
 <p>In case the String is empty, the return value will be a
 <code>Stream</code> containing just the empty String.</p></div>

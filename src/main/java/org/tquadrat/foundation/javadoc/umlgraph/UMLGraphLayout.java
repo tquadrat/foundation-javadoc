@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2024 by Thomas Thrien.
+ * Copyright © 2002-2026 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -303,7 +303,7 @@ public final class UMLGraphLayout
     {
         final var key = requireNonNullArgument( typeSymbol, "typeSymbol").getQualifiedName();
 
-        final var connectors = m_EndingConnectors.computeIfAbsent( key, k -> new ArrayList<>() );
+        final var connectors = m_EndingConnectors.computeIfAbsent( key, _ -> new ArrayList<>() );
         connectors.add( requireNonNullArgument( connector, "connector") );
     }   //  addEndingConnector()
 
@@ -338,7 +338,7 @@ public final class UMLGraphLayout
     {
         final var key = requireNonNullArgument( typeSymbol, "typeSymbol").getQualifiedName();
 
-        final var connectors = m_StartingConnectors.computeIfAbsent( key, k -> new ArrayList<>() );
+        final var connectors = m_StartingConnectors.computeIfAbsent( key, _ -> new ArrayList<>() );
         connectors.add( requireNonNullArgument( connector, "connector") );
     }   //  addStartingConnector()
 

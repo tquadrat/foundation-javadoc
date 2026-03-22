@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2020 by Thomas Thrien.
+ * Copyright © 2002-2026 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -114,19 +114,19 @@ public interface Element
     public default boolean hasChildren() { return !getChildren().isEmpty(); }
 
     /**
-     *  Returns the block flag.<br>
-     *  <br>This flag is used in the conversion of the element into a String;
-     *  it indicates whether the element is 'inline' (like an HTML
-     *  <i>&lt;span&gt;</i>) or 'block' (as an HTML <i>&lt;div&gt;</i>). This is
-     *  important only for elements where whitespace is relevant, like for HTML
-     *  elements, as <i>pretty printing</i> will add additional whitespace
-     *  around inline elements that can become visible on parsing (for HTML: on
-     *  the rendered page).<br>
-     *  <br>XML elements for example will be always <i>block</i> as there
-     *  whitespace is not that important.<br>
-     *  <br>Obviously, {@code true} indicates a block element, while
-     *  {@code false} stands for an inline element.<br>
-     *  <br>The default is {@code true}.
+     *  <p>{@summary Returns the block flag.}</p>
+     *  <p>This flag is used in the conversion of the element into a String;
+     *  it indicates whether the element is 'inline'
+     *  (like an HTML <i>&lt;span&gt;</i>) or 'block'
+     *  (as an HTML <i>&lt;div&gt;</i>). This is important only for elements
+     *  where whitespace is relevant, like for HTML elements, as <i>pretty
+     *  printing</i> will add additional whitespace around inline elements that
+     *  can become visible on parsing (for HTML: on the rendered page).</p>
+     *  <p>XML elements for example will be always <i>block</i> as there
+     *  whitespace is not that important.</p>
+     *  <p>Obviously, {@code true} indicates a block element, while
+     *  {@code false} stands for an inline element.</p>
+     *  <p>The default is {@code true}.</p>
      *
      *  @return  The flag.
      */

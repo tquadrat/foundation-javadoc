@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2021 by Thomas Thrien.
+ * Copyright © 2002-2026 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -56,7 +56,7 @@ import jdk.javadoc.doclet.Taglet;
  *  (if any).</p>
  *  <p>In the file, each open point consists of a sequence of lines that will
  *  end with an empty line (a <i>paragraph</i> in Markdown). HTML tags are
- *  taken as they are, JavaDoc tags will be not interpreted.</p>
+ *  taken as they are, Javadoc tags will be not interpreted.</p>
  *  <p>So the {@code module-info.java} file for a project may look like
  *  this:</p>
  *  <pre><code> &#47;**
@@ -94,7 +94,7 @@ import jdk.javadoc.doclet.Taglet;
  *                List):</span>
  *            </dt>
  *            <dd>
- *              <p>Cleanup the class comments</p>
+ *              <p>Clean-up the class comments</p>
  *              <p>Re-think the parser implementation</p>
  *            </dd>
  *          </dl>

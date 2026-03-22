@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2020 by Thomas Thrien.
+ * Copyright © 2002-2026 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -116,7 +116,7 @@ public final class HRefTaglet implements Taglet
     @Override
     public final String toString( final List<? extends DocTree> tags, final Element element )
     {
-        final var tag = tags.get( 0 ).toString();
+        final var tag = tags.getFirst().toString();
         var matcher = PATTERN_FULL.matcher( tag );
         final String retValue;
         if( matcher.matches() )

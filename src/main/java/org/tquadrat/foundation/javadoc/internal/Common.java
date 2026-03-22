@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2024 by Thomas Thrien.
+ * Copyright © 2002-2026 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -251,7 +251,7 @@ public final class Common
                 case MODULE -> "module-info.java";
                 case ANNOTATION_TYPE, CLASS, ENUM, INTERFACE, RECORD -> element.toString().replace( '.', '/' ) + ".java";
                 case CONSTRUCTOR, ENUM_CONSTANT, FIELD, METHOD -> format( "%s::%s", determineElementName( element.getEnclosingElement() ), element );
-                default -> format( "Don't know yet how to get the output name for '%1$s' of kind '%2$s'", element, element.getKind().toString() );
+                default -> format( "Don't know yet how to get the output name for '%1$s' of kind '%2$s'", element, element.getKind() );
             };
 
         //---* Done *----------------------------------------------------------
@@ -293,7 +293,7 @@ public final class Common
      *  associated with the given type element. Use this to determine to
      *  storage location for a documentation file for a class or alike.
      *
-     *  @param  environment The doclet environment, providing the necessary
+     *  @param  environment The Doclet environment, providing the necessary
      *      settings and helpers.
      *  @param  typeElement The type element that determines the storage
      *      location.
@@ -324,8 +324,8 @@ public final class Common
      *  and the
      *  {@link Doclet}.
      *
-     *  @param  docletEnvironment   The doclet environment.
-     *  @param  doclet  The doclet.
+     *  @param  docletEnvironment   The Doclet environment.
+     *  @param  doclet  The Doclet.
      */
     @API( status = MAINTAINED, since = "0.0.5" )
     public static final void initHelperTaglets( final DocletEnvironment docletEnvironment, final Doclet doclet )

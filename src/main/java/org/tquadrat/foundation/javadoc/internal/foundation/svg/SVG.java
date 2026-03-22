@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2024 by Thomas Thrien.
+ * Copyright © 2002-2026 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -32,7 +32,7 @@ import jakarta.activation.MimeType;
  *  <p>The <code>&lt;svg&gt;</code> element is the root element for any SVG
  *  document, either stand-alone (in a file with the {@code *.svg} extension)
  *  or embedded in an HTML file (or elsewhere - including another SVG
- *  document). Therefore the definition for the namespaces is different for
+ *  document). Therefore, the definition for the namespaces is different for
  *  each usage. This is reflected by the type
  *  {@link Usage}.</p>
  *

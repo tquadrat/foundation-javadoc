@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2020 by Thomas Thrien.
+ * Copyright © 2002-2026 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -119,7 +119,7 @@ public final class AnchorTaglet implements Taglet
     @Override
     public final String toString( final List<? extends DocTree> tags, final Element element )
     {
-        final var tag = tags.get( 0 ).toString();
+        final var tag = tags.getFirst().toString();
         final var matcher = PATTERN.matcher( tag );
         final var retValue = matcher.matches() ? format( "<a id=\"%2$s\">%1$s</a>", matcher.group( "contents" ), matcher.group( "name" ) ) : tag;
 

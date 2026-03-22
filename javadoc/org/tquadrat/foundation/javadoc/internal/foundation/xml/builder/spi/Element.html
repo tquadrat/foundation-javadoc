@@ -168,10 +168,7 @@ otherwise.</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#isBlock()" class="member-name-link">isBlock</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
-<div class="block">Returns the block flag.<br>
-<br>This flag is used in the conversion of the element into a String;
-it indicates whether the element is 'inline' (like an HTML
-<i>&lt;span&gt;</i>) or 'block' (as an HTML <i>&lt;div&gt;</i>).</div>
+<div class="block">Returns the block flag.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>&lt;E extends <a href="Element.html" title="interface in org.tquadrat.foundation.javadoc.internal.foundation.xml.builder.spi">Element</a>&gt;<br>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#setParent(E)" class="member-name-link">setParent</a><wbr>(E&nbsp;parent)</code></div>
@@ -306,19 +303,19 @@ otherwise.</div>
 <h3>isBlock</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name"><a href="../../../../../../../../../src-html/org/tquadrat/foundation/javadoc/internal/foundation/xml/builder/spi/Element.html#line-133">isBlock</a></span>()</div>
-<div class="block">Returns the block flag.<br>
-<br>This flag is used in the conversion of the element into a String;
-it indicates whether the element is 'inline' (like an HTML
-<i>&lt;span&gt;</i>) or 'block' (as an HTML <i>&lt;div&gt;</i>). This is
-important only for elements where whitespace is relevant, like for HTML
-elements, as <i>pretty printing</i> will add additional whitespace
-around inline elements that can become visible on parsing (for HTML: on
-the rendered page).<br>
-<br>XML elements for example will be always <i>block</i> as there
-whitespace is not that important.<br>
-<br>Obviously, <code>true</code> indicates a block element, while
-<code>false</code> stands for an inline element.<br>
-<br>The default is <code>true</code>.</div>
+<div class="block"><p>Returns the block flag.</p>
+<p>This flag is used in the conversion of the element into a String;
+it indicates whether the element is 'inline'
+(like an HTML <i>&lt;span&gt;</i>) or 'block'
+(as an HTML <i>&lt;div&gt;</i>). This is important only for elements
+where whitespace is relevant, like for HTML elements, as <i>pretty
+printing</i> will add additional whitespace around inline elements that
+can become visible on parsing (for HTML: on the rendered page).</p>
+<p>XML elements for example will be always <i>block</i> as there
+whitespace is not that important.</p>
+<p>Obviously, <code>true</code> indicates a block element, while
+<code>false</code> stands for an inline element.</p>
+<p>The default is <code>true</code>.</p></div>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>The flag.</dd>

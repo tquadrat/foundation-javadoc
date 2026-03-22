@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2024 by Thomas Thrien.
+ * Copyright © 2002-2026 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  *
@@ -50,8 +50,8 @@ import com.sun.source.doctree.DocTree;
 /**
  *  <p>{@summary This taglet allows to include the contents of an external file
  *  into the JavaDoc documentation.} This is particularly useful when the
- *  contents of resource files (like a DTD or an XML Schema) should be shown in
- *  the documentation.</p>
+ *  contents of a resource file (like a DTD or an XML Schema) should be shown
+ *  in the documentation.</p>
  *  <p>Usually, that file is stored somewhere on the
  *  {@link Common#SOURCE_PATH SOURCE_PATH}; this means that a file is addressed
  *  by its path name on the source tree. For example to include this file, the
@@ -74,7 +74,7 @@ import com.sun.source.doctree.DocTree;
  *  <p><b>Notes:</b></p>
  *  <ul>
  *      <li>If Maven is used, and the include file is not placed at the
- *      {@code java} path (but on the {@code resources} path, for example}, it
+ *      {@code java} path (but on the {@code resources} path, for example), it
  *      is required to add the parameter <code>&lt;sourcepath&gt;</code> to the
  *      configuration of the {@code maven-javadoc-plugin}, where the path of
  *      the include file is added; otherwise, it will not be found.
@@ -132,7 +132,7 @@ public class IncludeTaglet extends OtherFileTagletBase
     {
         var retValue = EMPTY_STRING;
 
-        final var tag = tags.get( 0 ).toString().trim();
+        final var tag = tags.getFirst().toString().trim();
         final var len = tag.length() - 1;
         final var prefixLen = getName().length() + 3;
         final var contents = tag.substring( prefixLen, len ).trim();

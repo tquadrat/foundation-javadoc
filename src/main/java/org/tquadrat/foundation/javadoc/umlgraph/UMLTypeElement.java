@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2020 by Thomas Thrien.
+ * Copyright © 2002-2026 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -81,7 +81,7 @@ public final class UMLTypeElement extends UMLElement implements TypeElement
 
     /**
      *  Flag that indicates whether this type element is included somehow in
-     *  the output of this run of JavaDoc.
+     *  the output of this run of Javadoc.
      */
     private final boolean m_IsIncludedInOutput;
 
@@ -104,7 +104,7 @@ public final class UMLTypeElement extends UMLElement implements TypeElement
      *
      *  @param  element The wrapped type element.
      *  @param  isIncluded  {@code true} if this type element is included
-     *      somehow in the output of this run of JavaDoc, {@code false}
+     *      somehow in the output of this run of Javadoc, {@code false}
      *      otherwise.
      *  @param  typeUtils   The type utilities.
      */

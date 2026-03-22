@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2020 by Thomas Thrien.
+ * Copyright © 2002-2026 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -147,7 +147,7 @@ public class UnderlineTaglet implements Taglet
         final var docTreeFactory = m_DocletEnvironment.getDocTrees().getDocTreeFactory();
         final Function<CharSequence,Name> nameGenerator = m_DocletEnvironment.getElementUtils()::getName;
 
-        final var tag = tags.get( 0 ).toString();
+        final var tag = tags.getFirst().toString();
         final var matcher = PATTERN.matcher( tag );
         final var contents = matcher.matches() ? matcher.group( "contents" ) : EMPTY_STRING;
         final var retValue = isNotEmptyOrBlank( contents ) ? format( "<span style=\"text-decoration: underline;\">%1$s</span>", processInlineTags( contents, docTreeFactory, element, nameGenerator ) ) : EMPTY_STRING;
