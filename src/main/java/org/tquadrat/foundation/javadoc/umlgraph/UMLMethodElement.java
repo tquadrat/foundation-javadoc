@@ -36,10 +36,10 @@ import org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGText;
  *  the creation of the UML graph.
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: UMLMethodElement.java 976 2022-01-06 11:39:58Z tquadrat $
+ *  @version $Id: UMLMethodElement.java 1165 2026-03-22 19:30:59Z tquadrat $
  *  @since 0.0.5
  */
-@ClassVersion( sourceVersion = "$Id: UMLMethodElement.java 976 2022-01-06 11:39:58Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: UMLMethodElement.java 1165 2026-03-22 19:30:59Z tquadrat $" )
 @API( status = INTERNAL, since = "0.0.5")
 public final class UMLMethodElement extends UMLExecutableElement
 {

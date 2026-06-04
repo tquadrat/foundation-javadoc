@@ -36,10 +36,10 @@ import org.tquadrat.foundation.javadoc.internal.foundation.xml.builder.Namespace
  *  The definition for an SGML element.
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: Element.java 976 2022-01-06 11:39:58Z tquadrat $
+ *  @version $Id: Element.java 1165 2026-03-22 19:30:59Z tquadrat $
  *  @since 0.0.5
  */
-@ClassVersion( sourceVersion = "$Id: Element.java 976 2022-01-06 11:39:58Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: Element.java 1165 2026-03-22 19:30:59Z tquadrat $" )
 @API( status = MAINTAINED, since = "0.0.5" )
 public interface Element
 {

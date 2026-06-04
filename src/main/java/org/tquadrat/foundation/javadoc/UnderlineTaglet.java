@@ -46,10 +46,10 @@ import jdk.javadoc.doclet.Taglet;
  *  shown as <u>UNDERLINE ME</u>.
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: UnderlineTaglet.java 977 2022-01-06 11:41:03Z tquadrat $
+ *  @version $Id: UnderlineTaglet.java 1165 2026-03-22 19:30:59Z tquadrat $
  *  @since 0.0.5
  */
-@ClassVersion( sourceVersion = "$Id: UnderlineTaglet.java 977 2022-01-06 11:41:03Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: UnderlineTaglet.java 1165 2026-03-22 19:30:59Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
 public class UnderlineTaglet implements Taglet
 {

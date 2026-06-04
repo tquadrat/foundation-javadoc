@@ -37,11 +37,11 @@ import org.tquadrat.foundation.javadoc.internal.foundation.xml.builder.spi.Eleme
  *  This class defines an SGML comment.
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: Comment.java 1133 2024-05-10 21:43:08Z tquadrat $
+ *  @version $Id: Comment.java 1165 2026-03-22 19:30:59Z tquadrat $
  *  @since 0.0.5
  */
 @SuppressWarnings( "UnnecessaryUnicodeEscape" )
-@ClassVersion( sourceVersion = "$Id: Comment.java 1133 2024-05-10 21:43:08Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: Comment.java 1165 2026-03-22 19:30:59Z tquadrat $" )
 @API( status = INTERNAL, since = "0.0.5" )
 public class Comment implements Element
 {

@@ -29,10 +29,10 @@ import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersi
  *  is encountered.
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: JavadocError.java 976 2022-01-06 11:39:58Z tquadrat $
+ *  @version $Id: JavadocError.java 1165 2026-03-22 19:30:59Z tquadrat $
  *  @since 0.1.0
  */
-@ClassVersion( sourceVersion = "$Id: JavadocError.java 976 2022-01-06 11:39:58Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: JavadocError.java 1165 2026-03-22 19:30:59Z tquadrat $" )
 @API( status = STABLE, since = "0.1.0" )
 public final class JavadocError extends Error
 {

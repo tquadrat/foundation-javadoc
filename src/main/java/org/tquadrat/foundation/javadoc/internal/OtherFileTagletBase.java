@@ -95,10 +95,10 @@ import jdk.javadoc.doclet.Taglet;
  *  </ul>
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: OtherFileTagletBase.java 1133 2024-05-10 21:43:08Z tquadrat $
+ *  @version $Id: OtherFileTagletBase.java 1165 2026-03-22 19:30:59Z tquadrat $
  *  @since 0.1.0
  */
-@ClassVersion( sourceVersion = "$Id: OtherFileTagletBase.java 1133 2024-05-10 21:43:08Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: OtherFileTagletBase.java 1165 2026-03-22 19:30:59Z tquadrat $" )
 @API( status = STABLE, since = "0.1.0" )
 public abstract class OtherFileTagletBase implements Taglet
 {
@@ -109,11 +109,11 @@ public abstract class OtherFileTagletBase implements Taglet
      *  The process modes for the included file.
      *
      *  @author Thomas Thrien - thomas.thrien@tquadrat.org
-     *  @version $Id: OtherFileTagletBase.java 1133 2024-05-10 21:43:08Z tquadrat $
+     *  @version $Id: OtherFileTagletBase.java 1165 2026-03-22 19:30:59Z tquadrat $
      *  @since 0.0.5
      */
     @SuppressWarnings( "InnerClassTooDeeplyNested" )
-    @ClassVersion( sourceVersion = "$Id: OtherFileTagletBase.java 1133 2024-05-10 21:43:08Z tquadrat $" )
+    @ClassVersion( sourceVersion = "$Id: OtherFileTagletBase.java 1165 2026-03-22 19:30:59Z tquadrat $" )
     @API( status = INTERNAL, since = "0.0.5", consumers = "org.tquadrat.foundation.javadoc" )
     public enum ProcessMode
     {

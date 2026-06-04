@@ -56,10 +56,10 @@ import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersi
  *  instance, enhanced by information needed for the creation of the UML graph.
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: UMLTypeElement.java 976 2022-01-06 11:39:58Z tquadrat $
+ *  @version $Id: UMLTypeElement.java 1165 2026-03-22 19:30:59Z tquadrat $
  *  @since 0.0.5
  */
-@ClassVersion( sourceVersion = "$Id: UMLTypeElement.java 976 2022-01-06 11:39:58Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: UMLTypeElement.java 1165 2026-03-22 19:30:59Z tquadrat $" )
 @API( status = INTERNAL, since = "0.0.5")
 public final class UMLTypeElement extends UMLElement implements TypeElement
 {

@@ -45,12 +45,12 @@ import jdk.javadoc.doclet.Taglet;
  *  <p>The hash symbol (&quot;#&quot;) before the anchor name is mandatory!</p>
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: AnchorTaglet.java 977 2022-01-06 11:41:03Z tquadrat $
+ *  @version $Id: AnchorTaglet.java 1165 2026-03-22 19:30:59Z tquadrat $
  *  @since 0.0.5
  *
  *  @see HRefTaglet
  */
-@ClassVersion( sourceVersion = "$Id: AnchorTaglet.java 977 2022-01-06 11:41:03Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: AnchorTaglet.java 1165 2026-03-22 19:30:59Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
 public final class AnchorTaglet implements Taglet
 {

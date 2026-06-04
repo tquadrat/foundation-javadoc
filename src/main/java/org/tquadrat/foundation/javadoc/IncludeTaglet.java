@@ -94,10 +94,10 @@ import com.sun.source.doctree.DocTree;
  *  </ul>
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: IncludeTaglet.java 1133 2024-05-10 21:43:08Z tquadrat $
+ *  @version $Id: IncludeTaglet.java 1165 2026-03-22 19:30:59Z tquadrat $
  *  @since 0.0.5
  */
-@ClassVersion( sourceVersion = "$Id: IncludeTaglet.java 1133 2024-05-10 21:43:08Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: IncludeTaglet.java 1165 2026-03-22 19:30:59Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
 public class IncludeTaglet extends OtherFileTagletBase
 {

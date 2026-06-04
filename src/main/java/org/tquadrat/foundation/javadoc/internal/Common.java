@@ -42,7 +42,10 @@ import java.util.function.Function;
 
 import org.apiguardian.api.API;
 import org.tquadrat.foundation.javadoc.AnchorTaglet;
+import org.tquadrat.foundation.javadoc.FALSETaglet;
 import org.tquadrat.foundation.javadoc.HRefTaglet;
+import org.tquadrat.foundation.javadoc.NULLTaglet;
+import org.tquadrat.foundation.javadoc.TRUETaglet;
 import org.tquadrat.foundation.javadoc.UnderlineTaglet;
 import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
 import org.tquadrat.foundation.javadoc.internal.foundation.annotation.UtilityClass;
@@ -55,14 +58,14 @@ import jdk.javadoc.doclet.DocletEnvironment;
 import jdk.javadoc.doclet.Taglet;
 
 /**
- *  Helper methods for the new taglet implementations.
+ *  <p>{@summary Helper methods for the new taglet implementations.}</p>
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: Common.java 1133 2024-05-10 21:43:08Z tquadrat $
+ *  @version $Id: Common.java 1165 2026-03-22 19:30:59Z tquadrat $
  *  @since 0.0.5
  */
 @SuppressWarnings( "ClassWithTooManyFields" )
-@ClassVersion( sourceVersion = "$Id: Common.java 1133 2024-05-10 21:43:08Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: Common.java 1165 2026-03-22 19:30:59Z tquadrat $" )
 @API( status = MAINTAINED, since = "0.0.5")
 @UtilityClass
 public final class Common
@@ -339,9 +342,12 @@ public final class Common
                     (
                         new AnchorTaglet(),
                         new org.tquadrat.foundation.javadoc.internal.CodeTaglet(),
+                        new FALSETaglet(),
                         new HRefTaglet(),
                         new org.tquadrat.foundation.javadoc.internal.IndexTaglet(),
                         new org.tquadrat.foundation.javadoc.internal.LiteralTaglet(),
+                        new NULLTaglet(),
+                        new TRUETaglet(),
                         new UnderlineTaglet()
                     );
 

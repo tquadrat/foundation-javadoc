@@ -59,11 +59,11 @@ import org.tquadrat.foundation.javadoc.internal.foundation.exception.ImpossibleE
  *  variable.</p>
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: Template.java 1133 2024-05-10 21:43:08Z tquadrat $
+ *  @version $Id: Template.java 1165 2026-03-22 19:30:59Z tquadrat $
  *  @since 0.1.0
  */
 @SuppressWarnings( "unused" )
-@ClassVersion( sourceVersion = "$Id: Template.java 1133 2024-05-10 21:43:08Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: Template.java 1165 2026-03-22 19:30:59Z tquadrat $" )
 @API( status = STABLE, since = "0.1.0" )
 public class Template implements Serializable
 {

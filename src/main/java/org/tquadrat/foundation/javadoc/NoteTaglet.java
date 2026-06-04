@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2020 by Thomas Thrien.
+ * Copyright © 2002-2026 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -44,8 +44,11 @@ import jdk.javadoc.doclet.Taglet;
  *  <li>{@link org.tquadrat.foundation.javadoc.AnchorTaglet @anchor}</li>
  *  <li>{@code @code}</li>
  *  <li>{@link org.tquadrat.foundation.javadoc.HRefTaglet @href}</li>
+ *  <li>{@link org.tquadrat.foundation.javadoc.FALSETaglet @false}</li>
  *  <li>{@code @index}</li>
  *  <li>{@code @literal}</li>
+ *  <li>{@link org.tquadrat.foundation.javadoc.NULLTaglet @null}</li>
+ *  <li>{@link org.tquadrat.foundation.javadoc.TRUETaglet @true}</li>
  *  <li>{@link org.tquadrat.foundation.javadoc.UnderlineTaglet @underline}</li>
  *  </ul>
  *  <p>are recognised in the text for this tag. If there are more than one
@@ -141,8 +144,24 @@ public class NoteTaglet implements Taglet
         final var retValue = tags.stream()
             .map( Object::toString )
             .map( t -> t.substring( prefixLen ).trim() )
-            .map( text -> "\n<li>" + processInlineTags( text, docTreeFactory, element, nameGenerator ) + "</li>" )
-            .collect( Collectors.joining( "", "\n<dt><span class=\"simpleTagLabel\">" + caption + ":</span></dt>\n<dd>\n<ul>", "\n</ul>\n</dd>\n" ) );
+            .map( text ->
+                """
+                
+                      <li>%s</li>""".formatted( processInlineTags( text, docTreeFactory, element, nameGenerator ) )
+            )
+            .collect( Collectors.joining(
+                "",
+                """
+                
+                <dt><span class="simpleTagLabel">%s:</span></dt>
+                  <dd>
+                    <ul>
+                """.formatted( caption ),
+                """
+                
+                    </ul>
+                  </dd>
+                """ ) );
 
         //---* Done *----------------------------------------------------------
         return retValue;

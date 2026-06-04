@@ -59,11 +59,11 @@ import org.tquadrat.foundation.javadoc.internal.foundation.xml.builder.internal.
  *  {@link #addChild(Element)}.
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: ChildSupport.java 1133 2024-05-10 21:43:08Z tquadrat $
+ *  @version $Id: ChildSupport.java 1165 2026-03-22 19:30:59Z tquadrat $
  *  @since 0.0.5
  */
 @SuppressWarnings( "unused" )
-@ClassVersion( sourceVersion = "$Id: ChildSupport.java 1133 2024-05-10 21:43:08Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: ChildSupport.java 1165 2026-03-22 19:30:59Z tquadrat $" )
 @API( status = MAINTAINED, since = "0.0.5" )
 public final class ChildSupport
 {

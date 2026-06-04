@@ -42,13 +42,13 @@ import jdk.javadoc.doclet.Taglet;
  *  That's why I created this replacement.</p>
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: IndexTaglet.java 978 2022-01-06 12:47:52Z tquadrat $
+ *  @version $Id: IndexTaglet.java 1165 2026-03-22 19:30:59Z tquadrat $
  *  @since 0.0.5
  *
  *  @see CodeTaglet
  *  @see LiteralTaglet
  */
-@ClassVersion( sourceVersion = "$Id: IndexTaglet.java 978 2022-01-06 12:47:52Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: IndexTaglet.java 1165 2026-03-22 19:30:59Z tquadrat $" )
 @API( status = INTERNAL, since = "0.0.5")
 public final class IndexTaglet implements Taglet
 {
