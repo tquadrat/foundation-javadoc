@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2022 by Thomas Thrien.
+ * Copyright © 2002-2026 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -30,7 +30,7 @@ plugins {
 }   //  plugins
 
 //---* Settings *--------------------------------------------------------------
-project.setVersion( "0.1.0" )
+project.setVersion( "0.25.0" )
 
 /**
  *  The current year, used for the copyright notice in JavaDoc.
@@ -45,7 +45,7 @@ String javadocEncoding = 'UTF-8'
 /**
  *  The Java source level.
  */
-String javaSourceLevel = '17'
+String javaSourceLevel = '25'
 
 /**
  *  The JavaDoc tags; this defines the sequence how the tags will appear in the

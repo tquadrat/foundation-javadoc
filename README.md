@@ -1,20 +1,25 @@
-This is an extension to the standard JavaDoc tool, originally built to be used for the documentation of the *Foundation* Library.
+# tuadrat's Javadoc Extensions 0.25.1
 
-To use the provided extensions in your project, add the following parameters to your JavaDoc call:
+This is an extension to the standard Javadoc tool, originally built to be used for the documentation of the *Foundation* Library.
+
+To use the provided extensions in your project, add the following parameters to your Javadoc call:
 
 ```
--tagletpath /path/to/org.tquadrat.foundation.javadoc-0.1.0.jar:/path/to/apiguardian-api-1.1.2.jar:/path/to/jakarta.activation-2.0.1.jar
+-tagletpath /path/to/org.tquadrat.foundation.javadoc-0.25.1.jar:/path/to/apiguardian-api-1.1.2.jar:/path/to/jakarta.activation-2.0.1.jar
 
 -taglet org.tquadrat.foundation.javadoc.AuthorTaglet
 -taglet org.tquadrat.foundation.javadoc.AnchorTaglet
 -taglet org.tquadrat.foundation.javadoc.HRefTaglet
+-taglet org.tquadrat.foundation.javadoc.FALSETaglet
 -taglet org.tquadrat.foundation.javadoc.IgnoreTaglet
 -taglet org.tquadrat.foundation.javadoc.IncludeTaglet
 -taglet org.tquadrat.foundation.javadoc.InspiredTaglet
 -taglet org.tquadrat.foundation.javadoc.ModifiedTaglet
 -taglet org.tquadrat.foundation.javadoc.NoteTaglet
+-taglet org.tquadrat.foundation.javadoc.NULLTaglet
 -taglet org.tquadrat.foundation.javadoc.ThanksTaglet
 -taglet org.tquadrat.foundation.javadoc.ToDoTaglet
+-taglet org.tquadrat.foundation.javadoc.TRUETaglet
 -taglet org.tquadrat.foundation.javadoc.UmlGraphLinkTaglet
 -taglet org.tquadrat.foundation.javadoc.UnderlineTaglet
 
@@ -46,10 +51,10 @@ This gives you the following new features:
  * `{@anchor #<name> <text>}` – This tag allows to add an HTML anchor to the documentation.
  * `{@href <url> [<text>]}` – With this tag a hyperlink can be added to the documentation; different from the `{@link}` and `{@linkplain}` tags, this is used to refer to external resources.
  * `{@underline <text>}` – If text needs to be underlined, this is the tag.
- * `{@include <file> [<processMode>]}` – This tag allows including other files from the source path into the JavaDoc documentation.
+ * `{@include <file> [<processMode>]}` – This tag allows including other files from the source path into the Javadoc documentation.
  * `{@ignore <text>}` – The standard tag `@hidden` allows to exclude the whole documentation for an element (a type, method or field) from the generated Javadoc documentation. With the tag `{@ignore}` it is possible to exclude just the text inside.
 
-Details about the usage of the tags can be found in the JavaDoc.
+Details about the usage of the tags can be found in the Javadoc.
 
 
 
