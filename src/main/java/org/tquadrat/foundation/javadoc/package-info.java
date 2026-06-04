@@ -23,25 +23,28 @@
  *  {@link jdk.javadoc.doclet.StandardDoclet};
  *  it did some pre-processing and then delegated the work to the parent.</p>
  *  <p>The new implementation here is completely based on the new Java&nbsp;9
- *  JavaDoc APIs, and will implement all functions only as instances of
+ *  Javadoc APIs, and will implement all functions only as instances of
  *  {@link jdk.javadoc.doclet.Taglet Taglet}.</p>
  *  <p>Basically, the extensions are used by the <i>Foundation</i> Library
  *  itself, but they are available for any other projects, too. To activate the
- *  extensions in your project, add the following parameters to your JavaDoc
+ *  extensions in your project, add the following parameters to your Javadoc
  *  call (versions may differ):</p>
  *  <pre><code>
- *  -tagletpath &lt;<i>path/to/</i>&gt;org.tquadrat.foundation.javadoc-0.25.0.jar:&lt;<i>path/to/</i>&gt;apiguardian-api-1.1.2.jar:&lt;<i>path/to/</i>&gt;commonmark-0.27.1.jar:&lt;<i>path/to/</i>&gt;commonmark-ext-gfm-tables-0.27.1.jar:&lt;<i>path/to/</i>&gt;angus-activation-2.0.3.jar
+ *  -tagletpath &lt;<i>path/to/</i>&gt;org.tquadrat.foundation.javadoc-0.25.1.jar:&lt;<i>path/to/</i>&gt;apiguardian-api-1.1.2.jar:&lt;<i>path/to/</i>&gt;commonmark-0.27.1.jar:&lt;<i>path/to/</i>&gt;commonmark-ext-gfm-tables-0.27.1.jar:&lt;<i>path/to/</i>&gt;angus-activation-2.0.3.jar
  *
  *  -taglet org.tquadrat.foundation.javadoc.AuthorTaglet
  *  -taglet org.tquadrat.foundation.javadoc.AnchorTaglet
  *  -taglet org.tquadrat.foundation.javadoc.HRefTaglet
+ *  -taglet org.tquadrat.foundation.javadoc.FALSETaglet
  *  -taglet org.tquadrat.foundation.javadoc.IgnoreTaglet
  *  -taglet org.tquadrat.foundation.javadoc.IncludeTaglet
  *  -taglet org.tquadrat.foundation.javadoc.InspiredTaglet
  *  -taglet org.tquadrat.foundation.javadoc.ModifiedTaglet
  *  -taglet org.tquadrat.foundation.javadoc.NoteTaglet
+ *  -taglet org.tquadrat.foundation.javadoc.NULLTaglet
  *  -taglet org.tquadrat.foundation.javadoc.ThanksTaglet
  *  -taglet org.tquadrat.foundation.javadoc.ToDoTaglet
+ *  -taglet org.tquadrat.foundation.javadoc.TRUETaglet
  *  -taglet org.tquadrat.foundation.javadoc.UmlGraphLinkTaglet
  *  -taglet org.tquadrat.foundation.javadoc.UnderlineTaglet
  *
@@ -136,7 +139,7 @@
  *      {@link org.tquadrat.foundation.javadoc.UnderlineTaglet}.</p></dd>
  *      <dt><code>{&#64;include &lt;file&gt;:[&lt;processMode&gt;]}}</code></dt>
  *      <dd><p>This tag allows to include other files from the source path into
- *      the JavaDoc documentation. For the details, refer to the documentation
+ *      the Javadoc documentation. For the details, refer to the documentation
  *      for the implementing class
  *      {@link org.tquadrat.foundation.javadoc.IncludeTaglet}.</p></dd>
  *      <dt>{@code {@ignore <text>}}</dt>
@@ -146,7 +149,16 @@
  *      possible to exclude just the text inside. This can be useful when the
  *      comments for the generated documentation are difficult to read.</p>
  *      <p>Implemented by the class
- *      {@link org.tquadrat.foundation.javadoc.UmlGraphLinkTaglet}.</p></dd>
+ *      {@link org.tquadrat.foundation.javadoc.IgnoreTaglet}.</p></dd>
+ *      <dt>{@code {@null}}, {@code {@true}}, {@code {@false}}</dt>
+ *      <dd><p>These are abbreviations for <code>{&#64;code null}</code>,
+ *      <code>{&#64;code true}</code>, and <code>{&#64;code false}</code>,
+ *      respectively.</p>
+ *      <p>Implemented by the classes
+ *      {@link org.tquadrat.foundation.javadoc.NULLTaglet},
+ *      {@link org.tquadrat.foundation.javadoc.TRUETaglet}
+ *      and
+ *      {@link org.tquadrat.foundation.javadoc.FALSETaglet}.</p></dd>
  *  </dl>
  */
 
