@@ -87,6 +87,14 @@ public final class InspiredTaglet extends CustomTagletBase
     /**
      *  {@inheritDoc}
      */
+    protected final void customInit()
+    {
+        forceInit();
+    }   //  customInit()
+
+    /**
+     *  {@inheritDoc}
+     */
     @Override
     public final String toString( final List<? extends DocTree> tags, final Element element )
     {

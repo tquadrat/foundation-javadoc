@@ -52,11 +52,16 @@ import java.util.function.BiFunction;
 import org.apiguardian.api.API;
 import org.tquadrat.foundation.javadoc.AnchorTaglet;
 import org.tquadrat.foundation.javadoc.AuthorTaglet;
+import org.tquadrat.foundation.javadoc.FALSETaglet;
 import org.tquadrat.foundation.javadoc.HRefTaglet;
+import org.tquadrat.foundation.javadoc.IgnoreTaglet;
 import org.tquadrat.foundation.javadoc.ImageTaglet;
+import org.tquadrat.foundation.javadoc.IncludeTaglet;
 import org.tquadrat.foundation.javadoc.InspiredTaglet;
 import org.tquadrat.foundation.javadoc.ModifiedTaglet;
+import org.tquadrat.foundation.javadoc.NULLTaglet;
 import org.tquadrat.foundation.javadoc.NoteTaglet;
+import org.tquadrat.foundation.javadoc.TRUETaglet;
 import org.tquadrat.foundation.javadoc.ThanksTaglet;
 import org.tquadrat.foundation.javadoc.ToDoTaglet;
 import org.tquadrat.foundation.javadoc.UnderlineTaglet;
@@ -257,7 +262,7 @@ public sealed abstract class CustomTagletBase implements Taglet
             final String retValue;
             if( isNull( function ) )
             {
-                printf( ERROR, "Unknown Tag: %s", tagName );
+                printf( ERROR, "Unknown Custom Tag: %s", tagName );
                 retValue = "[{@%s} unknown]".formatted( tagName );
             }
             else
@@ -421,6 +426,23 @@ public sealed abstract class CustomTagletBase implements Taglet
         /* Does nothing */
     }   //  customInit()
 
+    /**
+     *  <p>{@summary Forces the initialisation of the inline tags.}</p>
+     *  <p>For some unknown reason it may happen that the inline tags are not
+     *  yet registered in
+     *  {@link #m_TagFunctions},
+     *  causing an &quot;{@code error: unknown tag: …}&quot; message when used
+     *  within another custom tag.</p>
+     */
+    protected final void forceInit()
+    {
+        List.of( new AnchorTaglet(), new FALSETaglet(), new HRefTaglet(), new IgnoreTaglet(),
+            new IncludeTaglet(), new NULLTaglet(), new TRUETaglet(), new UnderlineTaglet() )
+            .stream()
+            .filter( t -> t.isInlineTag() ) // Just because of paranoia …
+            .filter( t -> !m_TagFunctions.containsKey( t.getName() ) )
+            .forEach( t -> t.init( getDocletEnvironment(), getDoclet() ) );
+    }   //  forceInit()
     /**
      *  {@inheritDoc}
      */

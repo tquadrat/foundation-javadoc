@@ -94,42 +94,50 @@
 <span class="source-line-no">081</span><span id="line-81">    /**</span>
 <span class="source-line-no">082</span><span id="line-82">     *  {@inheritDoc}</span>
 <span class="source-line-no">083</span><span id="line-83">     */</span>
-<span class="source-line-no">084</span><span id="line-84">    @Override</span>
-<span class="source-line-no">085</span><span id="line-85">    public final String toString( final List&lt;? extends DocTree&gt; tags, final Element element )</span>
-<span class="source-line-no">086</span><span id="line-86">    {</span>
-<span class="source-line-no">087</span><span id="line-87">        final var caption = tags.size() &gt; 1 ? "Notes" : "Note";</span>
+<span class="source-line-no">084</span><span id="line-84">    protected final void customInit()</span>
+<span class="source-line-no">085</span><span id="line-85">    {</span>
+<span class="source-line-no">086</span><span id="line-86">        forceInit();</span>
+<span class="source-line-no">087</span><span id="line-87">    }   //  customInit()</span>
 <span class="source-line-no">088</span><span id="line-88"></span>
-<span class="source-line-no">089</span><span id="line-89">        final var retValue = tags.stream()</span>
-<span class="source-line-no">090</span><span id="line-90">            .map( v -&gt; (UnknownBlockTagTree) v )</span>
-<span class="source-line-no">091</span><span id="line-91">            .map( UnknownBlockTagTree::getContent )</span>
-<span class="source-line-no">092</span><span id="line-92">            .map( v -&gt; processTagContent( v, element ))</span>
-<span class="source-line-no">093</span><span id="line-93">            .map( """</span>
-<span class="source-line-no">094</span><span id="line-94">                </span>
-<span class="source-line-no">095</span><span id="line-95">                &lt;li&gt;%s&lt;/li&gt;"""::formatted</span>
-<span class="source-line-no">096</span><span id="line-96">            )</span>
-<span class="source-line-no">097</span><span id="line-97">            .collect( Collectors.joining(</span>
-<span class="source-line-no">098</span><span id="line-98">                EMPTY_STRING,</span>
-<span class="source-line-no">099</span><span id="line-99">                """</span>
-<span class="source-line-no">100</span><span id="line-100">                </span>
-<span class="source-line-no">101</span><span id="line-101">                &lt;dt&gt;&lt;span class="simpleTagLabel"&gt;%s:&lt;/span&gt;&lt;/dt&gt;</span>
-<span class="source-line-no">102</span><span id="line-102">                  &lt;dd&gt;</span>
-<span class="source-line-no">103</span><span id="line-103">                    &lt;ul&gt;</span>
-<span class="source-line-no">104</span><span id="line-104">                """.formatted( caption ),</span>
-<span class="source-line-no">105</span><span id="line-105">                """</span>
-<span class="source-line-no">106</span><span id="line-106">                </span>
-<span class="source-line-no">107</span><span id="line-107">                    &lt;/ul&gt;</span>
-<span class="source-line-no">108</span><span id="line-108">                  &lt;/dd&gt;</span>
-<span class="source-line-no">109</span><span id="line-109">                """ ) );</span>
-<span class="source-line-no">110</span><span id="line-110"></span>
-<span class="source-line-no">111</span><span id="line-111">        //---* Done *----------------------------------------------------------</span>
-<span class="source-line-no">112</span><span id="line-112">        return retValue;</span>
-<span class="source-line-no">113</span><span id="line-113">    }   //  toString()</span>
-<span class="source-line-no">114</span><span id="line-114">}</span>
-<span class="source-line-no">115</span><span id="line-115">//  class NoteTaglet</span>
-<span class="source-line-no">116</span><span id="line-116"></span>
-<span class="source-line-no">117</span><span id="line-117">/*</span>
-<span class="source-line-no">118</span><span id="line-118"> *  End of File</span>
-<span class="source-line-no">119</span><span id="line-119"> */</span>
+<span class="source-line-no">089</span><span id="line-89">    /**</span>
+<span class="source-line-no">090</span><span id="line-90">     *  {@inheritDoc}</span>
+<span class="source-line-no">091</span><span id="line-91">     */</span>
+<span class="source-line-no">092</span><span id="line-92">    @Override</span>
+<span class="source-line-no">093</span><span id="line-93">    public final String toString( final List&lt;? extends DocTree&gt; tags, final Element element )</span>
+<span class="source-line-no">094</span><span id="line-94">    {</span>
+<span class="source-line-no">095</span><span id="line-95">        final var caption = tags.size() &gt; 1 ? "Notes" : "Note";</span>
+<span class="source-line-no">096</span><span id="line-96"></span>
+<span class="source-line-no">097</span><span id="line-97">        final var retValue = tags.stream()</span>
+<span class="source-line-no">098</span><span id="line-98">            .map( v -&gt; (UnknownBlockTagTree) v )</span>
+<span class="source-line-no">099</span><span id="line-99">            .map( UnknownBlockTagTree::getContent )</span>
+<span class="source-line-no">100</span><span id="line-100">            .map( v -&gt; processTagContent( v, element ))</span>
+<span class="source-line-no">101</span><span id="line-101">            .map( """</span>
+<span class="source-line-no">102</span><span id="line-102">                </span>
+<span class="source-line-no">103</span><span id="line-103">                &lt;li&gt;%s&lt;/li&gt;"""::formatted</span>
+<span class="source-line-no">104</span><span id="line-104">            )</span>
+<span class="source-line-no">105</span><span id="line-105">            .collect( Collectors.joining(</span>
+<span class="source-line-no">106</span><span id="line-106">                EMPTY_STRING,</span>
+<span class="source-line-no">107</span><span id="line-107">                """</span>
+<span class="source-line-no">108</span><span id="line-108">                </span>
+<span class="source-line-no">109</span><span id="line-109">                &lt;dt&gt;&lt;span class="simpleTagLabel"&gt;%s:&lt;/span&gt;&lt;/dt&gt;</span>
+<span class="source-line-no">110</span><span id="line-110">                  &lt;dd&gt;</span>
+<span class="source-line-no">111</span><span id="line-111">                    &lt;ul&gt;</span>
+<span class="source-line-no">112</span><span id="line-112">                """.formatted( caption ),</span>
+<span class="source-line-no">113</span><span id="line-113">                """</span>
+<span class="source-line-no">114</span><span id="line-114">                </span>
+<span class="source-line-no">115</span><span id="line-115">                    &lt;/ul&gt;</span>
+<span class="source-line-no">116</span><span id="line-116">                  &lt;/dd&gt;</span>
+<span class="source-line-no">117</span><span id="line-117">                """ ) );</span>
+<span class="source-line-no">118</span><span id="line-118"></span>
+<span class="source-line-no">119</span><span id="line-119">        //---* Done *----------------------------------------------------------</span>
+<span class="source-line-no">120</span><span id="line-120">        return retValue;</span>
+<span class="source-line-no">121</span><span id="line-121">    }   //  toString()</span>
+<span class="source-line-no">122</span><span id="line-122">}</span>
+<span class="source-line-no">123</span><span id="line-123">//  class NoteTaglet</span>
+<span class="source-line-no">124</span><span id="line-124"></span>
+<span class="source-line-no">125</span><span id="line-125">/*</span>
+<span class="source-line-no">126</span><span id="line-126"> *  End of File</span>
+<span class="source-line-no">127</span><span id="line-127"> */</span>
 
 
 
