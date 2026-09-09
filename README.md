@@ -61,6 +61,7 @@ This gives you the following new features:
  * `{@href <url> [<text>]}` – With this tag a hyperlink can be added to the documentation; different from the `{@link}` and `{@linkplain}` tags, this is used to refer to external resources.
  * `{@image <url> [<attributes>]}` – With this tag a picture can be added to the documentation.
  * `{@underline <text>}` – If text needs to be underlined, this is the tag.
+ * `{@null}`, `{@true}` and `{@false}` – Convenience forms of `{@code null}`, `{@code true}` and `{@code false}`.
  * `{@include <file> [<processMode>]}` – This tag allows including other files from the source path into the Javadoc documentation.
  * `{@ignore <text>}` – The standard tag `@hidden` allows to exclude the whole documentation for an element (a type, method or field) from the generated Javadoc documentation. With the tag `{@ignore}` it is possible to exclude just the text inside.
 
