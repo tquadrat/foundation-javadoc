@@ -33,12 +33,13 @@ import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersi
  *  will implement this interface.
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: AllowsStyleAttributes.java 976 2022-01-06 11:39:58Z tquadrat $
+ *  @version $Id: AllowsStyleAttributes.java 1282 2026-09-08 23:52:53Z tquadrat $
  *  @since 0.0.5
  */
-@ClassVersion( sourceVersion = "$Id: AllowsStyleAttributes.java 976 2022-01-06 11:39:58Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: AllowsStyleAttributes.java 1282 2026-09-08 23:52:53Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
-public interface AllowsStyleAttributes
+public sealed interface AllowsStyleAttributes
+    permits SVG, SVGGroup, SVGLine, SVGPath, SVGRectangle, SVGSymbol, SVGTSpan, SVGText
 {
         /*------------------------*\
     ====** Static Initialisations **===========================================

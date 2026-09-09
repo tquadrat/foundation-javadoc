@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2020 by Thomas Thrien.
+ * Copyright © 2002-2026 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -19,24 +19,21 @@ package org.tquadrat.foundation.javadoc;
 
 import static java.lang.String.format;
 import static org.apiguardian.api.API.Status.STABLE;
-import static org.tquadrat.foundation.javadoc.internal.Common.parseNameAndEmail;
 
 import javax.lang.model.element.Element;
-import java.util.EnumSet;
 import java.util.List;
-import java.util.Set;
 
 import org.apiguardian.api.API;
+import org.tquadrat.foundation.javadoc.internal.CustomTagletBase;
 import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
 import com.sun.source.doctree.DocTree;
-import jdk.javadoc.doclet.Taglet;
 
 /**
  *  <p>{@summary This taglet is used to refer to the author of the
  *  modifications for a piece of code that was originally written by somebody
  *  else (named in the {@code @author} or the
-  * {@link AuthorTaglet @extauthor}
-  * tag).} It requires that reference to the editor in the format below:</p>
+ * {@link AuthorTaglet @extauthor}
+ * tag).} It requires that reference to the editor in the format below:</p>
  *  <pre><code>  &#x40;modified &lt;<i>name</i>&gt; <b>-</b> &lt;<i>email address</i>&gt;</code></pre>
  *  <p>Basically, this is the name of the editor, followed by their email
  *  address, separated by a hyphen (&quot;&#x2d;&quot; &amp;#x2d), surrounded
@@ -45,18 +42,18 @@ import jdk.javadoc.doclet.Taglet;
  *  output.</p>
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: ModifiedTaglet.java 977 2022-01-06 11:41:03Z tquadrat $
+ *  @version $Id: ModifiedTaglet.java 1282 2026-09-08 23:52:53Z tquadrat $
  *  @since 0.0.5
  */
-@ClassVersion( sourceVersion = "$Id: ModifiedTaglet.java 977 2022-01-06 11:41:03Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: ModifiedTaglet.java 1282 2026-09-08 23:52:53Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
-public final class ModifiedTaglet implements Taglet
+public final class ModifiedTaglet extends CustomTagletBase
 {
         /*-----------*\
     ====** Constants **========================================================
         \*-----------*/
     /**
-     *  The name of this taglet: {@value}.
+     *  <p>{@summary The name of this taglet: {@value}.}</p>
      */
     public static final String TAGLET_NAME = "modified";
 
@@ -64,32 +61,16 @@ public final class ModifiedTaglet implements Taglet
     ====** Constructors **=====================================================
         \*--------------*/
     /**
-     *  Creates a new {@code ModifiedTaglet} instance.
+     *  <p>{@summary Creates a new {@code ModifiedTaglet} instance.}</p>
      */
-    @SuppressWarnings( "RedundantNoArgConstructor" )
-    public ModifiedTaglet() { /* Just exists */ }
+    public ModifiedTaglet()
+    {
+        super( TAGLET_NAME, false, Location.values() );
+    }   //  ModifiedTaglet()
 
         /*---------*\
     ====** Methods **==========================================================
         \*---------*/
-    /**
-     *  {@inheritDoc}
-     */
-    @Override
-    public final Set<Location> getAllowedLocations() { return EnumSet.allOf( Location.class ); }
-
-    /**
-     *  {@inheritDoc}
-     */
-    @Override
-    public final String getName() { return TAGLET_NAME; }
-
-    /**
-     *  {@inheritDoc}
-     */
-    @Override
-    public final boolean isInlineTag() { return false; }
-
     /**
      *  {@inheritDoc}
      */
@@ -102,7 +83,7 @@ public final class ModifiedTaglet implements Taglet
             <dt><span class="simpleTagLabel">Modified by:</span></dt>
               <dd>%s</dd>
             """;
-        final var retValue = format( template, parseNameAndEmail( this, tags ) );
+        final var retValue = format( template, parseNameAndEmail( tags ) );
 
         //---* Done *----------------------------------------------------------
         return retValue;

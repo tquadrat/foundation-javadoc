@@ -25,9 +25,8 @@ import static java.util.Objects.nonNull;
 import static java.util.stream.Collectors.joining;
 import static javax.tools.Diagnostic.Kind.NOTE;
 import static javax.tools.Diagnostic.Kind.WARNING;
+import static jdk.javadoc.doclet.Taglet.Location.TYPE;
 import static org.apiguardian.api.API.Status.STABLE;
-import static org.tquadrat.foundation.javadoc.internal.Common.getOutputFileObject;
-import static org.tquadrat.foundation.javadoc.internal.Common.initHelperTaglets;
 import static org.tquadrat.foundation.javadoc.internal.ToolKit.CHAR_ZWNBSP;
 import static org.tquadrat.foundation.javadoc.internal.ToolKit.EMPTY_STRING;
 import static org.tquadrat.foundation.javadoc.internal.ToolKit.requireNonNullArgument;
@@ -41,27 +40,22 @@ import javax.tools.FileObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 import org.apiguardian.api.API;
 import org.tquadrat.foundation.javadoc.internal.JavadocError;
+import org.tquadrat.foundation.javadoc.internal.OtherFileTagletBase;
 import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
 import org.tquadrat.foundation.javadoc.internal.foundation.lang.Lazy;
 import org.tquadrat.foundation.javadoc.umlgraph.UMLDocument;
 import org.tquadrat.foundation.javadoc.umlgraph.UMLGraphLayout;
 import org.tquadrat.foundation.javadoc.umlgraph.UMLTypeElement;
 import com.sun.source.doctree.DocTree;
-import jdk.javadoc.doclet.Doclet;
-import jdk.javadoc.doclet.DocletEnvironment;
 import jdk.javadoc.doclet.DocletEnvironment.ModuleMode;
-import jdk.javadoc.doclet.StandardDoclet;
-import jdk.javadoc.doclet.Taglet;
 
 /**
  *  <p>{@summary When this tag is added to the documentation of a class, a UML
@@ -69,49 +63,35 @@ import jdk.javadoc.doclet.Taglet;
  *  <p>The Javadoc generation will be serialised on this taglet.</p>
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: UmlGraphLinkTaglet.java 1165 2026-03-22 19:30:59Z tquadrat $
+ *  @version $Id: UmlGraphLinkTaglet.java 1282 2026-09-08 23:52:53Z tquadrat $
  *  @since 0.1.0
  */
 /*
  * Update the version in the method init!!
  */
-@ClassVersion( sourceVersion = "$Id: UmlGraphLinkTaglet.java 1165 2026-03-22 19:30:59Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: UmlGraphLinkTaglet.java 1282 2026-09-08 23:52:53Z tquadrat $" )
 @API( status = STABLE, since = "0.1.0" )
-public class UmlGraphLinkTaglet implements Taglet
+public final class UmlGraphLinkTaglet extends OtherFileTagletBase
 {
         /*-----------*\
     ====** Constants **========================================================
         \*-----------*/
     /**
-     *  The name of this taglet: {@value}.
+     *  <p>{@summary The name of this taglet: {@value}.}</p>
      */
     public static final String TAGLET_NAME = "UMLGraph.link";
-
-        /*------------*\
-    ====** Attributes **=======================================================
-        \*------------*/
-    /**
-     *  The doclet.
-     */
-    @SuppressWarnings( "FieldCanBeLocal" )
-    private Doclet m_Doclet;
-
-    /**
-     *  The doclet environment.
-     */
-    private DocletEnvironment m_DocletEnvironment;
 
         /*------------------------*\
     ====** Static Initialisations **===========================================
         \*------------------------*/
     /**
-     *  The registry for the type elements; it is used as a cache for the
-     *  already processed classes.
+     *  <p>{@summary The registry for the type elements; it is used as a cache
+     *  for the already processed classes.}</p>
      */
     private static final Map<Name,UMLTypeElement> m_ClassRegistry;
 
     /**
-     *  The lock that controls the processing for this taglet.
+     *  <p>{@summary The lock that controls the processing for this taglet.}</p>
      */
     private static final Lock m_Lock;
 
@@ -126,20 +106,59 @@ public class UmlGraphLinkTaglet implements Taglet
     ====** Constructors **=====================================================
         \*--------------*/
     /**
-     *  Creates a new {@code UmlGraphLinkTaglet} instance.
+     *  <p>{@summary Creates a new {@code UmlGraphLinkTaglet} instance.}</p>
      */
-    @SuppressWarnings( "RedundantNoArgConstructor" )
-    public UmlGraphLinkTaglet() { /* Just exists */ }
+    public UmlGraphLinkTaglet()
+    {
+        super( TAGLET_NAME, false, TYPE );
+    }   //  UmlGraphLinkTaglet()
 
         /*---------*\
     ====** Methods **==========================================================
         \*---------*/
     /**
-     *  Determines the image file name based on the name of the given type
-     *  element. The returned value is not the fully qualified file name, just
-     *  the last part of it.<br>
-     *  <br>For the class {@code com.bar.MyClass}, this method would return the
-     *  file name {@code doc-files/MyClass.svg}.
+     *  {@inheritDoc}
+     */
+    @Override
+    protected final void customInit()
+    {
+        final var typeUtils = getTypeUtils();
+        final var env = getDocletEnvironment();
+
+        //---* Fill the cache *------------------------------------------------
+        try
+        {
+            m_Lock.lock();
+            if( m_ClassRegistry.isEmpty() )
+            {
+                //---* Load all the included type elements *-------------------
+                env.getIncludedElements().stream()
+                    .filter( e -> e instanceof TypeElement )
+                    .map( e -> (TypeElement) e )
+                    .map( t -> new UMLTypeElement( t, env.isIncluded( t ), typeUtils ) )
+                    .forEach( u -> m_ClassRegistry.put( u.getQualifiedName(), u ) );
+
+                //---* Assign the children to the parents *--------------------
+                /*
+                 * We need a new collection because we will modify the cache
+                 * during this process.
+                 */
+                List.copyOf( m_ClassRegistry.values() )
+                    .forEach( this::initInheritance );
+            }
+        }
+        finally
+        {
+            m_Lock.unlock();
+        }
+    }   //  customInit()
+
+    /**
+     *  <p>{@summary Determines the image file name based on the name of the
+     *  given type element.} The returned value is not the fully qualified file
+     *  name, just the last part of it.</p>
+     *  <p>For the class {@code com.bar.MyClass}, this method would return the
+     *  file name {@code doc-files/MyClass.svg}.</p>
      *
      *  @param  typeElement The type element.
      *  @return The name of the image file that belongs to the given type
@@ -177,22 +196,11 @@ public class UmlGraphLinkTaglet implements Taglet
     }   //  determineImageFileName()
 
     /**
-     *  {@inheritDoc}
-     */
-    @Override
-    public final Set<Location> getAllowedLocations() { return EnumSet.of( Location.TYPE ); }
-
-    /**
-     *  {@inheritDoc}
-     */
-    @Override
-    public final String getName() { return TAGLET_NAME; }
-
-    /**
-     *  Checks whether the given type element has at least one parent.<br>
-     *  <br>Interfaces that do not extend another interface are parent-less;
-     *  {@link java.lang.Object}
-     *  is the only class that does not have a parent class.
+     *  <p>{@summary Checks whether the given type element has at least one
+     *  parent.}</p>
+     *  <p>Interfaces that do not extend another interface are parent-less;
+     *  {@link Object}
+     *  is the only class that does not have a parent class.</p>
      *
      *  @param  typeElement The type element to examine.
      *  @return {@code true} if the element has at least one parent,
@@ -204,15 +212,17 @@ public class UmlGraphLinkTaglet implements Taglet
          * The class java.lang.Object does not have a parent class.
          */
         var retValue = !Object.class.getName().equals( requireNonNullArgument( typeElement, "typeElement" ).getQualifiedName().toString() );
+
         /*
          * All other classes do extend java.lang.Object, so all other classes
          * do have a parent - either Object or a specific class.
          */
         if( retValue && typeElement.isInterface() )
         {
-            final var typeUtils = m_DocletEnvironment.getTypeUtils();
+            final var typeUtils = getTypeUtils();
             final var extendedInterfaces = typeUtils.directSupertypes( typeElement.asType() );
             retValue = extendedInterfaces.size() > 1;
+
             /*
              * An interface with more than one direct supertype will have a
              * parent for sure.
@@ -238,49 +248,9 @@ public class UmlGraphLinkTaglet implements Taglet
     }   //  hasParent()
 
     /**
-     *  {@inheritDoc}
-     */
-    @Override
-    public final void init( final DocletEnvironment docletEnvironment, final Doclet doclet )
-    {
-        Taglet.super.init( docletEnvironment, doclet );
-        m_Doclet = doclet;
-        m_DocletEnvironment = docletEnvironment;
-        initHelperTaglets( m_DocletEnvironment, m_Doclet );
-        final var typeUtils = m_DocletEnvironment.getTypeUtils();
-
-        //---* Fill the cache *------------------------------------------------
-        try
-        {
-            m_Lock.lock();
-            if( m_ClassRegistry.isEmpty() )
-            {
-                //---* Load all the included type elements *-------------------
-                m_DocletEnvironment.getIncludedElements().stream()
-                    .filter( e -> e instanceof TypeElement )
-                    .map( e -> (TypeElement) e )
-                    .map( t -> new UMLTypeElement( t, m_DocletEnvironment.isIncluded( t ), typeUtils ) )
-                    .forEach( u -> m_ClassRegistry.put( u.getQualifiedName(), u ) );
-
-                //---* Assign the children to the parents *--------------------
-                /*
-                 * We need a new collection because we will modify the cache
-                 * during this process.
-                 */
-                List.copyOf( m_ClassRegistry.values() )
-                    .forEach( this::initInheritance );
-            }
-        }
-        finally
-        {
-            m_Lock.unlock();
-        }
-    }   //  init()
-
-    /**
-     *  Assigns the given type element to its parents.<br>
-     *  <br>This method modifies the cache for the type elements, therefore it
-     *  requires the lock.
+     *  <p>{@summary Assigns the given type element to its parents.}</p>
+     *  <p>This method modifies the cache for the type elements, therefore it
+     *  requires the lock.</p>
      *
      *  @param  typeElement The type element.
      *
@@ -291,13 +261,7 @@ public class UmlGraphLinkTaglet implements Taglet
     private final void initInheritance( final UMLTypeElement typeElement ) { retrieveParents( typeElement ); }
 
     /**
-     *  {@inheritDoc}
-     */
-    @Override
-    public final boolean isInlineTag() { return false; }
-
-    /**
-     *  Do the layout for the graph.
+     *  <p>{@summary Do the layout for the graph.}</p>
      *
      *  @param  document    The UML document.
      *  @param  focusClass  The class doc for the focus class.
@@ -407,9 +371,9 @@ public class UmlGraphLinkTaglet implements Taglet
     }   //  layout()
 
     /**
-     *  Retrieves the direct parents for the given type.<br>
-     *  <br>As this method potentially modifies the cache, it requires the
-     *  lock.
+     *  <p>{@summary Retrieves the direct parents for the given type.}</p>
+     *  <p>As this method potentially modifies the cache, it requires the
+     *  lock.</p>
      *
      *  @param  typeElement The type element.
      *  @return The direct parents for the given type element.
@@ -419,7 +383,8 @@ public class UmlGraphLinkTaglet implements Taglet
      */
     private final Collection<UMLTypeElement> retrieveParents( final UMLTypeElement typeElement )
     {
-        final var typeUtils = m_DocletEnvironment.getTypeUtils();
+        final var typeUtils = getTypeUtils();
+        final var env = getDocletEnvironment();
 
         final Collection<UMLTypeElement> retValue = new ArrayList<>();
 
@@ -437,7 +402,7 @@ public class UmlGraphLinkTaglet implements Taglet
                         var parentUMLTypeElement = m_ClassRegistry.get( parentTypeElement.getQualifiedName() );
                         if( isNull( parentUMLTypeElement ) )
                         {
-                            parentUMLTypeElement = new UMLTypeElement( parentTypeElement, m_DocletEnvironment.isIncluded( parentTypeElement ), m_DocletEnvironment.getTypeUtils() );
+                            parentUMLTypeElement = new UMLTypeElement( parentTypeElement, env.isIncluded( parentTypeElement ), env.getTypeUtils() );
                             m_ClassRegistry.put( parentUMLTypeElement.getQualifiedName(), parentUMLTypeElement );
                             parentUMLTypeElement.addChildType( typeElement );
                             retrieveParents( parentUMLTypeElement );
@@ -477,7 +442,7 @@ public class UmlGraphLinkTaglet implements Taglet
             final FileObject imageFile;
             try
             {
-                imageFile = getOutputFileObject( m_DocletEnvironment, typeElement, imageFileName );
+                imageFile = getOutputFileObject( typeElement, imageFileName );
             }
             catch( final IOException e )
             {
@@ -522,13 +487,13 @@ public class UmlGraphLinkTaglet implements Taglet
             try
             {
                 m_Lock.lock();
-                final var details = m_DocletEnvironment.getModuleMode() == ModuleMode.API ? 1 : 2;
+                final var details = getDocletEnvironment().getModuleMode() == ModuleMode.API ? 1 : 2;
 
                 //---* Get the UML type element *------------------------------
                 var umlTypeElement = m_ClassRegistry.get( typeElement.getQualifiedName() );
                 if( isNull( umlTypeElement ) )
                 {
-                    umlTypeElement = new UMLTypeElement( typeElement, m_DocletEnvironment.isIncluded( typeElement ), m_DocletEnvironment.getTypeUtils() );
+                    umlTypeElement = new UMLTypeElement( typeElement, getDocletEnvironment().isIncluded( typeElement ), getDocletEnvironment().getTypeUtils() );
                     m_ClassRegistry.put( typeElement.getQualifiedName(), umlTypeElement );
                     initInheritance( umlTypeElement );
                 }
@@ -542,11 +507,7 @@ public class UmlGraphLinkTaglet implements Taglet
             }
 
             //---* Write the new picture *-------------------------------------
-            if( m_Doclet instanceof StandardDoclet doclet )
-            {
-                doclet.getReporter().print( NOTE, "Generating %s".formatted( imageFile.getName() ) );
-//                if( nonNull( out ) ) out.printf( "Generating %s\n", imageFile.getName() );
-            }
+            print( NOTE, "Generating %s".formatted( imageFile.getName() ) );
             try( final var outputStream = imageFile.openOutputStream() )
             {
                 outputStream.write( umlDocument.toString().getBytes( UTF_8 ) );
@@ -554,10 +515,7 @@ public class UmlGraphLinkTaglet implements Taglet
             catch( final IOException e )
             {
                 final var message = "Problems on writing the UMLGraph for %s to %s";
-                if( m_Doclet instanceof StandardDoclet doclet )
-                {
-                    doclet.getReporter().print( WARNING, element, message.formatted( typeElement.getSimpleName(), imageFile.getName() ) );
-                }
+                print( WARNING, element, message.formatted( typeElement.getSimpleName(), imageFile.getName() ) );
                 throw new JavadocError( message.formatted( typeElement.getSimpleName(), imageFile.getName() ), e );
             }
         }

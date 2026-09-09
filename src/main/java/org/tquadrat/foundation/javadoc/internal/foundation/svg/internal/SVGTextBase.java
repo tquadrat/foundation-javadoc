@@ -44,13 +44,14 @@ import org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGNumber.SV
  *  {@link org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGTSpan}.
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: SVGTextBase.java 977 2022-01-06 11:41:03Z tquadrat $
+ *  @version $Id: SVGTextBase.java 1282 2026-09-08 23:52:53Z tquadrat $
  *  @since 0.0.5
  */
 @SuppressWarnings( "AbstractClassExtendsConcreteClass" )
-@ClassVersion( sourceVersion = "$Id: SVGTextBase.java 977 2022-01-06 11:41:03Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: SVGTextBase.java 1282 2026-09-08 23:52:53Z tquadrat $" )
 @API( status = INTERNAL, since = "0.0.5" )
-public abstract class SVGTextBase extends SVGElementImpl
+public sealed abstract class SVGTextBase extends SVGElementImpl
+    permits SVGTSpanImpl, SVGTextImpl
 {
         /*--------------*\
     ====** Constructors **=====================================================

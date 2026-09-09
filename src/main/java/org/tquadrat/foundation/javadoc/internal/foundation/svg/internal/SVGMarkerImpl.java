@@ -80,12 +80,13 @@ import org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGNumber.SV
  *  for the SVG {@code <marker>}.
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: SVGMarkerImpl.java 977 2022-01-06 11:41:03Z tquadrat $
+ *  @version $Id: SVGMarkerImpl.java 1282 2026-09-08 23:52:53Z tquadrat $
  *  @since 0.0.5
  */
-@ClassVersion( sourceVersion = "$Id: SVGMarkerImpl.java 977 2022-01-06 11:41:03Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: SVGMarkerImpl.java 1282 2026-09-08 23:52:53Z tquadrat $" )
 @API( status = INTERNAL, since = "0.0.5" )
-public class SVGMarkerImpl extends SVGElementImpl implements SVGMarker
+public sealed class SVGMarkerImpl extends SVGElementImpl implements SVGMarker
+    permits SVGPositionedMarkerImpl
 {
         /*--------------*\
     ====** Constructors **=====================================================

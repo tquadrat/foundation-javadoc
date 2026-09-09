@@ -20,11 +20,10 @@ package org.tquadrat.foundation.javadoc;
 
 import static java.lang.String.format;
 import static java.lang.System.arraycopy;
-import static java.lang.System.out;
 import static java.util.Objects.nonNull;
+import static javax.tools.Diagnostic.Kind.MANDATORY_WARNING;
+import static javax.tools.Diagnostic.Kind.WARNING;
 import static org.apiguardian.api.API.Status.STABLE;
-import static org.tquadrat.foundation.javadoc.internal.Common.SOURCE_PATH;
-import static org.tquadrat.foundation.javadoc.internal.Common.determineElementName;
 import static org.tquadrat.foundation.javadoc.internal.OtherFileTagletBase.ProcessMode.DEFAULT;
 import static org.tquadrat.foundation.javadoc.internal.ToolKit.EMPTY_STRING;
 import static org.tquadrat.foundation.javadoc.internal.ToolKit.EMPTY_String_ARRAY;
@@ -36,11 +35,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.EnumSet;
 import java.util.List;
 
 import org.apiguardian.api.API;
-import org.tquadrat.foundation.javadoc.internal.Common;
 import org.tquadrat.foundation.javadoc.internal.JavadocError;
 import org.tquadrat.foundation.javadoc.internal.OtherFileTagletBase;
 import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
@@ -53,14 +50,14 @@ import com.sun.source.doctree.DocTree;
  *  contents of a resource file (like a DTD or an XML Schema) should be shown
  *  in the documentation.</p>
  *  <p>Usually, that file is stored somewhere on the
- *  {@link Common#SOURCE_PATH SOURCE_PATH}; this means that a file is addressed
+ *  {@link #SOURCE_PATH SOURCE_PATH}; this means that a file is addressed
  *  by its path name on the source tree. For example to include this file, the
  *  path would be
  *  {@code org/tquadrat/foundation/javadoc/IncludeTaglet.java}.</p>
  *  <p>But additional roots can be provided through system properties, where
  *  the name of the new root will be prefixed by
  *  {@value #PROPERTY_INCLUDE_ROOT_PREFIX}, like
- *  {@code org.tquadrat.foundation.include.root.resources}. To use this root,
+ *  {@systemProperty org.tquadrat.foundation.include.root.resources}. To use this root,
  *  prefix the path in the tag with {@code ${resources}}.</p>
  *  <p>The file contents can be processed in some way before it will be
  *  included; refer to
@@ -71,6 +68,8 @@ import com.sun.source.doctree.DocTree;
  *  <p>where the &lt;processMode&gt; can be omitted. If the given file does not
  *  exist or is empty, nothing will be included, and no error message will be
  *  issued.</p>
+ *  <p>Javadoc tags in the included files are not processed, even if the files
+ *  resides in a {@code doc-files} folder.</p>
  *  <p><b>Notes:</b></p>
  *  <ul>
  *      <li>If Maven is used, and the include file is not placed at the
@@ -92,20 +91,21 @@ import com.sun.source.doctree.DocTree;
  *      contents of the included file will be seamlessly integrated into the
  *      other text of the respective Javadoc comment.</li>
  *  </ul>
+ *  <p>Alternatively, you can use the {@code @snippet} tag.</p>
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: IncludeTaglet.java 1165 2026-03-22 19:30:59Z tquadrat $
+ *  @version $Id: IncludeTaglet.java 1282 2026-09-08 23:52:53Z tquadrat $
  *  @since 0.0.5
  */
-@ClassVersion( sourceVersion = "$Id: IncludeTaglet.java 1165 2026-03-22 19:30:59Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: IncludeTaglet.java 1282 2026-09-08 23:52:53Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
-public class IncludeTaglet extends OtherFileTagletBase
+public final class IncludeTaglet extends OtherFileTagletBase
 {
         /*-----------*\
     ====** Constants **========================================================
         \*-----------*/
     /**
-     *  The name of this taglet: {@value}.
+     *  <p>{@summary The name of this taglet: {@value}.}</p>
      */
     public static final String TAGLET_NAME = "include";
 
@@ -113,17 +113,37 @@ public class IncludeTaglet extends OtherFileTagletBase
     ====** Constructors **=====================================================
         \*--------------*/
     /**
-     *  Creates a new {@code IncludeTaglet} instance.
+     *  <p>{@summary Creates a new {@code IncludeTaglet} instance.}</p>
      */
-    @SuppressWarnings( "RedundantNoArgConstructor" )
     public IncludeTaglet()
     {
-        super( TAGLET_NAME, true, EnumSet.allOf( Location.class ) );
+        super( TAGLET_NAME, true, Location.values() );
     }   //  IncludeTaglet()
 
         /*---------*\
     ====** Methods **==========================================================
         \*---------*/
+    /**
+     *  <p>{@summary Determines the name of an element for output.}</p>
+     *
+     *  @param  element The element.
+     *  @return The name of the element for output.
+     */
+    private final String determineElementName( final Element element )
+    {
+        final var retValue = switch( element.getKind() )
+            {
+                case PACKAGE -> element.toString().replace( '.', '/' ) + "/package-info.java";
+                case MODULE -> "module-info.java";
+                case ANNOTATION_TYPE, CLASS, ENUM, INTERFACE, RECORD -> element.toString().replace( '.', '/' ) + ".java";
+                case CONSTRUCTOR, ENUM_CONSTANT, FIELD, METHOD -> format( "%s::%s", determineElementName( element.getEnclosingElement() ), element );
+                default -> format( "Don't know yet how to get the output name for '%1$s' of kind '%2$s'", element, element.getKind() );
+            };
+
+        //---* Done *----------------------------------------------------------
+        return retValue;
+    }   //  determineElementName()
+
     /**
      *  {@inheritDoc}
      */
@@ -169,7 +189,7 @@ public class IncludeTaglet extends OtherFileTagletBase
                 {
                     p = ProcessMode.valueOf( parts[1].trim() );
                 }
-                catch( @SuppressWarnings( "unused" ) final IllegalArgumentException e )
+                catch( final IllegalArgumentException _ )
                 {
                     p = DEFAULT;
                 }
@@ -185,7 +205,7 @@ public class IncludeTaglet extends OtherFileTagletBase
                 {
                     p = ProcessMode.valueOf( parts[1].trim() );
                 }
-                catch( @SuppressWarnings( "unused" ) final IllegalArgumentException e )
+                catch( final IllegalArgumentException _ )
                 {
                     p = DEFAULT;
                 }
@@ -205,7 +225,7 @@ public class IncludeTaglet extends OtherFileTagletBase
                 if( !file.exists() )
                 {
                     final var elementName = determineElementName( element );
-                    out.printf( "Cannot locate the include file '%2$s' for '%1$s'%n", elementName, fileName );
+                    printf( WARNING,"Cannot locate the include file '%2$s' for '%1$s'%n", elementName, fileName );
                 }
                 //noinspection OverlyBroadCatchBlock
                 try( final Reader reader = new FileReader( file ) )
@@ -217,7 +237,7 @@ public class IncludeTaglet extends OtherFileTagletBase
                 {
                     //---* Should never happen *-------------------------------
                     final var elementName = determineElementName( element );
-                    out.printf( "Failed to include the file '%2$s' for '%1$s'%n", elementName, fileName );
+                    printf( MANDATORY_WARNING,"Failed to include the file '%2$s' for '%1$s'%n", elementName, fileName );
                 }
             }
             else if( !fileName.startsWith( "$" ) )
@@ -225,7 +245,7 @@ public class IncludeTaglet extends OtherFileTagletBase
                 //---* A relative path *---------------------------------------
                 try
                 {
-                    final var inputFile = getEnvironment().getJavaFileManager().getFileForInput( SOURCE_PATH, EMPTY_STRING, fileName );
+                    final var inputFile = getDocletEnvironment().getJavaFileManager().getFileForInput( SOURCE_PATH, EMPTY_STRING, fileName );
                     if( nonNull( inputFile) )
                     {
                         //noinspection ConstantConditions
@@ -234,7 +254,7 @@ public class IncludeTaglet extends OtherFileTagletBase
                     else
                     {
                         final var elementName = determineElementName( element );
-                        out.printf( "Failed to include the file '%2$s' for '%1$s'%n", elementName, fileName );
+                        printf( MANDATORY_WARNING, "Failed to include the file '%2$s' for '%1$s'%n", elementName, fileName );
                     }
                 }
                 catch( final IOException e )
@@ -246,7 +266,7 @@ public class IncludeTaglet extends OtherFileTagletBase
             {
                 //---* Retrieval for the root path failed *--------------------
                 final var elementName = determineElementName( element );
-                out.printf( "Failed to resolve include file '%2$s' for '%1$s'%n", elementName, fileName );
+                printf( WARNING, "Failed to resolve include file '%2$s' for '%1$s'%n", elementName, fileName );
             }
         }
 

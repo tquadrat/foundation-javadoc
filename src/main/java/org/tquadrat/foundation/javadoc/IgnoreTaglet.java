@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2020 by Thomas Thrien.
+ * Copyright © 2002-2026 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -18,45 +18,38 @@
 package org.tquadrat.foundation.javadoc;
 
 import static org.apiguardian.api.API.Status.STABLE;
-import static org.tquadrat.foundation.javadoc.internal.Common.initHelperTaglets;
 import static org.tquadrat.foundation.javadoc.internal.ToolKit.EMPTY_STRING;
 
-import javax.lang.model.element.Element;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Set;
-
 import org.apiguardian.api.API;
+import org.tquadrat.foundation.javadoc.internal.SimpleTagletBase;
 import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
-import com.sun.source.doctree.DocTree;
-import jdk.javadoc.doclet.Doclet;
-import jdk.javadoc.doclet.DocletEnvironment;
-import jdk.javadoc.doclet.Taglet;
 
 /**
- *  The contents of this inline tag will be ignored for the generation of the
- *  Javadoc output. Different from the <code>&#64;hidden</code>&quot; tag that
- *  excludes the whole comment block from the generated documentation, this tag
- *  will just exclude the part with in the brackets.<br>
- *  <br>So for example, the sequence &quot;<code>{&#64;{@value #TAGLET_NAME}
- *  This text will not appear in the documentation}</code>&quot; would just not
- *  show up. This is sometimes useful when the documentation output needs to be
- *  prepared in some special way that makes it nearly unreadable in the source
- *  code.
+ *  <p>{@summary The contents of this inline tag will be ignored for the
+ *  generation of the Javadoc output.} Different from the
+ *  &quot;<code>&#64;hidden</code>&quot; tag that excludes the whole comment
+ *  block from the generated documentation, this tag will just exclude the part
+ *  within the brackets.</p>
+ *  <p>So for example, the sequence &quot;<i><code>{&#64;{@value %s #TAGLET_NAME}
+ *  This text will not appear in the documentation}</code></i>&quot; would just not
+ *  show up. This can be used to add a raw, human-readable description to the
+ *  documentation for something that needs to be prepared in some special way
+ *  for the documentation output that makes it nearly unreadable in the source
+ *  code.</p>
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: IgnoreTaglet.java 977 2022-01-06 11:41:03Z tquadrat $
- *  @since 0.1.0
+ *  @version $Id: IgnoreTaglet.java 1282 2026-09-08 23:52:53Z tquadrat $
+ *  @since 0.0.5
  */
-@ClassVersion( sourceVersion = "$Id: IgnoreTaglet.java 977 2022-01-06 11:41:03Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: IgnoreTaglet.java 1282 2026-09-08 23:52:53Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
-public class IgnoreTaglet implements Taglet
+public final class IgnoreTaglet extends SimpleTagletBase
 {
         /*-----------*\
     ====** Constants **========================================================
         \*-----------*/
     /**
-     *  The name of this taglet: {@value}.
+     *  <p>{@summary The name of this taglet: {@value}.}</p>
      */
     public static final String TAGLET_NAME = "ignore";
 
@@ -64,50 +57,12 @@ public class IgnoreTaglet implements Taglet
     ====** Constructors **=====================================================
         \*--------------*/
     /**
-     *  Creates a new {@code IgnoreTaglet} instance.
+     *  <p>{@summary Creates a new {@code IgnoreTaglet} instance.}</p>
      */
-    @SuppressWarnings( "RedundantNoArgConstructor" )
-    public IgnoreTaglet() { /* Just exists */ }
-
-        /*---------*\
-    ====** Methods **==========================================================
-        \*---------*/
-    /**
-     *  {@inheritDoc}
-     */
-    @Override
-    public final Set<Location> getAllowedLocations() { return EnumSet.allOf( Location.class ); }
-
-    /**
-     *  {@inheritDoc}
-     */
-    @Override
-    public final String getName() { return TAGLET_NAME; }
-
-    /**
-     *  {@inheritDoc}
-     */
-    @Override
-    public final void init( final DocletEnvironment docletEnvironment, final Doclet doclet )
+    public IgnoreTaglet()
     {
-        Taglet.super.init( docletEnvironment, doclet );
-        initHelperTaglets( docletEnvironment, doclet );
-    }   //  init()
-
-    /**
-     *  {@inheritDoc}
-     */
-    @Override
-    public final boolean isInlineTag() { return true; }
-
-    /**
-     *  {@inheritDoc}
-     */
-    @Override
-    public final String toString( final List<? extends DocTree> tags, final Element element )
-    {
-        return EMPTY_STRING;
-    }   //  toString()
+        super( TAGLET_NAME, EMPTY_STRING );
+    }   //  IgnoreTaglet()
 }
 //  class IgnoreTaglet
 

@@ -21,17 +21,19 @@ import static org.apiguardian.api.API.Status.STABLE;
 
 import org.apiguardian.api.API;
 import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
+import org.tquadrat.foundation.javadoc.internal.foundation.svg.internal.SVGGroupImpl;
 
 /**
  *  The definition of the SVG {@code <g>} element.
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: SVGGroup.java 977 2022-01-06 11:41:03Z tquadrat $
+ *  @version $Id: SVGGroup.java 1282 2026-09-08 23:52:53Z tquadrat $
  *  @since 0.0.5
  */
-@ClassVersion( sourceVersion = "$Id: SVGGroup.java 977 2022-01-06 11:41:03Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: SVGGroup.java 1282 2026-09-08 23:52:53Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
-public interface SVGGroup extends SVGElementWithChildren, AllowsStyleAttributes, AllowsGlobalEventAttributes, AllowsPresentationAttributes, AllowsGraphicalEventAttributes, AllowsConditionalProcessingAttributes
+public sealed interface SVGGroup extends SVGElementWithChildren, AllowsStyleAttributes, AllowsGlobalEventAttributes, AllowsPresentationAttributes, AllowsGraphicalEventAttributes, AllowsConditionalProcessingAttributes
+    permits SVGElementAdapter, SVGGroupImpl
 { /* No Methods */ }
 //  interface SVGGroup
 

@@ -1,6 +1,6 @@
 /*
  * ============================================================================
- * Copyright © 2002-2020 by Thomas Thrien.
+ * Copyright © 2002-2026 by Thomas Thrien.
  * All Rights Reserved.
  * ============================================================================
  * Licensed to the public under the agreements of the GNU Lesser General Public
@@ -19,17 +19,14 @@ package org.tquadrat.foundation.javadoc;
 
 import static java.lang.String.format;
 import static org.apiguardian.api.API.Status.STABLE;
-import static org.tquadrat.foundation.javadoc.internal.Common.parseNameAndEmail;
 
 import javax.lang.model.element.Element;
-import java.util.EnumSet;
 import java.util.List;
-import java.util.Set;
 
 import org.apiguardian.api.API;
+import org.tquadrat.foundation.javadoc.internal.CustomTagletBase;
 import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
 import com.sun.source.doctree.DocTree;
-import jdk.javadoc.doclet.Taglet;
 
 /**
  *  <p>{@summary This taglet is used to refer to the author of the model for
@@ -43,18 +40,18 @@ import jdk.javadoc.doclet.Taglet;
  *  output.</p>
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: ThanksTaglet.java 977 2022-01-06 11:41:03Z tquadrat $
+ *  @version $Id: ThanksTaglet.java 1282 2026-09-08 23:52:53Z tquadrat $
  *  @since 0.0.5
  */
-@ClassVersion( sourceVersion = "$Id: ThanksTaglet.java 977 2022-01-06 11:41:03Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: ThanksTaglet.java 1282 2026-09-08 23:52:53Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
-public final class ThanksTaglet implements Taglet
+public final class ThanksTaglet extends CustomTagletBase
 {
         /*-----------*\
     ====** Constants **========================================================
         \*-----------*/
     /**
-     *  The name of this taglet: {@value}.
+     *  <p>{@summary The name of this taglet: {@value}.}</p>
      */
     public static final String TAGLET_NAME = "thanks";
 
@@ -62,32 +59,16 @@ public final class ThanksTaglet implements Taglet
     ====** Constructors **=====================================================
         \*--------------*/
     /**
-     *  Creates a new {@code ThanksTaglet} instance.
+     *  <p>{@summary Creates a new {@code ThanksTaglet} instance.}</p>
      */
-    @SuppressWarnings( "RedundantNoArgConstructor" )
-    public ThanksTaglet() { /* Just exists */ }
+    public ThanksTaglet()
+    {
+        super( TAGLET_NAME, false, Location.values() );
+    }   //  ThanksTaglet()
 
         /*---------*\
     ====** Methods **==========================================================
         \*---------*/
-    /**
-     *  {@inheritDoc}
-     */
-    @Override
-    public final Set<Location> getAllowedLocations() { return EnumSet.allOf( Location.class ); }
-
-    /**
-     *  {@inheritDoc}
-     */
-    @Override
-    public final String getName() { return TAGLET_NAME; }
-
-    /**
-     *  {@inheritDoc}
-     */
-    @Override
-    public final boolean isInlineTag() { return false; }
-
     /**
      *  {@inheritDoc}
      */
@@ -101,7 +82,7 @@ public final class ThanksTaglet implements Taglet
               <dd>%s</dd>
             """;
 
-        final var retValue = format( template, parseNameAndEmail( this, tags ) );
+        final var retValue = format( template, parseNameAndEmail( tags ) );
 
         //---* Done *----------------------------------------------------------
         return retValue;

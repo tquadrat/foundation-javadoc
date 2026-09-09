@@ -61,12 +61,12 @@ import org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGColor;
  *  The container for a UML diagram.
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: UMLDocument.java 1133 2024-05-10 21:43:08Z tquadrat $
+ *  @version $Id: UMLDocument.java 1282 2026-09-08 23:52:53Z tquadrat $
  *  @since 0.0.5
  */
-@ClassVersion( sourceVersion = "$Id: UMLDocument.java 1133 2024-05-10 21:43:08Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: UMLDocument.java 1282 2026-09-08 23:52:53Z tquadrat $" )
 @API( status = INTERNAL, since = "0.0.5")
-public class UMLDocument
+public final class UMLDocument
 {
         /*-----------*\
     ====** Constants **========================================================

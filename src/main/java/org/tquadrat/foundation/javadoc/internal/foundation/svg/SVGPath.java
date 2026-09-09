@@ -22,6 +22,7 @@ import static org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGUtils.n
 
 import org.apiguardian.api.API;
 import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
+import org.tquadrat.foundation.javadoc.internal.foundation.svg.internal.SVGPathImpl;
 import org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGNumber.SVGUserUnitValue;
 import org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGPathElement;
 
@@ -29,12 +30,13 @@ import org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGPathEleme
  *  The definition of the SVG {@code <path>} element.
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: SVGPath.java 1133 2024-05-10 21:43:08Z tquadrat $
+ *  @version $Id: SVGPath.java 1282 2026-09-08 23:52:53Z tquadrat $
  *  @since 0.0.5
  */
-@ClassVersion( sourceVersion = "$Id: SVGPath.java 1133 2024-05-10 21:43:08Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: SVGPath.java 1282 2026-09-08 23:52:53Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
-public interface SVGPath extends SVGElementWithChildren, AllowsConditionalProcessingAttributes, AllowsGlobalEventAttributes, AllowsGraphicalEventAttributes, AllowsPresentationAttributes, AllowsStyleAttributes
+public sealed interface SVGPath extends SVGElementWithChildren, AllowsConditionalProcessingAttributes, AllowsGlobalEventAttributes, AllowsGraphicalEventAttributes, AllowsPresentationAttributes, AllowsStyleAttributes
+    permits SVGElementAdapter, SVGPathImpl
 {
         /*---------*\
     ====** Methods **==========================================================

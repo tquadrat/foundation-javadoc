@@ -21,6 +21,7 @@ import static org.apiguardian.api.API.Status.STABLE;
 
 import org.apiguardian.api.API;
 import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
+import org.tquadrat.foundation.javadoc.internal.foundation.svg.internal.SVGUseImpl;
 import org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGNumber;
 
 /**
@@ -33,14 +34,15 @@ import org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGNumber;
  *  @see SVGUtils#createUse(SVGElementWithChildren,java.net.URI)
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: SVGUse.java 977 2022-01-06 11:41:03Z tquadrat $
+ *  @version $Id: SVGUse.java 1282 2026-09-08 23:52:53Z tquadrat $
  *  @since 0.0.5
  *
  *  @see "https://www.w3.org/TR/SVG/single-page.html#struct-SVGElement"
  */
-@ClassVersion( sourceVersion = "$Id: SVGUse.java 977 2022-01-06 11:41:03Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: SVGUse.java 1282 2026-09-08 23:52:53Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
-public interface SVGUse extends SVGElement, AllowsConditionalProcessingAttributes, AllowsGraphicalEventAttributes, AllowsPresentationAttributes, AllowsXLinkAttributes
+public sealed interface SVGUse extends SVGElement, AllowsConditionalProcessingAttributes, AllowsGraphicalEventAttributes, AllowsPresentationAttributes, AllowsXLinkAttributes
+    permits SVGElementAdapter, SVGUseImpl
 {
         /*---------*\
     ====** Methods **==========================================================

@@ -21,17 +21,19 @@ import static org.apiguardian.api.API.Status.STABLE;
 
 import org.apiguardian.api.API;
 import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
+import org.tquadrat.foundation.javadoc.internal.foundation.svg.internal.SVGClipPathImpl;
 
 /**
  *  The definition of the SVG {@code <clipPath>} element.
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: SVGClipPath.java 1133 2024-05-10 21:43:08Z tquadrat $
+ *  @version $Id: SVGClipPath.java 1282 2026-09-08 23:52:53Z tquadrat $
  *  @since 0.0.5
  */
-@ClassVersion( sourceVersion = "$Id: SVGClipPath.java 1133 2024-05-10 21:43:08Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: SVGClipPath.java 1282 2026-09-08 23:52:53Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
-public interface SVGClipPath extends AllowsConditionalProcessingAttributes, AllowsPresentationAttributes, SVGElementWithChildren
+public sealed interface SVGClipPath extends AllowsConditionalProcessingAttributes, AllowsPresentationAttributes, SVGElementWithChildren
+    permits SVGElementAdapter, SVGClipPathImpl
 {
         /*---------*\
     ====** Methods **==========================================================

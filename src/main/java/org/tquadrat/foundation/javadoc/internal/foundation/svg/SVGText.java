@@ -21,6 +21,7 @@ import static org.apiguardian.api.API.Status.STABLE;
 
 import org.apiguardian.api.API;
 import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
+import org.tquadrat.foundation.javadoc.internal.foundation.svg.internal.SVGTextImpl;
 import org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGNumber;
 import org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGNumber.SVGDegree;
 import org.tquadrat.foundation.javadoc.internal.foundation.xml.builder.XMLElement;
@@ -29,13 +30,14 @@ import org.tquadrat.foundation.javadoc.internal.foundation.xml.builder.XMLElemen
  *  The definition of the SVG {@code <text>} element.
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: SVGText.java 1133 2024-05-10 21:43:08Z tquadrat $
+ *  @version $Id: SVGText.java 1282 2026-09-08 23:52:53Z tquadrat $
  *  @since 0.0.5
  */
 @SuppressWarnings( "unused" )
-@ClassVersion( sourceVersion = "$Id: SVGText.java 1133 2024-05-10 21:43:08Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: SVGText.java 1282 2026-09-08 23:52:53Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
-public interface SVGText extends SVGElementWithChildren, AllowsConditionalProcessingAttributes, AllowsGraphicalEventAttributes, AllowsPresentationAttributes, AllowsStyleAttributes
+public sealed interface SVGText extends SVGElementWithChildren, AllowsConditionalProcessingAttributes, AllowsGraphicalEventAttributes, AllowsPresentationAttributes, AllowsStyleAttributes
+    permits SVGElementAdapter, SVGTextImpl
 {
         /*---------*\
     ====** Methods **==========================================================

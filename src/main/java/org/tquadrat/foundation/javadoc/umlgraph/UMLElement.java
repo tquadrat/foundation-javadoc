@@ -45,12 +45,13 @@ import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersi
  *  instance, enhanced by information needed for the creation of the UML graph.
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: UMLElement.java 976 2022-01-06 11:39:58Z tquadrat $
+ *  @version $Id: UMLElement.java 1282 2026-09-08 23:52:53Z tquadrat $
  *  @since 0.0.5
  */
-@ClassVersion( sourceVersion = "$Id: UMLElement.java 976 2022-01-06 11:39:58Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: UMLElement.java 1282 2026-09-08 23:52:53Z tquadrat $" )
 @API( status = INTERNAL, since = "0.0.5")
-public abstract class UMLElement implements Element
+public sealed abstract class UMLElement implements Element
+    permits UMLMemberElement, UMLTypeElement
 {
         /*------------*\
     ====** Attributes **=======================================================

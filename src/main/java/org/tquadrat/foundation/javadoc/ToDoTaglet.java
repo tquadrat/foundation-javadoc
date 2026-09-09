@@ -21,8 +21,9 @@ import static java.lang.String.format;
 import static java.lang.System.getProperty;
 import static java.lang.System.out;
 import static java.util.Objects.nonNull;
+import static jdk.javadoc.doclet.Taglet.Location.MODULE;
+import static jdk.javadoc.doclet.Taglet.Location.PACKAGE;
 import static org.apiguardian.api.API.Status.STABLE;
-import static org.tquadrat.foundation.javadoc.internal.Common.initHelperTaglets;
 import static org.tquadrat.foundation.javadoc.internal.ToolKit.EMPTY_STRING;
 
 import javax.lang.model.element.Element;
@@ -31,27 +32,23 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.EnumSet;
 import java.util.List;
-import java.util.Set;
 import java.util.StringJoiner;
 
 import org.apiguardian.api.API;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
+import org.tquadrat.foundation.javadoc.internal.CustomTagletBase;
 import org.tquadrat.foundation.javadoc.internal.JavadocError;
 import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
 import com.sun.source.doctree.DocTree;
-import jdk.javadoc.doclet.Doclet;
-import jdk.javadoc.doclet.DocletEnvironment;
-import jdk.javadoc.doclet.Taglet;
 
 /**
  *  <p>{@summary With this taglet, it is possible to add a list of open points
  *  to the <i>documentation</i> of a module or a package.} The parameter of the
  *  tag is the (absolute) path to a text file in Markdown format; this path
  *  will be combined with the path provided by the
- *  {@linkplain System#getProperty(String, String) system property}
+ *  {@linkplain System#getProperty(String,String) system property}
  *  {@value #PROPERTY_TODO_BASE}
  *  (if any).</p>
  *  <p>In the file, each open point consists of a sequence of lines that will
@@ -109,27 +106,29 @@ import jdk.javadoc.doclet.Taglet;
  *
  *  <p>The file is interpreted as Markdown since version 0.2.0, before it was a
  *  plain text file.</p>
+ *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: ToDoTaglet.java 1165 2026-03-22 19:30:59Z tquadrat $
+ *  @version $Id: ToDoTaglet.java 1282 2026-09-08 23:52:53Z tquadrat $
  *  @since 0.0.5
  */
-@ClassVersion( sourceVersion = "$Id: ToDoTaglet.java 1165 2026-03-22 19:30:59Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: ToDoTaglet.java 1282 2026-09-08 23:52:53Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
-public final class ToDoTaglet implements Taglet
+public final class ToDoTaglet extends CustomTagletBase
 {
         /*-----------*\
     ====** Constants **========================================================
         \*-----------*/
     /**
-     *  The name of the property that holds the base path for the todo list:
-     *  {@value}. It will be set on the {@code javadoc} command line like this:
+     *  <p>{@summary The name of the property that holds the base path for the
+     *  todo list: {@value}.}</p>
+     *  <p>It will be set on the {@code javadoc} command line like this:</p>
      *  &quot;<code>-J-Dorg.tquadrat.foundation.todo.base=&hellip;</code>&quot;
      */
     @API( status = STABLE, since = "0.1.0" )
     public static final String PROPERTY_TODO_BASE = "org.tquadrat.foundation.todo.base";
 
     /**
-     *  The name of this taglet: {@value}.
+     *  <p>{@summary The name of this taglet: {@value}.}</p>
      */
     public static final String TAGLET_NAME = "todo";
 
@@ -137,30 +136,20 @@ public final class ToDoTaglet implements Taglet
     ====** Attributes **=======================================================
         \*------------*/
     /**
-     *  The base path for the todo file.
+     *  <p>{@summary The base path for the todo file.}</p>
      */
     private File m_BasePath;
-
-    /**
-     *  The doclet.
-     */
-    @SuppressWarnings( {"unused", "FieldCanBeLocal"} )
-    private Doclet m_Doclet;
-
-    /**
-     *  The doclet environment.
-     */
-    @SuppressWarnings( {"unused", "FieldCanBeLocal"} )
-    private DocletEnvironment m_DocletEnvironment;
 
         /*--------------*\
     ====** Constructors **=====================================================
         \*--------------*/
     /**
-     *  Creates a new {@code ToDoTaglet} instance.
+     *  <p>{@summary Creates a new {@code ToDoTaglet} instance.}</p>
      */
-    @SuppressWarnings( "RedundantNoArgConstructor" )
-    public ToDoTaglet() { /* Just exists */ }
+    public ToDoTaglet()
+    {
+        super( TAGLET_NAME, false, MODULE, PACKAGE );
+    }   //  ToDoTaglet()
 
         /*---------*\
     ====** Methods **==========================================================
@@ -169,32 +158,10 @@ public final class ToDoTaglet implements Taglet
      *  {@inheritDoc}
      */
     @Override
-    public final Set<Location> getAllowedLocations() { return EnumSet.of( Location.MODULE, Location.PACKAGE ); }
-
-    /**
-     *  {@inheritDoc}
-     */
-    @Override
-    public final String getName() { return TAGLET_NAME; }
-
-    /**
-     *  {@inheritDoc}
-     */
-    @Override
-    public final void init( final DocletEnvironment docletEnvironment, final Doclet doclet )
+    protected final void customInit()
     {
-        Taglet.super.init( docletEnvironment, doclet );
-        m_Doclet = doclet;
-        m_DocletEnvironment = docletEnvironment;
-        initHelperTaglets( docletEnvironment, doclet );
         m_BasePath = new File( getProperty( PROPERTY_TODO_BASE, "/" ) );
-    }   //  init()
-
-    /**
-     *  {@inheritDoc}
-     */
-    @Override
-    public final boolean isInlineTag() { return false; }
+    }   //  customInit()
 
     /**
      *  <p>{@summary Parses the given file as a Markdown files and adds the

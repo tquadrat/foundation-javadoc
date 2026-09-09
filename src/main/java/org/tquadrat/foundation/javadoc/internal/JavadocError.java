@@ -17,7 +17,7 @@
 
 package org.tquadrat.foundation.javadoc.internal;
 
-import static org.apiguardian.api.API.Status.STABLE;
+import static org.apiguardian.api.API.Status.INTERNAL;
 
 import java.io.Serial;
 
@@ -29,11 +29,11 @@ import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersi
  *  is encountered.
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: JavadocError.java 1165 2026-03-22 19:30:59Z tquadrat $
+ *  @version $Id: JavadocError.java 1282 2026-09-08 23:52:53Z tquadrat $
  *  @since 0.1.0
  */
-@ClassVersion( sourceVersion = "$Id: JavadocError.java 1165 2026-03-22 19:30:59Z tquadrat $" )
-@API( status = STABLE, since = "0.1.0" )
+@ClassVersion( sourceVersion = "$Id: JavadocError.java 1282 2026-09-08 23:52:53Z tquadrat $" )
+@API( status = INTERNAL, since = "0.1.0" )
 public final class JavadocError extends Error
 {
         /*------------------------*\

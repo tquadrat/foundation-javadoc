@@ -17,38 +17,47 @@
 
 package org.tquadrat.foundation.javadoc;
 
-import static java.lang.String.format;
+import static java.lang.String.join;
+import static javax.tools.Diagnostic.Kind.ERROR;
 import static org.apiguardian.api.API.Status.STABLE;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.EMPTY_STRING;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.first;
 
 import javax.lang.model.element.Element;
-import java.util.EnumSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 import org.apiguardian.api.API;
+import org.tquadrat.foundation.javadoc.internal.CustomTagletBase;
 import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
 import com.sun.source.doctree.DocTree;
-import jdk.javadoc.doclet.Taglet;
+import com.sun.source.doctree.UnknownInlineTagTree;
 
 /**
- *  This inline tag inserts a hyperlink to an external URL into the
- *  documentation.
+ *  <p>{@summary This inline tag inserts a hyperlink to an external URL into
+ *  the documentation.} It can be used as this:</p>
+ *  <pre><code>&hellip; {&#64;href &lt;<i>url</i>&gt; &lt;<i>text</i>&gt;} &hellip;</code></pre>
+ *  <p>That marks &lt;text&gt; as a link to the given URL; if &lt;text&gt; is
+ *  omitted, the URL itself is shown instead.</p>
+ *  <p>&lt;text&gt; is written to the output as is; that means that HTML tags
+ *  do work, but Javadoc tags are not parsed properly.</p>
+ *  <p>The {@code {@docRoot}} is supported for the URL.</p>
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: HRefTaglet.java 1165 2026-03-22 19:30:59Z tquadrat $
+ *  @version $Id: HRefTaglet.java 1282 2026-09-08 23:52:53Z tquadrat $
  *  @since 0.0.5
  */
-@ClassVersion( sourceVersion = "$Id: HRefTaglet.java 1165 2026-03-22 19:30:59Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: HRefTaglet.java 1282 2026-09-08 23:52:53Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
-public final class HRefTaglet implements Taglet
+public final class HRefTaglet extends CustomTagletBase
 {
         /*-----------*\
     ====** Constants **========================================================
         \*-----------*/
     /**
-     *  The name of this taglet: {@value}.
+     *  <p>{@summary The name of this taglet: {@value}.}</p>
      */
     public static final String TAGLET_NAME = "href";
 
@@ -56,23 +65,15 @@ public final class HRefTaglet implements Taglet
     ====** Static Initialisations **===========================================
         \*------------------------*/
     /**
-     *  The pattern for the tag with both URL and contents.
+     *  <p>{@summary The pattern for the tag with both URL and contents.}</p>
      */
-    private static final Pattern PATTERN_FULL;
-
-    /**
-     *  The pattern for the tag with only the URL.
-     */
-    private static final Pattern PATTERN_SHORT;
+    private static final Pattern m_ParsePattern;
 
     static
     {
         try
         {
-            //noinspection RegExpRedundantEscape
-            PATTERN_FULL = Pattern.compile( "\\{@" + TAGLET_NAME + " (?<url>.*?) (?<contents>.*)\\}" );
-            //noinspection RegExpRedundantEscape
-            PATTERN_SHORT = Pattern.compile( "\\{@" + TAGLET_NAME + " (?<url>.*)\\}" );
+            m_ParsePattern = Pattern.compile( "(?<url>.*?) (?<contents>.*)" );
         }
         catch( final PatternSyntaxException e )
         {
@@ -84,10 +85,12 @@ public final class HRefTaglet implements Taglet
     ====** Constructors **=====================================================
         \*--------------*/
     /**
-     *  Creates a new {@code HRefTaglet} instance.
+     *  <p>{@summary Creates a new {@code HRefTaglet} instance.}</p>
      */
-    @SuppressWarnings( "RedundantNoArgConstructor" )
-    public HRefTaglet() { /* Just exists */ }
+    public HRefTaglet()
+    {
+        super( TAGLET_NAME, true, Location.values() );
+    }   //  HRefTaglet()
 
         /*---------*\
     ====** Methods **==========================================================
@@ -96,38 +99,33 @@ public final class HRefTaglet implements Taglet
      *  {@inheritDoc}
      */
     @Override
-    public final Set<Location> getAllowedLocations() { return EnumSet.allOf( Location.class ); }
-
-    /**
-     *  {@inheritDoc}
-     */
-    @Override
-    public final String getName() { return TAGLET_NAME; }
-
-    /**
-     *  {@inheritDoc}
-     */
-    @Override
-    public final boolean isInlineTag() { return true; }
-
-    /**
-     *  {@inheritDoc}
-     */
-    @Override
     public final String toString( final List<? extends DocTree> tags, final Element element )
     {
-        final var tag = tags.getFirst().toString();
-        var matcher = PATTERN_FULL.matcher( tag );
-        final String retValue;
-        if( matcher.matches() )
+        final List<String> buffer = new ArrayList<>();
+        for( final var tag : tags )
         {
-            retValue = format( "<a href=\"%2$s\">%1$s</a>", matcher.group( "contents" ), matcher.group( "url" ) );
+            if( tag instanceof UnknownInlineTagTree inlineTagTree )
+            {
+                final var arguments = processTagContent( inlineTagTree.getContent(), element );
+                final var matcher = m_ParsePattern.matcher( arguments );
+                if( matcher.matches() )
+                {
+                    final var url = processTagContent( parseText( matcher.group( "url" ) ), element );
+                    final var label = processTagContent( parseText( matcher.group( "contents" ) ), element );
+                    buffer.add( composeLink( url, label ) );
+                }
+                else
+                {
+                    final var url = processTagContent( parseText( arguments ), element );
+                    buffer.add( composeLink( url, url ) );
+                }
+            }
+            else
+            {
+                printf( ERROR, "Cannot process tag of '%s' (class '%s'): %s", tag.getKind().name(), tag.getClass().getName(), first( 20, tag.toString() ) );
+            }
         }
-        else
-        {
-            matcher = PATTERN_SHORT.matcher( tag );
-            retValue = matcher.matches() ? format( "<a href=\"%1$s\"><code>%1$s</code></a>", matcher.group( "url" ) ) : tag;
-        }
+        final var retValue = join( EMPTY_STRING, buffer );
 
         //---* Done *----------------------------------------------------------
         return retValue;

@@ -18,19 +18,23 @@
 package org.tquadrat.foundation.javadoc;
 
 import static java.lang.String.format;
+import static java.lang.String.join;
+import static javax.tools.Diagnostic.Kind.ERROR;
 import static org.apiguardian.api.API.Status.STABLE;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.EMPTY_STRING;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.first;
 
 import javax.lang.model.element.Element;
-import java.util.EnumSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 import org.apiguardian.api.API;
+import org.tquadrat.foundation.javadoc.internal.CustomTagletBase;
 import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
 import com.sun.source.doctree.DocTree;
-import jdk.javadoc.doclet.Taglet;
+import com.sun.source.doctree.UnknownInlineTagTree;
 
 /**
  *  <p>{@summary This inline tag inserts an HTML anchor into the documentation
@@ -43,22 +47,24 @@ import jdk.javadoc.doclet.Taglet;
  *  <p>Or, with the {@code href} tag:</p>
  *  <pre><code>&hellip; {&#64;href #anchor &hellip;}</code></pre>
  *  <p>The hash symbol (&quot;#&quot;) before the anchor name is mandatory!</p>
+ *  <p>&lt;text&gt; will be written to the output as is; that means that HTML
+ *  tags will work, but Javadoc tags are not parsed properly.</p>
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: AnchorTaglet.java 1165 2026-03-22 19:30:59Z tquadrat $
+ *  @version $Id: AnchorTaglet.java 1282 2026-09-08 23:52:53Z tquadrat $
  *  @since 0.0.5
  *
  *  @see HRefTaglet
  */
-@ClassVersion( sourceVersion = "$Id: AnchorTaglet.java 1165 2026-03-22 19:30:59Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: AnchorTaglet.java 1282 2026-09-08 23:52:53Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
-public final class AnchorTaglet implements Taglet
+public final class AnchorTaglet extends CustomTagletBase
 {
         /*-----------*\
     ====** Constants **========================================================
         \*-----------*/
     /**
-     *  The name of this taglet: {@value}.
+     *  <p>{@summary The name of this taglet: {@value}.}</p>
      */
     public static final String TAGLET_NAME = "anchor";
 
@@ -66,7 +72,7 @@ public final class AnchorTaglet implements Taglet
     ====** Static Initialisations **===========================================
         \*------------------------*/
     /**
-     *  The pattern for the tag.
+     *  <p>{@summary The pattern for the tag.}</p>
      */
     private static final Pattern PATTERN;
 
@@ -74,8 +80,7 @@ public final class AnchorTaglet implements Taglet
     {
         try
         {
-            //noinspection RegExpRedundantEscape
-            PATTERN = Pattern.compile( "\\{@" + TAGLET_NAME + " #(?<name>.*?) (?<contents>.*)\\}" );
+            PATTERN = Pattern.compile( "#(?<name>.*?) (?<contents>.*)" );
         }
         catch( final PatternSyntaxException e )
         {
@@ -87,10 +92,12 @@ public final class AnchorTaglet implements Taglet
     ====** Constructors **=====================================================
         \*--------------*/
     /**
-     *  Creates a new {@code AnchorTaglet} instance.
+     *  <p>{@summary Creates a new {@code AnchorTaglet} instance.}</p>
      */
-    @SuppressWarnings( "RedundantNoArgConstructor" )
-    public AnchorTaglet() { /* Just exists */ }
+    public AnchorTaglet()
+    {
+        super( TAGLET_NAME, true, Location.values() );
+    }   //  AnchorTaglet()
 
         /*---------*\
     ====** Methods **==========================================================
@@ -99,29 +106,28 @@ public final class AnchorTaglet implements Taglet
      *  {@inheritDoc}
      */
     @Override
-    public final Set<Location> getAllowedLocations() { return EnumSet.allOf( Location.class ); }
-
-    /**
-     *  {@inheritDoc}
-     */
-    @Override
-    public final String getName() { return TAGLET_NAME; }
-
-    /**
-     *  {@inheritDoc}
-     */
-    @Override
-    public final boolean isInlineTag() { return true; }
-
-    /**
-     *  {@inheritDoc}
-     */
-    @Override
     public final String toString( final List<? extends DocTree> tags, final Element element )
     {
-        final var tag = tags.getFirst().toString();
-        final var matcher = PATTERN.matcher( tag );
-        final var retValue = matcher.matches() ? format( "<a id=\"%2$s\">%1$s</a>", matcher.group( "contents" ), matcher.group( "name" ) ) : tag;
+        final List<String> buffer = new ArrayList<>();
+        for( final var tag : tags )
+        {
+            if( tag instanceof UnknownInlineTagTree inlineTagTree )
+            {
+                final var arguments = processTagContent( inlineTagTree.getContent(), element );
+                final var matcher = PATTERN.matcher( arguments );
+                if( matcher.matches() )
+                {
+                    final var id = matcher.group( "name" );
+                    final var contents = processTagContent( parseText( matcher.group( "contents" ) ), element );
+                    buffer.add( format( "<a id=\"%2$s\">%1$s</a>", contents, id ) );
+                }
+            }
+            else
+            {
+                printf( ERROR, "Cannot process tag of '%s' (class '%s'): %s", tag.getKind().name(), tag.getClass().getName(), first( 20, tag.toString() ) );
+            }
+        }
+        final var retValue = join( EMPTY_STRING, buffer );
 
         //---* Done *----------------------------------------------------------
         return retValue;

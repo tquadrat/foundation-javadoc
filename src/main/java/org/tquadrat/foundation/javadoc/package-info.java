@@ -16,7 +16,7 @@
 /**
  *  <p>{@summary The classes in the package
  *  {@code org.tquadrat.foundation.javadoc} provide some extensions to the
- *  standard JavaDoc extensions.}</p>
+ *  standard Javadoc extensions.}</p>
  *  <p>An older version of this tool provided a custom
  *  {@linkplain jdk.javadoc.doclet.Doclet Doclet}
  *  that extended
@@ -30,13 +30,15 @@
  *  extensions in your project, add the following parameters to your Javadoc
  *  call (versions may differ):</p>
  *  <pre><code>
- *  -tagletpath &lt;<i>path/to/</i>&gt;org.tquadrat.foundation.javadoc-0.25.1.jar:&lt;<i>path/to/</i>&gt;apiguardian-api-1.1.2.jar:&lt;<i>path/to/</i>&gt;commonmark-0.27.1.jar:&lt;<i>path/to/</i>&gt;commonmark-ext-gfm-tables-0.27.1.jar:&lt;<i>path/to/</i>&gt;angus-activation-2.0.3.jar
+ *  -tagletpath &lt;<i>path/to/</i>&gt;org.tquadrat.foundation.javadoc-0.25.2.jar:&lt;<i>path/to/</i>&gt;apiguardian-api-1.1.2.jar:&lt;<i>path/to/</i>&gt;commonmark-0.27.1.jar:&lt;<i>path/to/</i>&gt;commonmark-ext-gfm-tables-0.27.1.jar:&lt;<i>path/to/</i>&gt;angus-activation-2.0.3.jar
  *
  *  -taglet org.tquadrat.foundation.javadoc.AuthorTaglet
+ *  -taglet org.tquadrat.foundation.javadoc.ExtAuthorTaglet
  *  -taglet org.tquadrat.foundation.javadoc.AnchorTaglet
  *  -taglet org.tquadrat.foundation.javadoc.HRefTaglet
  *  -taglet org.tquadrat.foundation.javadoc.FALSETaglet
  *  -taglet org.tquadrat.foundation.javadoc.IgnoreTaglet
+ *  -taglet org.tquadrat.foundation.javadoc.ImageTaglet
  *  -taglet org.tquadrat.foundation.javadoc.IncludeTaglet
  *  -taglet org.tquadrat.foundation.javadoc.InspiredTaglet
  *  -taglet org.tquadrat.foundation.javadoc.ModifiedTaglet
@@ -48,6 +50,7 @@
  *  -taglet org.tquadrat.foundation.javadoc.UmlGraphLinkTaglet
  *  -taglet org.tquadrat.foundation.javadoc.UnderlineTaglet
  *
+ *  -tag hidden
  *  -tag note
  *  -tag param
  *  -tag return
@@ -60,12 +63,22 @@
  *  -tag since
  *  -tag see
  *  -tag inspired
+ *  -tag spec
+ *  -tag provides
+ *  -tag uses
  *  -tag UMLGraph.link
+ *  -tag deprecated
  *  -tag todo
+ *  -tag apiNote:a:API Note:
+ *  -tag implSpec:a:Implementation Requirements:
+ *  -tag implNote:a:Implementation Note:
  *  </code></pre><br>
+ *  <p>If you use the
+ *  {@link AuthorTaglet},
+ *  you should omit the {@code extauthor} entries. See below.</p>
  *  <p>In detail, the following new documentation tags can be used:</p>
  *  <dl>
- *      <dt>{@code @extauthor}</dt>
+ *      <dt>{@code @author}</dt>
  *      <dd><p>A replacement for the default {@code @author} taglet that
  *      provides the author's email as a hyperlink.</p>
  *      <p>This means that the tag requires the reference to the author in the
@@ -78,25 +91,41 @@
  *      standard {@code @author} taglet.</p>
  *      <p>Implemented by the class
  *      {@link org.tquadrat.foundation.javadoc.AuthorTaglet}.</p></dd>
+ *
+ *      <dt>{@code @extauthor}</dt>
+ *      <dd><p>The {@code @extauthor} tag does the same as the {@code @author}
+ *      tag described above. It was introduced because for some versions of the
+ *      Javadoc tool, it was not possible to overwrite the standard tags. It is
+ *      still available for backward compatibility.</p>
+ *      <p>You should not use both tags, {@code @author} and {@code extauthor}
+ *      in the same source file.</p>
+ *      <p>Implemented by the class
+ *      {@link org.tquadrat.foundation.javadoc.ExtAuthorTaglet}.</p></dd>
+
  *      <dt>{@code @thanks}</dt>
  *      <dd><p>Use this tag to add a reference to the author of the model for
  *      the current piece of code. It uses the same format as the
- *      {@code @extauthor} tag described above.</p>
+ *      {@code @author} tag described above.</p>
  *      <p>Implemented by the class
  *      {@link org.tquadrat.foundation.javadoc.ThanksTaglet}.</p></dd>
+ *
  *      <dt>{@code @modified}</dt>
  *      <dd><p>When code written by somebody else was modified, this tag can be
  *      used to refer to the editor. It makes also use of the format as
- *      described for the {@code @extauthor} above.</p>
+ *      described for the {@code @author} above.</p>
  *      <p>Implemented by the class
  *      {@link org.tquadrat.foundation.javadoc.ModifiedTaglet}.</p></dd>
+ *
  *      <dt>{@code @inspired}</dt>
  *      <dd><p>Sometimes a piece of code was inspired by a document of some
  *      kind, a description of an algorithm, a product white paper, or
  *      whatever. This tag allows to add a reference to that source of
  *      inspiration. The text for this taglet has some limitations as described
  *      in the documentation for the implementing class
- *      {@link org.tquadrat.foundation.javadoc.InspiredTaglet}.</p></dd>
+ *      {@link org.tquadrat.foundation.javadoc.InspiredTaglet}.</p>
+ *      <p>You may consider to use the {@code @spec} tag instead, or one of
+ *      {@code @apiNote}, {@code @implNote} or {@code implSpec}.</p></dd>
+ *
  *      <dt>{@code @note}</dt>
  *      <dd><p>With this tag, it is easy to add important notes to the
  *      documentation for an element. All notes will be added to a bullet list
@@ -105,6 +134,7 @@
  *      {@code @note} is somehow limited, refer to the documentation for the
  *      implementing class
  *      {@link org.tquadrat.foundation.javadoc.NoteTaglet}.</p></dd>
+ *
  *      <dt>{@code @todo <task.list>}</dt>
  *      <dd><p>This tag can be used to add a list of open issues to the
  *      documentation for a module or a package. {@code <task.list>} is the
@@ -113,11 +143,13 @@
  *      {@link org.tquadrat.foundation.javadoc.ToDoTaglet}
  *      provides information about the format of the file and how it will be
  *      retrieved during the Javadoc generation.</p></dd>
+ *
  *      <dt>{@code @UMLGraph.link}</dt>
- *      <dd><p>With this tag a UML graph can be added to the documentation for a
- *      class.</p>
+ *      <dd><p>With this tag a UML graph can be added to the documentation for
+ *      a class.</p>
  *      <p>Implemented by the class
  *      {@link org.tquadrat.foundation.javadoc.UmlGraphLinkTaglet}.</p></dd>
+ *
  *      <dt>{@code {@anchor #<name> <text>}}</dt>
  *      <dd><p>This tag allows to add an HTML anchor to the documentation,
  *      where {@code <name>} is the name of that anchor, and {@code <text>} the
@@ -125,6 +157,7 @@
  *      mandatory!</p>
  *      <p>Implemented by the class
  *      {@link org.tquadrat.foundation.javadoc.AnchorTaglet}.</p></dd>
+ *
  *      <dt>{@code {@href <url> <text>}} or {@code {@href <url>}}</dt>
  *      <dd><p>With this tag a hyperlink can be added to the documentation;
  *      different from the {@code {@link}} and {@code {@linkplain}} tags, this
@@ -133,15 +166,26 @@
  *      is omitted, the URL itself will be used instead.</p>
  *      <p>Implemented by the class
  *      {@link org.tquadrat.foundation.javadoc.HRefTaglet}.</p></dd>
+ *
+ *      <dt>{@code {@image <url> <attribute>}} or {@code {@image <url>}}</dt>
+ *      <dd><p>With this tag a picture is added to the documentation,
+ *      {@code <url>} is the location for the image, and attributes are the
+ *      HTML attributes for the {@code <img>} tag that is added to the
+ *      documentation.</p>
+ *      <p>Implemented by the class
+ *      {@link org.tquadrat.foundation.javadoc.ImageTaglet}.</p></dd>
+ *
  *      <dt>{@code {@underline <text>}}</dt>
  *      <dd><p>If text needs to be underlined, this is the tag.</p>
  *      <p>Implemented by the class
  *      {@link org.tquadrat.foundation.javadoc.UnderlineTaglet}.</p></dd>
+ *
  *      <dt><code>{&#64;include &lt;file&gt;:[&lt;processMode&gt;]}}</code></dt>
  *      <dd><p>This tag allows to include other files from the source path into
  *      the Javadoc documentation. For the details, refer to the documentation
  *      for the implementing class
  *      {@link org.tquadrat.foundation.javadoc.IncludeTaglet}.</p></dd>
+ *
  *      <dt>{@code {@ignore <text>}}</dt>
  *      <dd><p>The standard tag {@code @hidden} allows to exclude the whole
  *      documentation for an element (a type, method or field) from the
@@ -150,6 +194,7 @@
  *      comments for the generated documentation are difficult to read.</p>
  *      <p>Implemented by the class
  *      {@link org.tquadrat.foundation.javadoc.IgnoreTaglet}.</p></dd>
+ *
  *      <dt>{@code {@null}}, {@code {@true}}, {@code {@false}}</dt>
  *      <dd><p>These are abbreviations for <code>{&#64;code null}</code>,
  *      <code>{&#64;code true}</code>, and <code>{&#64;code false}</code>,
@@ -160,6 +205,21 @@
  *      and
  *      {@link org.tquadrat.foundation.javadoc.FALSETaglet}.</p></dd>
  *  </dl>
+ *
+ *  <h2>Known Limitations</h2>
+ *  <ul>
+ *      <li>The tags {@code @link} and {@code @linkplain} are not properly
+ *      rendered when used within the custom tags.</li>
+ *      <li>The tags {@code @index} and {@code systemProperty} will not create
+ *      index entries when placed inside one of the custom tags.</li>
+ *      <li>The {@code @snippet} tag will not work at all when placed within a
+ *      custom tag.</li>
+ *      <li>The tags {@code @code}, {@code @literal} and {@code @docRoot} were
+ *      re-implemented to work inside the custom tags and should work as
+ *      expected.</li>
+ *      <li>The {@code @value} tag is not supported at all when used inside the
+ *      custom tags, in none of the both forms.</li>
+ *  </ul>
  */
 
 @API( status = STABLE, since = "0.0.1" )

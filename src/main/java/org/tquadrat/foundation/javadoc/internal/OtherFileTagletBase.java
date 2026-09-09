@@ -21,18 +21,24 @@ package org.tquadrat.foundation.javadoc.internal;
 import static java.lang.String.format;
 import static java.lang.System.getProperty;
 import static java.lang.System.out;
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 import static org.apiguardian.api.API.Status.INTERNAL;
+import static org.apiguardian.api.API.Status.MAINTAINED;
 import static org.apiguardian.api.API.Status.STABLE;
-import static org.tquadrat.foundation.javadoc.internal.Common.createLineNumberFormatString;
-import static org.tquadrat.foundation.javadoc.internal.Common.initHelperTaglets;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.createLineNumberFormatString;
 import static org.tquadrat.foundation.javadoc.internal.ToolKit.isNotEmptyOrBlank;
 import static org.tquadrat.foundation.javadoc.internal.ToolKit.loadToString;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.requireNonNullArgument;
 
 import javax.lang.model.element.Element;
+import javax.lang.model.element.TypeElement;
+import javax.tools.DocumentationTool;
 import javax.tools.FileObject;
+import javax.tools.JavaFileManager;
+import javax.tools.StandardLocation;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -40,26 +46,24 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import org.apiguardian.api.API;
 import org.commonmark.Extension;
 import org.commonmark.ext.gfm.tables.TablesExtension;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
+import org.tquadrat.foundation.javadoc.IncludeTaglet;
+import org.tquadrat.foundation.javadoc.UmlGraphLinkTaglet;
 import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
 import com.sun.source.doctree.DocTree;
-import jdk.javadoc.doclet.Doclet;
-import jdk.javadoc.doclet.DocletEnvironment;
-import jdk.javadoc.doclet.Taglet;
 
 /**
- *  <p>{@summary This class is the base class for taglet that allow to include
+ *  <p>{@summary This class is the base class for taglets that allow to include
  *  the contents of an external file into the JavaDoc documentation.} This is
  *  particularly useful when the contents of a resource file (like a DTD or an
  *  XML Schema) should be shown in the documentation.</p>
  *  <p>Usually, that file is stored somewhere on the
- *  {@link Common#SOURCE_PATH SOURCE_PATH}; this means that a file is addressed
+ *  {@link #SOURCE_PATH SOURCE_PATH}; this means that a file is addressed
  *  by its path name on the source tree. For example to include this file, the
  *  path would be
  *  {@code org/tquadrat/foundation/javadoc/internal/OtherFileTagletBase.java}.</p>
@@ -95,25 +99,26 @@ import jdk.javadoc.doclet.Taglet;
  *  </ul>
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: OtherFileTagletBase.java 1165 2026-03-22 19:30:59Z tquadrat $
+ *  @version $Id: OtherFileTagletBase.java 1282 2026-09-08 23:52:53Z tquadrat $
  *  @since 0.1.0
  */
-@ClassVersion( sourceVersion = "$Id: OtherFileTagletBase.java 1165 2026-03-22 19:30:59Z tquadrat $" )
-@API( status = STABLE, since = "0.1.0" )
-public abstract class OtherFileTagletBase implements Taglet
+@ClassVersion( sourceVersion = "$Id: OtherFileTagletBase.java 1282 2026-09-08 23:52:53Z tquadrat $" )
+@API( status = INTERNAL, since = "0.1.0" )
+public sealed abstract class OtherFileTagletBase extends CustomTagletBase
+    permits IncludeTaglet, UmlGraphLinkTaglet
 {
         /*---------------*\
     ====** Inner Classes **====================================================
         \*---------------*/
     /**
-     *  The process modes for the included file.
+     *  <p>{@summary The process modes for the included file.}</p>
      *
      *  @author Thomas Thrien - thomas.thrien@tquadrat.org
-     *  @version $Id: OtherFileTagletBase.java 1165 2026-03-22 19:30:59Z tquadrat $
+     *  @version $Id: OtherFileTagletBase.java 1282 2026-09-08 23:52:53Z tquadrat $
      *  @since 0.0.5
      */
     @SuppressWarnings( "InnerClassTooDeeplyNested" )
-    @ClassVersion( sourceVersion = "$Id: OtherFileTagletBase.java 1165 2026-03-22 19:30:59Z tquadrat $" )
+    @ClassVersion( sourceVersion = "$Id: OtherFileTagletBase.java 1282 2026-09-08 23:52:53Z tquadrat $" )
     @API( status = INTERNAL, since = "0.0.5", consumers = "org.tquadrat.foundation.javadoc" )
     public enum ProcessMode
     {
@@ -483,66 +488,159 @@ public abstract class OtherFileTagletBase implements Taglet
     ====** Constants **========================================================
         \*-----------*/
     /**
-     *  The error message indicating a problem when processing the include
-     *  file.
+     *  <p>{@summary The error message indicating a problem when processing the
+     *  include file.}</p>
      */
     public static final String MSG_ProcessingProblem = "Problems on processing '%s'";
 
     /**
-     *  The prefix for the name of a property that holds the root for path of
-     *  an include file: {@value}. It will be set on the {@code javadoc}
-     *  command line like this:
+     *  <p>{@summary The prefix for the name of a property that holds the root
+     *  for path of an include file: {@value}.} It will be set on the
+     *  {@code javadoc} command line like this:</p>
      *  <pre><code>-J-Dorg.tquadrat.foundation.include.root.&lt;<i>name</i>&gt;=&lt;<i>path</i>&gt;</code></pre>
      */
     @API( status = STABLE, since = "0.1.0" )
     public static final String PROPERTY_INCLUDE_ROOT_PREFIX = "org.tquadrat.foundation.include.root";
 
     /**
-     *  The snippet end marker for source code: {@value}.
+     *  <p>{@summary The snippet end marker for source code: {@value}.}</p>
      */
     @SuppressWarnings( "UnnecessaryUnicodeEscape" )
     public static final String SOURCE_SNIP_END = "/\u002ASNIP_END\u002A/";
 
     /**
-     *  The snippet start marker for source code: {@value}.
+     *  <p>{@summary The snippet start marker for source code: {@value}.}</p>
      */
     @SuppressWarnings( "UnnecessaryUnicodeEscape" )
     public static final String SOURCE_SNIP_START = "/\u002ASNIP_START\u002A/";
 
-        /*------------*\
-    ====** Attributes **=======================================================
-        \*------------*/
+        /*------------------------*\
+    ====** Static Initialisations **===========================================
+        \*------------------------*/
     /**
-     *  The allowed locations.
+     *  <p>{@summary Location to search for modules containing annotation
+     *  processors.}</p>
      */
-    private final Set<Location> m_AllowedLocations;
+    @API( status = MAINTAINED, since = "0.0.5")
+    public static final JavaFileManager.Location ANNOTATION_PROCESSOR_MODULE_PATH;
 
     /**
-     *  The doclet.
+     *  <p>{@summary Location to search for annotation processors.}</p>
      */
-    @SuppressWarnings( {"FieldCanBeLocal", "unused"} )
-    private Doclet m_Doclet;
+    @API( status = MAINTAINED, since = "0.0.5")
+    public static final JavaFileManager.Location ANNOTATION_PROCESSOR_PATH;
 
     /**
-     *  The doclet environment.
+     *  <p>{@summary Location of new class files.}</p>
      */
-    private DocletEnvironment m_DocletEnvironment;
+    @API( status = MAINTAINED, since = "0.0.5")
+    public static final JavaFileManager.Location CLASS_OUTPUT;
 
     /**
-     *  The flag that indicates whether this taglet is an inline taglet.
+     *  <p>{@summary Location to search for user class files.}</p>
      */
-    private final boolean m_IsInlineTag;
+    @API( status = MAINTAINED, since = "0.0.5")
+    public static final JavaFileManager.Location CLASS_PATH;
 
     /**
-     *  The name of the taglet.
+     * <p>{@summary Location to search for doclets.}</p>
      */
-    private final String m_Name;
+    @API( status = MAINTAINED, since = "0.0.5")
+    public static final JavaFileManager.Location DOCLET_PATH;
+
+    /**
+     * <p>{@summary Location of new documentation files.}</p>
+     */
+    @API( status = MAINTAINED, since = "0.0.5")
+    public static final JavaFileManager.Location DOCUMENTATION_OUTPUT;
+
+    /**
+     *  <p>{@summary Location to search for precompiled user modules.}</p>
+     */
+    @API( status = MAINTAINED, since = "0.0.5")
+    public static final JavaFileManager.Location MODULE_PATH;
+
+    /**
+     *  <p>{@summary Location to search for the source code of modules.}</p>
+     */
+    @API( status = MAINTAINED, since = "0.0.5")
+    public static final JavaFileManager.Location MODULE_SOURCE_PATH;
+
+    /**
+     *  <p>{@summary Location of new native header files.}</p>
+     */
+    @API( status = MAINTAINED, since = "0.0.5")
+    public static final JavaFileManager.Location NATIVE_HEADER_OUTPUT;
+
+    /**
+     *  <p>{@summary Location to search for module patches.}</p>
+     */
+    @API( status = MAINTAINED, since = "0.0.5")
+    public static final JavaFileManager.Location PATCH_MODULE_PATH;
+
+    /**
+     *  <p>{@summary Location to search for platform classes. Sometimes called
+     *  the boot class path.}</p>
+     */
+    @API( status = MAINTAINED, since = "0.0.5")
+    public static final JavaFileManager.Location PLATFORM_CLASS_PATH;
+
+    /**
+     *  <p>{@summary Location of new source files.}</p>
+     */
+    @API( status = MAINTAINED, since = "0.0.5")
+    public static final JavaFileManager.Location SOURCE_OUTPUT;
+
+    /**
+     *  <p>{@summary Location to search for existing source files.}</p>
+     */
+    @API( status = MAINTAINED, since = "0.0.5")
+    public static final JavaFileManager.Location SOURCE_PATH;
+
+    /**
+     *  <p>{@summary Location to search for system modules.}</p>
+     */
+    @API( status = MAINTAINED, since = "0.0.5")
+    public static final JavaFileManager.Location SYSTEM_MODULES;
+
+    /**
+     * <p>{@summary Location to search for taglets.}</p>
+     */
+    @API( status = MAINTAINED, since = "0.0.5")
+    public static final JavaFileManager.Location TAGLET_PATH;
+
+    /**
+     *  <p>{@summary Location to search for upgradeable system modules.}</p>
+     */
+    @API( status = MAINTAINED, since = "0.0.5")
+    public static final JavaFileManager.Location UPGRADE_MODULE_PATH;
+
+    static
+    {
+        //---* Initialise the locations *--------------------------------------
+        ANNOTATION_PROCESSOR_MODULE_PATH = StandardLocation.ANNOTATION_PROCESSOR_MODULE_PATH;
+        ANNOTATION_PROCESSOR_PATH = StandardLocation.ANNOTATION_PROCESSOR_PATH;
+        CLASS_OUTPUT = StandardLocation.CLASS_OUTPUT;
+        CLASS_PATH = StandardLocation.CLASS_PATH;
+        DOCLET_PATH = DocumentationTool.Location.DOCLET_PATH;
+        DOCUMENTATION_OUTPUT = DocumentationTool.Location.DOCUMENTATION_OUTPUT;
+        MODULE_PATH = StandardLocation.MODULE_PATH;
+        MODULE_SOURCE_PATH = StandardLocation.MODULE_SOURCE_PATH;
+        NATIVE_HEADER_OUTPUT = StandardLocation.NATIVE_HEADER_OUTPUT;
+        PATCH_MODULE_PATH = StandardLocation.PLATFORM_CLASS_PATH;
+        PLATFORM_CLASS_PATH = StandardLocation.PLATFORM_CLASS_PATH;
+        SOURCE_OUTPUT = StandardLocation.SOURCE_OUTPUT;
+        SOURCE_PATH = StandardLocation.SOURCE_PATH;
+        SYSTEM_MODULES = StandardLocation.SYSTEM_MODULES;
+        TAGLET_PATH = DocumentationTool.Location.TAGLET_PATH;
+        UPGRADE_MODULE_PATH = StandardLocation.UPGRADE_MODULE_PATH;
+    }
 
         /*--------------*\
     ====** Constructors **=====================================================
         \*--------------*/
     /**
-     *  Creates a new {@code IncludeTaglet} instance.
+     *  <p>{@summary Creates a new {@code OtherFileTagletBase} instance.}</p>
      *
      *  @param  name    The name of the taglet.
      *  @param  isInlineTag {@code true} if the tag implemented by this taglet
@@ -550,76 +648,50 @@ public abstract class OtherFileTagletBase implements Taglet
      *  @param  allowedLocations    The locations that are allowed for this
      *      taglet.
      *
-     *  @see #getName()
-     *  @see #isInlineTag()
-     *  @see #getAllowedLocations()
+     *  @see jdk.javadoc.doclet.Taglet#getName()
+     *  @see jdk.javadoc.doclet.Taglet#isInlineTag()
+     *  @see jdk.javadoc.doclet.Taglet#getAllowedLocations()
      */
-    protected OtherFileTagletBase( final String name, final boolean isInlineTag, final Set<Location> allowedLocations )
+    protected OtherFileTagletBase( final String name, final boolean isInlineTag, final Location... allowedLocations )
     {
-        m_Name = name;
-        m_IsInlineTag = isInlineTag;
-        m_AllowedLocations = allowedLocations;
+        super( name, isInlineTag, allowedLocations );
     }   //  OtherFileTagletBase()
 
         /*---------*\
     ====** Methods **==========================================================
         \*---------*/
     /**
-     *  {@inheritDoc}
-     */
-    @Override
-    public final Set<Location> getAllowedLocations() { return m_AllowedLocations; }
-
-    /**
-     *  Returns a reference to the
-     *  {@link Doclet}
-     *  instance that uses this taglet.
+     *  <p>{@summary Returns the file object for the file with the given name
+     *  that is associated with the given type element.} Use this to determine
+     *  to storage location for a documentation file for a class or alike.</p>
      *
-     *  @return The reference to the Doclet.
+     *  @param  typeElement The type element that determines the storage
+     *      location.
+     *  @param  fileName    The file name; it may contain a relative path.
+     *  @return The output file object.
+     *  @throws IOException A problem showed up when determining the output
+     *      file object.
      */
-    @SuppressWarnings( "unused" )
-    protected final Doclet getDoclet() { return m_Doclet; }
-
-    /**
-     *  Returns a reference to the
-     *  {@link DocletEnvironment}
-     *  instance that is used by the
-     *  {@link Doclet}
-     *  running this taglet.
-     *
-     *  @return The reference to the Doclet processing environment.
-     */
-    protected final DocletEnvironment getEnvironment() { return m_DocletEnvironment; }
-
-    /**
-     *  {@inheritDoc}
-     */
-    @Override
-    public final String getName() { return m_Name; }
-
-    /**
-     *  {@inheritDoc}
-     */
-    @Override
-    public final void init( final DocletEnvironment docletEnvironment, final Doclet doclet )
+    @API( status = MAINTAINED, since = "0.0.5" )
+    protected final FileObject getOutputFileObject( final TypeElement typeElement, final String fileName ) throws IOException
     {
-        Taglet.super.init( docletEnvironment, doclet );
-        m_Doclet = doclet;
-        m_DocletEnvironment = docletEnvironment;
-        initHelperTaglets( docletEnvironment, doclet );
-    }   //  init()
+        final var elementUtils = getDocletEnvironment().getElementUtils();
+        final var fileManager = getDocletEnvironment().getJavaFileManager();
+
+        final var packageName = elementUtils.getPackageOf( requireNonNullArgument( typeElement, "typeElement" ) ).getQualifiedName().toString();
+        final var module = elementUtils.getModuleOf( typeElement );
+        final var location = isNull( module ) ? DOCUMENTATION_OUTPUT : fileManager.getLocationForModule( DOCUMENTATION_OUTPUT, module.getQualifiedName().toString() );
+        final var retValue = fileManager.getFileForOutput( location, packageName, fileName, null );
+
+        //---* Done *----------------------------------------------------------
+        return retValue;
+    }   //  getOutputFileObject()
 
     /**
-     *  {@inheritDoc}
-     */
-    @Override
-    public  final boolean isInlineTag() { return m_IsInlineTag; }
-
-    /**
-     *  Looks up the system properties for a root path for include files with
-     *  the given name (the full name would be the prefix
+     *  <p>{@summary Looks up the system properties for a root path for include
+     *  files with the given name.} The full name would be the prefix
      *  {@value #PROPERTY_INCLUDE_ROOT_PREFIX}
-     *  appended by the argument, separated by a '.').
+     *  appended by the argument, separated by a '.'.</p>
      *
      *  @param  variable    The name of the root path.
      *  @return An instance of

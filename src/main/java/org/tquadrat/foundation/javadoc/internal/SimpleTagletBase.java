@@ -18,40 +18,37 @@
 package org.tquadrat.foundation.javadoc.internal;
 
 import static org.apiguardian.api.API.Status.INTERNAL;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.requireNonNullArgument;
 
 import javax.lang.model.element.Element;
-import java.util.EnumSet;
 import java.util.List;
-import java.util.Set;
 
 import org.apiguardian.api.API;
+import org.tquadrat.foundation.javadoc.FALSETaglet;
+import org.tquadrat.foundation.javadoc.IgnoreTaglet;
+import org.tquadrat.foundation.javadoc.NULLTaglet;
+import org.tquadrat.foundation.javadoc.TRUETaglet;
 import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
 import com.sun.source.doctree.DocTree;
-import jdk.javadoc.doclet.Taglet;
 
 /**
- *  <p>{@summary The base class for some taglets that are replaced with some
+ *  <p>{@summary The base class for taglets that are just replaced with some
  *  constant output.}</p>
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: CodeTaglet.java 1165 2026-03-22 19:30:59Z tquadrat $
+ *  @version $Id: SimpleTagletBase.java 1282 2026-09-08 23:52:53Z tquadrat $
  *  @since 0.25.1
  */
-@ClassVersion( sourceVersion = "$Id: CodeTaglet.java 1165 2026-03-22 19:30:59Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: SimpleTagletBase.java 1282 2026-09-08 23:52:53Z tquadrat $" )
 @API( status = INTERNAL, since = "0.25.1")
-public /*sealed*/ abstract class SimpleTagletBase implements Taglet
-    /*permits FALSETaglet, NULLTaglet, TRUETaglet*/
+public sealed abstract class SimpleTagletBase extends CustomTagletBase
+    permits FALSETaglet, IgnoreTaglet, NULLTaglet, TRUETaglet
 {
         /*------------*\
     ====** Attributes **=======================================================
         \*------------*/
     /**
-     *  The name of the taglet.
-     */
-    private final String m_Name;
-
-    /**
-     *  The output for the taglet.
+     *  <p>{@summary The output for the taglet.}</p>
      */
     private final String m_Output;
 
@@ -59,38 +56,20 @@ public /*sealed*/ abstract class SimpleTagletBase implements Taglet
     ====** Constructors **=====================================================
         \*--------------*/
     /**
-     *  Creates a new {@code SimpleTagletBase} instance.
+     *  <p>{@summary Creates a new {@code SimpleTagletBase} instance.}</p>
      *
      *  @param  name    The name of the taglet.
      *  @param  output  The output for the taglet.
      */
     protected SimpleTagletBase( final String name, final String output )
     {
-        m_Name = name;
-        m_Output = output;
+        super( name, true, Location.values() );
+        m_Output = requireNonNullArgument( output, "output" );
     }   //  SimpleTagletBase()
 
         /*---------*\
     ====** Methods **==========================================================
         \*---------*/
-    /**
-     *  {@inheritDoc}
-     */
-    @Override
-    public final Set<Location> getAllowedLocations() { return EnumSet.allOf( Location.class ); }
-
-    /**
-     *  {@inheritDoc}
-     */
-    @Override
-    public final String getName() { return m_Name; }
-
-    /**
-     *  {@inheritDoc}
-     */
-    @Override
-    public final boolean isInlineTag() { return true; }
-
     /**
      *  {@inheritDoc}
      */

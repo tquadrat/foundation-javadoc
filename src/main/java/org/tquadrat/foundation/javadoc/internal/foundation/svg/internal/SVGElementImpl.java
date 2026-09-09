@@ -197,6 +197,7 @@ import java.util.Set;
 import org.apiguardian.api.API;
 import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
 import org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGElement;
+import org.tquadrat.foundation.javadoc.internal.foundation.svg.SVGElementAdapter;
 import org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGAlignmentBaseLine;
 import org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGColor;
 import org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGNumber;
@@ -213,13 +214,14 @@ import org.tquadrat.foundation.javadoc.internal.foundation.xml.builder.spi.XMLEl
  *  why it is not abstract).</p>
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: SVGElementImpl.java 977 2022-01-06 11:41:03Z tquadrat $
+ *  @version $Id: SVGElementImpl.java 1282 2026-09-08 23:52:53Z tquadrat $
  *  @since 0.0.5
  */
 @SuppressWarnings( {"ClassWithTooManyMethods", "OverlyComplexClass"} )
-@ClassVersion( sourceVersion = "$Id: SVGElementImpl.java 977 2022-01-06 11:41:03Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: SVGElementImpl.java 1282 2026-09-08 23:52:53Z tquadrat $" )
 @API( status = INTERNAL, since = "0.0.5" )
-public class SVGElementImpl extends XMLElementAdapter implements SVGElement
+public sealed class SVGElementImpl extends XMLElementAdapter implements SVGElement
+    permits SVGElementAdapter, SVGClipPathImpl, SVGGroupImpl, SVGImpl, SVGLineImpl, SVGMarkerImpl, SVGPathImpl, SVGRectangleImpl, SVGStyleImpl, SVGSymbolImpl, SVGTextBase, SVGUseImpl
 {
         /*------------*\
     ====** Attributes **=======================================================

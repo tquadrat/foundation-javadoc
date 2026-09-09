@@ -65,13 +65,13 @@ import org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGPathEleme
  *  element with additional features.
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: SVGElementAdapter.java 977 2022-01-06 11:41:03Z tquadrat $
+ *  @version $Id: SVGElementAdapter.java 1282 2026-09-08 23:52:53Z tquadrat $
  *  @since 0.0.5
  */
 @SuppressWarnings( {"AbstractClassExtendsConcreteClass", "OverlyCoupledClass"} )
-@ClassVersion( sourceVersion = "$Id: SVGElementAdapter.java 977 2022-01-06 11:41:03Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: SVGElementAdapter.java 1282 2026-09-08 23:52:53Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
-public abstract class SVGElementAdapter extends SVGElementImpl
+public non-sealed abstract class SVGElementAdapter extends SVGElementImpl
     implements AllowsDocumentElementEventAttributes, AllowsDocumentEventAttributes, SVGClipPath, SVGGroup, SVGLine, SVGPath, SVGPositionedMarker, SVGRectangle, SVGStyle, SVGSymbol, SVGText, SVGTSpan, SVGUse
 {
         /*------------*\

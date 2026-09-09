@@ -18,92 +18,59 @@
 package org.tquadrat.foundation.javadoc;
 
 import static java.lang.String.format;
+import static java.lang.String.join;
+import static javax.tools.Diagnostic.Kind.ERROR;
 import static org.apiguardian.api.API.Status.STABLE;
-import static org.tquadrat.foundation.javadoc.internal.Common.initHelperTaglets;
-import static org.tquadrat.foundation.javadoc.internal.Common.processInlineTags;
 import static org.tquadrat.foundation.javadoc.internal.ToolKit.EMPTY_STRING;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.first;
 import static org.tquadrat.foundation.javadoc.internal.ToolKit.isNotEmptyOrBlank;
 
 import javax.lang.model.element.Element;
-import javax.lang.model.element.Name;
-import java.util.EnumSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.function.Function;
-import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
 
 import org.apiguardian.api.API;
+import org.tquadrat.foundation.javadoc.internal.CustomTagletBase;
 import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
 import com.sun.source.doctree.DocTree;
-import jdk.javadoc.doclet.Doclet;
-import jdk.javadoc.doclet.DocletEnvironment;
-import jdk.javadoc.doclet.Taglet;
+import com.sun.source.doctree.UnknownInlineTagTree;
 
 /**
- *  This inline tag allows to underline a sequence of text. For example,
- *  &quot;<code>{&#64;{@value #TAGLET_NAME} UNDERLINE ME}</code>&quot; would be
- *  shown as <u>UNDERLINE ME</u>.
+ *  <p>{@summary This inline tag allows to underline a sequence of text.} For
+ *  example, &quot;<code>{&#64;{@value %s #TAGLET_NAME} UNDERLINE ME}</code>&quot;
+ *  would be shown as <u>UNDERLINE ME</u>.</p>
+ *  <p>The tag does not escape HTML tags, while it will not regard most other
+ *  inline Javadoc tags.</p>
+ *  <p>The tag will not use
+ *  &quot;<code>&lt;u&gt;&hellip;&lt;/u&gt;</code>&quot; but
+ *  &quot;<code>&lt;span style='text-decoration: underline;'&gt;&hellip;&lt;/span&gt;</code>&quot;.</p>
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: UnderlineTaglet.java 1165 2026-03-22 19:30:59Z tquadrat $
+ *  @version $Id: UnderlineTaglet.java 1282 2026-09-08 23:52:53Z tquadrat $
  *  @since 0.0.5
  */
-@ClassVersion( sourceVersion = "$Id: UnderlineTaglet.java 1165 2026-03-22 19:30:59Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: UnderlineTaglet.java 1282 2026-09-08 23:52:53Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
-public class UnderlineTaglet implements Taglet
+public final class UnderlineTaglet extends CustomTagletBase
 {
         /*-----------*\
     ====** Constants **========================================================
         \*-----------*/
     /**
-     *  The name of this taglet: {@value}.
+     *  <p>{@summary The name of this taglet: {@value}.}</p>
      */
     public static final String TAGLET_NAME = "underline";
-
-        /*------------*\
-    ====** Attributes **=======================================================
-        \*------------*/
-    /**
-     *  The doclet.
-     */
-    @SuppressWarnings( {"unused", "FieldCanBeLocal"} )
-    private Doclet m_Doclet;
-
-    /**
-     *  The doclet environment.
-     */
-    private DocletEnvironment m_DocletEnvironment;
-
-        /*------------------------*\
-    ====** Static Initialisations **===========================================
-        \*------------------------*/
-    /**
-     *  The pattern for the tag.
-     */
-    private static final Pattern PATTERN;
-
-    static
-    {
-        try
-        {
-            //noinspection RegExpRedundantEscape
-            PATTERN = Pattern.compile( "\\{@" + TAGLET_NAME + " (?<contents>.*)\\}" );
-        }
-        catch( final PatternSyntaxException e )
-        {
-            throw new ExceptionInInitializerError( e );
-        }
-    }
 
         /*--------------*\
     ====** Constructors **=====================================================
         \*--------------*/
     /**
-     *  Creates a new {@code UnderlineTaglet} instance.
+     *  <p>{@summary Creates a new {@code UnderlineTaglet} instance.}</p>
      */
-    @SuppressWarnings( "RedundantNoArgConstructor" )
-    public UnderlineTaglet() { /* Just exists */ }
+    public UnderlineTaglet()
+    {
+        super( TAGLET_NAME, true, Location.values() );
+    }   //  UnderlineTaglet()
 
         /*---------*\
     ====** Methods **==========================================================
@@ -112,45 +79,23 @@ public class UnderlineTaglet implements Taglet
      *  {@inheritDoc}
      */
     @Override
-    public final Set<Location> getAllowedLocations() { return EnumSet.allOf( Location.class ); }
-
-    /**
-     *  {@inheritDoc}
-     */
-    @Override
-    public final String getName() { return TAGLET_NAME; }
-
-    /**
-     *  {@inheritDoc}
-     */
-    @Override
-    public final void init( final DocletEnvironment docletEnvironment, final Doclet doclet )
-    {
-        Taglet.super.init( docletEnvironment, doclet );
-        m_Doclet = doclet;
-        m_DocletEnvironment = docletEnvironment;
-        initHelperTaglets( docletEnvironment, doclet );
-    }   //  init()
-
-    /**
-     *  {@inheritDoc}
-     */
-    @Override
-    public final boolean isInlineTag() { return true; }
-
-    /**
-     *  {@inheritDoc}
-     */
-    @Override
     public final String toString( final List<? extends DocTree> tags, final Element element )
     {
-        final var docTreeFactory = m_DocletEnvironment.getDocTrees().getDocTreeFactory();
-        final Function<CharSequence,Name> nameGenerator = m_DocletEnvironment.getElementUtils()::getName;
-
-        final var tag = tags.getFirst().toString();
-        final var matcher = PATTERN.matcher( tag );
-        final var contents = matcher.matches() ? matcher.group( "contents" ) : EMPTY_STRING;
-        final var retValue = isNotEmptyOrBlank( contents ) ? format( "<span style=\"text-decoration: underline;\">%1$s</span>", processInlineTags( contents, docTreeFactory, element, nameGenerator ) ) : EMPTY_STRING;
+        final List<String> buffer = new ArrayList<>();
+        for( final var tag : tags )
+        {
+            if( tag instanceof UnknownInlineTagTree inlineTagTree )
+            {
+                final var body = processTagContent( inlineTagTree.getContent(), element );
+                final var contents = processTagContent( parseText( body ), element );
+                buffer.add( isNotEmptyOrBlank( contents ) ? format( "<span style=\"text-decoration: underline;\">%1$s</span>", contents ) : EMPTY_STRING );
+            }
+            else
+            {
+                printf( ERROR, "Cannot process tag of '%s' (class '%s'): %s", tag.getKind().name(), tag.getClass().getName(), first( 20, tag.toString() ) );
+            }
+        }
+        final var retValue = join( EMPTY_STRING, buffer );
 
         //---* Done *----------------------------------------------------------
         return retValue;

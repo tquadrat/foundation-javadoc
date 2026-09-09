@@ -158,13 +158,14 @@ import org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGTransform
  *  will implement this interface.
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: AllowsPresentationAttributes.java 1133 2024-05-10 21:43:08Z tquadrat $
+ *  @version $Id: AllowsPresentationAttributes.java 1282 2026-09-08 23:52:53Z tquadrat $
  *  @since 0.0.5
  */
 @SuppressWarnings( {"ClassWithTooManyMethods", "unused"} )
-@ClassVersion( sourceVersion = "$Id: AllowsPresentationAttributes.java 1133 2024-05-10 21:43:08Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: AllowsPresentationAttributes.java 1282 2026-09-08 23:52:53Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
-public interface AllowsPresentationAttributes
+public sealed interface AllowsPresentationAttributes
+    permits SVG, SVGClipPath, SVGGroup, SVGLine, SVGMarker, SVGPath, SVGRectangle, SVGSymbol, SVGTSpan, SVGText, SVGUse
 {
         /*------------------------*\
     ====** Static Initialisations **===========================================

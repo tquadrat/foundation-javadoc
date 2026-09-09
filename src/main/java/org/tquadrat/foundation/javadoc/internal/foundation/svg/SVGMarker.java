@@ -22,6 +22,7 @@ import static org.tquadrat.foundation.javadoc.internal.ToolKit.requireNonNullArg
 
 import org.apiguardian.api.API;
 import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
+import org.tquadrat.foundation.javadoc.internal.foundation.svg.internal.SVGMarkerImpl;
 import org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGMarkerOrientation;
 import org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGNumber;
 import org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGNumber.SVGDegree;
@@ -32,13 +33,14 @@ import org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGTransform
  *  The definition for the SVG {@code <marker>} element.
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: SVGMarker.java 1133 2024-05-10 21:43:08Z tquadrat $
+ *  @version $Id: SVGMarker.java 1282 2026-09-08 23:52:53Z tquadrat $
  *  @since 0.0.5
  */
 @SuppressWarnings( "unused" )
-@ClassVersion( sourceVersion = "$Id: SVGMarker.java 1133 2024-05-10 21:43:08Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: SVGMarker.java 1282 2026-09-08 23:52:53Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
-public interface SVGMarker extends SVGElementWithChildren, AllowsPresentationAttributes
+public sealed interface SVGMarker extends SVGElementWithChildren, AllowsPresentationAttributes
+    permits SVGPositionedMarker, SVGMarkerImpl
 {
         /*---------*\
     ====** Methods **==========================================================

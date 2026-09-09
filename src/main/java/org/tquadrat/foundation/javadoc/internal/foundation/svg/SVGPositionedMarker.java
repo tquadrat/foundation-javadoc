@@ -21,6 +21,7 @@ import static org.apiguardian.api.API.Status.STABLE;
 
 import org.apiguardian.api.API;
 import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
+import org.tquadrat.foundation.javadoc.internal.foundation.svg.internal.SVGPositionedMarkerImpl;
 import org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGNumber;
 
 /**
@@ -28,12 +29,13 @@ import org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGNumber;
  *  positioned marker.
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: SVGPositionedMarker.java 1133 2024-05-10 21:43:08Z tquadrat $
+ *  @version $Id: SVGPositionedMarker.java 1282 2026-09-08 23:52:53Z tquadrat $
  *  @since 0.0.5
  */
-@ClassVersion( sourceVersion = "$Id: SVGPositionedMarker.java 1133 2024-05-10 21:43:08Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: SVGPositionedMarker.java 1282 2026-09-08 23:52:53Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
-public interface SVGPositionedMarker extends SVGMarker
+public sealed interface SVGPositionedMarker extends SVGMarker
+    permits SVGElementAdapter, SVGPositionedMarkerImpl
 {
         /*---------*\
     ====** Methods **==========================================================

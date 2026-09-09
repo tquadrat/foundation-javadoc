@@ -21,17 +21,19 @@ import static org.apiguardian.api.API.Status.STABLE;
 
 import org.apiguardian.api.API;
 import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
+import org.tquadrat.foundation.javadoc.internal.foundation.svg.internal.SVGStyleImpl;
 
 /**
  *  The definition for the SVG {@code <style>} element.
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: SVGStyle.java 1133 2024-05-10 21:43:08Z tquadrat $
+ *  @version $Id: SVGStyle.java 1282 2026-09-08 23:52:53Z tquadrat $
  *  @since 0.0.5
  */
-@ClassVersion( sourceVersion = "$Id: SVGStyle.java 1133 2024-05-10 21:43:08Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: SVGStyle.java 1282 2026-09-08 23:52:53Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
-public interface SVGStyle extends SVGElement
+public sealed interface SVGStyle extends SVGElement
+    permits SVGElementAdapter, SVGStyleImpl
 {
         /*---------*\
     ====** Methods **==========================================================

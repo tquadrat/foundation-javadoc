@@ -34,6 +34,7 @@ import java.util.Locale;
 
 import org.apiguardian.api.API;
 import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
+import org.tquadrat.foundation.javadoc.internal.foundation.svg.internal.SVGElementImpl;
 import org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGElementCategory;
 import org.tquadrat.foundation.javadoc.internal.foundation.xml.builder.XMLElement;
 import org.tquadrat.foundation.javadoc.internal.foundation.xml.builder.spi.Element;
@@ -42,13 +43,14 @@ import org.tquadrat.foundation.javadoc.internal.foundation.xml.builder.spi.Eleme
  *  The definition of an SVG element.
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: SVGElement.java 1133 2024-05-10 21:43:08Z tquadrat $
+ *  @version $Id: SVGElement.java 1282 2026-09-08 23:52:53Z tquadrat $
  *  @since 0.0.5
  */
 @SuppressWarnings( "unused" )
-@ClassVersion( sourceVersion = "$Id: SVGElement.java 1133 2024-05-10 21:43:08Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: SVGElement.java 1282 2026-09-08 23:52:53Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
-public interface SVGElement extends Element
+public sealed interface SVGElement extends Element
+    permits SVGElementWithChildren, SVGStyle, SVGUse, SVGElementImpl
 {
         /*------------------------*\
     ====** Static Initialisations **===========================================

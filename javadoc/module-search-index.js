@@ -1,1 +1,1 @@
-moduleSearchIndex = [];updateSearchResults();
+moduleSearchIndex = [{"l":"org.tquadrat.foundation.javadoc"}];updateSearchResults();

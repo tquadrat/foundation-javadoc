@@ -1,0 +1,103 @@
+public class SummaryTaglet implements Taglet {
+
+    @Override
+    public Set<Location> getAllowedLocations() {
+        return EnumSet.allOf(Location.class);
+    }
+
+    @Override public boolean isInlineTag() { return true; }
+    @Override public String getName() { return "summary"; }
+
+    @Override
+    public String toString(List<? extends DocTree> tags, Element element) {
+        var sb = new StringBuilder("<span class=\"summary\">");
+        for (var tag : tags) {
+            var unknown = (UnknownInlineTagTree) tag;
+            for (var content : unknown.getContent()) {
+                sb.append(render(content, element));
+            }
+        }
+        return sb.append("</span>").toString();
+    }
+
+
+    private String render(DocTree tree, Element element) {
+        return switch (tree.getKind()) {
+            case TEXT -> ((TextTree) tree).getBody();
+            case CODE, LITERAL -> "<code>%s</code>".formatted(
+                ((LiteralTree) tree).getBody().getBody());
+            case LINK, LINK_PLAIN -> renderLink((LinkTree) tree, element);
+            default -> tree.toString(); // Fallback: Rohtext
+        };
+    }
+}
+
+
+
+var docCommentTree = docTrees.getDocCommentTree(element);
+var rootPath = new DocTreePath(docTrees.getPath(element), docCommentTree);
+
+private DocTreePath findPath(DocTreePath root, DocTree target) {
+    return new DocTreePathScanner<DocTreePath, Void>() {
+        @Override public DocTreePath scan(DocTree node, Void p) {
+            if (node == target) return getCurrentPath();
+            var result = super.scan(node, p);
+            return result != null ? result : null;
+        }
+    }.scan(root, null);
+}
+
+
+final class LinkResolver extends DocTreePathScanner<StringBuilder, Void> {
+    private final StringBuilder out = new StringBuilder();
+
+    @Override
+    public StringBuilder visitLink(LinkTree node, Void unused) {
+        var refPath = new DocTreePath(getCurrentPath(), node.getReference());
+        Element target = docTrees.getElement(refPath);
+        String href = target != null ? toUrl(target) : "";
+        String label = node.getLabel().isEmpty()
+            ? target.getSimpleName().toString()
+            : node.getLabel().stream().map(DocTree::toString).collect(joining());
+        return out.append("<a href=\"%s\">%s</a>".formatted(href, label));
+    }
+
+    @Override
+    public StringBuilder visitLiteral(LiteralTree node, Void unused) {
+        var tag = node.getKind() == DocTree.Kind.CODE ? "code" : "span";
+        return out.append("<%s>%s</%1$s>".formatted(tag, node.getBody().getBody()));
+    }
+
+    @Override
+    public StringBuilder visitText(TextTree node, Void unused) {
+        return out.append(node.getBody());
+    }
+}
+
+
+
+
+
+for (var tag : tags) {
+    var tagPath = findPath(rootPath, tag);
+    var resolver = new LinkResolver();
+    for (var content : ((UnknownInlineTagTree) tag).getContent()) {
+        resolver.scan(new DocTreePath(tagPath, content), null);
+    }
+    sb.append(resolver.out);
+}
+
+
+private String toUrl(Element target) {
+    var pkg = elementUtils.getPackageOf(target);
+    var pkgPath = pkg.getQualifiedName().toString().replace('.', '/');
+    return switch (target.getKind()) {
+        case PACKAGE -> pkgPath + "/package-summary.html";
+        case CLASS, INTERFACE, ENUM, RECORD, ANNOTATION_TYPE ->
+            pkgPath + "/" + target.getSimpleName() + ".html";
+        case METHOD, CONSTRUCTOR, FIELD, ENUM_CONSTANT ->
+            pkgPath + "/" + target.getEnclosingElement().getSimpleName()
+                + ".html#" + target.getSimpleName(); // Anker vereinfacht, ohne Parametertypen
+        default -> "";
+    };
+}

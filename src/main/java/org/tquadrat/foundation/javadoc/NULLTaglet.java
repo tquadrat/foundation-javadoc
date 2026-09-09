@@ -28,10 +28,10 @@ import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersi
  *  <code>&lt;code&gt;null&lt;/code&gt;</code>.}</p>
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: CodeTaglet.java 1165 2026-03-22 19:30:59Z tquadrat $
+ *  @version $Id: NULLTaglet.java 1282 2026-09-08 23:52:53Z tquadrat $
  *  @since 0.25.1
  */
-@ClassVersion( sourceVersion = "$Id: CodeTaglet.java 1165 2026-03-22 19:30:59Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: NULLTaglet.java 1282 2026-09-08 23:52:53Z tquadrat $" )
 @API( status = STABLE, since = "0.25.1")
 public final class NULLTaglet extends SimpleTagletBase
 {
@@ -39,7 +39,7 @@ public final class NULLTaglet extends SimpleTagletBase
     ====** Constants **========================================================
         \*-----------*/
     /**
-     *  The name of this taglet: {@value}.
+     *  <p>{@summary The name of this taglet: {@value}.}</p>
      */
     public static final String TAGLET_NAME = "null";
 
@@ -47,7 +47,7 @@ public final class NULLTaglet extends SimpleTagletBase
     ====** Constructors **=====================================================
         \*--------------*/
     /**
-     *  Creates a new {@code NULLTaglet} instance.
+     *  <p>{@summary Creates a new {@code NULLTaglet} instance.}</p>
      */
     public NULLTaglet()
     {

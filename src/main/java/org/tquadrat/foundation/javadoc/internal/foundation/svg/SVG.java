@@ -22,6 +22,7 @@ import static org.tquadrat.foundation.javadoc.internal.ToolKit.requireNonNullArg
 
 import org.apiguardian.api.API;
 import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
+import org.tquadrat.foundation.javadoc.internal.foundation.svg.internal.SVGImpl;
 import org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGNumber;
 import org.tquadrat.foundation.javadoc.internal.foundation.svg.type.SVGPreserveAspectRatio;
 import jakarta.activation.MimeType;
@@ -37,14 +38,15 @@ import jakarta.activation.MimeType;
  *  {@link Usage}.</p>
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: SVG.java 1165 2026-03-22 19:30:59Z tquadrat $
+ *  @version $Id: SVG.java 1282 2026-09-08 23:52:53Z tquadrat $
  *  @since 0.0.5
  *
  *  @see "https://www.w3.org/TR/SVG/single-page.html#struct-SVGElement"
  */
-@ClassVersion( sourceVersion = "$Id: SVG.java 1165 2026-03-22 19:30:59Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: SVG.java 1282 2026-09-08 23:52:53Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
-public interface SVG extends SVGElementWithChildren, AllowsConditionalProcessingAttributes, AllowsDocumentEventAttributes, AllowsDocumentElementEventAttributes, AllowsGraphicalEventAttributes, AllowsPresentationAttributes, AllowsStyleAttributes
+public sealed interface SVG extends SVGElementWithChildren, AllowsConditionalProcessingAttributes, AllowsDocumentEventAttributes, AllowsDocumentElementEventAttributes, AllowsGraphicalEventAttributes, AllowsPresentationAttributes, AllowsStyleAttributes
+    permits SVGImpl
 {
         /*---------------*\
     ====** Inner Classes **====================================================
@@ -53,10 +55,10 @@ public interface SVG extends SVGElementWithChildren, AllowsConditionalProcessing
      *  The different usages for an {@code <svg>} element.
      *
      *  @author Thomas Thrien - thomas.thrien@tquadrat.org
-     *  @version $Id: SVG.java 1165 2026-03-22 19:30:59Z tquadrat $
+     *  @version $Id: SVG.java 1282 2026-09-08 23:52:53Z tquadrat $
      *  @since 0.0.5
      */
-    @ClassVersion( sourceVersion = "$Id: SVG.java 1165 2026-03-22 19:30:59Z tquadrat $" )
+    @ClassVersion( sourceVersion = "$Id: SVG.java 1282 2026-09-08 23:52:53Z tquadrat $" )
     @API( status = STABLE, since = "0.0.5" )
     public static enum Usage
     {

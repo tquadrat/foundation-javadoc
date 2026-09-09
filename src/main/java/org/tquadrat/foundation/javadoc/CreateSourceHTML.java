@@ -22,7 +22,7 @@ import static java.lang.String.format;
 import static java.lang.System.err;
 import static java.lang.System.out;
 import static org.apiguardian.api.API.Status.STABLE;
-import static org.tquadrat.foundation.javadoc.internal.Common.createLineNumberFormatString;
+import static org.tquadrat.foundation.javadoc.internal.ToolKit.createLineNumberFormatString;
 import static org.tquadrat.foundation.javadoc.internal.ToolKit.requireNonNullArgument;
 
 import java.io.BufferedReader;
@@ -62,11 +62,11 @@ import org.tquadrat.foundation.javadoc.internal.foundation.exception.PrivateCons
  *  {@code -overview} option on the Javadoc command line.</p>
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: CreateSourceHTML.java 1165 2026-03-22 19:30:59Z tquadrat $
+ *  @version $Id: CreateSourceHTML.java 1282 2026-09-08 23:52:53Z tquadrat $
  *  @since 0.0.5
  */
 @ProgramClass
-@ClassVersion( sourceVersion = "$Id: CreateSourceHTML.java 1165 2026-03-22 19:30:59Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: CreateSourceHTML.java 1282 2026-09-08 23:52:53Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5")
 public final class CreateSourceHTML
 {
