@@ -177,8 +177,16 @@ public final class Starter
             arguments.addAll( List.of( "-charset", encoding.toString() ) );
             arguments.addAll( List.of( "-docencoding", encoding.toString() ) );
 
+            arguments.addAll( List.of( "-header", "--- Header ---" ) );
+            arguments.addAll( List.of( "-top", "--- Top ---" ) );
+            arguments.addAll( List.of( "-bottom", "--- Bottom ---" ) );
+            arguments.addAll( List.of( "-doctitle", "--- Doc Title ---" ) );
+            arguments.addAll( List.of( "-windowtitle", "--- Window Title ---" ) );
+
             arguments.addAll( List.of( "-overview", inputFolder.resolve( "javadoc", "overview.html" ).toString() ) );
             arguments.add( "-docfilessubdirs" );
+
+            arguments.addAll( List.of( "--snippet-path", includeFolder.toString() ) );
 
             //---* The tags *--------------------------------------------------
             arguments.addAll( buildTagletPath( classpathEntries, currentFolder ) );
@@ -246,11 +254,14 @@ public final class Starter
     {
         final Map<String,Class<?>> map = new LinkedHashMap<>();
         map.put( "*anchor", AnchorTaglet.class );
+        map.put( "*class", ClassTaglet.class );
+        map.put( "*constructor", ConstructorTaglet.class );
         map.put( "*false", FALSETaglet.class );
         map.put( "*href", HRefTaglet.class );
         map.put( "*ignore", IgnoreTaglet.class );
         map.put( "*image", ImageTaglet.class );
         map.put( "*include", IncludeTaglet.class );
+        map.put( "*noInstance", NoInstanceTaglet.class );
         map.put( "*null", NULLTaglet.class );
         map.put( "*true", TRUETaglet.class );
         map.put( "*underline", UnderlineTaglet.class );
@@ -267,7 +278,7 @@ public final class Starter
         map.put( "version", null );
         map.put( "since", null );
         map.put( "see", null );
-        map.put( "inspired", InspiredTaglet.class );
+//        map.put( "inspired", InspiredTaglet.class );
         map.put( "spec", null );
         map.put( "provides", null );
         map.put( "uses", null );

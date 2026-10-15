@@ -1,11 +1,11 @@
-# tquadrat's Javadoc Extensions 0.25.4
+# tquadrat's Javadoc Extensions 0.25.5
 
 This is an extension to the standard Javadoc tool, originally built to be used for the documentation of the *Foundation* Library.
 
 To use the provided extensions in your project, add the following parameters to your Javadoc call:
 
 ```
--tagletpath /path/to/org.tquadrat.foundation.javadoc-0.25.4.jar:/path/to/apiguardian-api-1.1.2.jar:/path/to/jakarta.activation-2.0.1.jar
+-tagletpath /path/to/org.tquadrat.foundation.javadoc-0.25.5.jar:/path/to/apiguardian-api-1.1.2.jar:/path/to/jakarta.activation-2.0.1.jar
 
 -taglet org.tquadrat.foundation.javadoc.AuthorTaglet
 -taglet org.tquadrat.foundation.javadoc.AnchorTaglet
@@ -118,7 +118,7 @@ Details about the usage of the tags can be found in the Javadoc.
   
     dependencies {
         //---* The JavaDoc extensions *--------------------------------------------
-      tquadratTaglet 'org.tquadrat.tool:org.tquadrat.foundation.javadoc:0.1.0'
+      tquadratTaglet 'org.tquadrat.tool:org.tquadrat.foundation.javadoc:0.25.5'
     }   //  dependencies
   
     tasks.named( 'javadoc' ) {

@@ -55,10 +55,10 @@ import com.sun.source.doctree.UnknownBlockTagTree;
  *  taglet library will not work either.</p>
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: InspiredTaglet.java 1282 2026-09-08 23:52:53Z tquadrat $
+ *  @version $Id: InspiredTaglet.java 1287 2026-09-09 09:44:28Z tquadrat $
  *  @since 0.0.5
  */
-@ClassVersion( sourceVersion = "$Id: InspiredTaglet.java 1282 2026-09-08 23:52:53Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: InspiredTaglet.java 1287 2026-09-09 09:44:28Z tquadrat $" )
 @API( status = STABLE, since = "0.0.5" )
 public final class InspiredTaglet extends CustomTagletBase
 {

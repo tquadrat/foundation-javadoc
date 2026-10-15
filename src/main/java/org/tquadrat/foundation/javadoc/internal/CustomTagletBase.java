@@ -45,13 +45,17 @@ import java.util.Collection;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiFunction;
+import java.util.stream.Stream;
 
 import org.apiguardian.api.API;
 import org.tquadrat.foundation.javadoc.AnchorTaglet;
 import org.tquadrat.foundation.javadoc.AuthorTaglet;
+import org.tquadrat.foundation.javadoc.ClassTaglet;
+import org.tquadrat.foundation.javadoc.ConstructorTaglet;
 import org.tquadrat.foundation.javadoc.FALSETaglet;
 import org.tquadrat.foundation.javadoc.HRefTaglet;
 import org.tquadrat.foundation.javadoc.IgnoreTaglet;
@@ -60,6 +64,7 @@ import org.tquadrat.foundation.javadoc.IncludeTaglet;
 import org.tquadrat.foundation.javadoc.InspiredTaglet;
 import org.tquadrat.foundation.javadoc.ModifiedTaglet;
 import org.tquadrat.foundation.javadoc.NULLTaglet;
+import org.tquadrat.foundation.javadoc.NoInstanceTaglet;
 import org.tquadrat.foundation.javadoc.NoteTaglet;
 import org.tquadrat.foundation.javadoc.TRUETaglet;
 import org.tquadrat.foundation.javadoc.ThanksTaglet;
@@ -87,15 +92,15 @@ import jdk.javadoc.doclet.Taglet;
  *  library.}</p>
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: CustomTagletBase.java 1282 2026-09-08 23:52:53Z tquadrat $
+ *  @version $Id: CustomTagletBase.java 1291 2026-10-15 19:27:02Z tquadrat $
  *  @since 0.25.2
  */
-@ClassVersion( sourceVersion = "$Id: CustomTagletBase.java 1282 2026-09-08 23:52:53Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: CustomTagletBase.java 1291 2026-10-15 19:27:02Z tquadrat $" )
 @API( status = STABLE, since = "0.25.2" )
 public sealed abstract class CustomTagletBase implements Taglet
     permits OtherFileTagletBase, SimpleTagletBase, AnchorTaglet, AuthorTaglet,
-        HRefTaglet, ImageTaglet, InspiredTaglet, ModifiedTaglet, NoteTaglet,
-        ThanksTaglet, ToDoTaglet, UnderlineTaglet
+        ClassTaglet, ConstructorTaglet, HRefTaglet, ImageTaglet, InspiredTaglet,
+        ModifiedTaglet, NoteTaglet, ThanksTaglet, ToDoTaglet, UnderlineTaglet
 {
         /*---------------*\
     ====** Inner Classes **====================================================
@@ -105,10 +110,10 @@ public sealed abstract class CustomTagletBase implements Taglet
      *  library.}</p>
      *
      *  @author Thomas Thrien - thomas.thrien@tquadrat.org
-     *  @version $Id: CustomTagletBase.java 1282 2026-09-08 23:52:53Z tquadrat $
+     *  @version $Id: CustomTagletBase.java 1291 2026-10-15 19:27:02Z tquadrat $
      *  @since 0.25.2
      */
-    @ClassVersion( sourceVersion = "$Id: CustomTagletBase.java 1282 2026-09-08 23:52:53Z tquadrat $" )
+    @ClassVersion( sourceVersion = "$Id: CustomTagletBase.java 1291 2026-10-15 19:27:02Z tquadrat $" )
     @API( status = INTERNAL, since = "0.25.2" )
     protected final class CustomTagScanner extends DocTreeScanner<String,Element>
     {
@@ -436,11 +441,12 @@ public sealed abstract class CustomTagletBase implements Taglet
      */
     protected final void forceInit()
     {
-        List.of( new AnchorTaglet(), new FALSETaglet(), new HRefTaglet(), new IgnoreTaglet(),
-            new IncludeTaglet(), new NULLTaglet(), new TRUETaglet(), new UnderlineTaglet() )
-            .stream()
-            .filter( t -> t.isInlineTag() ) // Just because of paranoia …
-            .filter( t -> !m_TagFunctions.containsKey( t.getName() ) )
+        Stream.of( new AnchorTaglet(), new FALSETaglet(), new ClassTaglet(),
+                new ConstructorTaglet(), new HRefTaglet(), new IgnoreTaglet(),
+                new IncludeTaglet(), new NoInstanceTaglet(), new NULLTaglet(),
+                new TRUETaglet(), new UnderlineTaglet() )
+            .filter( CustomTagletBase::isInlineTag ) // Just because of paranoia …
+            .filter( t -> !m_TagFunctions.containsKey( t.getName() ) ) // Avoid an indefinite loop
             .forEach( t -> t.init( getDocletEnvironment(), getDoclet() ) );
     }   //  forceInit()
     /**
@@ -722,6 +728,36 @@ public sealed abstract class CustomTagletBase implements Taglet
         //---* Done *----------------------------------------------------------
         return retValue;
     }   //  processTagContent()
+
+    /**
+     *  <p>{@summary Retrieves the name of the class that contains the given
+     *  element.}</p>
+     *
+     *  @param  element The element to inspect.
+     *  @return An instance of
+     *      {@link Optional}
+     *      that holds the found class name.
+     */
+    protected final Optional<String> retrieveClassNameForElement( final Element element )
+    {
+        var currentElement = requireNonNullArgument( element, "element" );
+        String className = null;
+        ScanLoop:while( isNull( className ) )
+        {
+            switch( currentElement.getKind() )
+            {
+                case ANNOTATION_TYPE, CLASS, ENUM, INTERFACE, RECORD -> className = currentElement.getSimpleName().toString();
+                case PACKAGE, MODULE, OTHER -> {break ScanLoop;}
+                default -> currentElement = currentElement.getEnclosingElement();
+            }
+            if( isNull( currentElement ) ) break ScanLoop;
+        }   //  ScanLoop:
+
+        final var retValue = Optional.ofNullable( className );
+
+        //---* Done *----------------------------------------------------------
+        return retValue;
+    }   //  retrieveClassNameForElement()
 
     /**
      *  {@inheritDoc}

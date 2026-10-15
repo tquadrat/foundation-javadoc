@@ -27,6 +27,7 @@ import org.apiguardian.api.API;
 import org.tquadrat.foundation.javadoc.FALSETaglet;
 import org.tquadrat.foundation.javadoc.IgnoreTaglet;
 import org.tquadrat.foundation.javadoc.NULLTaglet;
+import org.tquadrat.foundation.javadoc.NoInstanceTaglet;
 import org.tquadrat.foundation.javadoc.TRUETaglet;
 import org.tquadrat.foundation.javadoc.internal.foundation.annotation.ClassVersion;
 import com.sun.source.doctree.DocTree;
@@ -36,13 +37,13 @@ import com.sun.source.doctree.DocTree;
  *  constant output.}</p>
  *
  *  @author Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: SimpleTagletBase.java 1282 2026-09-08 23:52:53Z tquadrat $
+ *  @version $Id: SimpleTagletBase.java 1291 2026-10-15 19:27:02Z tquadrat $
  *  @since 0.25.1
  */
-@ClassVersion( sourceVersion = "$Id: SimpleTagletBase.java 1282 2026-09-08 23:52:53Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: SimpleTagletBase.java 1291 2026-10-15 19:27:02Z tquadrat $" )
 @API( status = INTERNAL, since = "0.25.1")
 public sealed abstract class SimpleTagletBase extends CustomTagletBase
-    permits FALSETaglet, IgnoreTaglet, NULLTaglet, TRUETaglet
+    permits FALSETaglet, IgnoreTaglet, NoInstanceTaglet, NULLTaglet, TRUETaglet
 {
         /*------------*\
     ====** Attributes **=======================================================
@@ -63,7 +64,20 @@ public sealed abstract class SimpleTagletBase extends CustomTagletBase
      */
     protected SimpleTagletBase( final String name, final String output )
     {
-        super( name, true, Location.values() );
+        this( name, output, Location.values() );
+    }   //  SimpleTagletBase()
+
+    /**
+     *  <p>{@summary Creates a new {@code SimpleTagletBase} instance.}</p>
+     *
+     *  @param  name    The name of the taglet.
+     *  @param  output  The output for the taglet.
+     *  @param  allowedLocations    The locations that are allowed for the tag
+     *      that is implemented by this taglet.
+     */
+    protected SimpleTagletBase( final String name, final String output, final Location... allowedLocations )
+    {
+        super( name, true, allowedLocations );
         m_Output = requireNonNullArgument( output, "output" );
     }   //  SimpleTagletBase()
 
