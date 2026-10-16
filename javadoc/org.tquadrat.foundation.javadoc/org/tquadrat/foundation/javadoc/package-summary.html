@@ -89,11 +89,13 @@ Javadoc APIs, and will implement all functions only as instances of
 itself, but they are available for any other projects, too. To activate the
 extensions in your project, add the following parameters to your Javadoc
 call (versions may differ):</p>
-<pre><code>-tagletpath &lt;<i>path/to/</i>&gt;org.tquadrat.foundation.javadoc-0.25.2.jar:&lt;<i>path/to/</i>&gt;apiguardian-api-1.1.2.jar:&lt;<i>path/to/</i>&gt;commonmark-0.27.1.jar:&lt;<i>path/to/</i>&gt;commonmark-ext-gfm-tables-0.27.1.jar:&lt;<i>path/to/</i>&gt;angus-activation-2.0.3.jar
+<pre><code>-tagletpath &lt;<i>path/to/</i>&gt;org.tquadrat.foundation.javadoc-0.25.5.jar:&lt;<i>path/to/</i>&gt;apiguardian-api-1.1.2.jar:&lt;<i>path/to/</i>&gt;commonmark-0.27.1.jar:&lt;<i>path/to/</i>&gt;commonmark-ext-gfm-tables-0.27.1.jar:&lt;<i>path/to/</i>&gt;angus-activation-2.0.3.jar
 
 -taglet org.tquadrat.foundation.javadoc.AuthorTaglet
 -taglet org.tquadrat.foundation.javadoc.ExtAuthorTaglet
 -taglet org.tquadrat.foundation.javadoc.AnchorTaglet
+-taglet org.tquadrat.foundation.javadoc.ClassTaglet
+-taglet org.tquadrat.foundation.javadoc.ConstructorTaglet
 -taglet org.tquadrat.foundation.javadoc.HRefTaglet
 -taglet org.tquadrat.foundation.javadoc.FALSETaglet
 -taglet org.tquadrat.foundation.javadoc.IgnoreTaglet
@@ -101,6 +103,7 @@ call (versions may differ):</p>
 -taglet org.tquadrat.foundation.javadoc.IncludeTaglet
 -taglet org.tquadrat.foundation.javadoc.InspiredTaglet
 -taglet org.tquadrat.foundation.javadoc.ModifiedTaglet
+-taglet org.tquadrat.foundation.javadoc.NoInstanceTaglet
 -taglet org.tquadrat.foundation.javadoc.NoteTaglet
 -taglet org.tquadrat.foundation.javadoc.NULLTaglet
 -taglet org.tquadrat.foundation.javadoc.ThanksTaglet
@@ -254,6 +257,31 @@ you should omit the <code>extauthor</code> entries. See below.</p>
     <p>Implemented by the class
     <a href="IgnoreTaglet.html" title="class in org.tquadrat.foundation.javadoc"><code>IgnoreTaglet</code></a>.</p></dd>
 
+    <dt><code>{@class}</code></dt>
+    <dd><p>This tag will be replaced by the current class name, surrounded
+    by HTML <code>&lt;code&gt;</code> tags.</p>
+    <p>Implemented by the class
+    <a href="ClassTaglet.html" title="class in org.tquadrat.foundation.javadoc"><code>ClassTaglet</code></a>.</p></dd>
+
+    <dt><code>{@noInstance}</code></dt>
+    <dd><p>This tag will be replaced by the text &quot;<i>No instance
+    allowed for this class!</i>&quot;. It is valid only for constructors
+    and is meant for the documentation of the private constructors of
+    static or utility classes.</p>
+    <p>It should be wrapped into &quot;<i><code>&lt;p&gt;{&#64;summary &hellip;}&lt;/p&gt;</code></i>&quot;
+    for consistency.</p>
+    <p>Implemented by the class
+    <a href="NoInstanceTaglet.html" title="class in org.tquadrat.foundation.javadoc"><code>NoInstanceTaglet</code></a>.</p></dd>
+
+    <dt><code>{@constructor}</code></dt>
+    <dd><p>Regular constructors can be documented with this tag. It will be
+    replaced by the text &quot;<i>Creates a new instance of
+    &lt;class&gt;.</i>&quot;. It is valid only for constructors.</p>
+    <p>It should be wrapped into &quot;<i><code>&lt;p&gt;{&#64;summary &hellip;}&lt;/p&gt;</code></i>&quot;
+    for consistency.</p>
+    <p>Implemented by the class
+    <a href="ConstructorTaglet.html" title="class in org.tquadrat.foundation.javadoc"><code>ConstructorTaglet</code></a>.</p></dd>
+
     <dt><code>{@null}</code>, <code>{@true}</code>, <code>{@false}</code></dt>
     <dd><p>These are abbreviations for <code>{&#64;code null}</code>,
     <code>{&#64;code true}</code>, and <code>{&#64;code false}</code>,
@@ -269,7 +297,7 @@ you should omit the <code>extauthor</code> entries. See below.</p>
 <ul>
     <li>The tags <code>@link</code> and <code>@linkplain</code> are not properly
     rendered when used within the custom tags.</li>
-    <li>The tags <code>@index</code> and <code>systemProperty</code> will not create
+    <li>The tags <code>@index</code> and <code>@systemProperty</code> will not create
     index entries when placed inside one of the custom tags.</li>
     <li>The <code>@snippet</code> tag will not work at all when placed within a
     custom tag.</li>
